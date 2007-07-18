@@ -1,0 +1,32 @@
+@import url(/css/studie.css);
+
+/* .head, */
+.menue li.col2 a
+{
+    background-color:#f8e092;
+/*     color:white; */
+}
+
+.center .head h1 {
+    border-left:15px solid #f8e092;
+/*     background:yellow; */
+}
+
+/*.teaser,
+.inhalt,*/
+ul.menue ul li a,
+.submenu ul li a:hover
+{
+    background-color:#fcf2d0;
+}
+
+.submenu ul li a {
+    border:1px solid #fef8e6;
+}
+
+.box,
+fieldset/*,
+.submenu ul li a*/
+{
+    background-color:#fef8e6;
+}

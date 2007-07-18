@@ -1,0 +1,40 @@
+@import url(/css/internet.css);
+
+#container{
+/*     background:url(/images/internet/bg_topo_10.jpg) repeat-y; */
+/*     border:1px solid green; */
+}
+
+/* .head, */
+.menue li.col5 a
+{
+    background-color:#d4d4d4;
+/*     color:white; */
+}
+
+.center .head h1 {
+    border-left:15px solid #d4d4d4;
+}
+
+.head {
+/*     border-bottom:1px solid #d4d4d4; */
+}
+
+/*.teaser,
+.inhalt,*/
+ul.menue ul li a,
+.submenu ul li a:hover
+{
+    background-color:#f4f4f4;
+}
+
+.box,
+fieldset/*,
+.submenu ul li a*/
+{
+    background-color:#f4f4f4;
+}
+
+.menue li.col5{
+    border-top:1px solid #E4E6E8;
+}
