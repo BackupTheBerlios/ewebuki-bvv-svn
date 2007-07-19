@@ -1,20 +1,27 @@
 #!/bin/sh
 
-ln -s css/admin.css ../interbvv/css/
-ln -s css/col0.css ../interbvv/css/
-ln -s css/col1.css ../interbvv/css/
-ln -s css/col2.css ../interbvv/css/
-ln -s css/col3.css ../interbvv/css/
-ln -s css/col4.css ../interbvv/css/
-ln -s css/col5.css ../interbvv/css/
-ln -s css/studie.css ../interbvv/css/
-ln -s css/html.css ../interbvv/css/
+cd ../interbvv/css/
 
+ln -s -f ../../interbvv.ext/css/admin.css
+ln -s -f ../../interbvv.ext/css/col0.css
+ln -s -f ../../interbvv.ext/css/col1.css
+ln -s -f ../../interbvv.ext/css/col2.css
+ln -s -f ../../interbvv.ext/css/col3.css
+ln -s -f ../../interbvv.ext/css/col4.css
+ln -s -f ../../interbvv.ext/css/col5.css
+ln -s -f ../../interbvv.ext/css/studie.css
+ln -s -f ../../interbvv.ext/css/html.css
 
-ln -s images/html ../interbvv/images/
-ln -s images/studie ../interbvv/images/
+cd ../images
 
-ln -s modules/customer ../interbvv/modules/
+ln -s -f ../../interbvv.ext/images/html
+ln -s -f ../../interbvv.ext/images/studie
 
-ln -s templates/html ../interbvv/templates/
-ln -s templates/studie ../interbvv/templates/
+cd ../modules
+
+ln -s -f ../../interbvv.ext/modules/customer
+
+cd ../templates
+
+ln -s -f ../../interbvv.ext/templates/html
+ln -s -f ../../interbvv.ext/templates/studie
