@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+    </head>
+    
+    <body>
+<!--##begin-->
+            <div class="submenu">
+                #{submenu}
+                #(left)
+            </div>
+            <div class="center">
+                <div class="head">
+                    <h2>#(head1)</h2>
+                </div>
+                <div class="teaser">
+                    #(teaser1)
+                </div>
+                <div class="inhalt">
+                    <ul class="no-style">
+<!--##loop-liste-->
+                        <li>
+                            <h3><a href="!{link}">!{titel}</a></h3>
+                            <b>!{datum}</b>: !{teaser} <a href="!{link}">&nbsp;&raquo; mehr</a>
+                        </li>
+<!--##cont-->
+                    </ul>
+                </div>
+                <p class="clear" />
+            </div>
+<!--##end-->
+    </body>
+</html>
+
+<!--##end-->
