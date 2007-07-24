@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>!#specialvars_pagetitle</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+    </head>
+    <body>
+<!--##begin-->
+        <form name="info" action="!#ausgaben_form_aktion" method="post">
+            <div class="center">
+                <div class="head">
+                    <h2>!#ausgaben_titel</h2>
+                </div>
+<!--##hide-pics-->
+                <ul class="pics" id="pics">
+<!--##loop-pics-->
+                    <li style="background: url('/file/jpg/!{id}/tn/!{desc}') center center no-repeat;">
+                        <a href="!{view}"><img src="/images/studie/rahmen.gif" width="96" height="72" /></a>
+                    </li>
+<!--##cont-->
+                </ul>
+<!--##show-->
+                <div class="inhalt">
+                    <div style="margin-top:1em;font-weight:bold;">!#ausgaben_lead</div>
+                    <div style="margin-top:1em;">!#ausgaben_text</div>
+                </div>
+                <p class="clear" />
+            </div>
+        </form>
+<!--##end-->
+    </body>
+</html>
