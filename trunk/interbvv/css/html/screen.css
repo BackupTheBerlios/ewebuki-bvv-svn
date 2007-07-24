@@ -167,7 +167,7 @@ img.right{
     text-align:left;
     background:#ffffff;
     color:#303030;
-    border:1px solid #a0a0a0;
+/*    border:1px solid #a0a0a0;*/
     border-top:none;
 }
 
@@ -176,7 +176,7 @@ img.right{
     width:978px;
     margin:0 1px 1px 1px;
     color:#ffffff;
-    background:url('/images/studie/banner.jpg') no-repeat left bottom;
+    background:url('/images/html/banner.jpg') no-repeat left bottom;
     position:relative;
 }
 
@@ -214,7 +214,7 @@ img.right{
 /*     padding:1px 0; */
     background:#D0DBE5;
     color:#ffffff;
-    border:1px solid #a0a0a0;
+/*    border:1px solid #a0a0a0;*/
     border-bottom:none;
 }
 
@@ -244,8 +244,8 @@ img.right{
     width:880px;
     padding:5px 5px;
     font-size:0.9em;
-    border-left:1px solid #a0a0a0;
-    border-right:1px solid #a0a0a0;
+/*    border-left:1px solid #a0a0a0;
+    border-right:1px solid #a0a0a0;*/
 }
 
 body>#kekse{
