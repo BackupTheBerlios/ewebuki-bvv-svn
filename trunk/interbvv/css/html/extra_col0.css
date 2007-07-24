@@ -1,0 +1,31 @@
+/* .head, */
+.menue li.col0 a,
+.menue li.col0 a
+{
+    background-color:#77C4B3;
+/*     color:white; */
+}
+
+.center .head h1 {
+    border-left:15px solid #77C4B3;
+}
+
+.head {
+/*     border-bottom:1px solid #d4d4d4; */
+}
+
+/*.teaser,
+.inhalt,*/
+ul.menue ul li a,
+.menue li.Level1Active ul li a,
+.submenu ul li a:hover
+{
+    background-color:#C7E3DB;
+}
+
+.box,
+fieldset/*,
+.submenu ul li a*/
+{
+    background-color:#e0f1ed;
+}
