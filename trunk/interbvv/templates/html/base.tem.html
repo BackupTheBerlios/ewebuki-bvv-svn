@@ -1,0 +1,62 @@
+<!--##begin-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="de">
+
+    <head>
+        <title>!#specialvars_pagetitle</title>
+        <meta name="author" content="">
+        <meta name="description" content=" ">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="../../css/studie/screen.css" type="text/css" title="neu">
+        <link rel="stylesheet" href="../../css/studie/extra_default.css" type="text/css" title="extra">
+        <script type="text/javascript" src="../../js/studie/prototype.js"></script>
+        <script type="text/javascript" src="../../js/studie/scriptaculous.js"></script>
+    </head>
+
+    <body>
+        <div id="header">
+            <img src="../../images/studie/bild.jpg" alt="" width="80" height="48" border="0" />
+        </div>
+
+            <div id="headnavi">
+                <ul>
+                    <!--##loop-headnavi-->
+                    <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
+                    <!--##cont-->
+                </ul>
+            </div>
+
+            <div id="kekse">
+                #(kekse) !#environment_kekse
+            </div>
+
+        <div id="container">
+
+            <div id="menu">
+                !#ausgaben_menu
+<!--                 !#ausgaben_navigation -->
+                #(menu_zusatz)
+                !#ausgaben_auth
+            </div>
+
+            <div id="content">
+                #{main}
+                <p class="clear" />
+            </div>
+
+            <div id="footer">
+    <!--            <a href="http://validator.w3.org/check?uri=referer">
+                    <img src="http://www.w3.org/Icons/valid-xhtml10-blue.gif" alt="Valid XHTML 1.0 Transitional" height="31" width="88" />
+                </a>-->
+            </div>
+
+        </div>
+        
+
+<!--<script type="text/javascript">
+    document.write("Darstellungsmodus:" + document.compatMode);
+</script>-->
+
+    </body>
+</html>
+<!--##end-->

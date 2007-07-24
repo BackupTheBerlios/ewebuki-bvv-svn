@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/studie/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+        <div id="logo">
+            <h1>#(titel)</h1>
+        </div>
+
+        <div id="kekse">
+            #(kekse) !#environment_kekse
+        </div>
+
+        <div id="container">
+<!--##begin-->
+            
+<!--             <div class="center"> -->
+                <div class="head">
+                    <h2 class="top">#(head1)</h2>
+                </div>
+                <div class="teaser">
+                    #(teaser1)
+                </div>
+                <div class="submenu">
+                    #{submenu}
+<!--##hide-level30-->
+                    <h3>#(submenu)</h3>
+                    <ul class="ext_menu">
+<!--##loop-level3-->
+                        <li>!{item}</li>
+<!--##cont-->
+                    </ul>
+<!--##show-->
+                    #(left)
+                    <div class="box">
+                        <a style="background: url(/images/internet/icon_email.gif) no-repeat left center; padding-left:25px;line-height:20px;">
+                            Seite empfehlen
+                        </a>
+                        <a style="background: url(/images/internet/icon_print.gif) no-repeat left center; padding-left:25px;line-height:20px;">
+                            Seite drucken
+                        </a>
+                    </div>
+                </div>
+                <div class="inhalt">
+                    #(content1)
+                    !#ausgaben_output
+                </div> 
+                <p class="clear" />
+<!--             </div> -->
+<!--##end-->
+        </div>
+
+    </body>
+</html>
+<!--##end-->
