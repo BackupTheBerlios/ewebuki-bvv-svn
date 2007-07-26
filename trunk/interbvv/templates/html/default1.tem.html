@@ -10,53 +10,41 @@
 
     <body>
 
-        <div id="logo">
-            <h1>#(titel)</h1>
-        </div>
-
-        <div id="kekse">
-            #(kekse) !#environment_kekse
-        </div>
-
-        <div id="container">
 <!--##begin-->
-            
-<!--             <div class="center"> -->
-                <div class="head">
-                    <h2 class="top">#(head1)</h2>
-                </div>
-                <div class="teaser">
-                    #(teaser1)
-                </div>
-                <div class="submenu">
-                    #{submenu}
-<!--##hide-level30-->
-                    <h3>#(submenu)</h3>
+        <div id="content">
+            #(inhalt)
+
+            #(head1)
+            #(teaser1)
+            #(content1)
+            !#ausgaben_output
+
+            <div id="margin">
+                <!--##hide-level3-->
+                <div class="box">
+                    <h3>g(submenu)</h3>
                     <ul class="ext_menu">
-<!--##loop-level3-->
-                        <li>!{item}</li>
-<!--##cont-->
-                    </ul>
-<!--##show-->
-                    #(left)
-                    <div class="box">
-                        <a style="background: url(/images/internet/icon_email.gif) no-repeat left center; padding-left:25px;line-height:20px;">
-                            Seite empfehlen
-                        </a>
-                        <a style="background: url(/images/internet/icon_print.gif) no-repeat left center; padding-left:25px;line-height:20px;">
-                            Seite drucken
-                        </a>
-                    </div>
+                        <!--##loop-level3-->
+                        <li><a href="!{link}" title="!{title}" class="!{class}">!{item}</a></li>
+                        <!--##cont-->
+                        </ul>
+                        <div>#(werbung)</div>
                 </div>
-                <div class="inhalt">
-                    #(content1)
-                    !#ausgaben_output
-                </div> 
-                <p class="clear" />
-<!--             </div> -->
-<!--##end-->
+                <!--##show-->
+
+                #(left)
+                <div class="box">
+                    <a style="background: url(/images/internet/icon_email.gif) no-repeat left center; padding-left:25px;line-height:20px;">
+                        Seite empfehlen
+                    </a>
+                    <a style="background: url(/images/internet/icon_print.gif) no-repeat left center; padding-left:25px;line-height:20px;">
+                        Seite drucken
+                    </a>
+                </div>
+            </div>
+
         </div>
+<!--##end-->
 
     </body>
 </html>
-<!--##end-->

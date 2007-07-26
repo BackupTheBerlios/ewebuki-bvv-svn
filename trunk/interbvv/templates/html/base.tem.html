@@ -14,44 +14,35 @@
     </head>
 
     <body>
-        <div id="header">
-            <img src="../../images/html/bild.jpg" alt="" width="80" height="48" border="0" />
-        </div>
 
-            <div id="headnavi">
+        <div id="site">
+
+            <div id="head">
+                <img src="../../images/html/wappen.gif" alt="" width="80" height="48" border="0" align="right"  />
+                <img src="../../images/html/banner.jpg" alt="" width="880" height="55" border="0" />
                 <ul>
                     <!--##loop-headnavi-->
                     <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
                     <!--##cont-->
                 </ul>
+                <p>#(kekse) !#environment_kekse</p>
             </div>
 
-            <div id="kekse">
-                #(kekse) !#environment_kekse
-            </div>
+            <div class="clear"></div>
 
-        <div id="container">
-
-            <div id="menu">
+            <div id="navi">
                 !#ausgaben_menu
-<!--                 !#ausgaben_navigation -->
                 #(menu_zusatz)
                 !#ausgaben_auth
             </div>
 
-            <div id="content">
-                #{main}
-                <p class="clear" />
-            </div>
+            #{main}
 
-            <div id="footer">
-    <!--            <a href="http://validator.w3.org/check?uri=referer">
-                    <img src="http://www.w3.org/Icons/valid-xhtml10-blue.gif" alt="Valid XHTML 1.0 Transitional" height="31" width="88" />
-                </a>-->
+            <div id="foot">
+                #(foot)
             </div>
 
         </div>
-        
 
 <!--<script type="text/javascript">
     document.write("Darstellungsmodus:" + document.compatMode);
