@@ -1,12 +1,10 @@
-#content h2.top {
-    border-left:15px solid rgb(189,138,90);
-/*     background:yellow; */
+/* die ueberschriften bekommen einen neue farbe
+------------------------------------------------------*/
+
+#content h1{
+    color:#960;
 }
 
-#menu ul.navigation li.Level1Active a {
-    background: rgb(189,138,90);
-}
-
-#menu ul.navigation li.Level1Active ul li a {
-    background: rgb(221,199,183);
+#content h2{
+    color:#960;
 }

@@ -1,3 +1,11 @@
-#content h2.top {
-    border-left:15px solid #d4d4d4;
+/* die ueberschriften bekommen einen neue farbe
+------------------------------------------------------*/
+
+#content h1{
+    color:#369;
 }
+
+#content h2{
+    color:#369;
+}
+

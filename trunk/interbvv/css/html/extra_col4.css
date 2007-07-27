@@ -1,30 +1,10 @@
-/* .head, */
-.menue li.col4 a
-{
-    background-color:#ebb281;
-/*     color:white; */
+/* die ueberschriften bekommen einen neue farbe
+------------------------------------------------------*/
+
+#content h1{
+    color:#369;
 }
 
-.center .head h1 {
-    border-left:15px solid #ebb281;
-/*     background:yellow; */
-}
-
-/*.teaser,
-.inhalt,*/
-ul.menue ul li a,
-.submenu ul li a:hover
-{
-    background-color:#efd9c7;
-}
-
-.submenu ul li a {
-    border:1px solid #efd9c7;
-}
-
-.box,
-fieldset/*,
-.submenu ul li a*/
-{
-    background-color:#efe4da;
+#content h2{
+    color:#369;
 }

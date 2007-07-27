@@ -6,7 +6,7 @@ body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,pre,form,fieldset,input,p,blockquote,th,td,i
     margin:0;padding:0;
 }
 
-ol,ul {
+ul, ol{
     list-style:none;
 }
 
@@ -17,10 +17,19 @@ body{
     padding:10px;
 }
 
+h1{
+    font-size:1.3em;
+    margin:0 0 0.7em 0;
+}
+
+h2{
+    font-size:1em;
+    margin:0.7em 0;
+}
+
 a{
     background-color:inherit;
-    color:#467aa7;
-    font-weight:bold;
+    color:#369;
     text-decoration:none;
 }
 
@@ -28,6 +37,17 @@ a:hover{
     background-color:inherit;
     color:#2a5a8a;
     text-decoration:none;
+}
+
+p {
+    margin:0.7em 0;
+}
+
+hr {
+    background:silver;
+    border:none;
+    clear:both;
+    height:1px;
 }
 
 /*----------------------------
@@ -50,7 +70,7 @@ a:hover{
 
     /* head-navigation */
     #head ul {
-        background:#D0DBE5;
+        background:#369;
         height:2.2em;
         line-height:2.2em;
         width:880px;
@@ -64,6 +84,7 @@ a:hover{
     }
 
         #head li a{
+            color:#ffffff;
             display:block;
             padding:0 10px;
         }
@@ -91,21 +112,82 @@ a:hover{
         margin:10px 0 20px 0;
     }
 
+        /* menuepunkte der ebene 1 */
         #navi ul.navigation li {
+            color:#369;
             list-style:square;
-            margin:2px 2px 2px 25px;
+            margin:7px 2px 7px 25px;
         }
+
+        /* menuepunkte bekommen unterschiedliche farben */
+        #navi ul.navigation li.col0, #navi ul.navigation li.col0 li, #navi ul.navigation li.col0 a {
+            color:#063;
+        }
+
+        #navi ul.navigation li.col1, #navi ul.navigation li.col1 li, #navi ul.navigation li.col1 a {
+            color:#369;
+        }
+
+        #navi ul.navigation li.col2, #navi ul.navigation li.col2 a {
+            color:#930;
+        }
+
+        #navi ul.navigation li.col3, #navi ul.navigation li.col3 a {
+            color:#960;
+        }
+
+        #navi ul.navigation li.col4, #navi ul.navigation li.col4 a {
+            color:rgb(100%,40%,0%);
+        }
+
+        #navi ul.navigation li.col5, #navi ul.navigation li.col5 a {
+            color:rgb(181,204,225);
+        }
+
+        #navi ul.navigation li.col6, #navi ul.navigation li.col6 a {
+            color:#231f20;
+        }
+
+        /* level1-links werden fett dargestellt */
+        #navi ul.navigation li a{
+            font-weight:bold;
+        }
+
+        /* menuepunkte der ebene 2 */
+        #navi ul.navigation li ul li {
+            list-style:none;
+            margin-left:10px;
+        }
+
+            #navi ul.navigation li ul li a {
+                font-weight:normal;
+            }
 
 /* eigentlicher inhalt
 ----------------------*/
 #content{
     background:#fff;
     float:left;
+    line-height:1.2em;
     margin: 0 5px;
     padding:10px 170px 0 10px;
     position:relative;
     width:520px;
 }
+
+    /* listen im content-bereich sollen so aussehen */
+    #content ul{
+        list-style:disc;
+        margin:0.7em 0 0.7em 1em;
+        padding-left:1em;
+    }
+
+/*          mit ausnahme von listen im  */
+/*        #content .box ul {
+            list-style:none;
+            margin:0;
+            padding:inherit;
+        }*/
 
 /* marginal-spalte
 -----------------------*/
@@ -116,6 +198,12 @@ a:hover{
     top:210px;
     width:150px;
 }
+
+        #margin ul {
+            list-style:none;
+            margin:0;
+            padding:inherit;
+        }
 
 /* fuss-zeile
 -----------------------*/
@@ -141,8 +229,20 @@ a:hover{
 /* kasten fuer zusatz-informationen */
 .box{
     border:1px solid #c0c0c0;
-    color:#505050;
+/*     color:#505050; */
     line-height:1.5em;
     margin:0 0 20px 0;
     padding:3px;
+}
+
+p.teaser{
+    font-weight:bold;
+}
+
+.right{
+    float:right;
+}
+
+.left{
+    float:left;
 }
