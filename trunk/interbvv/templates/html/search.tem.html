@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!--$Id: base.tem.html 599 2007-07-24 07:28:49Z chaot $-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>search</title>
+<link rel="stylesheet" href="../../css/stylesheet/screen.css" type="text/css">
+</head>
+<body>
+<!--##begin-->
+    <div id="content">
+        #(inhalt)
+        <!--##hidedata-result-->
+        <!--##loop-result-->
+        <h2><a href="!{url}">!{found_in}</a></h2>
+        <p>!{content}</p>
+        <!--##cont-->
+        <!--##show-->
+        !#ausgaben_inaccessible
+    </div>
+<!--##end-->
+</body>
+</html>
