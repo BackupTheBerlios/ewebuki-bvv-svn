@@ -41,13 +41,23 @@
                 <ul class="navigation">
                     <li>
                         Dienststellen
-                        <form class="schnellsuche" action="!#pathvars_menuroot/amtsuche.html" name="suche">
+                        <form class="schnellsuche" action="!#pathvars_menuroot/amtsuche.html" method="get" name="suche">
                             <input id="suche_feld" value="Suche PLZ/Ort" name="gemeinde" onfocus="this.value=''"/>
                             <button type="submit" title="Start Suche" onclick="if (window.document.suche.gemeinde.value=='Suche PLZ/Ort'){window.document.suche.gemeinde.value='';}">
                                 <img src="../../images/html/start-suche.png" alt="" />
                             </button>
                             <div class="clear"></div>
-<!--                             <input id="suche_button" type="image" title="Start Suche" alt="Start Suche" src="http://www.stmi.bayern.de/internet/stmi/stmiimages/suche.png" onclick="if (window.document.suche.q.value==' Suche'){window.document.suche.q.value='';}"/> -->
+                        </form>
+                    </li>
+                    <li>
+                        Seite durchsuchen
+                        <form class="schnellsuche" action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
+                            <input type="hidden" value="!#pathvars_requested" name="requested"/>
+                            <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
+                            <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+                                <img src="../../images/html/start-suche.png" alt="" />
+                            </button>
+                            <div class="clear"></div>
                         </form>
                     </li>
                     <li id="fontsize" style="display:none;">
@@ -74,10 +84,6 @@
             </div>
 
         </div>
-
-<!--<script type="text/javascript">
-    document.write("Darstellungsmodus:" + document.compatMode);
-</script>-->
 
     </body>
 </html>
