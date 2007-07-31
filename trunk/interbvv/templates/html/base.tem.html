@@ -11,9 +11,10 @@
         <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css">
         <script type="text/javascript" src="../../js/html/prototype.js"></script>
         <script type="text/javascript" src="../../js/html/scriptaculous.js"></script>
+        <script type="text/javascript" src="../../js/html/fontsize.js"></script>
     </head>
 
-    <body>
+    <body onload="init();">
 
         <div id="site">
 
@@ -25,14 +26,44 @@
                     <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
                     <!--##cont-->
                 </ul>
-                <p>#(kekse) !#environment_kekse</p>
+                <p class="metanavi">
+                    <a href="!#pathvars_menuroot/index.html" >Start</a> |
+                    <a href="!#pathvars_menuroot/sitemap.html" >Inhalt</a> |
+                    <a href="!#pathvars_menuroot/kontakt.html" >Kontakt</a>
+                </p>
+                <p class="kekse">#(kekse) !#environment_kekse</p>
             </div>
 
             <div class="clear"></div>
 
             <div id="navi">
                 !#ausgaben_menu
-                #(menu_zusatz)
+                <ul class="navigation">
+                    <li>
+                        Dienststellen
+                        <form class="schnellsuche" action="!#pathvars_menuroot/amtsuche.html" name="suche">
+                            <input id="suche_feld" value="Suche PLZ/Ort" name="gemeinde" onfocus="this.value=''"/>
+                            <button type="submit" title="Start Suche" onclick="if (window.document.suche.gemeinde.value=='Suche PLZ/Ort'){window.document.suche.gemeinde.value='';}">
+                                <img src="../../images/html/start-suche.png" alt="" />
+                            </button>
+                            <div class="clear"></div>
+<!--                             <input id="suche_button" type="image" title="Start Suche" alt="Start Suche" src="http://www.stmi.bayern.de/internet/stmi/stmiimages/suche.png" onclick="if (window.document.suche.q.value==' Suche'){window.document.suche.q.value='';}"/> -->
+                        </form>
+                    </li>
+                    <li id="fontsize" style="display:none;">
+                        Schriftgr&ouml;&szlig;en<br />
+                        <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;">
+                            A
+                        </a>
+                        <a title="Schriftgr&ouml;&szlig;e klein" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:medium;">
+                            A
+                        </a>
+                        <a title="Schriftgr&ouml;&szlig;e klein" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:large;">
+                            A
+                        </a>
+                    </li>
+                </ul>
+<!--                 #(menu_zusatz) -->
                 !#ausgaben_auth
             </div>
 
