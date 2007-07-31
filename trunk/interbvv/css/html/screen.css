@@ -50,6 +50,28 @@ hr {
     height:1px;
 }
 
+select, input, textarea, button {
+    border:1px solid #8F8F8F;
+    height:1.4em;
+    line-height:1.4em;
+}
+
+textarea{
+    width:100%;
+}
+
+button, input[type=button], input[type=submit]{
+    cursor:pointer;
+}
+
+fieldset{
+    background:#EFEFEF;
+    border:1px solid #8F8F8F;
+    margin-bottom:5px;
+    padding:5px;
+}
+
+
 /*----------------------------
   id-definitionen (bereiche)
 ----------------------------*/
@@ -73,11 +95,12 @@ hr {
         background:#369;
         height:2.2em;
         line-height:2.2em;
-        width:880px;
+        padding-left:175px;
+        width:705px;
     }
 
     #head li{
-        border-right:1px solid #ffffff;
+        border-left:1px solid #ffffff;
         float:left;
         list-style-type:none;
         white-space:nowrap;
@@ -97,7 +120,18 @@ hr {
 
     /* kekse-bereich */
     #head p {
+        float:left;
         line-height:2em;
+        margin:0.3em 0;
+    }
+
+    #head p.metanavi{
+        text-align:center;
+        width:175px;
+    }
+
+    #head p.kekse{
+        padding-left:10px;
     }
 
 /* globale menue spalte
@@ -109,7 +143,7 @@ hr {
 }
 
     #navi ul.navigation {
-        margin:10px 0 20px 0;
+        margin:10px 0 0 0;
     }
 
         /* menuepunkte der ebene 1 */
@@ -205,6 +239,10 @@ hr {
             padding:inherit;
         }
 
+    #margin.column {
+        top:10px;
+    }
+
 /* fuss-zeile
 -----------------------*/
 #foot {
@@ -235,10 +273,16 @@ hr {
     padding:3px;
 }
 
+/* artikel-teaser */
 p.teaser{
     font-weight:bold;
 }
 
+img.teaser {
+    float:left;
+}
+
+/* linke und rechte ausrichtung */
 .right{
     float:right;
 }
@@ -246,3 +290,33 @@ p.teaser{
 .left{
     float:left;
 }
+
+/* liste ohne punkte */
+#content ul.no-style {
+    list-style:none;
+    margin-left:0;
+    padding-left:0;
+}
+
+.teaser-margin{
+    margin-left:100px;
+}
+
+/* suchfeld */
+.schnellsuche{
+    border:1px solid #8F8F8F; 
+    width:145px;
+}
+
+    .schnellsuche input{
+        border:none;
+        float:left;
+        width:120;
+    }
+
+    .schnellsuche button{
+        border:none;
+        float:right;
+        margin:0;
+        padding:0;
+    }
