@@ -41,24 +41,28 @@
                 <ul class="navigation">
                     <li>
                         Dienststellen
-                        <form class="schnellsuche" action="!#pathvars_menuroot/amtsuche.html" method="get" name="suche">
-                            <input id="suche_feld" value="Suche PLZ/Ort" name="gemeinde" onfocus="this.value=''"/>
-                            <button type="submit" title="Start Suche" onclick="if (window.document.suche.gemeinde.value=='Suche PLZ/Ort'){window.document.suche.gemeinde.value='';}">
-                                <img src="../../images/html/start-suche.png" alt="" />
-                            </button>
-                            <div class="clear"></div>
-                        </form>
+                        <div class="schnellsuche">
+                            <form action="!#pathvars_menuroot/amtsuche.html" method="get" name="suche">
+                                <input id="suche_feld" value="Suche PLZ/Ort" name="gemeinde" onfocus="this.value=''"/>
+                                <button type="submit" title="Start Suche" onclick="if (window.document.suche.gemeinde.value=='Suche PLZ/Ort'){window.document.suche.gemeinde.value='';}">
+                                    <img src="../../images/html/start-suche.png" alt="" />
+                                </button>
+                                <div class="clear"></div>
+                            </form>
+                        </div>
                     </li>
                     <li>
                         Seite durchsuchen
-                        <form class="schnellsuche" action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
-                            <input type="hidden" value="!#pathvars_requested" name="requested"/>
-                            <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
-                            <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
-                                <img src="../../images/html/start-suche.png" alt="" />
-                            </button>
-                            <div class="clear"></div>
-                        </form>
+                        <div class="schnellsuche">
+                            <form action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
+                                <input type="hidden" value="!#pathvars_requested" name="requested"/>
+                                <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
+                                <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+                                    <img src="../../images/html/start-suche.png" alt="" />
+                                </button>
+                                <div class="clear"></div>
+                            </form>
+                        </div>
                     </li>
                     <li id="fontsize" style="display:none;">
                         Schriftgr&ouml;&szlig;en<br />
