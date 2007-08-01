@@ -77,7 +77,10 @@
             $sql = str_replace("##values##",$form_values["auto_search"],$cfg["sql_auto"]["sql"]);
             $result = $db -> query($sql);
             while ( $data = $db->fetch_array($result,1) ) {
-                $buffer .= "<li id=\"".$data[$cfg["sql_auto"]["kz"]]."\"><span class=\"informal\">".$data[$cfg["sql_auto"]["art"]]." </span>".$data[$cfg["sql_auto"]["ort"]]."</li>";
+                // ausgabe ggf mit gemarkung
+                $item = "<span class=\"informal\">".$data[$cfg["sql_auto"]["art"]]." </span>".$data[$cfg["sql_auto"]["ort"]];
+                if ( $data[$cfg["sql_auto"]["ort"]] != $data[$cfg["sql_auto"]["gmkg"]] ) $item .= " (Gemarkung: ".$data[$cfg["sql_auto"]["gmkg"]].")";
+                $buffer .= "<li id=\"".$data[$cfg["sql_auto"]["kz"]]."\">".$item."</li>";
             }
             if ( $buffer != "" ) echo "<ul>".$buffer."</ul>";
             die;
@@ -104,6 +107,8 @@
                 $data = $db->fetch_array($result,1);
                 $ausgaben["auto_search"] = $form_values["auto_search"];
                 $sql = "SELECT * FROM ".$cfg["db"]["main"]["entries"]." WHERE ".$cfg["db"]["main"]["key"]." ='".$data[$cfg["db"]["main"]["value"]]."'";
+
+
                 $result = $db -> query($sql);
                 if ( $db->num_rows($result) != 0 ){
                     $data = $db->fetch_array($result,1);

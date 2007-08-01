@@ -59,6 +59,7 @@
                           "kz"  =>  set it,
                           "art" =>  set it,
                           "ort" =>  set it,
+                         "gmkg" =>  set it,
                             ),
         "sql_auto_plz"  => array(
                         "sql"   =>  set it,
