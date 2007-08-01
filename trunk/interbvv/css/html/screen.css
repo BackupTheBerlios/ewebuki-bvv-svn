@@ -212,19 +212,27 @@ fieldset{
     width:520px;
 }
 
+#content_2col{
+    float:left;
+    line-height:1.2em;
+    margin: 0 5px;
+    padding:10px;
+    width:520px;
+}
+
     /* listen im content-bereich sollen so aussehen */
-    #content ul{
+    #content ul, #content_2col ul{
         list-style:disc;
         margin:0.7em 0 0.7em 1em;
         padding-left:1em;
     }
 
-/*          mit ausnahme von listen im  */
-/*        #content .box ul {
-            list-style:none;
-            margin:0;
-            padding:inherit;
-        }*/
+    /* liste ohne punkte */
+    #content ul.no-style, #content_2col ul.no-style {
+        list-style:none;
+        margin-left:0;
+        padding-left:0;
+    }
 
 /* marginal-spalte
 -----------------------*/
@@ -236,15 +244,16 @@ fieldset{
     width:150px;
 }
 
-        #margin ul {
+#margin_2col{
+    float:left;
+    width:150px;
+}
+
+        #margin ul, #margin_2col ul {
             list-style:none;
             margin:0;
             padding:inherit;
         }
-
-    #margin.column {
-        top:10px;
-    }
 
 /* fuss-zeile
 -----------------------*/
@@ -294,13 +303,6 @@ img.teaser {
     float:left;
 }
 
-/* liste ohne punkte */
-#content ul.no-style {
-    list-style:none;
-    margin-left:0;
-    padding-left:0;
-}
-
 .teaser-margin{
     margin-left:100px;
 }
@@ -323,3 +325,29 @@ img.teaser {
         margin:0;
         padding:0;
     }
+
+/* Auto-Completer */
+div.autocomplete {
+    position:absolute;
+    width:500px;
+    background-color:#E2EAF4;
+    border:1px solid #888;
+    margin:0px;
+    padding:0px;
+}
+
+    div.autocomplete ul, #content div.autocomplete ul {
+        list-style-type:none;
+        margin:0px;
+        padding:0px;
+    }
+
+        div.autocomplete ul li.selected { background-color: #C2DAEF;}
+
+        div.autocomplete ul li {
+            list-style-type:none;
+            display:block;
+            margin:0;
+            padding:0;
+            cursor:pointer;
+        }

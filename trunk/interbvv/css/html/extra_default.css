@@ -1,11 +1,11 @@
 /* die ueberschriften bekommen einen neue farbe
 ------------------------------------------------------*/
 
-#content h1{
+#content h1, #content_2col h1{
     color:#369;
 }
 
-#content h2{
+#content h2, #content_2col h2{
     color:#369;
 }
 
