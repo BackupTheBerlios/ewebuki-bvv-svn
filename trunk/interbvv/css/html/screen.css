@@ -52,6 +52,9 @@ hr {
 
 select, input, textarea, button {
     border:1px solid #8F8F8F;
+}
+
+select, input, button {
     height:1.4em;
     line-height:1.4em;
 }
@@ -305,13 +308,13 @@ img.teaser {
 /* suchfeld */
 .schnellsuche{
     border:1px solid #8F8F8F; 
-    width:145px;
+    width:125px;
 }
 
     .schnellsuche input{
         border:none;
         float:left;
-        width:120;
+        width:100;
     }
 
     .schnellsuche button{
