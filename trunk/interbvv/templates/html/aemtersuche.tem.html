@@ -5,92 +5,55 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="author" content="" />
         <meta name="description" content=" " />
-        <link rel="stylesheet" href="/css/internet.css" type="text/css" />
     </head>
-    
     <body>
-        
-        <div id="logo">
-            <h1>#(titel)</h1>
-        </div>
-        
-        <div id="kekse">
-            #(kekse) !#environment_kekse
-        </div>
-        
-        <div id="container">
 <!--##begin-->
-<!--##hide-ext-menu-->
-            <div class="submenu">
-                <h2 class="head">&nbsp;</h2>
-                !#ausgaben_ext_menu
-                <div>#(werbung)</div>
-            </div>
-<!--##show-->
-            <div class="center">
-                <div class="head">
-                    <h2 class="top">#(head1)</h2>
-                </div>
-                <div class="teaser">
-<!--                     #(teaser) -->
-                </div>
-
-                <div class="inhalt" style="background:url(/images/internet/dienststellen-backgr.jpg) right no-repeat;width:670px;float:right;">
-                    #(teaser)
-                    <fieldset>
-                        <form method="get" action="">
-                            <input type="text" class="textfield" id="gemeinde" name="gemeinde" value="!#ausgaben_gemeinde" style="width:20em;" />
-                            <button value="send" class="button">Senden</button>
-                            <span id="indicator" style="display: none">
-                                <img src="/images/internet/ajax_indicator.gif" alt="Working..." />
-                            </span>
-                            <div id="gemeinde_auto" class="autocomplete" style="display: none"></div>
-                        </form>
-                        <script type="text/javascript">
-                            new Ajax.Autocompleter(
-                                'gemeinde',
-                                'gemeinde_auto',
-                                'amtsuche.html?auto=on',
-                                {frequency:0.4,
-                                    indicator:'indicator',
-                                    afterUpdateElement:'submit()'}
-                            )
-                            function anfahrt(text, li){
-                                document.getElementById("amt").src = 'http://www.geodaten.bayern.de/bvv_web/va_' + li.id + '/wir/an_0.html';
-                                document.getElementById("amt").style.display = "block";
-                            }
-                        </script>
-                    </fieldset>
-<!--##hide-amt-->
-                    #(amt)
-                    <div class="box">
-                        <a href="!{link}">
-                            <p>!{amt}</p>
-                            <p>!{ast}</p>
-                            <p>!{strasse}</p>
-                            <p>!{ort}</p>
-                        </a>
-                    </div>
-<!--##show-->
-<!--##hide-gemeinden-->
-                    #(gemeindeliste)
-                    <ul>
-<!--##loop-gemeinden-->
-                        <li>
-                            <a href="!{link}">!{item}</a>
-                        </li>
-<!--##cont-->
-                    </ul>
-<!--##show-->
-                    #(content1)
-                </div>
-            </div>
-<!--##end-->
-        
-            <p class="clear" />
+    <div id="content" style="background:url(/images/html/dienststellen-backgr.jpg) right no-repeat;float:left;">
+        #(teaser)
+        <fieldset>
+            <form method="get" action="">
+                <input type="text" class="textfield" id="auto" name="auto_search" value="!#ausgaben_auto_search" style="width:20em;" />
+                <button value="send" class="button">Senden</button>
+                <span id="indicator" style="display: none">
+                    <img src="/images/html/ajax_indicator.gif" alt="Working..." />
+                </span>
+                <div id="div_auto" class="autocomplete" style="display: none"></div>
+            </form>
+            <script type="text/javascript">
+                new Ajax.Autocompleter(
+                    'auto',
+                    'div_auto',
+                    '!#ausgaben_target.html?auto=on',
+                    {frequency:0.4,
+                        indicator:'indicator',
+                        afterUpdateElement:'submit()'}
+                )
+            </script>
+        </fieldset>
+<!--##hide-treffer-->
+        #(treffer)
+        <div class="box">
+            <a href="!{link}">
+                <p>!{beschreibung}</p>
+                <p>!{zusatz}</p>
+                <p>!{strasse}</p>
+                <p>!{ort}</p>
+            </a>
         </div>
-        
+<!--##show-->
+<!--##hide-treffer_liste-->
+        #(gemeindeliste)
+        <ul>
+<!--##loop-treffer-->
+        <li>
+            <a href="!{link}">!{item}</a>
+        </li>
+<!--##cont-->
+        </ul>
+<!--##show-->
+        #(content1)
+    </div>
+<!--             </div> -->
+<!--##end-->
     </body>
 </html>
-
-<!--##end-->
