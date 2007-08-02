@@ -93,13 +93,18 @@ fieldset{
     width:980px;
 }
 
+    /* feld mit der kopfnavigation und dem suchfeld */
+    #headnavi{
+        background:#369;
+        width:880px;
+    }
+
     /* head-navigation */
     #head ul {
-        background:#369;
         height:2.2em;
         line-height:2.2em;
-        padding-left:175px;
-        width:705px;
+        margin-left:175px;
+        width:560px;
     }
 
     #head li{
@@ -309,7 +314,9 @@ img.teaser {
 
 /* suchfeld */
 .schnellsuche{
-    border:1px solid #8F8F8F; 
+    background:#fff;
+    border:1px solid #8F8F8F;
+    margin:0.2em 0.5em 0.2em 0;
     width:125px;
 }
 
