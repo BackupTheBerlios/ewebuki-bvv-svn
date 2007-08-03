@@ -29,7 +29,7 @@ h2{
 
 a{
     background-color:inherit;
-    color:#369;
+    color:#0066a6;
     text-decoration:none;
 }
 
@@ -95,14 +95,14 @@ fieldset{
 
     /* feld mit der kopfnavigation und dem suchfeld */
     #headnavi{
-        background:#369;
+        background:#0066a6;
         width:880px;
     }
 
     /* head-navigation */
     #head ul {
-        height:2.2em;
-        line-height:2.2em;
+        height:2.4em;
+        line-height:2.4em;
         margin-left:175px;
         width:560px;
     }
@@ -163,31 +163,27 @@ fieldset{
 
         /* menuepunkte bekommen unterschiedliche farben */
         #navi ul.navigation li.col0, #navi ul.navigation li.col0 li, #navi ul.navigation li.col0 a {
-            color:#063;
+            color:#ff6600;
         }
 
         #navi ul.navigation li.col1, #navi ul.navigation li.col1 li, #navi ul.navigation li.col1 a {
-            color:#369;
+            color:#0066a6;
         }
 
         #navi ul.navigation li.col2, #navi ul.navigation li.col2 a {
-            color:#930;
+            color:#c79400;
         }
 
         #navi ul.navigation li.col3, #navi ul.navigation li.col3 a {
-            color:#960;
+            color:#945919;
         }
 
         #navi ul.navigation li.col4, #navi ul.navigation li.col4 a {
-            color:rgb(100%,40%,0%);
+            color:#00a84c;
         }
 
         #navi ul.navigation li.col5, #navi ul.navigation li.col5 a {
-            color:rgb(181,204,225);
-        }
-
-        #navi ul.navigation li.col6, #navi ul.navigation li.col6 a {
-            color:#231f20;
+            color:#c42bc9;
         }
 
         /* level1-links werden fett dargestellt */
@@ -208,32 +204,23 @@ fieldset{
 /* eigentlicher inhalt
 ----------------------*/
 #content{
-    background:#fff;
-    float:left;
-    line-height:1.2em;
-    margin: 0 5px;
-    padding:10px 170px 0 10px;
-    position:relative;
-    width:520px;
-}
-
-#content_2col{
     float:left;
     line-height:1.2em;
     margin: 0 5px;
     padding:10px;
     width:520px;
+    overflow:hidden;
 }
 
     /* listen im content-bereich sollen so aussehen */
-    #content ul, #content_2col ul{
+    #content ul{
         list-style:disc;
         margin:0.7em 0 0.7em 1em;
         padding-left:1em;
     }
 
     /* liste ohne punkte */
-    #content ul.no-style, #content_2col ul.no-style {
+    #content ul.no-style {
         list-style:none;
         margin-left:0;
         padding-left:0;
@@ -241,20 +228,13 @@ fieldset{
 
 /* marginal-spalte
 -----------------------*/
-#margin {
-/*     background:red; */
-    position:absolute;
-    right:10px;
-    top:210px;
-    width:150px;
-}
-
-#margin_2col{
+#margin{
     float:left;
+    padding:10px 0;
     width:150px;
 }
 
-        #margin ul, #margin_2col ul {
+        #margin ul {
             list-style:none;
             margin:0;
             padding:inherit;
