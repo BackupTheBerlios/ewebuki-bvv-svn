@@ -99,7 +99,9 @@
         $ausgaben["auto_search"] = "";
         if ( $form_values["auto_search"] ){
             $ausgaben["auto_search"] = $form_values["auto_search"];
-            $sql = str_replace("##values##",$form_values["auto_search"],$cfg["sql_selected"]["sql"]);
+
+            // die regex schneidet ggf. die gemarkung weg
+            $sql = str_replace("##values##",preg_replace("/( \([a-zA-Z: ]+\))/","",$form_values["auto_search"]),$cfg["sql_selected"]["sql"]);
             $result = $db->query($sql);
 
             ## bei einem treffer
@@ -107,7 +109,6 @@
                 $data = $db->fetch_array($result,1);
                 $ausgaben["auto_search"] = $form_values["auto_search"];
                 $sql = "SELECT * FROM ".$cfg["db"]["main"]["entries"]." WHERE ".$cfg["db"]["main"]["key"]." ='".$data[$cfg["db"]["main"]["value"]]."'";
-
 
                 $result = $db -> query($sql);
                 if ( $db->num_rows($result) != 0 ){
@@ -146,8 +147,8 @@
                     if ( $data[$cfg["db"]["main"]["kategorie"]] == "5" || $data[$cfg["db"]["main"]["kategorie"]] == "8" ){
                         $zusatz = " - ".$cfg["db"]["main"]["zusatz_bez"]." ".$data[$cfg["db"]["main"]["name"]];
                         $sql = "SELECT * FROM ".$cfg["db"]["main"]["entries"]." WHERE ".$cfg["db"]["main"]["id"]." = '".$data[$cfg["db"]["main"]["parent"]]."'";
-                        $result = $db -> query($sql);
-                        $data_ha = $db->fetch_array($result,1);
+                        $res_ha = $db -> query($sql);
+                        $data_ha = $db->fetch_array($res_ha,1);
                         $hauptamt =  $data_ha[$cfg["db"]["main"]["name"]];
                         $amtakz = $data_ha[$cfg["db"]["main"]["key"]];
                     }
