@@ -9,6 +9,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link rel="stylesheet" href="../../css/html/screen.css" type="text/css">
         <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css">
+        <link rel="stylesheet" href="../../css/default/eed.css" type="text/css" />
         <script type="text/javascript" src="../../js/html/prototype.js"></script>
         <script type="text/javascript" src="../../js/html/scriptaculous.js"></script>
         <script type="text/javascript" src="../../js/html/fontsize.js"></script>
@@ -23,16 +24,16 @@
                 <img src="../../images/html/banner.jpg" alt="" width="880" height="55" border="0" />
 
             <div id="headnavi">
-                        <div class="schnellsuche right">
-                            <form action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
-                                <input type="hidden" value="!#pathvars_requested" name="requested"/>
-                                <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
-                                <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
-                                    <img src="../../images/html/start-suche.png" alt="" />
-                                </button>
-                                <div class="clear"></div>
-                            </form>
-                        </div>
+                <div class="schnellsuche right">
+                    <form action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
+                        <input type="hidden" value="!#pathvars_requested" name="requested"/>
+                        <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
+                        <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+                            <img src="../../images/html/start-suche.png" alt="" />
+                        </button>
+                        <div class="clear"></div>
+                    </form>
+                </div>
                 <ul>
                     <!--##loop-headnavi-->
                     <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
@@ -56,12 +57,16 @@
                 <ul class="navigation">
                     <li>
                         Dienststellen
+                <span id="indicator" style="display: none">
+                    <img src="/images/html/ajax_indicator.gif" alt="Working..." />
+                </span>
                         <div class="schnellsuche">
                             <form action="!#pathvars_menuroot/amtsuche.html" method="get" name="suche">
-                                <input id="suche_feld" value="Suche PLZ/Ort" name="gemeinde" onfocus="this.value=''"/>
+                                <input id="suche_feld" value="Suche PLZ/Ort" name="auto_search" onfocus="this.value=''"/>
                                 <button type="submit" title="Start Suche" onclick="if (window.document.suche.gemeinde.value=='Suche PLZ/Ort'){window.document.suche.gemeinde.value='';}">
                                     <img src="../../images/html/start-suche.png" alt="" />
                                 </button>
+                                <div id="div_auto" class="autocomplete" style="display: none"></div>
                                 <div class="clear"></div>
                             </form>
                         </div>
@@ -82,13 +87,24 @@
                 !#ausgaben_auth
             </div>
 
-            #{main}
+            #{screen}
 
             <div id="foot">
                 #(foot)
             </div>
 
         </div>
+
+        <script type="text/javascript">
+            new Ajax.Autocompleter(
+                'suche_feld',
+                'div_auto',
+                '/amtsuche.html?auto=on',
+                {frequency:0.4,
+                    indicator:'indicator',
+                    afterUpdateElement:'submit()'}
+            )
+        </script>
 
     </body>
 </html>
