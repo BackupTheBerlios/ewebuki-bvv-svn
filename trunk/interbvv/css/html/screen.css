@@ -343,3 +343,18 @@ div.autocomplete {
             padding:0;
             cursor:pointer;
         }
+
+/* infobox fuer die startseite der aemter */
+.info_amt p, .info_amt span{
+    margin:0.5em 0;
+    clear:both;
+    display:block;
+}
+.info_amt div {
+    margin-left:40px;
+}
+.info_amt p img, .info_amt span img{
+    margin-bottom:0.5em;
+    float:left;
+}
+
