@@ -60,7 +60,7 @@ select, input, textarea, button {
 }
 
 select, input, button {
-    height:1.4em;
+/*    height:1.4em;*/
     line-height:1.4em;
 }
 
