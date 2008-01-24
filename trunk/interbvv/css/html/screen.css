@@ -14,17 +14,26 @@ body{
 /*     background:#FFF8DD; */
     color:#303030;
     font:76% Verdana,Tahoma,Arial,sans-serif;
-    padding:10px;
+    line-height:1.2em;
+    padding:8px;
 }
 
 h1{
-    font-size:1.3em;
-    margin:0 0 0.7em 0;
+/*     background:yellow; */
+    border-bottom:1px solid #ccc;
+/*     clear:both; */
+/*     clear:left; */
+    color:#303030;
+    font-size:1.2em;
+/*     margin:0 0 0.7em 0; */
+    padding-bottom:3px;
 }
 
 h2{
+/*     clear:left; */
+/*     clear:both; */
     font-size:1em;
-    margin:0.7em 0;
+    margin:0.7em 0 0 0;
 }
 
 a{
@@ -60,7 +69,7 @@ select, input, textarea, button {
 }
 
 select, input, button {
-/*    height:1.4em;*/
+    height:1.4em;
     line-height:1.4em;
 }
 
@@ -89,6 +98,7 @@ fieldset{
       elemente nicht umbrechen koennen
 ------------------------------------------------------*/
 #site{
+    background:url('/images/html/background.png') repeat-y;
     width:1000px;
 }
 
@@ -100,20 +110,20 @@ fieldset{
 
     /* feld mit der kopfnavigation und dem suchfeld */
     #headnavi{
-        background:#0066a6;
+        background:#4775A3;
         width:880px;
     }
 
     /* head-navigation */
     #head ul {
-        height:2.4em;
-        line-height:2.4em;
-        margin-left:175px;
+        height:2em;
+        line-height:2em;
+        margin-left:160px;
         width:560px;
     }
 
     #head li{
-        border-left:1px solid #ffffff;
+/*         border-left:1px solid #ffffff; */
         float:left;
         list-style-type:none;
         white-space:nowrap;
@@ -126,7 +136,8 @@ fieldset{
         }
 
         #head li .selected, #head li a:hover{
-            background:#B5CCE1;
+/*             background:#B5CCE1; */
+            background:#9AC7E4;
             color:#ffffff;
             text-decoration:none;
         }
@@ -139,105 +150,160 @@ fieldset{
     }
 
     #head p.metanavi{
+        background:#9AC7E4;
+        margin:0;
         text-align:center;
-        width:175px;
+        width:160px;
     }
 
     #head p.kekse{
+        margin:0;
         padding-left:10px;
     }
 
 /* globale menue spalte
 -----------------------*/
 #navi {
-/*     background:yellow; */
+    background:#9AC7E4;
+    color:#fff;
     float:left;
-    width:175px;
+/*     padding-left:10px; */
+/*     min-height:300px; */
+    width:160px;
 }
 
-    #navi ul.navigation {
-        margin:10px 0 0 0;
+    #navi h1 {
+        border:none;
+        margin:0;
     }
 
-        /* menuepunkte der ebene 1 */
-        #navi ul.navigation li {
-            color:#369;
-            list-style:square;
-            margin:7px 2px 7px 25px;
+    #navi .menu {
+        background:#4775A3;
+        margin-bottom:10px;
+        padding-bottom:10px;
+        padding-top:10px;
+    }
+
+        #navi ul.navigation {
+            border-top:1px solid #fff;
+            color:#2A5A8A;
+            margin:0 0 5px 0;
+/*             padding-left:10px; */
         }
 
-        /* menuepunkte bekommen unterschiedliche farben */
-        #navi ul.navigation li.col0, #navi ul.navigation li.col0 li, #navi ul.navigation li.col0 a {
-            color:#ff6600;
-        }
-
-        #navi ul.navigation li.col1, #navi ul.navigation li.col1 li, #navi ul.navigation li.col1 a {
-            color:#0066a6;
-        }
-
-        #navi ul.navigation li.col2, #navi ul.navigation li.col2 a {
-            color:#c79400;
-        }
-
-        #navi ul.navigation li.col3, #navi ul.navigation li.col3 a {
-            color:#945919;
-        }
-
-        #navi ul.navigation li.col4, #navi ul.navigation li.col4 a {
-            color:#00a84c;
-        }
-
-        #navi ul.navigation li.col5, #navi ul.navigation li.col5 a {
-            color:#c42bc9;
-        }
-
-        /* level1-links werden fett dargestellt */
-        #navi ul.navigation li a{
-            font-weight:bold;
-        }
-
-        /* menuepunkte der ebene 2 */
-        #navi ul.navigation li ul li {
-            list-style:none;
-            margin-left:10px;
-        }
-
-            #navi ul.navigation li ul li a {
-                font-weight:normal;
+            /* menuepunkte der ebene 1 */
+            #navi ul.navigation li {
+                border-bottom:1px solid #fff;
+                padding: 5px 0 5px 15px;
             }
+
+                /* level1-links werden fett dargestellt */
+                #navi ul.navigation li a{
+                    display:block;
+                    font-weight:bold;
+                }
+
+                /* menuepunkte der ebene 2 */
+                #navi ul.navigation li ul li {
+                    border:none;
+                    list-style:none;
+                    padding:0.3em 0 0 10px;
+                    text-transform:none;
+                }
+
+                    #navi ul.navigation li ul li a {
+                        font-weight:normal;
+                    }
+
+    #navi .menu ul a {
+        color:#fff;
+    }
 
 /* eigentlicher inhalt
 ----------------------*/
-#content{
+#substance{
     float:left;
-    line-height:1.2em;
-    margin: 0 5px;
-    padding:10px;
-    width:520px;
+    padding:10px 0 0 10px;
+    width:540px;
     overflow:hidden;
 }
 
+    /* sub-menu */
+    /* * * * */
+    #substance .sub_menu {
+        border:1px solid #ccc;
+        float:right;
+        width:150px;
+        overflow:hidden;
+        text-align:right;
+    }
+
+        #substance .sub_menu h1 {
+            background:#9AC7E4;
+            padding:0.3em;
+        }
+
+        #substance .sub_menu li {
+            font-weight:bold;
+            list-style:none;
+            padding:0 0.3em 0.3em 0;
+        }
+    /* + + + */
+    /* sub-menu */
+
+    #substance .left {
+        float:left;
+        width:380px;
+    }
+
+    #substance table {
+        font-size:inherit;
+    }
+
+    #substance td {
+        background:#EFF2FA;
+        border:1px solid #ccc;
+        padding:2px;
+    }
+
     /* listen im content-bereich sollen so aussehen */
-    #content ul{
+    #substance ul{
         list-style:disc;
         margin:0.7em 0 0.7em 1em;
         padding-left:1em;
     }
 
     /* liste ohne punkte */
-    #content ul.no-style {
+    #substance ul.no-style {
         list-style:none;
         margin-left:0;
         padding-left:0;
     }
 
+    #substance img {
+        margin:0.7em 1em 1em 0;
+    }
+
+    #substance p img {
+/*         margin:0; */
+    }
+
 /* marginal-spalte
 -----------------------*/
 #margin{
+    background:#ccc;
     float:left;
+    margin-left:10;
     padding:10px 0;
-    width:150px;
+    width:160px;
 }
+
+    #margin h1 {
+        border:none;
+        color:#369;
+        margin:0 5px 0 0;
+        text-align:right;
+    }
 
         #margin ul {
             list-style:none;
@@ -252,9 +318,9 @@ fieldset{
     border-top:1px solid silver;
     clear:both;
     line-height:1.5em;
-    margin-left:180px;
+    margin-left:170px;
     text-align:center;
-    width:700px;
+    width:540px;
 }
 
 /*----------------------
@@ -268,15 +334,17 @@ fieldset{
 
 /* kasten fuer zusatz-informationen */
 .box{
-    border:1px solid #c0c0c0;
-/*     color:#505050; */
+    background:#fff;
+    border:1px solid #000;
     line-height:1.5em;
-    margin:0 0 20px 0;
+    margin:0 3px 20px;
     padding:3px;
 }
 
 /* artikel-teaser */
 p.teaser{
+/*     clear:both; */
+/*     clear:left; */
     font-weight:bold;
 }
 
