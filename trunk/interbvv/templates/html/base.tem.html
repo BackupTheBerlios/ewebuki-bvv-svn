@@ -21,45 +21,50 @@
 
             <div id="head">
                 <img src="../../images/html/wappen.gif" alt="" width="80" height="48" border="0" align="right"  />
-                <img src="../../images/html/banner.jpg" alt="" width="880" height="55" border="0" />
+                <img src="../../images/html/banner.jpg" width="880" alt="" border="0" />
 
-            <div id="headnavi">
-                <div class="schnellsuche right">
-                    <form action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
-                        <input type="hidden" value="!#pathvars_requested" name="requested"/>
-                        <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
-                        <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
-                            <img src="../../images/html/start-suche.png" alt="" />
-                        </button>
-                        <div class="clear"></div>
-                    </form>
+                <div id="headnavi">
+                    <div class="schnellsuche right">
+                        <form action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
+                            <input type="hidden" value="!#pathvars_requested" name="requested"/>
+                            <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
+                            <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+                                <img src="../../images/html/start-suche.png" alt="" />
+                            </button>
+                            <div class="clear"></div>
+                        </form>
+                    </div>
+                    <ul>
+                        <!--##loop-headnavi-->
+                        <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
+                        <!--##cont-->
+                    </ul>
                 </div>
-                <ul>
-                    <!--##loop-headnavi-->
-                    <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
-                    <!--##cont-->
-                </ul>
-                <div class="clear"></div>
-            </div>
 
                 <p class="metanavi">
-                    <a href="!#pathvars_menuroot/index.html" >Start</a> |
+<!--                    <a href="!#pathvars_menuroot/index.html" >Start</a> |
                     <a href="!#pathvars_menuroot/sitemap.html" >Inhalt</a> |
-                    <a href="!#pathvars_menuroot/kontakt.html" >Kontakt</a>
+                    <a href="!#pathvars_menuroot/kontakt.html" >Kontakt</a>-->
+                    &nbsp;
                 </p>
                 <p class="kekse">#(kekse) !#environment_kekse</p>
+
+                <div class="clear"></div>
             </div>
 
             <div class="clear"></div>
 
             <div id="navi">
-                !#ausgaben_menu
+                <div class="menu">
+                    <h1>&nbsp;</h1>
+                    !#ausgaben_menu
+                </div>
                 <ul class="navigation">
                     <li>
                         Dienststellen
-                <span id="indicator" style="display: none">
-                    <img src="/images/html/ajax_indicator.gif" alt="Working..." />
-                </span>
+                        <span id="indicator" style="display: none">
+                            <img src="/images/html/ajax_indicator.gif" alt="Working..." />
+                        </span>
                         <div class="schnellsuche">
                             <form action="!#pathvars_menuroot/amtsuche.html" method="get" name="suche">
                                 <input id="suche_feld" value="Suche PLZ/Ort" name="auto_search" onfocus="this.value=''"/>
@@ -73,23 +78,32 @@
                     </li>
                     <li id="fontsize" style="display:none;">
                         Schriftgr&ouml;&szlig;en<br />
-                        <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;">
+                        <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;float:left;padding:0 5px;vertical-align:bottom;">
                             A
                         </a>
-                        <a title="Schriftgr&ouml;&szlig;e klein" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:medium;">
+                        <a title="Schriftgr&ouml;&szlig;e klein" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:medium;float:left;padding:0 5px;vertical-align:bottom;">
                             A
                         </a>
-                        <a title="Schriftgr&ouml;&szlig;e klein" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:large;">
+                        <a title="Schriftgr&ouml;&szlig;e klein" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:large;float:left;padding:0 5px;vertical-align:bottom;">
                             A
                         </a>
+                        <p  class="clear" />
                     </li>
+                    <li><a href="">Impressum/<br> Datenschutz</a></li>
                 </ul>
+                <div id="lock">
+                    &nbsp;
+                </div>
                 #{auth}
             </div>
 
             #{screen}
 
             <div id="foot">
+                &nbsp;-&nbsp;
+                <!--##loop-headnavi-->
+                <a href="!#pathvars_menuroot/!{url}">!{desc}</a>&nbsp;-&nbsp;
+                <!--##cont-->
                 #(foot)
             </div>
 

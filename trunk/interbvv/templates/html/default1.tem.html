@@ -11,22 +11,34 @@
     <body>
 
 <!--##begin-->
-        <div id="content">
-            <div class="right">g(kopf)</div>
-            <hr />
-            #(inhalt)
+        <div id="substance">
 
-            #(head1)
-            #(teaser1)
-            #(content1)
+            #(ueberschrift)
+
+            <!--##hide-level3-->
+            <div class="sub_menu">
+                <h1>g(sub_menu)</h1>
+                <ul>
+                    <!--##loop-level3-->
+                    <li><a href="!{link}" title="!{title}" class="!{class}">!{item}</a></li>
+                    <!--##cont-->
+                </ul>
+                #(untermenu)
+            </div>
+            <!--##show-->
+
+            <div class="left">
+                #(inhalt)
+            </div>
             !#ausgaben_output
 
         </div>
 
         <div id="margin">
-            <!--##hide-level3-->
+            <!--##hide-level03-->
+<!--             <h1>&nbsp;</h1> -->
+            <h1>g(submenu)</h1>
             <div class="box">
-                <h3>g(submenu)</h3>
                 <ul class="ext_menu">
                     <!--##loop-level3-->
                     <li><a href="!{link}" title="!{title}" class="!{class}">!{item}</a></li>
@@ -35,7 +47,7 @@
                     <div>#(werbung)</div>
             </div>
             <!--##show-->
-            #(left)
+            g(left)
         </div>
 <!--##end-->
 

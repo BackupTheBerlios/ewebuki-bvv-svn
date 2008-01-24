@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>!#specialvars_pagetitle</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="/css/internet.css" type="text/css" />
+        <script type="text/javascript" src="/js/prototype.js"></script>
+        <script type="text/javascript" src="/js/scriptaculous.js"></script>
+        <script type="text/javascript" src="/js/controls.js"></script>
+        <script type="text/javascript" src="/js/dragdrop.js"></script>
+        <script type="text/javascript" src="/js/effects.js"></script>
+        <script type="text/javascript" src="/js/switchcontent.js"></script>
+    </head>
+
+    <body>
+
+        <div id="head">
+            <h1>Bayerische Vermessungsverwaltung</h1>
+            <img src="../images/internet/wappen_gross.gif" alt="Bayerisches Staatswappen" class="logo" width="80" height="48" border="0" />
+        </div>
+
+        <div id="headnavi">
+            <ul class="horizontal">
+                <li><a href="!#pathvars_menuroot/index.html">Startseite</a></li>
+                <li><a href="/auth/organisation.html">Organisation</a></li>
+                <li><a href="/auth/amtsuche.html">Dienststellen</a></li>
+                <li><a href="">Pressemappe</a></li>
+                <li><a href="">Download</a></li>
+                <li><a href="">&Uuml;bersicht</a></li>
+                <li><a href="">Hilfe</a></li>
+                <li><a href="/auth/login.html">Login</a></li>
+            </ul>
+            <form action="/xsuche/stmi/search.php" class="schnellsuche" style="width:143px;float:right;border:1px solid #B0B1B5;background:white;">
+                <input type="image" name="search" value="search" class="button" src="/images/internet/start-suche.png" />
+                <input type="text" name="qsearch" value="Suche" class="textfield" onfocus="if (this.value == 'Suche') this.value=''" onblur="if (this.value == '') this.value='Suche'"  />
+            </form>
+            <div class="clear"></div>
+        </div>
+
+        <div id="kekse">
+            #(kekse) !#environment_kekse
+        </div>
+
+        <div id="content">
+            <div class="menu">
+                <h2>&nbsp;</h2>
+                !#ausgaben_menu
+            </div>
+            <div class="container">
+<!--##begin-->
+                        <div class="head">
+                            <h2><a name="anfang"></a>!#ausgaben_amt</h2>
+                        </div>
+                        <div class="teaser">
+                            
+                        </div>
+
+                        <div class="inhalt">
+
+                            <div style="float:left;width:50%;">
+                                <img src="/file/jpg/26/s/amt_va_86.jpg" alt="Vermessungamt M&uuml;nchen" /> 
+                                <p title="Anschrift">
+                                    <div>!#ausgaben_str</div>
+                                    <div>!#ausgaben_plz !#ausgaben_ort</div>
+                                </p>
+                                <p title="Telefon">
+                                    <div>!#ausgaben_tel</div>
+                                </p>
+                                <p title="Fax">
+                                    <div>!#ausgaben_fax</div>
+                                </p>
+                                <p title="&Ouml;ffnungszeiten">
+                                    <div>Mo. - Do. 8:00 - 16:00 Uhr</div>
+                                    <div>Fr. 8:00 -12:00 Uhr</div>
+                                    <div>und nach Vereinbarung</div>
+                                </p>
+                            </div>
+
+                            <div style="float:left;width:50%;">
+                                <p title="E-Mail">
+                                    <div><a href="mailto:!#ausgaben_email">!#ausgaben_email</a></div>
+                                </p>
+<!--                                <p title="Nachrichten">
+                                    <div><a href="#anfang" id="cont00-title">Nachrichten</a></div>
+                                </p>-->
+                                <p title="Standort">
+                                    <div><a href="standort.html" id="cont01-title">Standortanzeige</a></div>
+                                </p>
+                                <p title="Verbindungen">
+                                    <div><a href="">Verbindungen Suchen</a></div>
+                                </p>
+                                <p title="Informationen">
+                                    <div><a href="info.html" id="cont02-title">Informationen f&uuml;r behinderte Menschen</a></div>
+                                </p>
+                                <p title="Ansprechpartner">
+                                    <div><a href="ansprech.html">Ansprechpartner</a></div>
+                                </p>
+                                <p title="Amtsbezirk">
+                                    <div><a href="amtsbezirk.html">Amtsbezirk</a></div>
+                                </p>
+                                <p title="Amtschronik">
+                                    <div><a href="amtschronik.html">Amtschronik</a></div>
+                                </p>
+                                <p title="Weiterf&uuml;hrende Links">
+                                    <div><a href="links.html">Weiterf&uuml;hrende Links</a></div>
+                                </p>
+                            </div>
+                            <p class="clear" />
+
+<!--##hide-lokal-->
+                       <h2>Nachrichten des Vermessungamtes</h2>
+<!--##loop-lokal-->
+                            <p><a href="!{link}">!{item}</a></p>
+<!--##cont-->
+<!--##show-->
+<!--##hide-bayern-->
+                        <h2>Nachrichten aus Bayern</h2>
+<!--##loop-bayern-->
+                            <p><a href="!{link}">!{item}</a></p>
+<!--##cont-->
+<!--##show-->
+
+
+
+<!--##hide-skizze-->
+                        <h2>So finden Sie uns:1</h2>
+                        <a href="!{viewer}">Viewer</a>
+                            <ul class="no-style" style="width:160px;margin:0;">
+<!--##loop-gallery-->
+                                <li style="background: url('/images/internet/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;width:160px;height:120px;float:left;margin:0 10px 10px 0;">
+                                    <a href="standort,!{id}.html#standort">
+                                        <img src="/images/internet/rahmen_big.gif" width="160px" height="120px" border="0" />
+                                    </a>
+                                </li>
+<!--##cont-->
+                            </ul>
+                                <img src="/images/internet/aemter/va!{amtakz}_anfahrt!{id}.gif" border="0" title="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" alt="Anfahrtskizze Nr. !{id}, !#ausgaben_amt">
+<!--##show-->
+
+
+
+<!--##hide-gallery-->
+                        <h2>So finden Sie uns:1</h2>
+                        <a href="!{viewer}">Viewer</a>
+<!--##loop-gallery-->
+                            <div style="background: url('/images/internet/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;width:160px;height:120px;float:left;margin:10px">
+                                <a href="standort,!{id}.html#standort">
+                                    <img src="/images/internet/rahmen_big.gif" width="160px" height="120px" border="0" />
+                                </a>
+                            </div>
+<!--##cont-->
+<!--##show-->
+                        </div>
+
+<!--##end-->
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div id="footer">
+            test
+        </div>
+
+    </body>
+</html>

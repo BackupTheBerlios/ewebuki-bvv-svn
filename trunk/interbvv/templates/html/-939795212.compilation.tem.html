@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>fileed.list</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: -939795212.compilation.tem.html 1075 2007-11-28 14:00:06Z krompi $-->
+<div id="eEd">
+    <h1>#(ueberschrift)</h1>
+    <div class="tabbed" style="">
+        <ul style="">
+            <!--##loop-tabs-->
+            <li style="!{style}">
+                <a href="!{link}" class="!{class}" style="">!{label}</a>
+            </li>
+            <!--##cont-->
+        </ul>
+    </div>
+    <div style="clear:both;border-top:1px solid #666666;"></div>
+    <form method="get" action="!#ausgaben_form_aktion">
+        <fieldset class="float">
+            <label class="small">
+                #(search)&nbsp;
+                <input type="text" name="search" value="!#ausgaben_search" class="textfield" />
+            </label>
+            <label class="small">
+                #(compilation_search)&nbsp;
+                <select name="compID" onchange="submit()">
+                    <option value="">Compilation ausw&auml;hlen</option>
+                    <!--##loop-groups-->
+                    <option value="!{id}"!{select}>#!{id}: !{name_short}</option>
+                    <!--##cont-->
+                </select>
+            </label>
+            <label class="small">
+                &nbsp;
+                <input type="submit" name="send[]" value="g(send)" />
+            </label>
+            <div class="clearer">&nbsp;</div>
+        </fieldset>
+    </form>
+</div>
+<!-- <p>#(num_comps) !#ausgaben_result</p> -->
+<p style="clear:both">&nbsp;
+    <!--##hide-cms-->
+    <a href="!{link}">#(cmslink)</a>
+    <!--##show-->
+    <!--##hide-selected-->
+    &nbsp;| !{count} #(selected) <a href="!{link}">!{aktion}</a>
+    <!--##show-->
+
+</p>
+
+<!--##hide-compilation-->
+<h1>!#ausgaben_compilation</h1>
+<p>
+<a href="!#ausgaben_edit" style="float:right;">
+    <img src="../../images/default/edit.png" width="24" height="18" alt="g(edit)" title="g(edit)" />
+</a>
+<!--##show-->
+
+<!--##hide-zurueck-->
+<a href="!{link}">g(prev)</a>
+<!--##show-->
+#(compilation) !#ausgaben_aktuell #(of) !#ausgaben_comp_count
+<!--##hide-vor-->
+<a href="!{link}">g(next)</a>
+<!--##show-->
+</p>
+
+<!--##hide-list_ajax-->
+<div style="clear:both"></div>
+<ul>
+<!--##loop-list_images-->
+    <li class="thumbs">
+        <a href="!{vhref}" class="pic"><img src="!{src}" alt="!{alt}" title="!{title} g(edit)" /></a>
+        <p>
+            <input type="checkbox" name="sel_pics[!{id}]" value="-1" onclick="session_update(!#ausgaben_compid,!{id});"!{checked} />
+        </p>
+    </li>
+<!--##cont-->
+</ul>
+<div style="clear:both"></div>
+<script type="text/javascript">
+    function session_update(compid,fileid) {
+        new Ajax.Updater('ajax_output', './compilation,' + compid + ',' + fileid + '.html?ajax', {asynchronous:true});
+    }
+</script>
+<!--##show-->
+
+<!--##hide-list_plain-->
+<div style="clear:both"></div>
+<ul>
+<!--##loop-list-->
+    <li class="thumbs">
+        <a href="!{vhref}" class="pic"><img src="!{src}" alt="!{alt}" title="!{title} g(edit)" /></a>
+        <p>
+            !{cb}
+        </p>
+    </li>
+<!--##cont-->
+</ul>
+<div style="clear:both"></div>
+<!--##show-->
+
+<!--##hide-compilation-->
+<p>#(num_pics) !{pic_count}</p>
+<!--##show-->
+
+
+<div style="clear:both"></div>
+<p>#(inhalt)</p>
+<p>#(text1)</p>
+<p>!#ausgaben_output</p>
+<p>!#ausgaben_inaccessible</p>
+<div id="ajax_output"></div>
+<!--##end-->
+</body>
+</html>
