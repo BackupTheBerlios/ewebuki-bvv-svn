@@ -14,7 +14,7 @@ body{
 /*     background:#FFF8DD; */
     color:#303030;
     font:76% Verdana,Tahoma,Arial,sans-serif;
-    line-height:1.2em;
+    line-height:1.3em;
     padding:8px;
 }
 
@@ -65,15 +65,16 @@ hr {
 
 select, input, textarea, button {
     border:1px solid #8F8F8F;
-    font-size:inherit;
+/*     font-size:inherit; */
 }
 
 select, input, button {
-    height:1.4em;
+/*     height:1.4em; */
     line-height:1.4em;
 }
 
 textarea{
+/*     font-size:inherit; */
     width:100%;
 }
 
@@ -86,6 +87,12 @@ fieldset{
     border:1px solid #8F8F8F;
     margin-bottom:5px;
     padding:5px;
+}
+
+acronym {
+    background:#efefef;
+    border-bottom:1px dashed #cccccc;
+    cursor:help;
 }
 
 
@@ -291,19 +298,19 @@ fieldset{
 /* marginal-spalte
 -----------------------*/
 #margin{
-    background:#ccc;
+    background:#eeeeee;
     float:left;
     margin-left:10;
     padding:10px 0;
     width:160px;
 }
 
-    #margin h1 {
+/*    #margin h1 {
         border:none;
         color:#369;
         margin:0 5px 0 0;
         text-align:right;
-    }
+    }*/
 
         #margin ul {
             list-style:none;
@@ -335,11 +342,53 @@ fieldset{
 /* kasten fuer zusatz-informationen */
 .box{
     background:#fff;
-    border:1px solid #000;
+    border:1px solid #CCCCCC;
     line-height:1.5em;
     margin:0 3px 20px;
-    padding:3px;
+/*     padding:3px; */
+    text-align:center;
 }
+
+    .box h1, .viewer h1 {
+        background:url('/images/html/heading_1.jpg') repeat-x center;
+        border:none;
+        font-size:1em;
+        padding:0.2em;
+        text-align:left;
+    }
+
+    .box img {
+        margin:1px 0;
+    }
+
+/* viewer-design */
+.viewer {
+    border:1px solid #cccccc;
+}
+
+    .viewer .pic {
+        background:#efefef;
+        float:left;
+        padding:5px 10px 20px;
+        width:250px;
+    }
+
+        .viewer .pic p {
+            text-align:center;
+        }
+
+        #substance .viewer .pic img {
+            margin:0.2em 0;
+        }
+
+            #substance .viewer .pic p img {
+                vertical-align:middle;
+            }
+
+    .viewer .desc {
+        float:right;
+        width:260px;
+    }
 
 /* artikel-teaser */
 p.teaser{
@@ -425,4 +474,3 @@ div.autocomplete {
     margin-bottom:0.5em;
     float:left;
 }
-

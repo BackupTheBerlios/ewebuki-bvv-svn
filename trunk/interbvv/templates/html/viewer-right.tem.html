@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>default</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: viewer.tem.html 938 2007-10-31 13:26:17Z chaot $-->
+<div id="substance">
+
+    <p><a href="!#ausgaben_referer">g(back)</a></p>
+    <div class="viewer">
+        <!--##hide-nogallery-->
+        <h1>!#ausgaben_beschriftung</h1>
+        <!--##show-->
+        <!--##hide-gallery-->
+        <h1>!{title}</h1>
+        <!--##show-->
+        <div class="pic">
+            <p>
+                <a href="!#ausgaben_prev"><img src="../../images/html/prev.jpg" alt="g(prev)" title="g(prev)" style="float:left;" /></a>
+                <a href="!#ausgaben_next"><img src="../../images/html/next.jpg" alt="g(next)" title="g(next)" style="float:right;" /></a>
+                g(picture) !#ausgaben_aktuell g(of) !#ausgaben_gesamt
+                <div style="clear:both;"></div>
+            </p>
+            <p>
+                <!--##hide-lightbox-->
+                <a rel="lightbox" href="!{orig_src}" title="!#ausgaben_beschriftung">
+                <!--##show-->
+                    <img src="!#ausgaben_imgurl" title="!#ausgaben_beschriftung" alt="!#ausgaben_beschriftung" />
+                <!--##hide-lightbox-->
+                </a>
+                <!--##show-->
+            </p>
+            !#ausgaben_beschriftung
+        </div>
+        <div class="desc">
+            !#ausgaben_beschreibung
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+
+</div>
+
+<div id="margin">
+    g(left)
+</div>
+<!--##end-->
+</body>
+</html>
