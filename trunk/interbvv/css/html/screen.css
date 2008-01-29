@@ -3,11 +3,15 @@
 ----------------------*/
 
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,pre,form,fieldset,input,p,blockquote,th,td,img{
-    margin:0;padding:0;
+/*     margin:0;padding:0; */
+}
+
+form {
+    margin:0;
 }
 
 ul, ol{
-    list-style:none;
+/*     list-style:none; */
 }
 
 body{
@@ -15,36 +19,32 @@ body{
     color:#303030;
     font:76% Verdana,Tahoma,Arial,sans-serif;
     line-height:1.3em;
+    margin:0;
     padding:8px;
 }
 
 h1{
-/*     background:yellow; */
     border-bottom:1px solid #ccc;
-/*     clear:both; */
-/*     clear:left; */
     color:#303030;
-    font-size:1.2em;
-/*     margin:0 0 0.7em 0; */
+    font-size:1.15em;
+    margin:0;
     padding-bottom:3px;
 }
 
 h2{
-/*     clear:left; */
-/*     clear:both; */
-    font-size:1em;
+    font-size:1.15em;
     margin:0.7em 0 0 0;
 }
 
 a{
     background-color:inherit;
-    color:#0066a6;
+    color:#4775A3;
     text-decoration:none;
 }
 
 a:hover{
     background-color:inherit;
-    color:#2a5a8a;
+    color:#4775A3;
     text-decoration:none;
 }
 
@@ -65,16 +65,13 @@ hr {
 
 select, input, textarea, button {
     border:1px solid #8F8F8F;
-/*     font-size:inherit; */
 }
 
 select, input, button {
-/*     height:1.4em; */
     line-height:1.4em;
 }
 
 textarea{
-/*     font-size:inherit; */
     width:100%;
 }
 
@@ -126,29 +123,26 @@ acronym {
     #head ul {
         height:2em;
         line-height:2em;
-        margin-left:160px;
+        margin:0 0 0 160px;
+        padding:0;
         width:560px;
     }
 
-    #head li{
-/*         border-left:1px solid #ffffff; */
-        float:left;
-        list-style-type:none;
-        white-space:nowrap;
-    }
-
-        #head li a{
-            color:#ffffff;
-            display:block;
-            padding:0 10px;
+        #head li{
+            float:left;
+            list-style-type:none;
+            white-space:nowrap;
         }
 
-        #head li .selected, #head li a:hover{
-/*             background:#B5CCE1; */
-            background:#9AC7E4;
-            color:#ffffff;
-            text-decoration:none;
-        }
+            #head li a{
+                color:#ffffff;
+                display:block;
+                padding:0 10px;
+            }
+
+            #head li .selected, #head li a:hover{
+                background:#9AC7E4;
+            }
 
     /* kekse-bereich */
     #head p {
@@ -165,8 +159,13 @@ acronym {
     }
 
     #head p.kekse{
+        color:#2A5A8A;
         margin:0;
         padding-left:10px;
+    }
+
+    #head .schnellsuche{
+        width:152px;
     }
 
 /* globale menue spalte
@@ -175,26 +174,23 @@ acronym {
     background:#9AC7E4;
     color:#fff;
     float:left;
-/*     padding-left:10px; */
-/*     min-height:300px; */
     width:160px;
 }
 
     #navi h1 {
         border:none;
-        margin:0;
+        color:#9AC7E4;
+        padding-left:15px;
     }
 
-    #navi .menu {
-        background:#4775A3;
-        margin-bottom:10px;
-        padding-bottom:10px;
-        padding-top:10px;
+    #navi ul {
+        padding:0;
     }
 
         #navi ul.navigation {
             border-top:1px solid #fff;
-            color:#2A5A8A;
+            color:#4775A3;
+            list-style:none;
             margin:0 0 5px 15px;
 /*             padding-left:10px; */
         }
@@ -216,22 +212,36 @@ acronym {
                     border:none;
                     list-style:none;
                     padding:0.3em 0 0 10px;
-                    text-transform:none;
                 }
 
                     #navi ul.navigation li ul li a {
                         font-weight:normal;
                     }
 
-    #navi .menu ul a {
-        color:#fff;
+    #navi .menu {
+        background:#4775A3;
+        margin-bottom:10px;
+        padding-bottom:10px;
+        padding-top:10px;
+    }
+
+        #navi .menu h1 {
+            color:#4775A3;
+        }
+
+        #navi .menu ul a {
+            color:#fff;
+        }
+
+    #navi .schnellsuche{
+        width:125px;
     }
 
 /* eigentlicher inhalt
 ----------------------*/
 #substance{
     float:left;
-    padding:10px 0 0 10px;
+    padding:10px 0 10px 10px;
     width:540px;
     overflow:hidden;
 }
@@ -285,12 +295,13 @@ acronym {
         padding:2px;
     }
 
-    /* listen im content-bereich sollen so aussehen */
-    #substance ul{
-        list-style:disc;
-        margin:0.7em 0 0 1em;
-        padding-left:1em;
+    #substance img {
+        margin:0.7em 1em 1em 0;
     }
+
+        #substance ul img{
+            margin:2px 2px 2px 0;
+        }
 
     /* liste ohne punkte */
     #substance ul.no-style {
@@ -299,36 +310,21 @@ acronym {
         padding-left:0;
     }
 
-    #substance img {
-        margin:0.7em 1em 1em 0;
-    }
-
-    #substance p img {
-/*         margin:0; */
-    }
-
 /* marginal-spalte
 -----------------------*/
 #margin{
     background:#eeeeee;
     float:left;
     margin-left:10;
-    padding:10px 0;
+    padding:6px 0 10px 0;
     width:160px;
 }
 
-/*    #margin h1 {
-        border:none;
-        color:#369;
-        margin:0 5px 0 0;
-        text-align:right;
-    }*/
-
-        #margin ul {
-            list-style:none;
-            margin:0;
-            padding:inherit;
-        }
+    #margin ul {
+        list-style:none;
+        margin:0;
+        padding:inherit;
+    }
 
 /* fuss-zeile
 -----------------------*/
@@ -351,22 +347,47 @@ acronym {
     clear:both;
 }
 
+/* linke und rechte ausrichtung */
+.right{
+    float:right;
+}
+
+.left{
+    float:left;
+}
+
+/* suchfeld */
+.schnellsuche{
+    background:#fff;
+    border:1px solid #8F8F8F;
+    margin:2px 3px;
+}
+
+    .schnellsuche input{
+        border:none;
+        float:left;
+        width:100;
+    }
+
+    .schnellsuche button{
+        border:none;
+        float:right;
+        margin:0;
+        padding:0;
+    }
+
 /* kasten fuer zusatz-informationen */
 .box{
     background:#fff;
     border:1px solid #CCCCCC;
-    line-height:1.5em;
     margin:0 3px 20px;
-/*     padding:3px; */
     text-align:center;
 }
 
     .box h1, .viewer h1, div.aktuell h2, #substance .sub_menu h1 {
-/*         background:url('/images/html/heading_1.jpg') repeat-x center; */
         background:#9AC7E4;
-        border:none;
-        font-size:1em;
-        padding:0.2em;
+        border-bottom:1px solid #9AC7E4;
+        padding:0.2em 3px;
         text-align:left;
     }
 
@@ -406,52 +427,12 @@ acronym {
 
 /* artikel-teaser */
 p.teaser{
-/*     clear:both; */
-/*     clear:left; */
     font-weight:bold;
-}
-
-div.aktuell h2 {
-
-}
-
-img.teaser {
-    float:left;
-}
-
-/* linke und rechte ausrichtung */
-.right{
-    float:right;
-}
-
-.left{
-    float:left;
 }
 
 .teaser-margin{
     margin-left:100px;
 }
-
-/* suchfeld */
-.schnellsuche{
-    background:#fff;
-    border:1px solid #8F8F8F;
-    margin:0.2em 0.5em 0.2em 0;
-    width:125px;
-}
-
-    .schnellsuche input{
-        border:none;
-        float:left;
-        width:100;
-    }
-
-    .schnellsuche button{
-        border:none;
-        float:right;
-        margin:0;
-        padding:0;
-    }
 
 /* Auto-Completer */
 div.autocomplete {

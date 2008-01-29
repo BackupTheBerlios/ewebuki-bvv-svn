@@ -287,6 +287,7 @@ li.thumbs {
         border: 1px solid silver;
         float: left;
 /*         height: 130px; */
+        list-style:none;
         margin: 5px;
         width: 102px;
         text-align: center;
@@ -304,24 +305,29 @@ li.thumbs a.pic {
 /* compilation */
 .selection_teaser {
     background:#eee;
-    font-size:0.9em;
-    margin:5px 0;
+    clear:both;
     padding:0 3px;
 }
-.selection_teaser div {
-    background:#fff;
-}
-.selection_teaser li {
-    border: 1px solid #eee;
-    list-style:none;
-    margin: 2px;
-    padding:0;
-    -moz-border-radius: 0;
-}
-.selection_teaser span {
-    clear:both;
-    font-size:0.9em;
-}
+    .selection_teaser div {
+        background:#fff;
+    }
+
+    .selection_teaser ul {
+        margin:0;
+    }
+
+    .selection_teaser li {
+        border: 1px solid #eee;
+        list-style:none;
+        margin: 2px;
+        padding:0;
+        -moz-border-radius: 0;
+    }
+
+    .selection_teaser span {
+        clear:both;
+        font-size:0.9em;
+    }
 
 /* ---------------------*/
 
@@ -335,6 +341,7 @@ li.thumbs a.pic {
 #cEd li.files {
         border: 1px solid silver;
         float: left;
+        list-style:none;
         margin: 5px;
         padding: 3px;
         -moz-border-radius: 5px;
