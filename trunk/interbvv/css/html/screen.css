@@ -407,9 +407,12 @@ acronym {
         width:250px;
     }
 
+        #substance .viewer p {
+            width:auto;
+        }
+
         #substance .viewer .pic p {
             text-align:center;
-            width:auto;
         }
 
         #substance .viewer .pic img {
@@ -422,7 +425,8 @@ acronym {
 
     .viewer .desc {
         float:right;
-        width:260px;
+        margin-right:5px;
+        width:255px;
     }
 
 /* artikel-teaser */
