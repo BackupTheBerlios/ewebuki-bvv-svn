@@ -1,18 +1,20 @@
 <!--##begin-->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="de">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
     <head>
         <title>!#specialvars_pagetitle</title>
-        <meta name="author" content="">
-        <meta name="description" content=" ">
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
-        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css">
-        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css">
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
         <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
         <script type="text/javascript" src="../../js/html/prototype.js"></script>
         <script type="text/javascript" src="../../js/html/scriptaculous.js"></script>
         <script type="text/javascript" src="../../js/html/fontsize.js"></script>
+        <script type="text/javascript" src="../../js/html/lightbox.js"></script>
     </head>
 
     <body onload="init();">
@@ -20,31 +22,30 @@
         <div id="site">
 
             <div id="head">
-                <img src="../../images/html/wappen.gif" alt="" width="80" height="48" border="0" align="right"  />
-                <img src="../../images/html/banner.jpg" width="880" alt="" border="0" />
-
+                <img src="../../images/html/wappen.gif" alt="" width="80" style="float:right;" />
+                <img src="../../images/html/banner.jpg" width="880" alt="" style="float:left;" />
                 <div id="headnavi">
-                    <div class="schnellsuche right">
-                        <form action="!#pathvars_menuroot/search.html" name="qsearch" method="post">
+                    <form action="!#pathvars_menuroot/search.html" id="qsearch" method="post">
+                        <div class="schnellsuche right">
                             <input type="hidden" value="!#pathvars_requested" name="requested"/>
                             <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
                             <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
                                 <img src="../../images/html/start-suche.png" alt="" />
                             </button>
                             <div class="clear"></div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                     <ul>
                         <!--##loop-headnavi-->
                         <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
                         <!--##cont-->
                     </ul>
+                    <div class="clear"></div>
                 </div>
 
                 <p class="metanavi">
-<!--                    <a href="!#pathvars_menuroot/index.html" >Start</a> |
-                    <a href="!#pathvars_menuroot/sitemap.html" >Inhalt</a> |
-                    <a href="!#pathvars_menuroot/kontakt.html" >Kontakt</a>-->
+                    <a href="!#pathvars_menuroot/index.html" >Deutsch</a> |
+                    <a href="!#pathvars_menuroot/sitemap.html" >Sprache</a>
                     &nbsp;
                 </p>
                 <p class="kekse">#(kekse) !#environment_kekse</p>
@@ -59,22 +60,23 @@
                     <h1>&nbsp;</h1>
                     !#ausgaben_menu
                 </div>
+                <h1>&nbsp;</h1>
                 <ul class="navigation">
                     <li>
                         Dienststellen
                         <span id="indicator" style="display: none">
                             <img src="/images/html/ajax_indicator.gif" alt="Working..." />
                         </span>
-                        <div class="schnellsuche">
-                            <form action="!#pathvars_menuroot/amtsuche.html" method="get" name="suche">
+                        <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
+                            <div class="schnellsuche">
                                 <input id="suche_feld" value="Suche PLZ/Ort" name="auto_search" onfocus="this.value=''"/>
                                 <button type="submit" title="Start Suche" onclick="if (window.document.suche.gemeinde.value=='Suche PLZ/Ort'){window.document.suche.gemeinde.value='';}">
                                     <img src="../../images/html/start-suche.png" alt="" />
                                 </button>
                                 <div id="div_auto" class="autocomplete" style="display: none"></div>
                                 <div class="clear"></div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </li>
                     <li id="fontsize" style="display:none;">
                         Schriftgr&ouml;&szlig;en<br />
@@ -89,7 +91,7 @@
                         </a>
                         <p  class="clear" />
                     </li>
-                    <li><a href="">Impressum/<br> Datenschutz</a></li>
+                    <li><a href="">Impressum/<br /> Datenschutz</a></li>
                 </ul>
                 <div id="lock">
                     &nbsp;
