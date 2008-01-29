@@ -394,6 +394,7 @@
                                     } else {
                                         $data = $db -> fetch_array($result,1);
                                         $file_id = $data["fid"];
+                                        if ( $cfg["migrate"]["replace_files"] == True ) arrange( $file_id, $file2insert, str_replace($_SESSION["uid"]."_","",$name), 0 );
                                         preg_match("/#p([0-9]*),[0-9]*/",$data["fhit"],$match);
                                         $compid = $match[1];
                                     }
