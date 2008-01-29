@@ -154,7 +154,7 @@ acronym {
     #head p.metanavi{
         background:#9AC7E4;
         margin:0;
-        text-align:center;
+        text-align:right;
         width:160px;
     }
 
@@ -315,7 +315,7 @@ acronym {
 #margin{
     background:#eeeeee;
     float:left;
-    margin-left:10;
+    margin-left:10px;
     padding:6px 0 10px 0;
     width:160px;
 }
@@ -366,7 +366,7 @@ acronym {
     .schnellsuche input{
         border:none;
         float:left;
-        width:100;
+        width:100px;
     }
 
     .schnellsuche button{

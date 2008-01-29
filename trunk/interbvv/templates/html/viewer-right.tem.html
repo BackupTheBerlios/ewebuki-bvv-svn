@@ -11,7 +11,19 @@
 <!--$Id: viewer.tem.html 938 2007-10-31 13:26:17Z chaot $-->
 <div id="substance">
 
-    <p><a href="!#ausgaben_referer">g(back)</a></p>
+    <h1>!#ausgaben_pagetitle</h1>
+
+    <p style="text-align:right;float:right;margin-top:0;font-size:0.8em;">
+        <!--##hide-navi-->
+        <a href="!#ausgaben_prev">g(prev)</a> |
+        <!--##show-->
+        <a href="!#ausgaben_referer">g(back)</a>
+        <!--##hide-navi-->
+         | <a href="!#ausgaben_next">g(next)</a>
+        <!--##show-->
+    </p>
+    <div style="clear:both;"></div>
+
     <div class="viewer">
         <!--##hide-nogallery-->
         <h1>!#ausgaben_beschriftung</h1>
@@ -20,12 +32,14 @@
         <h1>!{title}</h1>
         <!--##show-->
         <div class="pic">
+            <!--##hide-navi-->
             <p>
                 <a href="!#ausgaben_prev"><img src="../../images/html/prev.jpg" alt="g(prev)" title="g(prev)" style="float:left;" /></a>
                 <a href="!#ausgaben_next"><img src="../../images/html/next.jpg" alt="g(next)" title="g(next)" style="float:right;" /></a>
                 g(picture) !#ausgaben_aktuell g(of) !#ausgaben_gesamt
                 <div style="clear:both;"></div>
             </p>
+            <!--##show-->
             <p>
                 <!--##hide-lightbox-->
                 <a rel="lightbox" href="!{orig_src}" title="!#ausgaben_beschriftung">
