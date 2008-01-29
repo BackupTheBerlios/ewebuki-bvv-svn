@@ -105,13 +105,14 @@ acronym {
       elemente nicht umbrechen koennen
 ------------------------------------------------------*/
 #site{
-    background:url('/images/html/background.png') repeat-y;
+/*     background:url('/images/html/background.png') repeat-y; */
     width:1000px;
 }
 
 /* kopfbereich mit banner, logo, kopfnavigation, kekse
 ------------------------------------------------------*/
 #head{
+    background:url('/images/html/background.png') repeat-y;
     width:980px;
 }
 
@@ -194,14 +195,14 @@ acronym {
         #navi ul.navigation {
             border-top:1px solid #fff;
             color:#2A5A8A;
-            margin:0 0 5px 0;
+            margin:0 0 5px 15px;
 /*             padding-left:10px; */
         }
 
             /* menuepunkte der ebene 1 */
             #navi ul.navigation li {
                 border-bottom:1px solid #fff;
-                padding: 5px 0 5px 15px;
+                padding: 5px 0 5px 0;
             }
 
                 /* level1-links werden fett dargestellt */
@@ -240,26 +241,37 @@ acronym {
     #substance .sub_menu {
         border:1px solid #ccc;
         float:right;
+        margin:5px 0;
         width:150px;
         overflow:hidden;
         text-align:right;
     }
 
-        #substance .sub_menu h1 {
+        #substance .sub_menu h2 {
             background:#9AC7E4;
+            margin:0;
             padding:0.3em;
         }
 
-        #substance .sub_menu li {
+        #substance .sub_menu p {
+            padding:0 0.3em;
+            width:auto;
+        }
+
+        #substance .sub_menu li, #substance .aktuell a {
             font-weight:bold;
             list-style:none;
-            padding:0 0.3em 0.3em 0;
+            padding-right:0.3em;
         }
     /* + + + */
     /* sub-menu */
 
     #substance .left {
         float:left;
+        width:380px;
+    }
+
+    #substance p {
         width:380px;
     }
 
@@ -276,7 +288,7 @@ acronym {
     /* listen im content-bereich sollen so aussehen */
     #substance ul{
         list-style:disc;
-        margin:0.7em 0 0.7em 1em;
+        margin:0.7em 0 0 1em;
         padding-left:1em;
     }
 
@@ -349,8 +361,9 @@ acronym {
     text-align:center;
 }
 
-    .box h1, .viewer h1 {
-        background:url('/images/html/heading_1.jpg') repeat-x center;
+    .box h1, .viewer h1, div.aktuell h2, #substance .sub_menu h1 {
+/*         background:url('/images/html/heading_1.jpg') repeat-x center; */
+        background:#9AC7E4;
         border:none;
         font-size:1em;
         padding:0.2em;
@@ -373,8 +386,9 @@ acronym {
         width:250px;
     }
 
-        .viewer .pic p {
+        #substance .viewer .pic p {
             text-align:center;
+            width:auto;
         }
 
         #substance .viewer .pic img {
@@ -395,6 +409,10 @@ p.teaser{
 /*     clear:both; */
 /*     clear:left; */
     font-weight:bold;
+}
+
+div.aktuell h2 {
+
 }
 
 img.teaser {
