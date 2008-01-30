@@ -24,8 +24,7 @@ body{
 }
 
 h1{
-    border-bottom:1px solid #ccc;
-    color:#303030;
+    border-bottom:1px solid #cccccc;
     font-size:1.15em;
     margin:0;
     padding-bottom:3px;
@@ -33,7 +32,13 @@ h1{
 
 h2{
     font-size:1.15em;
-    margin:0.7em 0 0 0;
+    margin:0.5em 0 0 0;
+}
+
+h3 {
+    border-top:1px solid #cccccc;
+    margin:35px 0 0;
+    padding-top:0.5em;
 }
 
 a{
@@ -53,7 +58,7 @@ a img{
 }
 
 p {
-    margin:0.7em 0;
+    margin:0.5em 0;
 }
 
 hr {
@@ -87,8 +92,9 @@ fieldset{
 }
 
 acronym {
-    background:#efefef;
-    border-bottom:1px dashed #cccccc;
+/*     background:#efefef; */
+    border-bottom:1px dashed #CC3300;
+    color:#4775A3;
     cursor:help;
 }
 
@@ -273,6 +279,7 @@ acronym {
             list-style:none;
             padding-right:0.3em;
         }
+
     /* + + + */
     /* sub-menu */
 
@@ -384,9 +391,18 @@ acronym {
     text-align:center;
 }
 
-    .box h1, .viewer h1, div.aktuell h2, #substance .sub_menu h1 {
+    .box h1, .viewer h1, #substance .sub_menu h1 {
         background:#9AC7E4;
         border-bottom:1px solid #9AC7E4;
+        padding:0.2em 3px;
+        text-align:left;
+    }
+
+    .box h3 {
+        border:none;
+        border-bottom:1px solid #cccccc;
+        font-size:1.15em;
+        margin:0;
         padding:0.2em 3px;
         text-align:left;
     }
