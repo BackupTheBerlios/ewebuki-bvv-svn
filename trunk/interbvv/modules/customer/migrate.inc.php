@@ -97,39 +97,28 @@
                             $$var_child = get_mid($kategorie,$$var_parent);
                         }
                     }
-// echo "\$file: $file<br>";
 
                     //  3.1 odt auspacken
                     $zip = new ZipArchive;
                     if ($zip->open($cfg["migrate"]["path"].$subdir_entry."/txt/".$file) == TRUE) {
                         $content =  $zip->getFromName('content.xml');
-// if ($file == "gelaendemodell_dgm2.odt") echo "\$content\n".str_replace(">",">\n",$content)."<br><hr>";
                         if ( $cfg["migrate"]["utf-8"] == False ) $content = utf8_decode($content);
-// if ($file == "gelaendemodell.odt") echo "\$content\n".str_replace(">",">\n",$content)."<br><hr>";
                         $style   =  $zip->getFromName('styles.xml');
                     }
 
-                    // 3.2
+                    // 3.2 ggf weitere tags aus dem odt-header holen
                     preg_match_all("/(\<style:style )(.*)(>)/".$preg_mod,$content,$match);
-// if ($file == "gelaendemodell_dgm2.odt") echo "<pre>\$content\n".print_r($match,true)."<br></pre><hr>";
                     foreach ( $match[0] as $key=>$value ) {
                         preg_match("/style:parent-style-name=\"(.*)\"/".$preg_mod,$value,$parent);
-// if ($file == "gelaendemodell_dgm2.odt") echo "<pre>\$content\n".print_r($parent,true)."<br></pre><hr>";
-                        $cfg_tag = iconv("UTF-8","ISO-8859-15",$parent[1]);
+                        $cfg_tag = @iconv("UTF-8","ISO-8859-15",$parent[1]);
                         if ( is_array($cfg["migrate"]["tags"][$cfg_tag]) ) {
                             preg_match("/style:name=\"(.*)\"/".$preg_mod,$value,$child);
-// if ($file == "gelaendemodell_dgm2.odt") echo "<pre>\$cfg\n".print_r($cfg["migrate"]["tags"][$cfg_tag],true)."<br></pre><hr>";
                             $cfg["migrate"]["tags"][$child[1]] = $cfg["migrate"]["tags"][$cfg_tag];
                         }
-// if ($file == "gelaendemodell_dgm2.odt") echo "<pre>\$content\n".print_r($parent,true)."<br></pre><hr>";
                     }
-// if ($file == "gelaendemodell_dgm2.odt") echo "<pre>\$content\n".print_r($cfg["migrate"]["tags"],true)."<br></pre><hr>";
-// echo "\$style\n".str_replace(">",">\n",$style);
-// echo "\$content\n".str_replace(">",">\n",$content);
-// if ($file == "geobasisdaten-des-liegenschaftskatasters_gebuehren.odt") echo "\$content\n".str_replace(">",">\n",$content)."<br><hr>";
 
                     //  4.  Marken finden, Tags setzen
-                    //  41..  Listen
+                    //  4.1.  Listen
                     preg_match_all("/(\<text:list .*>)(.*)(\<\/text:list\>)/".$preg_mod,$content,$match);
                     foreach ( $match[0] as $key=>$lists ) {
                         preg_match_all("/(\<text:list-item><text:p.*>)(.*)(\<\/text:p.*><\/text:list-item\>)/".$preg_mod,$match[0][$key],$items);
@@ -153,10 +142,10 @@
                         $content = preg_replace("/<text\:[^>]*\/>/".$preg_mod,"",$content);
                     }
                     preg_match_all("/(\<text\:[hp] text\:style-name=\")(.*)(\".*>)(.*)(\<\/text\:[hp]\>)/".$preg_mod,$content,$match);
-// if ($file == "Bayernviewer.odt") echo "<pre>\$match\n".print_r($match,true)."<br></pre><hr>";
                     $merker = 0;
                     foreach ( $match[0] as $key=>$value ) {
                         $tag = utf8_decode($match[2][$key]);
+                        if ( $cfg["migrate"]["utf-8"] == False ) $tag = $match[2][$key];
                         /* evtl menu-eintrag ergaenzen */
                         if ( ($tag == "BVV-Überschrift" || $cfg["migrate"]["tags"][$tag]["start"] == "[H1]" ) && $merker == 0 ) {
                             if ( $menu[1] != "" ) {
@@ -173,15 +162,9 @@
                         }
                         $content = str_replace($value,$ersetzung,$content);
                     }
-// if ($file == "Bayernviewer.odt") echo "<pre>\$match\n".print_r($match,true)."<br></pre><hr>";
 
                     //  4.4.  die restlichen xml-tags entfernen
-// if ($file == "gelaendemodell.odt") echo "\$content\n".str_replace(">",">\n",$content)."<br><hr>";
-// preg_match_all("/(\<)(.*)(\>)/".$preg_mod,$content,$match);
-// if ($file == "geobasisdaten-des-liegenschaftskatasters_gebuehren.odt") echo "<pre>".print_r($match,true)."</pre>";
                     $content = preg_replace("/(\<)(.*)(\>)/".$preg_mod,"",$content);
-//                     $content = utf8_decode($content);
-// if ($file == "geobasisdaten-des-liegenschaftskatasters_gebuehren.odt") echo "\$content\n".str_replace(">",">\n",$content)."<br><hr>";
 
                     //  5. Daten-Handling
                     //  5.1. Bilder, Archive, Dokumente
@@ -225,7 +208,6 @@
                                                                    '".$match[3][$key]."',
                                                                    '".$match[3][$key]."',
                                                                    'from ".$file."')";
-// if ( $file == "orthophotos.odt" ) echo "\$sql: $sql<br>";
                                     $result  = $db -> query($sql);
                                     /* zu dateiablage hinzufuegen */
                                     if ( $result ) {
@@ -266,38 +248,19 @@
                     }
 
                     // 5.2.  Tabellen
-//                     $content = iconv("UTF-8","ISO-8859-15",$content);
                     preg_match_all("/##(tab)_(.*)##/".$preg_mod,$content,$match);
                     foreach ( $match[0] as $key=>$tabs ) {
                         $tab_file_name = str_replace(strstr(";",$match[2][$key]),"",$match[2][$key]);
                         $tab_file = $cfg["migrate"]["path"].$subdir_entry."/".$cfg["migrate"]["filedirs"][$match[1][$key]]."/".$tab_file_name;
                         if ( file_exists($tab_file) ) {
-// if ($file == "geobasisdaten-des-liegenschaftskatasters_gebuehren.odt") echo "\$tab_file: ".$tab_file."<br>(".iconv_get_encoding($tab_file).")<hr>";
-// $Sonderzeichen = array(164,228,196,214,246,252,220);
-// if ( $tab_file_name == "dfk-katasterauszug.csv" || $tab_file_name == "dfk-digital.csv" ){
-//     echo "\$tab_file_name: $tab_file_name<br>";
-//     echo "--".iconv("ISO-8859-15","UTF-8",chr(164))."<br>";
-// }
                             $lines = file($tab_file);
                             /* 1. Durchlauf: bestimmung der maximalen Spaltenzahl */
                             $max = 0;
                             foreach ( $lines as $value ){
-// if ( $tab_file_name == "dfk-katasterauszug.csv" || $tab_file_name == "dfk-digital.csv" ){
-//     foreach ( $Sonderzeichen as $sz ) {
-//         $value = str_replace(chr($sz),iconv("ISO-8859-15","UTF-8",chr($sz)),$value);
-//     }
-//     echo "\$value: $value<br>";
-//     for ($i=0;$i<strlen($value);$i++) {
-//         echo $value[$i]." (".ord($value[$i]).")"."<br>";
-//     }
-// }
                                 $buffer = explode(";",$value);
                                 if ( count($buffer) == 1 ) $buffer = explode('","',$value);
                                 if ( count($buffer) > $max ) $max = count($buffer);
                             }
-// if ( $tab_file_name == "dfk-katasterauszug.csv" || $tab_file_name == "dfk-digital.csv" ){
-//     echo "<hr>";
-// }
                             /* 2. Durchlauf: bauen der tabelle */
                             $table = "";
                             foreach ( $lines as $value ){
@@ -383,8 +346,6 @@
                                                                        '".$value["fdesc"]."',
                                                                        '".$value["funder"]."',
                                                                        '".$comp_tag." from ".$file."')";
-// if ( $file == "orthophotos.odt" ) echo "\$sql: $sql<br>";
-//                                         $sql = iconv("UTF-8","ISO-8859-15",$sql);
                                         $result  = $db -> query($sql);
                                         /* zu dateiablage hinzufuegen */
                                         if ( $result ) {
@@ -395,12 +356,13 @@
                                         $data = $db -> fetch_array($result,1);
                                         $file_id = $data["fid"];
                                         if ( $cfg["migrate"]["replace_files"] == True ) arrange( $file_id, $file2insert, str_replace($_SESSION["uid"]."_","",$name), 0 );
-                                        preg_match("/#p([0-9]*),[0-9]*/",$data["fhit"],$match);
-                                        $compid = $match[1];
+                                        preg_match("/#p([0-9]*),[0-9]*/",$data["fhit"],$match_compid);
+                                        $compid = $match_compid[1];
                                     }
                                     if ( $i < $cfg["migrate"]["tags"]["selektion"]["pics"] ) {
                                         $pics[] = $file_id;
                                     }
+                                    unlink($file2insert);
                                 }
                             }
                             /* vorschaubilder suchen */
@@ -421,6 +383,7 @@
                     // leere marken werden entfernt
                     if ( preg_match("/##.*##/".$preg_mod,$content) ) $content = preg_replace("/##.*##/".$preg_mod,"",$content);
                     if ( preg_match("/\[P[^\[]*\][\s]*\[\/P\]/".$preg_mod,$content) ) $content = preg_replace("/\[P[^\[]*\][\s]*\[\/P\]/".$preg_mod,"",$content);
+
 
 
                     // sonderkonstellationen werden bereinigt
@@ -444,6 +407,27 @@
                                             $cfg["migrate"]["tags"]["clear"].'${1}',
                                             $content
                     );
+                    // menue der 3. ebene anzeigen
+                    $sec_menu = "[DIV=sub_menu][H1]Zum Thema[/H1]#{sub_menu}[/DIV]";
+                    if ( $index_child > 1 ) {
+                        $content = preg_replace("/(\[H1\].*\[\/H1\])/".$preg_mod,
+                                                '${1}'."\n".$sec_menu,
+                                                $content
+                        );
+                    }
+                    // menuepunkte der 4. ebene unten einblenden
+                    $add_links = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]";
+                    if ( $index_child == 3 ) {
+                        $content .= $add_links;
+                    }
+if ( $file == "DVD_Top50V5_FAQ.odt" ) {
+    echo "\$index_child: $index_child<br>";
+}
+                    // bei menuepunkte der 4. ebene wird M1-Tag eingefuegt
+                    $add_m1 = "\n[M1]g(back)[/M1]\n";
+                    if ( $index_child > 3 ) {
+                        $content .= $add_m1;
+                    }
 
 
                     // 6.  Content einfuegen
@@ -470,11 +454,7 @@
                              LIMIT 0,1";
                     $result  = $db -> query($sql);
                     $num = $db->num_rows($result);
-// echo "\$ebene: $ebene<br>";
-// echo "\$num: $num<br>";
-// echo "\$entry: $entry<br>";
-// echo "\$tname: $tname<br>";
-// echo "\$file: $file<br>";
+
                     if ( $num == 0 ) {
                         $ausgaben["output"] .= "Noch kein Content vorhanden, eingefuegt<br>";
                         $sql = "INSERT INTO site_text (lang,
@@ -503,7 +483,6 @@
                                                        '".$_SESSION["email"]."',
                                                        '".$_SESSION["alias"]."',
                                                        '0')";
-// echo "\$sql: $sql<br>";
                         $result  = $db -> query($sql);
                     } else {
                         $data = $db -> fetch_array($result,1);
@@ -547,8 +526,6 @@
             }
 
         }
-
-// $ausgaben["output"] .= tagreplace($content);
 
     } else {
         header("Location: ".$pathvars["virtual"]."/");
