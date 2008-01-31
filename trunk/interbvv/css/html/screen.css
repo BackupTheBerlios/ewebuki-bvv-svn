@@ -274,6 +274,10 @@ acronym {
             width:auto;
         }
 
+        #substance .sub_menu ul {
+            width:auto;
+        }
+
         #substance .sub_menu li, #substance .aktuell a {
             font-weight:bold;
             list-style:none;
@@ -290,6 +294,9 @@ acronym {
 
     #substance p {
         width:380px;
+    }
+    #substance ul, #substance ol {
+        width:345px;
     }
 
     #substance table {
@@ -391,9 +398,11 @@ acronym {
     text-align:center;
 }
 
-    .box h1, .viewer h1, #substance .sub_menu h1 {
+    .viewer h1, #substance .sub_menu h3 {
         background:#9AC7E4;
+        border:none;
         border-bottom:1px solid #9AC7E4;
+        margin:0;
         padding:0.2em 3px;
         text-align:left;
     }
