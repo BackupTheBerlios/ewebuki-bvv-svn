@@ -64,14 +64,13 @@
         $maxlength = str_replace(array("(",")"),"",strstr($buffer[3]["Type"],"("));
         $label = substr($label,0,($maxlength));
 
-
-
         $sql = "SELECT *
                     FROM site_menu
                     WHERE entry='".$entry."'
                     AND refid=".$refid;
         $result = $db -> query($sql);
         $num = $db->num_rows($result);
+        $id = "";
         if ( $num == 0 ) {
             $sql = "INSERT INTO site_menu (entry, refid, defaulttemplate, hide, mandatory, level) VALUES ('".$entry."', ".$refid.", '".$cfg["migrate"]["def_temp"]."', '0', '0', '')";
             $result = $db -> query($sql);

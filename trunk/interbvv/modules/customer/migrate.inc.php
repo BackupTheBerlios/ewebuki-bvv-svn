@@ -58,8 +58,19 @@
             }
         }
 
+        // utf-kodierung?
         $preg_mod = "Uusi";
         if ( $cfg["migrate"]["utf-8"] == False ) $preg_mod = "Usi";
+
+        // menue-namen holen
+        if ( file_exists($cfg["migrate"]["path"]."menue_struktur.csv") ) {
+            $fd = fopen($cfg["migrate"]["path"]."menue_struktur.csv", "r");
+            while (!feof($fd)) {
+                $line = fgets($fd,1024);
+                $array = explode(";",$line);
+                $menu_csv[trim($array[0]," \"")] = str_replace("\"","",trim($array[2]));
+            }
+        }
 
 
         //  1. Sub-Dirs durchgehen
@@ -94,8 +105,7 @@
                             $var_child = "refid_".$index_child;
                             $index_parent = $key + 1;
                             $var_parent = "refid_".$index_parent;
-                            $$var_child = get_mid($kategorie,$$var_parent);
-                        }
+                            $$var_child = get_mid($kategorie,$$var_parent,$menu_csv[$ebene."/".$kategorie]);
                     }
 
                     //  3.1 odt auspacken
@@ -147,14 +157,14 @@
                         $tag = utf8_decode($match[2][$key]);
                         if ( $cfg["migrate"]["utf-8"] == False ) $tag = $match[2][$key];
                         /* evtl menu-eintrag ergaenzen */
-                        if ( ($tag == "BVV-Überschrift" || $cfg["migrate"]["tags"][$tag]["start"] == "[H1]" ) && $merker == 0 ) {
-                            if ( $menu[1] != "" ) {
-                                $refid_3 = get_mid(str_replace(" ","_",$menu[1]),$refid_2,$match[4][$key]);
-                            } else {
-                                $refid_2 = get_mid(str_replace(" ","_",$menu[0]),$refid_1,$match[4][$key]);
-                            }
-                            $merker = 1;
-                        }
+//                         if ( ($tag == "BVV-Überschrift" || $cfg["migrate"]["tags"][$tag]["start"] == "[H1]" ) && $merker == 0 ) {
+//                             if ( $menu[1] != "" ) {
+//                                 $refid_3 = get_mid(str_replace(" ","_",$menu[1]),$refid_2,$match[4][$key]);
+//                             } else {
+//                                 $refid_2 = get_mid(str_replace(" ","_",$menu[0]),$refid_1,$match[4][$key]);
+//                             }
+//                             $merker = 1;
+//                         }
                         if ( is_array($cfg["migrate"]["tags"][$tag]) ) {
                             $ersetzung = $cfg["migrate"]["tags"][$tag]["start"].$match[4][$key].$cfg["migrate"]["tags"][$tag]["end"]."\n";
                         } else {
@@ -408,7 +418,7 @@
                                             $content
                     );
                     // menue der 3. ebene anzeigen
-                    $sec_menu = "[DIV=sub_menu][H1]Zum Thema[/H1]#{sub_menu}[/DIV]";
+                    $sec_menu = "\n[DIV=sub_menu]\n[H3]Zum Thema[/H3]\n#{sub_menu}\n[/DIV]\n";
                     if ( $index_child > 1 ) {
                         $content = preg_replace("/(\[H1\].*\[\/H1\])/".$preg_mod,
                                                 '${1}'."\n".$sec_menu,
@@ -416,15 +426,12 @@
                         );
                     }
                     // menuepunkte der 4. ebene unten einblenden
-                    $add_links = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]";
+                    $add_links = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]\n";
                     if ( $index_child == 3 ) {
                         $content .= $add_links;
                     }
-if ( $file == "DVD_Top50V5_FAQ.odt" ) {
-    echo "\$index_child: $index_child<br>";
-}
                     // bei menuepunkte der 4. ebene wird M1-Tag eingefuegt
-                    $add_m1 = "\n[M1]g(back)[/M1]\n";
+                    $add_m1 = "\n[DIV=aktuell]\ng(additional_news)\n[M1]g(back)[/M1]\n[/DIV]\n";
                     if ( $index_child > 3 ) {
                         $content .= $add_m1;
                     }
