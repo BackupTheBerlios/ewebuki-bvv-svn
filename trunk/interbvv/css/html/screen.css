@@ -299,6 +299,10 @@ acronym {
         width:345px;
     }
 
+        #substance .selection_teaser ul, #substance .selection_teaser ol {
+            width:auto;
+        }
+
     #substance table {
         font-size:inherit;
     }
