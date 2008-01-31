@@ -106,6 +106,7 @@
                             $index_parent = $key + 1;
                             $var_parent = "refid_".$index_parent;
                             $$var_child = get_mid($kategorie,$$var_parent,$menu_csv[$ebene."/".$kategorie]);
+                        }
                     }
 
                     //  3.1 odt auspacken
