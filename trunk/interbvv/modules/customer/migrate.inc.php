@@ -426,6 +426,15 @@
                                                 $content
                         );
                     }
+                    // gibt es eine banner-grafik kommt das 3.ebene-menue darunter und der link kommt weg
+                    $content = preg_replace("/(\[DIV=sub_menu\].+\[\/DIV\])(\n*\[IMG=[^\]]+\].+\[\/IMG\])/".$preg_mod,
+                                            '${2}${3}${1}',
+                                            $content
+                    );
+                    $content = preg_replace("/(\[\/H1\][\n]*\[IMG=.*);.*([\]])/".$preg_mod,
+                                            '${1}${2}',
+                                            $content
+                    );
                     // menuepunkte der 4. ebene unten einblenden
                     $add_links = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]\n";
                     if ( $index_child == 3 ) {

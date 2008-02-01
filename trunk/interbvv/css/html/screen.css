@@ -92,9 +92,7 @@ fieldset{
 }
 
 acronym {
-/*     background:#efefef; */
-    border-bottom:1px dashed #CC3300;
-    color:#4775A3;
+    border-bottom:1px dashed #303030;
     cursor:help;
 }
 
