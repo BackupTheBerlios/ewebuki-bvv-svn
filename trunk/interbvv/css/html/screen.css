@@ -261,6 +261,7 @@ del {
     /* * * * */
     #substance .sub_menu {
         border:1px solid #ccc;
+        border-top:5px solid #ccc;
         float:right;
         margin:5px 0;
         width:150px;
@@ -280,6 +281,7 @@ del {
         }
 
         #substance .sub_menu ul {
+            margin:0.5em 0;
             width:auto;
         }
 
@@ -332,6 +334,26 @@ del {
         margin-left:0;
         padding-left:0;
     }
+
+    /* aktuell-box */
+    #substance .aktuell {
+        background:#fafafa;
+        border-top:5px solid #cccccc;
+        margin-top:35px;
+    }
+
+        #substance .aktuell h3 {
+/*             display:none; */
+        }
+
+        #substance .aktuell p {
+            width:100%;
+        }
+
+        #substance .aktuell a {
+            background:url('/images/html/dash.png') no-repeat;
+            padding-left:16px;
+        }
 
 /* marginal-spalte
 -----------------------*/
@@ -418,8 +440,8 @@ del {
 
     .box h3 {
         border:none;
-        border-bottom:1px solid #cccccc;
-        font-size:1.15em;
+        color:#444444;
+        font-size:1em;
         margin:0;
         padding:0.2em 3px;
         text-align:left;
@@ -441,19 +463,25 @@ del {
         width:250px;
     }
 
+    .viewer .pic_wide {
+        background:#efefef;
+        padding:0.5em 0;
+    }
+
         #substance .viewer p {
             width:auto;
         }
 
-        #substance .viewer .pic p {
+        #substance .viewer .pic p, #substance .viewer .pic_wide p {
             text-align:center;
+            margin:0;
         }
 
-        #substance .viewer .pic img {
+        #substance .viewer .pic img, #substance .viewer .pic_wide img {
             margin:0.2em 0;
         }
 
-            #substance .viewer .pic p img {
+            #substance .viewer .pic p img. #substance .viewer .pic_wide p img {
                 vertical-align:middle;
             }
 
@@ -461,6 +489,10 @@ del {
         float:right;
         margin-right:5px;
         width:255px;
+    }
+
+    .viewer .desc_wide {
+        margin:0 5px;
     }
 
 /* artikel-teaser */
@@ -471,6 +503,35 @@ p.teaser{
 .teaser-margin{
     margin-left:100px;
 }
+
+/* imgb-tag */
+.imgb {
+    border:1px solid #cccccc;
+}
+
+    .imgb div {
+        margin:0 !important;
+    }
+
+        .imgb div img {
+            border:0;
+            float:left;
+        }
+
+    .imgb p {
+        margin:0 !important;
+        clear:left;
+        padding-left:2px;
+    }
+
+        .imgb p a {
+            background: url('/images/default/filefind.png') no-repeat;
+            padding-left:25px;
+        }
+
+        #substance .imgb p {
+            width:auto;
+        }
 
 /* Auto-Completer */
 div.autocomplete {
