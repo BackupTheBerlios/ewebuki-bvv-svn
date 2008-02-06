@@ -96,6 +96,13 @@ acronym {
     cursor:help;
 }
 
+ins {
+    color:green;
+}
+
+del {
+    color:red;
+}
 
 /*----------------------------
   id-definitionen (bereiche)
