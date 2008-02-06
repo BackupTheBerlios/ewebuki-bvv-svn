@@ -46,7 +46,6 @@
 
     include $pathvars["moduleroot"]."admin/fileed2.cfg.php";
     $cfg["fileed"]["function"]["migrate"] = $cfg["migrate"]["function"]["migrate"];
-// echo "<pre>".print_r($cfg,true)."</pre>";
     include $pathvars["moduleroot"]."admin/fileed2-functions.inc.php";
     include $pathvars["moduleroot"]."libraries/function_file_validate.inc.php";
     include $pathvars["moduleroot"]."libraries/function_zip_handling.inc.php";
@@ -84,6 +83,44 @@
             $result = $db -> query($sql);
         }
         return $id;
+    }
+
+    // gibt es zu dem menuepunkt kein dokument wird er ausgeblendet
+    function check_menu($id,$subdir,$ebene="") {
+        global $db, $cfg, $sql, $ausgaben, $buffer;
+
+        $sql = "SELECT *
+                  FROM site_menu
+                 WHERE refid=".$id;
+        $result = $db -> query($sql);
+
+        $return = False;
+
+        while ( $data = $db->fetch_array($result,1) ){
+            $new_ebene = $ebene.$data["entry"];
+
+            $file = $cfg["migrate"]["path"].$subdir."/txt/".$new_ebene.".odt";
+
+            $return = check_menu($data["mid"],$subdir,$new_ebene."_");
+
+            if ( file_exists($file) || $return == True ) {
+                $sql = "UPDATE site_menu
+                           SET hide='0'
+                         WHERE mid=".$data["mid"];
+                $return = True;
+                $ausgaben["output"] .= " - SHOW ".$new_ebene."<br>";
+            } else {
+                $sql = "UPDATE site_menu
+                           SET hide='-1'
+                         WHERE mid=".$data["mid"];
+                $ausgaben["output"] .= " - HIDE ".$new_ebene."<br>";
+            }
+            $res = $db -> query($sql);
+
+        }
+
+        return $return;
+
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
