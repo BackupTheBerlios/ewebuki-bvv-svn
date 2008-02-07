@@ -406,7 +406,7 @@
                                             $content
                     );
                     // umbruch vor ueberschrift
-                    $content = preg_replace("/(\[H[0-9]{1}\][^\[]+\[\/H[0-9]{1}\])([\n]?\[IMG=[^\]]*\][^\[]*\[\/IMG\])/".$preg_mod,
+                    $content = preg_replace("/(\[H[2-9]{1}\][^\[]+\[\/H[0-9]{1}\])([\n]?\[IMG=[^\]]*\][^\[]*\[\/IMG\])/".$preg_mod,
                                             $cfg["migrate"]["tags"]["clear"].'${1}${2}',
                                             $content
                     );
@@ -438,7 +438,7 @@
                                             $content
                     );
                     $content = preg_replace("/(\[\/H1\][\n]*\[IMG=.*);.*([\]])/".$preg_mod,
-                                            '${1};;;10;10${2}',
+                                            '${1};;;;10;10${2}',
                                             $content
                     );
                     // menuepunkte der 4. ebene unten einblenden
