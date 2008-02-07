@@ -90,6 +90,7 @@
 
                     //  2. Menue-Punkte checken
                     if ( $file == "start.odt" ) {
+                        $index_child = 0;
                         $ebene = "";
                         $kategorie = $subdir_entry;
                     } else {
@@ -105,6 +106,7 @@
                             $var_child = "refid_".$index_child;
                             $index_parent = $key + 1;
                             $var_parent = "refid_".$index_parent;
+// $ausgaben["output"] .= $ebene."/".$kategorie.": ".$menu_csv[$ebene."/".$kategorie]."<br>";
                             $$var_child = get_mid($kategorie,$$var_parent,$menu_csv[$ebene."/".$kategorie]);
                         }
                     }
@@ -419,12 +421,16 @@
                                             $content
                     );
                     // menue der 3. ebene anzeigen
-                    $sec_menu = "\n[DIV=sub_menu]\n[H3]Zum Thema[/H3]\n#{sub_menu}\n[/DIV]\n";
+                    $sec_menu = "\n[DIV=sub_menu]\n#{sub_menu}\n[/DIV]\n";
                     if ( $index_child > 1 ) {
-                        $content = preg_replace("/(\[H1\].*\[\/H1\])/".$preg_mod,
-                                                '${1}'."\n".$sec_menu,
-                                                $content
-                        );
+                        if ( preg_match("/(\[H1\].*\[\/H1\])/".$preg_mod,$content) ) {
+                            $content = preg_replace("/(\[H1\].*\[\/H1\])/".$preg_mod,
+                                                    '${1}'."\n".$sec_menu,
+                                                    $content
+                            );
+                        } else {
+                            $content = $sec_menu.$content;
+                        }
                     }
                     // gibt es eine banner-grafik kommt das 3.ebene-menue darunter und der link kommt weg
                     $content = preg_replace("/(\[DIV=sub_menu\].+\[\/DIV\])(\n*\[IMG=[^\]]+\].+\[\/IMG\])/".$preg_mod,
@@ -432,16 +438,16 @@
                                             $content
                     );
                     $content = preg_replace("/(\[\/H1\][\n]*\[IMG=.*);.*([\]])/".$preg_mod,
-                                            '${1}${2}',
+                                            '${1};;;10;10${2}',
                                             $content
                     );
                     // menuepunkte der 4. ebene unten einblenden
-                    $add_links = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]\n";
-                    if ( $index_child == 3 ) {
-                        $content .= $add_links;
+                    $add_m1 = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]\n";
+                    if ( $index_child == 3 && check_sub_item($$var_child) > 0 ) {
+                        $content .= $add_m1;
                     }
                     // bei menuepunkte der 4. ebene wird M1-Tag eingefuegt
-                    $add_m1 = "\n[DIV=aktuell]\ng(additional_news)\n[M1]g(back)[/M1]\n[/DIV]\n";
+                    $add_m1 = "\n[DIV=aktuell]\ng(additional_news)\n[M1=l]g(back)[/M1]\n[/DIV]\n";
                     if ( $index_child > 3 ) {
                         $content .= $add_m1;
                     }

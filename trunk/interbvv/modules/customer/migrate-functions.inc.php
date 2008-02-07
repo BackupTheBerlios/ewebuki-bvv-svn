@@ -85,6 +85,19 @@
         return $id;
     }
 
+    // gibt es unterpunkte zu dem menuepunkt
+    function check_sub_item($refid) {
+        global $db, $cfg, $ausgaben;
+
+        $sql = "SELECT *
+                  FROM site_menu
+                 WHERE refid=".$refid;
+        $result = $db -> query($sql);
+        $num = $db->num_rows($result);
+
+        return $num;
+    }
+
     // gibt es zu dem menuepunkt kein dokument wird er ausgeblendet
     function check_menu($id,$subdir,$ebene="") {
         global $db, $cfg, $sql, $ausgaben, $buffer;
