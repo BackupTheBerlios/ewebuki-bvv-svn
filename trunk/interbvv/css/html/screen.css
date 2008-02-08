@@ -301,6 +301,11 @@ del {
     #substance p {
         width:380px;
     }
+
+        #substance.artikel p.teaser {
+            width:100%;
+        }
+
     #substance ul, #substance ol {
         width:345px;
     }
@@ -349,7 +354,7 @@ del {
             width:100%;
         }
 
-        #substance .aktuell a {
+        #substance .aktuell p a {
             background:url('/images/html/dash.png') no-repeat;
             padding-left:16px;
         }
