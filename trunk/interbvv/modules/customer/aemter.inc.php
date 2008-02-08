@@ -88,7 +88,7 @@
             $sql = "SELECT *
                       FROM db_adrd
                       JOIN db_adrd_kate ON (adkate=katid)
-                     WHERE adid=".$id." AND adkate IN (3,4,5,8)";
+                     WHERE adid=".$id." AND adkate IN ('3','4','5','8')";
             $result = $db -> query($sql);
             $data = $db->fetch_array($result,1);
             $amt  = $data["kat_lang"]." ".$data["adststelle"];
@@ -101,7 +101,7 @@
             $sql = "SELECT *
                       FROM db_adrd
                         JOIN db_adrd_kate ON (adkate=katid)
-                       WHERE adparent=".$id." AND adkate IN (5,8)";
+                       WHERE adparent=".$id." AND adkate IN ('5','8')";
             $result = $db -> query($sql);
             while ( $data = $db->fetch_array($result,1) ){
                 $amt  = $data["kat_lang"]." ".$data["adststelle"];
@@ -120,7 +120,7 @@
                   FROM db_adrd
                   JOIN db_adrd_kate ON (adkate=katid)
                  WHERE adparent=".$form_values["adid"]."
-                   AND adkate IN (5,8)";
+                   AND adkate IN ('5','8')";
         $result = $db -> query($sql);
         if ( $db->num_rows($result) > 0 ){
             $ausgaben["amt"] .= " mit Au&szlig;enstelle";
@@ -130,8 +130,8 @@
         }
 
         // ist das amt eine aussenstelle?
-        $sql = "SELECT * FROM db_adrd WHERE adkate IN (3,4) AND adid=".$form_values["adparent"];
-// echo "Aussenstelle".$sql;
+        $sql = "SELECT *
+                  FROM db_adrd WHERE adkate IN ('3','4') AND adid=".$form_values["adparent"];
         $result = $db -> query($sql);
         if ( $db->num_rows($result) > 0 ){
             $data = $db->fetch_array($result,1);
@@ -145,31 +145,31 @@
             case "index":
 
                 // nachrichten
-                $sql = "SELECT * FROM db_info WHERE ifqdn0 IN ('www','intra".$amtid."') ORDER BY ivon";
-                $result = $db -> query($sql);
-                while ( $data = $db->fetch_array($result,1) ) {
-                    if ( $data["ifqdn0"] == "www" ){
-                        // bayernweit
-                        $dataloop["bayern"][] = array(
-                            "link" => "news,".$data["iid"].".html",
-                            "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
-                        );
-                        $hidedata["bayern"][0] = "enable";
-                    }else{
-                        // lokal
-                        $dataloop["lokal"][] = array(
-                            "link" => "news/details,".$data["iid"].".html",
-                            "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
-                        );
-                        $hidedata["lokal"][0] = "enable";
-                    }
-
-                    // alle
-                    $dataloop["news"][] = array(
-                        "link" => "news,".$data["iid"].".html",
-                        "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
-                    );
-                }
+//                 $sql = "SELECT * FROM db_info WHERE ifqdn0 IN ('www','intra".$amtid."') ORDER BY ivon";
+//                 $result = $db -> query($sql);
+//                 while ( $data = $db->fetch_array($result,1) ) {
+//                     if ( $data["ifqdn0"] == "www" ){
+//                         // bayernweit
+//                         $dataloop["bayern"][] = array(
+//                             "link" => "news,".$data["iid"].".html",
+//                             "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
+//                         );
+//                         $hidedata["bayern"][0] = "enable";
+//                     }else{
+//                         // lokal
+//                         $dataloop["lokal"][] = array(
+//                             "link" => "news/details,".$data["iid"].".html",
+//                             "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
+//                         );
+//                         $hidedata["lokal"][0] = "enable";
+//                     }
+//
+//                     // alle
+//                     $dataloop["news"][] = array(
+//                         "link" => "news,".$data["iid"].".html",
+//                         "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
+//                     );
+//                 }
                 break;
 
             case "standort":

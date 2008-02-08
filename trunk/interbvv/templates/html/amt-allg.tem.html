@@ -11,6 +11,147 @@
     <body>
 
 <!--##begin-->
+<div id="substance">
+    <h1>!#ausgaben_amt</h1>
+
+    <div class="info_amt" style="float:left;width:45%;">
+        <img src="../../images/html/aemter/va!#ausgaben_akz_gebaeude.gif" alt="Vermessungamt M&uuml;nchen" />
+        <span title="Anschrift">
+            <img src="../../images/html/icon_adresse.gif" title="Adresse:" alt="Adresse:" />
+            <div>!#ausgaben_str</div>
+            <div>!#ausgaben_plz !#ausgaben_ort</div>
+        </span>
+        <span title="Telefon">
+            <img src="../../images/html/icon_telefon.gif" title="Telefon:" alt="Telefon:" />
+            <div>!#ausgaben_tel</div>
+        </span>
+        <span title="Fax">
+            <img src="../../images/html/icon_fax.gif" title="Fax:" alt="Fax:" />
+            <div>!#ausgaben_fax</div>
+        </span>
+        <span title="&Ouml;ffnungszeiten">
+            <img src="../../images/html/icon_zeit.jpg" title="&Ouml;ffnungszeiten:" alt="&Ouml;ffnungszeiten:" />
+            <div>Mo. - Do. 8:00 - 16:00 Uhr</div>
+            <div>Fr. 8:00 -12:00 Uhr</div>
+            <div>und nach Vereinbarung</div>
+        </span>
+    </div>
+
+    <div class="info_amt" style="float:left;width:45%;">
+        <span title="E-Mail">
+            <img src="../../images/html/icon_email.jpg" title="E-Mail:" alt="E-Mail:" />
+            <div><a href="mailto:!#ausgaben_email">!#ausgaben_email</a></div>
+        </span>
+        <span title="Standort">
+            <img src="../../images/html/icon_anfahrt1.gif" title="Standort:" alt="Standort:" />
+            <div><a href="standort.html" id="cont01-title">Standortanzeige</a></div>
+        </span>
+        <span title="Verbindungen">
+            <img src="../../images/html/icon_anfahrt2.gif" title="Verbindung suchen:" alt="Verbindung suchen:" />
+            <div><a href="">Verbindungen Suchen</a></div>
+        </span>
+        <span title="Ansprechpartner">
+            <img src="../../images/html/icon_ansprech.jpg" title="Ansprechpartner:" alt="Ansprechpartner:" />
+            <div><a href="ansprech.html">Ansprechpartner</a></div>
+        </span>
+        <span title="Informationen">
+            <div><a href="info.html" id="cont02-title">Informationen f&uuml;r behinderte Menschen</a></div>
+        </span>
+
+        <fieldset>
+            <legend>Wir &uuml;ber uns</legend>
+            <span title="Amtsbezirk">
+                <div><a href="amtsbezirk.html">Amtsbezirk</a></div>
+            </span>
+            <span title="Amtschronik">
+                <div><a href="amtschronik.html">Amtschronik</a></div>
+            </span>
+            <span title="Weiterf&uuml;hrende Links">
+                <div><a href="links.html">Weiterf&uuml;hrende Links</a></div>
+            </span>
+        </fieldset>
+    </div>
+    <div class="clear"></div>
+
+    <!--##hide-gallery-->
+    <h2>So finden Sie uns:</h2>
+
+
+    <div class="selection_teaser">
+        <b><a href="!{viewer}">Viewer</a></b>
+        <div>
+            <ul>
+                <!--##loop-gallery-->
+                <li class="thumbs">
+                    <a href="standort,!{id}.html#standort" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">va!{amtakz}_anfahrt!{id}</a>
+                </li>
+                <!--##cont-->
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <span>&nbsp;</span>
+    </div>
+    <div class="clear"></div>
+    <!--##show-->
+
+    <!--##hide-skizze-->
+    <h2>So finden Sie uns:</h2>
+    <div class="selection_teaser">
+        <b><a href="!{viewer}">Viewer</a></b>
+        <div>
+            <ul>
+                <!--##loop-gallery-->
+                <li class="thumbs">
+                    <a href="standort,!{id}.html#standort" style="width:102px;height:102px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">va!{amtakz}_anfahrt!{id}</a>
+                </li>
+                <!--##cont-->
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+        <span>&nbsp;</span>
+        <div style="text-align:center;">
+            <img src="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" border="0" title="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" alt="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" />
+        </div>
+        <span>&nbsp;</span>
+    </div>
+    <!--##show-->
+
+    <!--##hide-bezirk-->
+    <h2>Amtsbezirkskarten</h2>
+    <p>
+        <a href="../../images/html/aemter/va!{amtakz}.pdf">
+            <img src="../../images/html/icon_pdf.png" width="14" height="14" border="0" alt="" />Der Amtsbezirk im pdf-Format
+        </a>
+    </p>
+    <img src="../../images/html/aemter/va!{amtakz}_amtsbezirk.gif" border="0" title="Amtsbezirk, !#ausgaben_amt" alt="Amtsbezirk, !#ausgaben_amt">
+    <h2>Gemeinden und Gemarkungen</h2>
+    <table width="90%" style="border:1px solid #f4f4f4;">
+        <tr style="">
+            <th>Gemeinde</th>
+            <th>Gemarkungen</th>
+        </tr>
+        <!--##loop-gmd-->
+        <tr style="background:!{color}">
+            <td>!{item}</td>
+            <td>!{gmkg}</td>
+        </tr>
+        <!--##cont-->
+    </table>
+    <!--##show-->
+
+    #(inhalt)
+    !#ausgaben_output
+
+</div>
+
+<div id="margin">
+    g(left)
+</div>
+
+
+<hr />
         <div id="content">
             <div class="right">&nbsp;
 <!--##loop-ast-->
@@ -19,67 +160,6 @@
                 g(kopf)
             </div>
             <hr />
-            <h1>!#ausgaben_amt</h1>
-
-                <div class="info_amt" style="float:left;width:45%;">
-                    <img src="../../images/html/aemter/va!#ausgaben_akz_gebaeude.gif" alt="Vermessungamt M&uuml;nchen" />
-                    <span title="Anschrift">
-                        <img src="../../images/html/icon_adresse.gif" title="Adresse:" alt="Adresse:" />
-                        <div>!#ausgaben_str</div>
-                        <div>!#ausgaben_plz !#ausgaben_ort</div>
-                    </span>
-                    <span title="Telefon">
-                        <img src="../../images/html/icon_telefon.gif" title="Telefon:" alt="Telefon:" />
-                        <div>!#ausgaben_tel</div>
-                    </span>
-                    <span title="Fax">
-                        <img src="../../images/html/icon_fax.gif" title="Fax:" alt="Fax:" />
-                        <div>!#ausgaben_fax</div>
-                    </span>
-                    <span title="&Ouml;ffnungszeiten">
-                        <img src="../../images/html/icon_zeit.jpg" title="&Ouml;ffnungszeiten:" alt="&Ouml;ffnungszeiten:" />
-                        <div>Mo. - Do. 8:00 - 16:00 Uhr</div>
-                        <div>Fr. 8:00 -12:00 Uhr</div>
-                        <div>und nach Vereinbarung</div>
-                    </span>
-                </div>
-
-                <div class="info_amt" style="float:left;width:45%;">
-                    <span title="E-Mail">
-                        <img src="../../images/html/icon_email.jpg" title="E-Mail:" alt="E-Mail:" />
-                        <div><a href="mailto:!#ausgaben_email">!#ausgaben_email</a></div>
-                    </span>
-                    <span title="Standort">
-                        <img src="../../images/html/icon_anfahrt1.gif" title="Standort:" alt="Standort:" />
-                        <div><a href="standort.html" id="cont01-title">Standortanzeige</a></div>
-                    </span>
-                    <span title="Verbindungen">
-                        <img src="../../images/html/icon_anfahrt2.gif" title="Verbindung suchen:" alt="Verbindung suchen:" />
-                        <div><a href="">Verbindungen Suchen</a></div>
-                    </span>
-                    <span title="Ansprechpartner">
-                        <img src="../../images/html/icon_ansprech.jpg" title="Ansprechpartner:" alt="Ansprechpartner:" />
-                        <div><a href="ansprech.html">Ansprechpartner</a></div>
-                    </span>
-                    <span title="Informationen">
-                        <div><a href="info.html" id="cont02-title">Informationen f&uuml;r behinderte Menschen</a></div>
-                    </span>
-
-                    <fieldset>
-                        <legend>Wir &uuml;ber uns</legend>
-                        <span title="Amtsbezirk">
-                            <div><a href="amtsbezirk.html">Amtsbezirk</a></div>
-                        </span>
-                        <span title="Amtschronik">
-                            <div><a href="amtschronik.html">Amtschronik</a></div>
-                        </span>
-                        <span title="Weiterf&uuml;hrende Links">
-                            <div><a href="links.html">Weiterf&uuml;hrende Links</a></div>
-                        </span>
-                    </fieldset>
-                </div>
-
-            <p class="clear" />
 
             <!--##hide-lokal-->
             <h2>Nachrichten des Vermessungamtes</h2>
@@ -93,29 +173,6 @@
             <!--##loop-bayern-->
             <p><a href="!{link}">!{item}</a></p>
             <!--##cont-->
-            <!--##show-->
-
-            <!--##hide-gallery-->
-            <h2>So finden Sie uns:</h2>
-            <a href="!{viewer}">Viewer</a>
-            <div class="no-style" style="margin:0;padding:0;">
-                <!--##loop-gallery-->
-                <div style="background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;float:left;width:160px;height:120px;padding:0;margin:0 10px 10px 0;">
-                    <a href="standort,!{id}.html#standort">
-                        <img src="../../images/html/rahmen_big.gif" width="160px" height="120px" border="0" />
-                    </a>
-                </div>
-                <!--##cont-->
-            </div>
-            <!--##show-->
-
-            <!--##hide-skizze-->
-            <h2>So finden Sie uns:</h2>
-            <p>
-                <a href="!{viewer}">Viewer</a>
-                <p class="clear" />
-                <img src="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" border="0" title="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" alt="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" />
-            </p>
             <!--##show-->
 
             <!--##hide-bezirk-->
@@ -148,35 +205,6 @@
             #(content1)
             !#ausgaben_output
 
-        </div>
-
-        <div id="margin">
-
-            <!--##hide-skizze-->
-            <h3>g(anfahrt)</h3>
-            <ul class="no-style" style="float:left;margin:0;padding:0;">
-                <!--##loop-gallery-->
-                <li style="background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;width:140px;height:105px;margin:0 10px 10px 0;">
-                    <a href="standort,!{id}.html#standort">
-                        <img src="../../images/html/rahmen_big.gif" width="140px" height="105px" border="0" />
-                    </a>
-                </li>
-                <!--##cont-->
-            </ul>
-            <!--##show-->
-
-            <!--##hide-level3-->
-            <div class="box">
-                <h3>g(submenu)</h3>
-                <ul class="ext_menu">
-                    <!--##loop-level3-->
-                    <li><a href="!{link}" title="!{title}" class="!{class}">!{item}</a></li>
-                    <!--##cont-->
-                    </ul>
-                    <div>#(werbung)</div>
-            </div>
-            <!--##show-->
-            #(left)
         </div>
 <!--##end-->
 
