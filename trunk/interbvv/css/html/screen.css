@@ -90,7 +90,7 @@ fieldset{
 }
 
 acronym {
-    border-bottom:1px dashed #303030;
+    border-bottom:1px dotted #303030;
     cursor:help;
 }
 
@@ -296,6 +296,10 @@ del {
     #substance .left {
         float:left;
         width:380px;
+    }
+
+    #substance h1 {
+        margin-bottom:10px;
     }
 
     #substance p {
