@@ -183,6 +183,7 @@ del {
     background:#9AC7E4;
     color:#fff;
     float:left;
+    overflow:hidden;
     width:160px;
 }
 
@@ -194,38 +195,36 @@ del {
 
     #navi ul {
         padding:0;
+        margin:0;
     }
 
-        #navi ul.navigation {
-            border-top:1px solid #fff;
-            color:#4775A3;
-            list-style:none;
-            margin:0 0 5px 15px;
-/*             padding-left:10px; */
+    #navi ul.navigation {
+        border-bottom:1px solid #fff;
+        margin:0 0 0 15px;
+    }
+
+        #navi ul.navigation ul {
+            margin:3px 0 0 10px;
         }
 
-            /* menuepunkte der ebene 1 */
-            #navi ul.navigation li {
-                border-bottom:1px solid #fff;
-                padding: 5px 0 5px 0;
+        #navi ul.navigation li {
+            border-top:1px solid #ffffff;
+            padding:5px 0;
+            list-style:none;
+        }
+
+            #navi ul.navigation li a {
+                font-weight:bold;
             }
 
-                /* level1-links werden fett dargestellt */
-                #navi ul.navigation li a{
-                    display:block;
-                    font-weight:bold;
-                }
+            #navi ul.navigation ul li {
+                border-top:none;
+                padding:2px 0;
+            }
 
-                /* menuepunkte der ebene 2 */
-                #navi ul.navigation li ul li {
-                    border:none;
-                    list-style:none;
-                    padding:0.3em 0 0 10px;
+                #navi ul.navigation ul li a {
+                    font-weight:normal;
                 }
-
-                    #navi ul.navigation li ul li a {
-                        font-weight:normal;
-                    }
 
     #navi .menu {
         background:#4775A3;
@@ -490,6 +489,7 @@ del {
 
         #substance .viewer p {
             width:auto;
+/*             background:silver; */
         }
 
         #substance .viewer .pic p, #substance .viewer .pic_wide p {
