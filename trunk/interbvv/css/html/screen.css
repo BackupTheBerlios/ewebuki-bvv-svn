@@ -31,8 +31,8 @@ h1{
 }
 
 h2{
-    font-size:1.15em;
-    margin:0.5em 0 0 0;
+    font-size:1.1em;
+    margin:0.5em 0;
 }
 
 h3 {
@@ -278,6 +278,7 @@ del {
         }
 
         #substance .sub_menu ul {
+            list-style:none;
             margin:0.5em 0;
             padding:0;
             width:auto;
@@ -285,7 +286,7 @@ del {
 
         #substance .sub_menu li, #substance .aktuell a {
             font-weight:bold;
-            list-style:none;
+            list-style-image:none;
             padding-right:0.3em;
         }
 
@@ -301,6 +302,11 @@ del {
         margin-bottom:10px;
     }
 
+    #substance h2 {
+/*         background:url('/images/html/dash.png') no-repeat; */
+/*         padding-left:16px; */
+    }
+
     #substance p {
         width:380px;
     }
@@ -310,6 +316,7 @@ del {
         }
 
     #substance ul, #substance ol {
+        list-style-image:url('/images/html/li-dash.png');
         width:345px;
     }
 
