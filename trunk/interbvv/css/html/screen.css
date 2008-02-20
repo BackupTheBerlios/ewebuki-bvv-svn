@@ -599,3 +599,9 @@ div.autocomplete {
     margin-bottom:0.5em;
     float:left;
 }
+.old {
+    background: #FF9148;
+}
+.new {
+    background: #A9C0CE;
+}
