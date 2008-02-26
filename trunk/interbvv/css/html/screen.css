@@ -32,12 +32,12 @@ h1{
 
 h2{
     font-size:1.15em;
-    margin:1em 0;
+    margin:1.5em 0 0.75em;
 }
 
 h3 {
     font-size:1.0em;
-    margin:1em 0;
+    margin:1.5em 0 0.75em;
 }
 
 a{
@@ -57,7 +57,7 @@ a img{
 }
 
 p {
-    margin:0.5em 0;
+    margin:0 0 0.5em 0;
 }
 
 hr {
@@ -310,6 +310,10 @@ del {
 
     #substance p {
         width:380px;
+    }
+
+    #substance p.teaser {
+        margin-bottom:1.5em;
     }
 
         #substance.artikel p.teaser {
