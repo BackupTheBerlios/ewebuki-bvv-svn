@@ -135,7 +135,7 @@ del {
         line-height:2em;
         margin:0 0 0 160px;
         padding:0;
-        width:560px;
+        width:540px;
     }
 
         #head li{
@@ -175,7 +175,7 @@ del {
     }
 
     #head .schnellsuche{
-        width:152px;
+        width:150px;
     }
 
 /* globale menue spalte
@@ -434,7 +434,7 @@ del {
 .schnellsuche{
     background:#fff;
     border:1px solid #8F8F8F;
-    margin:2px 3px;
+    margin:2px 2px;
 }
 
     .schnellsuche input{
@@ -561,8 +561,9 @@ p.teaser{
     }
 
         .imgb p a {
-            background: url('/images/default/filefind.png') no-repeat;
-            padding-left:25px;
+            background: url('/images/default/filefind.png') no-repeat right 1px;
+            display:block;
+            padding:16px 16px 0 0;
         }
 
         #substance .imgb p {
