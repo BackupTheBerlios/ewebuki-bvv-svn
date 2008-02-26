@@ -354,7 +354,7 @@ del {
         padding-left:0;
     }
 
-    #substance div.wide p {
+    #substance div.wide p, #substance div.wide ul {
         width:auto;
     }
 
