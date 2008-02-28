@@ -57,7 +57,7 @@ a img{
 }
 
 p {
-    margin:0 0 0.5em 0;
+    margin:0.5em 0;
 }
 
 hr {
@@ -333,7 +333,7 @@ del {
         font-size:inherit;
     }
 
-    #substance td {
+    #substance td, #substance th {
         background:#EFF2FA;
         border:1px solid #ccc;
         padding:2px;
@@ -472,6 +472,16 @@ del {
         text-align:left;
     }
 
+    .box ul {
+/*         padding-left:3px; */
+        text-align:left;
+    }
+
+    .box h2 {
+        padding-left:3px;
+        text-align:left;
+    }
+
     .box h3 {
         border:none;
         color:#444444;
@@ -605,6 +615,7 @@ div.autocomplete {
     margin:0.5em 0;
     clear:both;
     display:block;
+    text-align:left;
 }
 .info_amt div {
     margin-left:40px;
