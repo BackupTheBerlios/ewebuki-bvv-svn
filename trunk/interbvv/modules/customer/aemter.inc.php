@@ -180,16 +180,8 @@
                         "amtakz" => $amtid
                     );
                 }
-                if ( $environment["parameter"][1] != "" ){
-// echo "hallo1";
-                    $hidedata["skizze"]["id"] = $environment["parameter"][1];
-                    $hidedata["skizze"]["amtakz"] = $amtid;
-                    $hidedata["skizze"]["viewer"] = $form_values["adviewer"];
-                }else{
-// echo "hallo2";
-                    $hidedata["gallery"][0] = "enable";
-                    $hidedata["gallery"]["viewer"] = $form_values["adviewer"];
-                }
+                $hidedata["gallery"][0] = "enable";
+                $hidedata["gallery"]["viewer"] = $form_values["adbayernviewer"];
 
 
                 break;

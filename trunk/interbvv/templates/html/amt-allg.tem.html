@@ -81,9 +81,16 @@
         <b><a href="!{viewer}">Viewer</a></b>
         <div>
             <ul>
-                <!--##loop-gallery-->
+                <!--##loop-gallery_alt-->
                 <li class="thumbs">
                     <a href="standort,!{id}.html#standort" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">va!{amtakz}_anfahrt!{id}</a>
+                </li>
+                <!--##cont-->
+                <!--##loop-gallery-->
+                <li class="thumbs">
+                    <a href="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" title="Anfahrtskizze !{id}" rel="lightbox[skizze]" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">
+                        va!{amtakz}_anfahrt!{id}
+                    </a>
                 </li>
                 <!--##cont-->
             </ul>
@@ -95,39 +102,25 @@
     <div class="clear"></div>
     <!--##show-->
 
-    <!--##hide-skizze-->
-    <h2>So finden Sie uns:</h2>
-    <div class="selection_teaser">
-        <b><a href="!{viewer}">Viewer</a></b>
-        <div>
-            <ul>
-                <!--##loop-gallery-->
-                <li class="thumbs">
-                    <a href="standort,!{id}.html#standort" style="width:102px;height:102px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">va!{amtakz}_anfahrt!{id}</a>
-                </li>
-                <!--##cont-->
-            </ul>
-            <div class="clear"></div>
-        </div>
-        <div class="clear"></div>
-        <span>&nbsp;</span>
-        <div style="text-align:center;">
-            <img src="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" border="0" title="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" alt="Anfahrtskizze Nr. !{id}, !#ausgaben_amt" />
-        </div>
-        <span>&nbsp;</span>
-    </div>
-    <!--##show-->
-
     <!--##hide-bezirk-->
     <h2>Amtsbezirkskarten</h2>
     <p>
-        <a href="../../images/html/aemter/va!{amtakz}.pdf">
-            <img src="../../images/html/icon_pdf.png" width="14" height="14" border="0" alt="" />Der Amtsbezirk im pdf-Format
-        </a>
+        Der Amtsbezirk
+        <ul>
+            <li>
+                <a href="../../images/html/aemter/va!{amtakz}.pdf">
+                    im pdf-Format
+                </a>
+            </li>
+            <li>
+                <a href="../../images/html/aemter/va!{amtakz}_amtsbezirk.gif" rel="lightbox[]" title="Der Amtsbezirk des Vermessungamtes !#ausgaben_amt als &Uuml;bersichtskarte">
+                    als &Uuml;bersichtskarte
+                </a>
+            </li>
+        </ul>
     </p>
-    <img src="../../images/html/aemter/va!{amtakz}_amtsbezirk.gif" border="0" title="Amtsbezirk, !#ausgaben_amt" alt="Amtsbezirk, !#ausgaben_amt">
     <h2>Gemeinden und Gemarkungen</h2>
-    <table width="90%" style="border:1px solid #f4f4f4;">
+    <table width="100%">
         <tr style="">
             <th>Gemeinde</th>
             <th>Gemarkungen</th>
@@ -149,6 +142,7 @@
 <div id="margin">
     g(left)
 </div>
+<!--##end-->
 
 
 <hr />
