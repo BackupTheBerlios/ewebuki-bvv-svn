@@ -1,11 +1,11 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  $script["name"] = "$Id: leer.inc.php,v 1.6 2006/09/22 06:16:23 chaot Exp $";
-  $Script["desc"] = "short description";
+  $script["name"] = "$Id: aemtersuche.inc.php 1131 2007-12-12 08:45:50Z chaot $";
+  $Script["desc"] = "amt mithilfe von ort und plz suchen";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     eWeBuKi - a easy website building kit
-    Copyright (C)2001-2006 Werner Ammon ( wa<at>chaos.de )
+    Copyright (C)2001-2007 Werner Ammon ( wa<at>chaos.de )
 
     This script is a part of eWeBuKi
 
@@ -45,168 +45,184 @@
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ** ".$script["name"]." ** ]".$debugging["char"];
 
-    if ( $cfg["right"] == "" || $rechte[$cfg["right"]] == -1 ) {
+    // page basics
+    // ***
 
-        // page basics
-        // ***
-
-        $ausgaben["target"] = $cfg["name"];
-#echo $ausgaben["target"];
-        // warnung ausgeben
-        if ( get_cfg_var('register_globals') == 1 ) $debugging["ausgabe"] .= "Warnung: register_globals in der php.ini steht auf on, evtl werden interne Variablen ueberschrieben!".$debugging["char"];
-
-        // path fuer die schaltflaechen anpassen
-        if ( $cfg["iconpath"] == "" ) $cfg["iconpath"] = "/images/default/";
-
-        // label bearbeitung aktivieren
-        if ( isset($HTTP_GET_VARS["edit"]) ) {
-            $specialvars["editlock"] = 0;
-        } else {
-            $specialvars["editlock"] = -1;
-        }
-        // +++
-        // page basics
-
-        // funktions bereich
-        // ***
-
-        $form_values = array_merge($_GET,$_POST);
-
-        if ( isset($form_values["auto"]) && !is_numeric($form_values["auto_search"]) ){
-            $buffer = "";
-            $sql = str_replace("##values##",$form_values["auto_search"],$cfg["sql_auto"]["sql"]);
-            $result = $db -> query($sql);
-            while ( $data = $db->fetch_array($result,1) ) {
-                // ausgabe ggf mit gemarkung
-                $item = "<span class=\"informal\">".$data[$cfg["sql_auto"]["art"]]." </span>".$data[$cfg["sql_auto"]["ort"]];
-                if ( $data[$cfg["sql_auto"]["ort"]] != $data[$cfg["sql_auto"]["gmkg"]] ) $item .= " (Gemarkung: ".$data[$cfg["sql_auto"]["gmkg"]].")";
-                $buffer .= "<li id=\"".$data[$cfg["sql_auto"]["kz"]]."\">".$item."</li>";
-            }
-            if ( $buffer != "" ) echo "<ul>".$buffer."</ul>";
-            die;
-        }elseif ( isset($form_values["auto"]) && is_numeric($form_values["auto_search"]) ){
-            $buffer = "";
-            $sql = str_replace("##values##",$form_values["auto_search"],$cfg["sql_auto_plz"]["sql"]);
-            $result = $db -> query($sql);
-            while ( $data = $db->fetch_array($result,1) ) {
-                $buffer .= "<li id=\"".$data[$cfg["sql_auto_plz"]["kz"]]."\">".$data[$cfg["sql_auto_plz"]["plz"]]."</li>";
-            }
-            if ( $buffer != "" ) echo "<ul>".$buffer."</ul>";
-            die;
-        }
-
-        ## treffer wurde ausgewaehlt
-        $ausgaben["auto_search"] = "";
-        if ( $form_values["auto_search"] ){
-            $ausgaben["auto_search"] = $form_values["auto_search"];
-
-            // die regex schneidet ggf. die gemarkung weg
-            $sql = str_replace("##values##",preg_replace("/( \([a-zA-Z: ]+\))/","",$form_values["auto_search"]),$cfg["sql_selected"]["sql"]);
-            $result = $db->query($sql);
-
-            ## bei einem treffer
-            if ( $db->num_rows($result) == 1 ){
-                $data = $db->fetch_array($result,1);
-                $ausgaben["auto_search"] = $form_values["auto_search"];
-                $sql = "SELECT * FROM ".$cfg["db"]["main"]["entries"]." WHERE ".$cfg["db"]["main"]["key"]." ='".$data[$cfg["db"]["main"]["value"]]."'";
-
-                $result = $db -> query($sql);
-                if ( $db->num_rows($result) != 0 ){
-                    $data = $db->fetch_array($result,1);
-
-                    $zusatz = "";
-                    $bezeichnung = $data[$cfg["db"]["main"]["name"]];
-                    $kz = $data[$cfg["db"]["main"]["key"]];
-                    if ( $data[$cfg["db"]["main"]["kategorie"]] == "5" || $data[$cfg["db"]["main"]["kategorie"]] == "8" ){
-                        $zusatz = " - ".$cfg["db"]["main"]["zusatz_bez"]." ".$data[$cfg["db"]["main"]["name"]];
-                        $sql = "SELECT * FROM ".$cfg["db"]["main"]["entries"]." WHERE ".$cfg["db"]["main"]["id"]." = '".$data[$cfg["db"]["main"]["parent"]]."'";
-
-                        $result = $db -> query($sql);
-                        $data_ha = $db->fetch_array($result,1);
-                        $bezeichnung =  $data_ha[$cfg["db"]["main"]["name"]];
-                        $kz = $data_ha[$cfg["db"]["main"]["key"]];
-                    }
-
-                    $hidedata["treffer"] = array(
-                        "beschreibung"  => $cfg["kurz"]." ".$bezeichnung,
-                        "zusatz"        => $zusatz,
-                        "strasse"       =>  $data[$cfg["db"]["main"]["str"]],
-                        "ort"           =>  $data[$cfg["db"]["main"]["plz"]]." ".$data[$cfg["db"]["main"]["ort"]],
-                        "link"          =>  $pathvars["virtual"]."/".$cfg["link"]."/".$data[$cfg["db"]["main"]["key"]]."/index.html",
-                    );
-                }
-
-            ## bei mehreren treffer
-            }elseif( $db->num_rows($result) > 1 ){
-                $hidedata["treffer_liste"][] = -1;
-                while ( $data = $db->fetch_array($result,1) ) {
-                    $ausgaben["auto_search"] = $form_values["auto_search"];
-                    $zusatz = "";
-                    $bezeichnung = $data[$cfg["db"]["main"]["name"]];
-                    $amtakz = $data[$cfg["db"]["main"]["key"]];
-                    if ( $data[$cfg["db"]["main"]["kategorie"]] == "5" || $data[$cfg["db"]["main"]["kategorie"]] == "8" ){
-                        $zusatz = " - ".$cfg["db"]["main"]["zusatz_bez"]." ".$data[$cfg["db"]["main"]["name"]];
-                        $sql = "SELECT * FROM ".$cfg["db"]["main"]["entries"]." WHERE ".$cfg["db"]["main"]["id"]." = '".$data[$cfg["db"]["main"]["parent"]]."'";
-                        $res_ha = $db -> query($sql);
-                        $data_ha = $db->fetch_array($res_ha,1);
-                        $hauptamt =  $data_ha[$cfg["db"]["main"]["name"]];
-                        $amtakz = $data_ha[$cfg["db"]["main"]["key"]];
-                    }
-
-                    $dataloop["treffer"][] = array(
-                        "item" => $data["name"]." ( ".$cfg["kurz"]." ".$bezeichnung.$zusatz.")",
-                        "link" =>  $pathvars["virtual"]."/".$cfg["link"]."/".$data[$cfg["db"]["main"]["value"]]."/index.html",
-                    );
-                }
-            }
-        }
-
-        if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-
-        // +++
-        // funktions bereich
-
-
-        // page basics
-        // ***
-
-        // fehlermeldungen
-        if ( $HTTP_GET_VARS["error"] != "" ) {
-            if ( $HTTP_GET_VARS["error"] == 1 ) {
-                $ausgaben["form_error"] = "#(error1)";
-            }
-        } else {
-            $ausgaben["form_error"] = "";
-        }
-
-        // navigation erstellen
-        $ausgaben["add"] = $cfg["basis"]."/add,".$environment["parameter"][1].",verify.html";
-        #$mapping["navi"] = "leer";
-
-        // hidden values
-        #$ausgaben["form_hidden"] .= "";
-
-        // was anzeigen
-        $mapping["main"] = "aemtersuche";
-        $mapping["navi"] = "leer";
-
-        // unzugaengliche #(marken) sichtbar machen
-        if ( isset($HTTP_GET_VARS["edit"]) ) {
-            $ausgaben["inaccessible"] = "inaccessible values:<br />";
-            $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
-        } else {
-            $ausgaben["inaccessible"] = "";
-        }
-
-        // wohin schicken
-        #n/a
-
-        // +++
-        // page basics
-
+    // label bearbeitung aktivieren
+    if ( isset($_GET["edit"]) ) {
+        $specialvars["editlock"] = 0;
     } else {
-        header("Location: ".$pathvars["virtual"]."/");
+        $specialvars["editlock"] = -1;
     }
+
+    // +++
+    // page basics
+
+
+    // funktions bereich
+    // ***
+
+    if ( $_GET["test"] == "on" ) {
+//         $url = "http://www.geodaten.bayern.de/bvv_web/va_64/home.html";
+//         exec("wget ".$url);
+        $handle = fopen ("http://www.geodaten.bayern.de/bvv_web/va_64/home.html", "r");
+//         while (!feof($handle)) {
+//             $line = fgets($handle,1024);
+//             if ( strstr($line,"BayernViewer2.0/index.cgi?") ) echo "<pre>".$line."</pre>";
+//         }
+        fclose($handle);
+        die;
+    }
+
+
+
+
+
+
+
+    $ausgaben["search"] = $_GET["search"];
+
+    if ( $_GET["search"] != "" || $_GET["amt"] != "" ) {
+
+        if ( $_GET["search"] != "" ) {
+            if ( is_numeric($_GET["search"]) ) {
+                $sql = "SELECT DISTINCT ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["plz"]."
+                                FROM ".$cfg["amtsuche"]["db"]["plz"]["entries"]."
+                                WHERE ".$cfg["amtsuche"]["db"]["plz"]["plz"]."='".$_GET["search"]."'
+                            ORDER BY ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["plz"];
+            } else {
+                $sql = "SELECT DISTINCT ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["teil"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
+                                        min(".$cfg["amtsuche"]["db"]["plz"]["plz"].") as plz
+                                FROM ".$cfg["amtsuche"]["db"]["plz"]["entries"]."
+                                WHERE ".$cfg["amtsuche"]["db"]["plz"]["teil"]." LIKE '".$_GET["search"]."%'
+                            GROUP BY ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["teil"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["amt"]."
+                            ORDER BY ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["teil"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
+                                        ".$cfg["amtsuche"]["db"]["plz"]["plz"];
+            }
+            if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
+            $result = $db -> query($sql);
+            $num = $db->num_rows($result);
+        }
+        if ( $num == 1 || $_GET["amt"] != "" ) {
+            $data = $db -> fetch_array($result,1);
+
+            // amt-kennzahl
+            $akz = $data[$cfg["amtsuche"]["db"]["plz"]["amt"]];
+            if ( $_GET["amt"] != "" ) $akz = $_GET["amt"];
+
+            // gesuchter ort
+            $place = $data[$cfg["amtsuche"]["db"]["plz"]["plz"]]." ".$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]];
+            if ( $data[$cfg["amtsuche"]["db"]["plz"]["gmd"]] != $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] && $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] != "" ) $place .= " (".$data[$cfg["amtsuche"]["db"]["plz"]["teil"]].")";
+            if ( $_GET["place"] != "" ) $place = $_GET["place"];
+
+            // amt finden
+            $sql_amt = "SELECT *
+                        FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
+                        JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
+                            ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                        WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$akz."'";
+            $result_amt = $db -> query($sql_amt);
+            $data_amt   = $db -> fetch_array($result_amt,1);
+            // auf aussen-, service-stelle testen
+            if ( $data_amt["adkate"] == 5 || $data_amt["adkate"] == 8 ) {
+                $neben = " - ".$data_amt[$cfg["amtsuche"]["db"]["kategorie"]["lang"]]." ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]]." - ";
+                $sql_ha = "SELECT *
+                            FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
+                            JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
+                                ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                            WHERE ".$cfg["amtsuche"]["db"]["amt"]["key"]."='".$data_amt[$cfg["amtsuche"]["db"]["amt"]["parent"]]."'";
+                $result_ha = $db -> query($sql_ha);
+                $data_ha   = $db -> fetch_array($result_ha,1);
+                $dienststelle = "Vermessungamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+            } else {
+                $neben = "";
+                $dienststelle = "Vermessungamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+            }
+            $hidedata["hit_one"] = array(
+                       "place" => $place,
+                "beschreibung" => $dienststelle,
+                      "zusatz" => $neben,
+                     "strasse" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["str"]],
+                         "ort" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["plz"]]." ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["ort"]],
+                         "fon" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["fon"]],
+                         "fax" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["fax"]],
+                       "email" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["email"]],
+                    "internet" => $pathvars["virtual"]."/aemter/".$akz."/index.html",
+                     "bayview" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["bayview"]],
+            );
+
+        } elseif ( $num > 1 ) {
+            $hidedata["hit_list"] = array();
+            $merker = "";
+            while ( $data = $db -> fetch_array($result,1) ) {
+                // suchbegriff hervorheben
+                $highlighted = $data[$cfg["amtsuche"]["db"]["plz"]["plz"]]." - ".$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]];
+                if ( $data[$cfg["amtsuche"]["db"]["plz"]["gmd"]] != $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] ) {
+                    $highlighted .= " (".$data[$cfg["amtsuche"]["db"]["plz"]["teil"]].")";
+                }
+                $highlighted = preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$highlighted);
+
+                $dataloop["hits"][] = array(
+                     "plz" => $data[$cfg["amtsuche"]["db"]["plz"]["plz"]],
+                     "gmd" => $data[$cfg["amtsuche"]["db"]["plz"]["gmd"]],
+                    "teil" => $data[$cfg["amtsuche"]["db"]["plz"]["teil"]],
+                     "amt" => $data[$cfg["amtsuche"]["db"]["plz"]["amt"]],
+                    "link" => "?amt=".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."&place=".urlencode($data[$cfg["amtsuche"]["db"]["plz"]["plz"]]." - ".$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]]),
+                      "hl" => $highlighted,
+                );
+            }
+        } elseif ( $num == 0 ) {
+            $hidedata["hit_nop"] = array();
+        }
+
+    }
+    $hidedata["leer"][0] = "enable";
+    // +++
+    // funktions bereich
+
+
+    // page basics
+    // ***
+
+    // fehlermeldungen
+    if ( $_GET["error"] != "" ) {
+        if ( $_GET["error"] == 1 ) {
+            $ausgaben["form_error"] = "#(error1)";
+        }
+    } else {
+        $ausgaben["form_error"] = "";
+    }
+
+    // hidden values
+    #$ausgaben["form_hidden"] .= "";
+
+    // was anzeigen
+    $mapping["main"] = "aemtersuche";
+    #$mapping["navi"] = "leer";
+
+    // unzugaengliche #(marken) sichtbar machen
+    if ( isset($_GET["edit"]) ) {
+        $ausgaben["inaccessible"] = "inaccessible values:<br />";
+        $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
+    } else {
+        $ausgaben["inaccessible"] = "";
+    }
+
+    // wohin schicken
+    #n/a
+
+    // +++
+    // page basics
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
 
