@@ -1,10 +1,10 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// "$Id: leer.cfg.php,v 1.5 2006/09/22 06:16:23 chaot Exp $";
+// "$Id: leer.cfg.php 1131 2007-12-12 08:45:50Z chaot $";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     eWeBuKi - a easy website building kit
-    Copyright (C)2001-2006 Werner Ammon ( wa<at>chaos.de )
+    Copyright (C)2001-2007 Werner Ammon ( wa<at>chaos.de )
 
     This script is a part of eWeBuKi
 
@@ -42,50 +42,59 @@
 */
 ////+///////+///////+///////+///////+///////+///////+///////////////////////////////////////////////////////////
 
-    $cfg = array(
-        "subdir" => "customer",
-        "name" => set it,
-        "link" => set it,
-        "kurz" => set it,
-        "basis" => $pathvars["virtual"]."/dir/my", # crc = -1468826685 *
-        "iconpath" => "", # leer: /images/default/; automatik: $pathvars["images"]
-        "function" => array(
-                    "add" => "",
-                    "edit" => "",
-                "delete" => "",
-                    ),
-        "sql_auto"  => array(
-                        "sql"   =>  set it,
-                          "kz"  =>  set it,
-                          "art" =>  set it,
-                          "ort" =>  set it,
-                         "gmkg" =>  set it,
-                            ),
-        "sql_auto_plz"  => array(
-                        "sql"   =>  set it,
-                          "kz"  =>  set it,
-                          "plz" =>  set it,
-                          "ort" =>  set it,
-                            ),
-        "sql_selected"  => array(
-                        "sql"   =>  set it,
-                            ),
-        "db"    => array(
-                    "main"   => array(
-                                    "entries" => set it,
-                                    "id"      => set it,
-                                    "parent"  => set it,
-                                    "key"     => set it,
-                                    "value"   => set it,
-                                    "name"    => set it,
-                               "kategorie"    => set it,
-                                    "str"     => set it,
-                                    "ort"     => set it,
-                                    "plz"     => set it,
-                             "zusatz_bez"     => set it
-                                    )
-                        ),
-        "right" => "",
+    $cfg["amtsuche"] = array(
+           "subdir" => "customer",
+             "name" => "amtsuche",
+            "basis" => $pathvars["virtual"]."/amtsuche", # crc = -1468826685 *
+         "iconpath" => "", # leer: /images/default/; automatik: $pathvars["images"]
+            "color" => array(
+                        "a" => "#eeeeee",
+                        "b" => "#ffffff",
+                       ),
+         "function" => array(
+                      "add" => array(""),
+                     "edit" => array(""),
+                   "delete" => array(""),
+                  "details" => array(""),
+              #"edit,shared" => array("shared1", "shared2"),
+              #"edit,global" => array("global1", "global2"),
+                       ),
+               "db" => array(
+                     "plz" => array(
+                          "entries" => "db_plz",
+                              "gmd" => "gmd",
+                             "teil" => "gmdteil",
+                              "plz" => "plz",
+                              "amt" => "akz",
+                            "order" => "plz, gmd, gmdteil,akz",
+                            "rows"  => 4,
+                     ),
+                     "amt" => array(
+                          "entries" => "db_adrd",
+                              "key" => "adid",
+                              "amt" => "adststelle",
+                              "akz" => "adakz",
+                              "kat" => "adkate",
+                              "str" => "adstr",
+                              "plz" => "adplz",
+                              "ort" => "adort",
+                            "email" => "ademail",
+                         "internet" => "adinternet",
+                              "fon" => "adtelver",
+                              "fax" => "adfax",
+                           "parent" => "adparent",
+                          "bayview" => "adbayernviewer",
+                        "dststelle" => "adststelle",
+                     ),
+               "kategorie" => array(
+                          "entries" => "db_adrd_kate",
+                              "key" => "katid",
+                              "kat" => "kat",
+                             "lang" => "kat_lang",
+                        "dststelle" => "adststelle",
+                     ),
+              ),
+            "right" => "",
     );
 
     // * tipp: fuer das einfache modul muss der wert $cfg["basis"] natuerlich

@@ -8,6 +8,97 @@
     </head>
     <body>
 <!--##begin-->
+
+    <div id="substance">
+
+        <div class="wide">
+
+            #(inhalt)
+
+            <fieldset>
+                <form method="get" action="">
+                    <input type="text" class="textfield" id="auto" name="search" value="!#ausgaben_search" style="width:300px;" />
+                    <button value="send" class="button">Senden</button>
+                    <span id="indicator" style="display: none">
+                        <img src="/images/html/ajax_indicator.gif" alt="Working..." />
+                    </span>
+                    <div id="div_auto" class="autocomplete" style="display: none"></div>
+                </form>
+            </fieldset>
+
+            <!--##hide-hit_nop-->
+            <div class="box">
+                #(no-hits)
+            </div>
+            <!--##show-->
+
+            <!--##hide-hit_list-->
+            <div class="box">
+                #(gemeindeliste)
+                <ul>
+                    <!--##loop-hits-->
+                    <li>
+                        <a href="!{link}">!{hl}</a>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            </div>
+            <!--##show-->
+
+            <!--##hide-hit_one-->
+            <p><b>!{place}</b></p>
+            <p>#(treffer)</p>
+
+            <div class="box">
+                <h2>!{beschreibung}</h2>
+                <p>!{zusatz}</p>
+                <table width="100%" border="0" summary="!{beschreibung} !{zusatz} - Amtsinformation">
+                    <tr>
+                        <th><img src="../../images/html/icon_adresse.gif" alt="Adresse:" /></th>
+                        <td align="left">!{strasse}<br />!{ort}</td>
+                    </tr>
+                    <tr>
+                        <th><img src="../../images/html/icon_telefon.gif" alt="Telefon:" /></th>
+                        <td align="left">!{fon}</td>
+                    </tr>
+                    <tr>
+                        <th><img src="../../images/html/icon_fax.gif" alt="Fax:" /></th>
+                        <td align="left">!{fax}</td>
+                    </tr>
+                    <tr>
+                        <th><img src="../../images/html/icon_email.jpg" alt="e-Mail:" /></th>
+                        <td align="left"><a href="mailto:!{email}">!{email}</a></td>
+                    </tr>
+                    <tr>
+                        <th><img src="../../images/html/icon_internet.jpg" alt="Internet:" /></th>
+                        <td align="left"><a href="!{internet}">Vermessungsamt im Internet</a></td>
+                    </tr>
+                    <tr>
+                        <th><img src="../../images/html/icon_anfahrt1.gif" alt="BayernViewer:" /></th>
+                        <td align="left"><a href="!{bayview}">Vermessungsamt im BayernViewer</a></td>
+                    </tr>
+                </table>
+            </div>
+            <!--##show-->
+
+            !#ausgaben_output
+
+        </div>
+
+    </div>
+
+    <div id="margin">
+        <h1>&nbsp;</h1>
+        g(left)
+    </div>
+<!--##end-->
+
+
+
+
+
+
+
     <div id="content" style="background:url(/images/html/dienststellen-backgr.jpg) right no-repeat;float:left;">
         #(inhalt)
         <fieldset>
@@ -54,6 +145,5 @@
         #(content1)
     </div>
 <!--             </div> -->
-<!--##end-->
     </body>
 </html>
