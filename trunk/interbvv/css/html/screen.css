@@ -454,6 +454,40 @@ del {
         padding:0;
     }
 
+/* terminkalender */
+
+.cal_termine {
+    border:1px solid #000;
+    border-collapse:collapse;
+    margin:4px;
+    width:152px;
+}
+
+    .cal_termine td, .cal_termine th {
+        background:#F6EBDF;
+        border: 1px solid #E3D5C4;
+        border-bottom: none;
+        font-size:0.9em;
+        text-align:center;
+    }
+
+    .cal_termine th {
+        background:#E3D5C4;
+    }
+
+    .cal_termine .first {
+        border-left:1px solid #000;
+    }
+
+    .cal_termine .last {
+        border-right:1px solid #000;
+    }
+
+    .cal_termine .monat {
+        border: 1px solid #000;
+        border-bottom: none;
+    }
+
 /* kasten fuer zusatz-informationen */
 .box{
     background:#fff;
