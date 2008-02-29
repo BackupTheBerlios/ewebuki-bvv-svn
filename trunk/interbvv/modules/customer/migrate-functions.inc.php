@@ -50,7 +50,7 @@
     include $pathvars["moduleroot"]."libraries/function_file_validate.inc.php";
     include $pathvars["moduleroot"]."libraries/function_zip_handling.inc.php";
 
-    function get_mid($entry,$refid=0,$label="") {
+    function get_mid($entry,$refid=0,$label="",$hide=0) {
         global $db, $cfg, $sql;
 
         if ( $label == "" ) $label = $entry;
@@ -71,7 +71,20 @@
         $num = $db->num_rows($result);
         $id = "";
         if ( $num == 0 ) {
-            $sql = "INSERT INTO site_menu (entry, refid, defaulttemplate, hide, mandatory, level) VALUES ('".$entry."', ".$refid.", '".$cfg["migrate"]["def_temp"]."', '0', '0', '')";
+            $sql = "INSERT INTO site_menu (entry,
+                                           refid,
+                                           defaulttemplate,
+                                           hide,
+                                           mandatory,
+                                           level
+                                          )
+                         VALUES ('".$entry."',
+                                  ".$refid.",
+                                 '".$cfg["migrate"]["def_temp"]."',
+                                 '".$hide."',
+                                 '0',
+                                 ''
+                                )";
             $result = $db -> query($sql);
             $id = $db->lastid();
             $sql = "INSERT INTO site_menu_lang (mid,label) VALUES (".$id.", '".$label."')";
@@ -134,6 +147,50 @@
 
         return $return;
 
+    }
+
+    function insert_file ($file,$under,$migrate_file) {
+        global $db, $sql, $cfg;
+
+        /* db-eintrag machen */
+        $extension = strtolower(substr(strrchr($file,"."),1));
+        /* testen, ob schon ein identischer eintrag vorhanden ist */
+        $sql = "SELECT *
+                    FROM site_file
+                    WHERE fuid=1
+                    AND ffname='".basename($file)."'
+                    AND ffart='".$extension."'
+                    AND fdesc='".$under."'
+                    AND funder='".$under."'
+                    AND fhit LIKE '%from ".$migrate_file."%'";
+        $result  = $db -> query($sql);
+        $num = $db->num_rows($result);
+        if ( $num == 0 ) {
+            $sql = "INSERT INTO site_file (fuid,
+                                            ffname,
+                                            ffart,
+                                            fdesc,
+                                            funder,
+                                            fhit)
+                                    VALUES (1,
+                                            '".basename($file)."',
+                                            '".$extension."',
+                                            '".$under."',
+                                            '".$under."',
+                                            'from ".$migrate_file."')";
+            $result  = $db -> query($sql);
+            /* zu dateiablage hinzufuegen */
+            if ( $result ) {
+                $file_id = $db->lastid();
+                arrange( $file_id, $file, basename($file), 0 );
+            }
+        } else {
+            $data = $db -> fetch_array($result,1);
+            $file_id = $data["fid"];
+            if ( $cfg["migrate"]["replace_files"] == True ) arrange( $file_id, $file2insert, $match[2][$key], 0 );
+        }
+
+        return $file_id;
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

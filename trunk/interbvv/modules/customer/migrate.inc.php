@@ -77,8 +77,10 @@
         foreach ( $cfg["migrate"]["subdirs"] as $subdir_entry=>$subdir_label ) {
             $ausgaben["output"] .= "<h2>Subdir: $subdir_entry</h2>";
 
+            $url_subdir_entry = "m_".$subdir_entry;
+
             // anlegen des Sub-Dir-Menueeintrags
-            $refid_1 = get_mid($subdir_entry,0,$subdir_label);
+            $refid_1 = get_mid($url_subdir_entry,0,$subdir_label,'-1');
 
             if ( !is_dir($cfg["migrate"]["path"].$subdir_entry."/txt") ) continue;
 
@@ -92,11 +94,11 @@
                     if ( $file == "start.odt" ) {
                         $index_child = 0;
                         $ebene = "";
-                        $kategorie = $subdir_entry;
+                        $kategorie = $url_subdir_entry;
                     } else {
                         $menu = explode("_",str_replace(".odt","",$file),3);
 
-                        $ebene = "/".substr(rawurlencode($subdir_entry),0,$len_max["site_menu"]["entry"]);
+                        $ebene = "/".substr(rawurlencode($url_subdir_entry),0,$len_max["site_menu"]["entry"]);
                         $kategorie = "";
 
                         foreach ( $menu as $key=>$part ) {
@@ -393,6 +395,47 @@
                         }
                     }
 
+
+                    preg_match_all("/##(extra)_(.*);(.*)##/".$preg_mod,$content,$match);
+                    $buffer = "";
+                    foreach ( $match[0] as $key=>$value ) {
+                        $file2insert = $cfg["migrate"]["path"].$subdir_entry."/doc/".$match[2][$key];
+                        $sql = "SELECT *
+                                  FROM site_file
+                                 WHERE fid=".insert_file ($file2insert,$match[3][$key],$file);
+                        $result  = $db -> query($sql);
+                        $data = $db -> fetch_array($result,1);
+                        $link = $cfg["file"]["base"]["webdir"].
+                                $data["ffart"]."/".
+                                $data["fid"]."/".
+                                $data["ffname"];
+                        $buffer .= "[LINK=".$link."]".$data["funder"]."[/LINK]".chr(13).chr(10);
+                    }
+                    if ( $buffer != "" ) {
+                        $content .= "[DIV=aktuell]\n[P]".$buffer."[/P]\n[/DIV]";
+                    }
+
+
+                    preg_match_all("/##(item)_(.*);(.*)##/".$preg_mod,$content,$match);
+                    $buffer = "";
+                    $add_menu_items = "";
+                    foreach ( $match[0] as $key=>$value ) {
+                        $file2insert = $cfg["migrate"]["path"].$subdir_entry."/doc/".$match[2][$key];
+                        $sql = "SELECT *
+                                  FROM site_file
+                                 WHERE fid=".insert_file ($file2insert,$match[3][$key],$file);
+                        $result  = $db -> query($sql);
+                        $data = $db -> fetch_array($result,1);
+                        $link = $cfg["file"]["base"]["webdir"].
+                                $data["ffart"]."/".
+                                $data["fid"]."/".
+                                $data["ffname"];
+                        $buffer .= "[LINK=".$link."]".$data["funder"]."[/LINK]".chr(13).chr(10);
+                    }
+                    if ( $buffer != "" ) {
+                        $add_menu_items = "[P]".$buffer."[/P]\n";
+                    }
+
                     // leere marken werden entfernt
                     if ( preg_match("/##.*##/".$preg_mod,$content) ) $content = preg_replace("/##.*##/".$preg_mod,"",$content);
                     if ( preg_match("/\[P[^\[]*\][\s]*\[\/P\]/".$preg_mod,$content) ) $content = preg_replace("/\[P[^\[]*\][\s]*\[\/P\]/".$preg_mod,"",$content);
@@ -421,8 +464,8 @@
                                             $content
                     );
                     // menue der 3. ebene anzeigen
-                    $sec_menu = "\n[DIV=sub_menu]\n#{sub_menu}\n[/DIV]\n";
-                    if ( $index_child > 1 ) {
+                    $sec_menu = "\n[DIV=sub_menu]\n#{sub_menu}\n".$add_menu_items."[/DIV]\n";
+                    if ( $index_child > 1 || $add_menu_items != "" ) {
                         if ( preg_match("/(\[H1\].*\[\/H1\])/".$preg_mod,$content) ) {
                             $content = preg_replace("/(\[H1\].*\[\/H1\])/".$preg_mod,
                                                     '${1}'."\n".$sec_menu,
@@ -550,7 +593,7 @@
 
 //             echo "\$refid_1: $refid_1<br>";
             $ausgaben["output"] .= "<h3>Menuepunkte checken</h3>";
-            check_menu($refid_1,$subdir_entry."/");
+            check_menu($refid_1,$url_subdir_entry."/");
 
         }
 /*
