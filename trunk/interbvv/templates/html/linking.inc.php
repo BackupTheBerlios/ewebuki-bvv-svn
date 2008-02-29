@@ -89,9 +89,12 @@
   #}
 
     if ( strstr($environment["ebene"],"/admin")
-      || $environment["kategorie"] == "sitemap"
-      || ($environment["kategorie"] == "view" && $environment["parameter"][1] == "b") ){
+      || $environment["kategorie"] == "sitemap"){
             $mapping["screen"] = "screen_admin";
+    }
+
+    if ( preg_match("/^\/m_/",$environment["ebene"]."/".$environment["kategorie"]) ) {
+        $hidedata["hidden_menu"] = array();
     }
 
   if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ $script_name ++ ]".$debugging["char"];
