@@ -593,7 +593,7 @@
 
 //             echo "\$refid_1: $refid_1<br>";
             $ausgaben["output"] .= "<h3>Menuepunkte checken</h3>";
-            check_menu($refid_1,$url_subdir_entry."/");
+            check_menu($refid_1,$subdir_entry."/");
 
         }
 /*
