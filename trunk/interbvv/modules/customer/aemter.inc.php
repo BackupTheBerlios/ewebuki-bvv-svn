@@ -181,7 +181,15 @@
                     );
                 }
                 $hidedata["gallery"][0] = "enable";
+
+                $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$form_values["adrechtswert"].
+                                                                           "&amp;hw=".$form_values["adhochwert"].
+                                                                           "&amp;str=".$ausgaben["amt"].
+                                                                           "&amp;ort=".$form_values["adstr"].", ".$form_values["adplz"]." ".$form_values["adort"];
+
+
                 $hidedata["gallery"]["viewer"] = $form_values["adbayernviewer"];
+                $hidedata["gallery"]["viewer"] = $link;
 
 
                 break;

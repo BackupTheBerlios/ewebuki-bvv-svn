@@ -62,24 +62,6 @@
     // funktions bereich
     // ***
 
-    if ( $_GET["test"] == "on" ) {
-//         $url = "http://www.geodaten.bayern.de/bvv_web/va_64/home.html";
-//         exec("wget ".$url);
-        $handle = fopen ("http://www.geodaten.bayern.de/bvv_web/va_64/home.html", "r");
-//         while (!feof($handle)) {
-//             $line = fgets($handle,1024);
-//             if ( strstr($line,"BayernViewer2.0/index.cgi?") ) echo "<pre>".$line."</pre>";
-//         }
-        fclose($handle);
-        die;
-    }
-
-
-
-
-
-
-
     $ausgaben["search"] = $_GET["search"];
 
     if ( $_GET["search"] != "" || $_GET["amt"] != "" ) {
@@ -148,6 +130,12 @@
                 $neben = "";
                 $dienststelle = "Vermessungamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
             }
+
+            $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$data_amt["adrechtswert"].
+                                                                       "&amp;hw=".$data_amt["adhochwert"].
+                                                                      "&amp;str=".$dienststelle." ".$neben.
+                                                                      "&amp;ort=".$data_amt["adstr"].", ".$data_amt["adplz"]." ".$data_amt["adort"];
+
             $hidedata["hit_one"] = array(
                        "place" => $place,
                 "beschreibung" => $dienststelle,
@@ -158,7 +146,7 @@
                          "fax" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["fax"]],
                        "email" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["email"]],
                     "internet" => $pathvars["virtual"]."/aemter/".$akz."/index.html",
-                     "bayview" => $data_amt[$cfg["amtsuche"]["db"]["amt"]["bayview"]],
+                     "bayview" => $link,
             );
 
         } elseif ( $num > 1 ) {

@@ -68,9 +68,16 @@
                 <ul class="navigation">
                     <li>
                         Dienststellen
-                        <span id="indicator" style="display: none">
-                            <img src="/images/html/ajax_indicator.gif" alt="Working..." />
-                        </span>
+                        <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
+                            <div class="schnellsuche">
+                                <input value="Suche PLZ/Ort" name="search" onfocus="this.value=''" />
+                                <button type="submit" title="Start Suche" onclick="if (window.document.suche.suche_feld.value=='Suche PLZ/Ort'){window.document.suche.suche_feld.value='';}">
+                                    <img src="../../images/html/start-suche.png" alt="" />
+                                </button>
+                                <div class="clear"></div>
+                            </div>
+                        </form>
+<!--
                         <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
                             <div class="schnellsuche">
                                 <input id="suche_feld" value="Suche PLZ/Ort" name="auto_search" onfocus="this.value=''" />
@@ -80,6 +87,7 @@
                                 <div id="div_auto" class="autocomplete" style="display: none"></div>
                                 <div class="clear"></div>
                             </div>
+-->
                         </form>
                     </li>
                     <li id="fontsize" style="display:none;">
