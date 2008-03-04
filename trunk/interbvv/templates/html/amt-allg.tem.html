@@ -12,64 +12,64 @@
 
 <!--##begin-->
 <div id="substance">
-    <h1>!#ausgaben_amt</h1>
+    <h1>Dienststellen</h1>
+    <!--##hide-amtpic-->
+    <p style="height:120px;width:540px;background:url('../../images/html/aemter/background.jpg')">
+        <img src="!{src}" alt="!#ausgaben_amt" style="padding:3px;background:#eeeeee;border:1px solid #cccccc;margin:13px;" />
+    </p>
+    <!--##show-->
+    <h2>!#ausgaben_amt</h2>
 
-    <div class="info_amt" style="float:left;width:45%;">
-        <img src="../../images/html/aemter/va!#ausgaben_akz_gebaeude.gif" alt="Vermessungamt M&uuml;nchen" />
+    <div class="amt_info_box">
         <span title="Anschrift">
-            <img src="../../images/html/icon_adresse.gif" title="Adresse:" alt="Adresse:" />
+            <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
             <div>!#ausgaben_str</div>
             <div>!#ausgaben_plz !#ausgaben_ort</div>
         </span>
         <span title="Telefon">
-            <img src="../../images/html/icon_telefon.gif" title="Telefon:" alt="Telefon:" />
+            <img src="../../images/html/icon_telefon.jpg" title="Telefon:" alt="Telefon:" />
             <div>!#ausgaben_tel</div>
         </span>
-        <span title="Fax">
-            <img src="../../images/html/icon_fax.gif" title="Fax:" alt="Fax:" />
-            <div>!#ausgaben_fax</div>
-        </span>
+        <div class="clear"></div>
         <span title="&Ouml;ffnungszeiten">
             <img src="../../images/html/icon_zeit.jpg" title="&Ouml;ffnungszeiten:" alt="&Ouml;ffnungszeiten:" />
             <div>Mo. - Do. 8:00 - 16:00 Uhr</div>
             <div>Fr. 8:00 -12:00 Uhr</div>
             <div>und nach Vereinbarung</div>
         </span>
-    </div>
-
-    <div class="info_amt" style="float:left;width:45%;">
+        <span title="Fax">
+            <img src="../../images/html/icon_fax.jpg" title="Fax:" alt="Fax:" />
+            <div>!#ausgaben_fax</div>
+        </span>
+        <div class="clear"></div>
         <span title="E-Mail">
             <img src="../../images/html/icon_email.jpg" title="E-Mail:" alt="E-Mail:" />
             <div><a href="mailto:!#ausgaben_email">!#ausgaben_email</a></div>
         </span>
         <span title="Standort">
-            <img src="../../images/html/icon_anfahrt1.gif" title="Standort:" alt="Standort:" />
+            <img src="../../images/html/icon_lage.jpg" title="Standort:" alt="Standort:" />
             <div><a href="standort.html" id="cont01-title">Standortanzeige</a></div>
         </span>
-        <span title="Verbindungen">
-            <img src="../../images/html/icon_anfahrt2.gif" title="Verbindung suchen:" alt="Verbindung suchen:" />
-            <div>#(connection)</div>
-        </span>
+        <div class="clear"></div>
         <span title="Ansprechpartner">
             <img src="../../images/html/icon_ansprech.jpg" title="Ansprechpartner:" alt="Ansprechpartner:" />
             <div><a href="ansprech.html">Ansprechpartner</a></div>
         </span>
+        <span title="Verbindungen">
+            <img src="../../images/html/icon_verbindungen.jpg" title="Verbindung suchen:" alt="Verbindung suchen:" />
+            <div>#(connection)</div>
+        </span>
+        <div class="clear"></div>
+        <span title="Amtsbezirk, Amtschronik">
+            <img src="../../images/html/icon_info.jpg" title="Amtsbezirk, Amtschronik:" alt="Ansprechpartner:" />
+            <div><a href="amtsbezirk.html">Amtsbezirk</a></div>
+            <div><a href="amtschronik.html">Amtschronik</a></div>
+        </span>
         <span title="Informationen">
+            <img src="../../images/html/icon_behindert.jpg" title="Information f&uuml;r behinderte Menschen" alt="Information f&uuml;r behinderte Menschen:" />
             <div><a href="info.html" id="cont02-title">Informationen f&uuml;r behinderte Menschen</a></div>
         </span>
-
-        <fieldset>
-            <legend>Wir &uuml;ber uns</legend>
-            <span title="Amtsbezirk">
-                <div><a href="amtsbezirk.html">Amtsbezirk</a></div>
-            </span>
-            <span title="Amtschronik">
-                <div><a href="amtschronik.html">Amtschronik</a></div>
-            </span>
-            <span title="Weiterf&uuml;hrende Links">
-                <div><a href="links.html">Weiterf&uuml;hrende Links</a></div>
-            </span>
-        </fieldset>
+        <div class="clear"></div>
     </div>
     <div class="clear"></div>
 

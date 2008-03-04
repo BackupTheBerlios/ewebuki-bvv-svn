@@ -49,7 +49,7 @@
     if ( get_cfg_var('register_globals') == 1 ) $debugging["ausgabe"] .= "Warnung: register_globals in der php.ini steht auf on, evtl werden interne Variablen ueberschrieben!".$debugging["char"];
 
     // path fuer die schaltflaechen anpassen
-    if ( $cfg["iconpath"] == "" ) $cfg["iconpath"] = "/images/default/";
+    if ( $cfg["aemter"]["iconpath"] == "" ) $cfg["aemter"]["iconpath"] = "/images/default/";
 
     // label bearbeitung aktivieren
     if ( isset($HTTP_GET_VARS["edit"]) ) {
@@ -59,14 +59,14 @@
     }
 
     // include function loader
-    if ( is_array($cfg["function"][$environment["kategorie"]]) ) include $pathvars["addonroot"].$cfg["subdir"]."/".$cfg["name"]."-functions.inc.php";
+    if ( is_array($cfg["aemter"]["function"][$environment["kategorie"]]) ) include $pathvars["addonroot"].$cfg["aemter"]["subdir"]."/".$cfg["aemter"]["name"]."-functions.inc.php";
 
     // magic include loader
-    if ( array_key_exists($environment["kategorie"], $cfg["function"]) ) {
-//         include $pathvars["addonroot"].$cfg["subdir"]."/".$cfg["name"]."-".$environment["kategorie"].".inc.php";
-        include $pathvars["moduleroot"].$cfg["subdir"]."/".$cfg["name"].".inc.php";
+    if ( array_key_exists($environment["kategorie"], $cfg["aemter"]["function"]) ) {
+//         include $pathvars["addonroot"].$cfg["aemter"]["subdir"]."/".$cfg["aemter"]["name"]."-".$environment["kategorie"].".inc.php";
+        include $pathvars["moduleroot"].$cfg["aemter"]["subdir"]."/".$cfg["aemter"]["name"].".inc.php";
     } else {
-//         include $pathvars["addonroot"].$cfg["subdir"]."/".$cfg["name"]."-list.inc.php";
+//         include $pathvars["addonroot"].$cfg["aemter"]["subdir"]."/".$cfg["aemter"]["name"]."-list.inc.php";
     }
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];

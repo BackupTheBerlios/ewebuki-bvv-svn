@@ -45,7 +45,7 @@
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ** ".$script["name"]." ** ]".$debugging["char"];
 
-    if ( $cfg["right"] == "" || $rechte[$cfg["right"]] == -1 ) {
+    if ( $cfg["aemter"]["right"] == "" || $rechte[$cfg["aemter"]["right"]] == -1 ) {
 
         // page basics
         // ***
@@ -65,7 +65,7 @@
 
         // datensatz holen
         $sql = "SELECT *
-                  FROM ".$cfg["db"]["dst"]["entries"]."
+                  FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
                   JOIN db_adrd_kate on (adkate=katid)
                  WHERE adakz=".$amtid;
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
@@ -139,6 +139,15 @@
             aussenstellen($data["adid"]);
         }
 //         echo "--".$db->num_rows($result);
+
+        // bild v. amtsgebaeude
+        $extensions = array_keys($cfg["file"]["filetyp"],"img");
+        foreach ( $extensions as $value ) {
+            if ( file_exists(rtrim($pathvars["fileroot"],"/").$pathvars["images"]."aemter/va".$ausgaben["akz"]."_gebaeude.".$value) ) {
+                $hidedata["amtpic"]["src"] = $pathvars["images"]."aemter/va".$ausgaben["akz"]."_gebaeude.".$value;
+                break;
+            }
+        }
 
         switch ($environment["parameter"][0]){
             // startseite
@@ -218,16 +227,16 @@
                     }
 
                     // tabellen farben wechseln
-                    if ( $cfg["color"]["set"] == $cfg["color"]["a"]) {
-                        $cfg["color"]["set"] = $cfg["color"]["b"];
+                    if ( $cfg["aemter"]["color"]["set"] == $cfg["aemter"]["color"]["a"]) {
+                        $cfg["aemter"]["color"]["set"] = $cfg["aemter"]["color"]["b"];
                     } else {
-                        $cfg["color"]["set"] = $cfg["color"]["a"];
+                        $cfg["aemter"]["color"]["set"] = $cfg["aemter"]["color"]["a"];
                     }
 
                     $dataloop["gmd"][] = array(
                         "item" => $data["gemeinde"],
                         "gmkg" => $gmkg,
-                        "color" => $cfg["color"]["set"]
+                        "color" => $cfg["aemter"]["color"]["set"]
                     );
                 }
                 break;
@@ -242,7 +251,7 @@
         // ***
 
         // navigation erstellen
-        $ausgaben["add"] = $cfg["basis"]."/add,".$environment["parameter"][1].",verify.html";
+        $ausgaben["add"] = $cfg["aemter"]["basis"]."/add,".$environment["parameter"][1].",verify.html";
         #$mapping["navi"] = "leer";
 
         // hidden values

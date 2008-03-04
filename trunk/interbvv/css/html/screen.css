@@ -86,7 +86,7 @@ button, input[type=button], input[type=submit]{
 fieldset{
     background:#EFEFEF;
     border:1px solid #8F8F8F;
-    margin-bottom:5px;
+    margin:5px;
     padding:5px;
 }
 
@@ -329,14 +329,19 @@ del {
             width:auto;
         }
 
+        #substance ul li {
+            margin-left:15px;
+        }
+
     #substance table {
         font-size:inherit;
     }
 
-    #substance td, #substance th {
+    #substance td, #substance th, #substance .cell {
         background:#EFF2FA;
         border:1px solid #ccc;
         padding:2px;
+        width:auto;
     }
 
     #substance img {
@@ -645,6 +650,30 @@ div.autocomplete {
         }
 
 /* infobox fuer die startseite der aemter */
+.amt_info_box {
+/*     border:1px solid silver; */
+}
+
+    .amt_info_box p, .amt_info_box span{
+        margin:/*0.5em*/ 0;
+        display:block;
+        float:left;
+        text-align:left;
+        width:45%;
+    }
+
+        .amt_info_box p img, .amt_info_box span img{
+            float:left;
+            margin-bottom:0.5em;
+            vertical-align:middle;
+        }
+
+        .amt_info_box div {
+            margin-left:40px;
+        }
+
+
+
 .info_amt p, .info_amt span{
     margin:0.5em 0;
     clear:both;
