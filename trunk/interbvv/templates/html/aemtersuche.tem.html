@@ -17,18 +17,24 @@
 
             <fieldset>
                 <form method="get" action="">
-                    <input type="text" class="textfield" id="auto" name="search" value="!#ausgaben_search" style="width:300px;" />
+                    <input type="text" class="textfield" name="search" value="!#ausgaben_search" style="width:300px;" />
                     <button value="send" class="button">Senden</button>
-                    <span id="indicator" style="display: none">
-                        <img src="/images/html/ajax_indicator.gif" alt="Working..." />
-                    </span>
-                    <div id="div_auto" class="autocomplete" style="display: none"></div>
+<!--                     <span id="indicator" style="display: none"> -->
+<!--                         <img src="/images/html/ajax_indicator.gif" alt="Working..." /> -->
+<!--                     </span> -->
+<!--                     <div id="div_auto" class="autocomplete" style="display: none"></div> -->
                 </form>
             </fieldset>
 
             <!--##hide-hit_nop-->
             <div class="box">
                 #(no-hits)
+            </div>
+            <!--##show-->
+
+            <!--##hide-hit_toomuch-->
+            <div class="box">
+                #(toomuch-hits)
             </div>
             <!--##show-->
 
