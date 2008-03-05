@@ -464,7 +464,7 @@ del {
 .cal_termine {
     border:1px solid #000;
     border-collapse:collapse;
-    margin:4px;
+    margin:0px 4px;
     width:152px;
 }
 
