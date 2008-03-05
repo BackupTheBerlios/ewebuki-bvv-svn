@@ -7,7 +7,7 @@
         <meta name="author" content="" />
         <meta name="description" content=" " />
         <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
-        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
         <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
         <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
         <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
@@ -22,12 +22,14 @@
         <div id="site">
 
             <div id="head">
-                <h1 style="position:absolute;top:10px;border:none;">
-                    <a href="!#pathvars_menuroot/index.html">Bayerische<br /> Vermessungsverwaltung</a>
-                </h1>
-                <img src="../../images/html/wappen.gif" alt="" width="80" style="float:right;" />
-                <img src="../../images/html/banner.jpg" width="880" alt="" style="float:left;" />
-                <div class="clear"></div>
+                <div id="banner">
+                    <h1 style="position:absolute;top:10px;border:none;">
+                        <a href="!#pathvars_menuroot/index.html">Bayerische<br /> Vermessungsverwaltung</a>
+                    </h1>
+                    <img src="../../images/html/wappen.gif" alt="" width="80" style="float:right;" />
+                    <img src="../../images/html/banner.jpg" width="880" alt="" style="float:left;" />
+                    <div class="clear"></div>
+                </div>
                 <div id="headnavi">
                     <form action="!#pathvars_menuroot/search.html" id="qsearch" method="post">
                         <div class="schnellsuche right">
@@ -46,6 +48,16 @@
                     </ul>
                     <div class="clear"></div>
                 </div>
+
+                        <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
+                            <div class="schnellsuche right" style="margin-right:102px;">
+                                <input value="Suche PLZ/Ort" name="search" onfocus="this.value=''" />
+                                <button type="submit" title="Start Suche" onclick="if (window.document.suche.suche_feld.value=='Suche PLZ/Ort'){window.document.suche.suche_feld.value='';}">
+                                    <img src="../../images/html/start-suche.png" alt="" />
+                                </button>
+                                <div class="clear"></div>
+                            </div>
+                        </form>
 
                 <p class="metanavi">
                     <a href="" >Deutsch</a> |
@@ -66,30 +78,6 @@
                 </div>
                 <h1>&nbsp;</h1>
                 <ul class="navigation">
-                    <li>
-                        Dienststellen
-                        <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
-                            <div class="schnellsuche">
-                                <input value="Suche PLZ/Ort" name="search" onfocus="this.value=''" />
-                                <button type="submit" title="Start Suche" onclick="if (window.document.suche.suche_feld.value=='Suche PLZ/Ort'){window.document.suche.suche_feld.value='';}">
-                                    <img src="../../images/html/start-suche.png" alt="" />
-                                </button>
-                                <div class="clear"></div>
-                            </div>
-                        </form>
-<!--
-                        <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
-                            <div class="schnellsuche">
-                                <input id="suche_feld" value="Suche PLZ/Ort" name="auto_search" onfocus="this.value=''" />
-                                <button type="submit" title="Start Suche" onclick="if (window.document.suche.suche_feld.value=='Suche PLZ/Ort'){window.document.suche.suche_feld.value='';}">
-                                    <img src="../../images/html/start-suche.png" alt="" />
-                                </button>
-                                <div id="div_auto" class="autocomplete" style="display: none"></div>
-                                <div class="clear"></div>
-                            </div>
--->
-                        </form>
-                    </li>
                     <li id="fontsize" style="display:none;">
                         Schriftgr&ouml;&szlig;en<br />
                         <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;float:left;padding:0 5px;vertical-align:bottom;">
@@ -103,7 +91,7 @@
                         </a>
                         <p  class="clear" />
                     </li>
-                    <li><a href="">Impressum/<br /> Datenschutz</a></li>
+                    <li><a href="!#pathvars_virtual/impressum.html">Impressum/<br /> Datenschutz</a></li>
                 </ul>
                 <div id="lock">
                     &nbsp;
@@ -122,17 +110,6 @@
             </div>
 
         </div>
-
-        <script type="text/javascript">
-            new Ajax.Autocompleter(
-                'suche_feld',
-                'div_auto',
-                '/amtsuche.html?auto=on',
-                {frequency:0.4,
-                    indicator:'indicator',
-                    afterUpdateElement:'submit()'}
-            )
-        </script>
 
     </body>
 </html>
