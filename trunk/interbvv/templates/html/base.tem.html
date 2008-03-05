@@ -35,7 +35,7 @@
                         <div class="schnellsuche right">
                             <input type="hidden" value="!#pathvars_requested" name="requested"/>
                             <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
-                            <button type="submit" title="Start Suche" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+                            <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
                                 <img src="../../images/html/start-suche.png" alt="" />
                             </button>
                             <div class="clear"></div>
@@ -51,8 +51,8 @@
 
                         <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
                             <div class="schnellsuche right" style="margin-right:102px;">
-                                <input value="Suche PLZ/Ort" name="search" onfocus="this.value=''" />
-                                <button type="submit" title="Start Suche" onclick="if (window.document.suche.suche_feld.value=='Suche PLZ/Ort'){window.document.suche.suche_feld.value='';}">
+                                <input value="Dienstellensuche" name="search" onfocus="this.value=''" />
+                                <button type="submit" title="Dienstellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Dienstellensuche'){window.document.suche.suche_feld.value='';}">
                                     <img src="../../images/html/start-suche.png" alt="" />
                                 </button>
                                 <div class="clear"></div>

@@ -31,6 +31,7 @@ h1{
 }
 
 h2{
+    color:#5b5b5b;
     font-size:1.15em;
     margin:1.5em 0 0.75em;
 }
@@ -49,7 +50,7 @@ a{
 a:hover{
     background-color:inherit;
     color:#4775A3;
-    text-decoration:none;
+/*     text-decoration:none; */
 }
 
 a img{
@@ -151,7 +152,7 @@ del {
             }
 
             #head li .selected, #head li a:hover{
-                background:#9AC7E4;
+                text-decoration:underline;
             }
 
     /* kekse-bereich */
@@ -449,7 +450,7 @@ del {
     .schnellsuche input{
         border:none;
         float:left;
-        width:100px;
+        width:125px;
     }
 
     .schnellsuche button{
@@ -676,21 +677,20 @@ div.autocomplete {
             margin-left:40px;
         }
 
+/* banner fuer die amtsseite */
+#substance p.amt_banner {
+    height:120px;
+    width:540px;
+}
+
+    #substance p.amt_banner img {
+        background:#eeeeee;
+        border:1px solid #cccccc;
+        margin:20px 4px;
+        padding:3px;
+    }
 
 
-.info_amt p, .info_amt span{
-    margin:0.5em 0;
-    clear:both;
-    display:block;
-    text-align:left;
-}
-.info_amt div {
-    margin-left:40px;
-}
-.info_amt p img, .info_amt span img{
-    margin-bottom:0.5em;
-    float:left;
-}
 .old {
     background: #FF9148;
 }
