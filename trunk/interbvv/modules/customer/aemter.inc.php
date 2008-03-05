@@ -138,7 +138,6 @@
             $ausgaben["amt"] = "Vermessungsamt ".$data["adststelle"]." - ".$form_values["kat_lang"]." ".$form_values["adststelle"];
             aussenstellen($data["adid"]);
         }
-//         echo "--".$db->num_rows($result);
 
         // bild v. amtsgebaeude
         $extensions = array_keys($cfg["file"]["filetyp"],"img");
@@ -148,6 +147,20 @@
                 break;
             }
         }
+        // wms-aufruf
+        $bbox = array(
+            "lu_x" => $form_values["adrechtswert"] - ($cfg["aemter"]["wms"]["width"]*$cfg["aemter"]["wms"]["m"]/2),
+            "lu_y" => $form_values["adhochwert"] - ($cfg["aemter"]["wms"]["height"]*$cfg["aemter"]["wms"]["m"]/2),
+            "ro_x" => $form_values["adrechtswert"] + ($cfg["aemter"]["wms"]["width"]*$cfg["aemter"]["wms"]["m"]/2),
+            "ro_y" => $form_values["adhochwert"] + ($cfg["aemter"]["wms"]["height"]*$cfg["aemter"]["wms"]["m"]/2),
+        );
+        $hidedata["amtpic"]["scr_bg"] = str_replace(array("##LAYERS##","##BBOX##","##WIDTH##","##HEIGHT##"
+                                                    ),
+                                                    array($cfg["aemter"]["wms"]["layers"],implode(",",$bbox),$cfg["aemter"]["wms"]["width"],$cfg["aemter"]["wms"]["height"]
+                                                    ),
+                                                    $cfg["aemter"]["wms"]["url"]
+                                        );
+        $wms_background = $cfg["aemter"]["wms"]["url"];
 
         switch ($environment["parameter"][0]){
             // startseite

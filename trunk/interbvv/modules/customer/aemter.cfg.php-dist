@@ -64,6 +64,13 @@
                             "rows"  => 4,
                      ),
               ),
+              "wms" => array(
+                   "url" => "http://www.geodaten.bayern.de/ogc/getogc.cgi?REQUEST=GetMap&SRS=EPSG:31468&VERSION=1.1.1&FORMAT=image/png&Layers=##LAYERS##&BBOX=##BBOX##&WIDTH=##WIDTH##&HEIGHT=##HEIGHT##&STYLES=",
+                "layers" => "DOP",
+                 "width" => "540",
+                "height" => "120",
+                     "m" => 2        // meter pro pixel (massstabszahl)
+              ),
             "right" => "",
     );
 
