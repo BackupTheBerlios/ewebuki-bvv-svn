@@ -493,6 +493,10 @@ del {
         border-bottom: none;
     }
 
+    .cal_termine .today {
+        background:#E3D5C4;
+    }
+
 /* kasten fuer zusatz-informationen */
 .box{
     background:#fff;
