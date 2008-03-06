@@ -86,8 +86,8 @@ button, input[type=button], input[type=submit]{
 
 fieldset{
     background:#EFEFEF;
-    border:1px solid #8F8F8F;
-    margin:5px;
+    border:1px solid #cccccc;
+    margin:5px 0;
     padding:5px;
 }
 
@@ -443,6 +443,11 @@ legend {
     float:left;
 }
 
+fieldset.button {
+    text-align:right;
+    padding-right:81px;
+}
+
 /* suchfeld */
 .schnellsuche{
     background:#fff;
@@ -508,6 +513,7 @@ legend {
     border-top:5px solid #cccccc;
     margin:0 3px 20px;
     text-align:center;
+/*     -moz-border-radius-topright:20px; */
 }
 
     .viewer h1, #substance .sub_menu h3 {
@@ -700,21 +706,23 @@ div.autocomplete {
 .new {
     background: #A9C0CE;
 }
+
+/* Kontakt-Formular */
 .kontakt input {
     float:left;
     margin-top: 1px;
     margin-bottom: 1px;
-    width: 250px;
+    width: 300px;
 }
+
 .kontakt textarea{
-    width:400px;
+    width:450px;
 }
+
 .kontakt label {
     float: left;
     display: block;
     clear: both;
     width: 150px;
-    margin-top: 1px;
-    margin-bottom: 1px;
-/*     padding-left: 40px;  */
+    margin:3px 0;
 }

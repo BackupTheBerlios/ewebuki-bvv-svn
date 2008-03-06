@@ -318,10 +318,12 @@ li.thumbs a.pic {
 
     .selection_teaser div {
         background:#fff;
+        padding-left:16px;
     }
 
     .selection_teaser ul {
         margin:0;
+        padding:0;
     }
 
     .selection_teaser li {
