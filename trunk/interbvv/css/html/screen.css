@@ -697,3 +697,18 @@ div.autocomplete {
 .new {
     background: #A9C0CE;
 }
+#kontakt input {
+    float:left;
+}
+#kontakt textarea{
+    width:80%;
+}
+#kontakt label {
+   float: left;
+    /*display: block;*/
+    clear: both;
+    width: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+/*     padding-left: 40px; */
+}
