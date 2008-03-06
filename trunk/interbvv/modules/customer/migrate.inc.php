@@ -330,8 +330,8 @@
                                                           $compid,
                                                           $cfg["migrate"]["zip_handling"]["sektions"]
                             );
-                            $i = 0;$sort=0;
-                        if ( count($_SESSION["zip_extracted"]) == 0 ) continue;
+                            $i = 0;$sort=0;$pics=array();
+                            if ( count($_SESSION["zip_extracted"]) == 0 ) continue;
                             foreach ( $_SESSION["zip_extracted"] as $name=>$value ) {
                                 /* ueberpruefen */
                                 $file2insert = $cfg["file"]["base"]["maindir"].$cfg["file"]["base"]["new"].$name;
