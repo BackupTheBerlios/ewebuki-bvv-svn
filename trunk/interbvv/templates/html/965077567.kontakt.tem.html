@@ -43,12 +43,16 @@
             <label for="send">#(send)</label>
             !#element_send
         </fieldset>
-        <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
-        <div class="clearer">&nbsp;</div>
-        <input type="submit" name="send[]" value="g(send)" class="first" />
-        <input type="reset" name="reset" value="g(reset)" class="next" />
-<!--        <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />-->
-        <div class="clearer">&nbsp;</div>
+
+        <fieldset class="button">
+            <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
+            <div class="clearer">&nbsp;</div>
+            <input type="submit" name="send[]" value="g(send)" class="first" />
+            <input type="reset" name="reset" value="g(reset)" class="next" />
+    <!--        <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />-->
+            <div class="clearer">&nbsp;</div>
+        </fieldset>
+        #(inhalt)
     </div>
     <div id="margin">
         <h1>&nbsp;</h1>
