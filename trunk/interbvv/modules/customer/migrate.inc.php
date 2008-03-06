@@ -68,7 +68,9 @@
             while (!feof($fd)) {
                 $line = fgets($fd,1024);
                 $array = explode(";",$line);
-                $menu_csv[trim($array[0]," \"")] = str_replace("\"","",trim($array[2]));
+                $key = trim($array[0]," \"");
+                $menu_csv[$key] = str_replace("\"","",trim($array[2]));
+                $menu_csv[preg_replace("/^\//","/m_",$key)] = str_replace("\"","",trim($array[2]));
             }
         }
 
@@ -257,7 +259,7 @@
                                 $content = str_replace($value,$ersetzung,$content);
                             }
                         } else {
-                            $ausgaben["output"] .=  $file2insert." nicht vorhanden<br>";
+                            $ausgaben["output"] .= "- nicht vorhanden: ".str_replace($cfg["migrate"]["path"],".../",$file2insert)."<br>";
                             $content = str_replace($value,"",$content);
                         }
                     }
@@ -265,7 +267,9 @@
                     // 5.2.  Tabellen
                     preg_match_all("/##(tab)_(.*)##/".$preg_mod,$content,$match);
                     foreach ( $match[0] as $key=>$tabs ) {
-                        $tab_file_name = str_replace(strstr(";",$match[2][$key]),"",$match[2][$key]);
+                        $tab_infos = explode(";",$match[2][$key],2);
+                        $tab_file_name = $tab_infos[0];
+                        $tab_desc = $tab_infos[1];
                         $tab_file = $cfg["migrate"]["path"].$subdir_entry."/".$cfg["migrate"]["filedirs"][$match[1][$key]]."/".$tab_file_name;
                         if ( file_exists($tab_file) ) {
                             $lines = file($tab_file);
@@ -302,7 +306,7 @@
                                 );
                             }
                         } else {
-                            $ausgaben["output"] .=  $tab_file." nicht vorhanden<br>";
+                            $ausgaben["output"] .= "- nicht vorhanden: ".str_replace($cfg["migrate"]["path"],".../",$tab_file)."<br>";
                             $content = str_replace($tabs,"",$content);
                         }
                     }
@@ -377,11 +381,12 @@
                                     if ( $i < $cfg["migrate"]["tags"]["selektion"]["pics"] ) {
                                         $pics[] = $file_id;
                                     }
-                                    unlink($file2insert);
+                                    @unlink($file2insert);
                                 }
                             }
                             /* vorschaubilder suchen */
                             if ( count($pics) > 0 ) {
+                                $pics = array_slice($pics,0,$cfg["fileed"]["compilation"]["items"]);
                                 $ersetzung = str_replace(array("compid","pics"),
                                                                array($compid,implode(":",$pics)),
                                                                $cfg["migrate"]["tags"]["selektion"]["start"]
@@ -416,7 +421,7 @@
                     }
 
 
-                    preg_match_all("/##(item)_(.*);(.*)##/".$preg_mod,$content,$match);
+                    preg_match_all("/##(doc)_(.*);(.*)##/".$preg_mod,$content,$match);
                     $buffer = "";
                     $add_menu_items = "";
                     foreach ( $match[0] as $key=>$value ) {
@@ -552,7 +557,7 @@
                         $result  = $db -> query($sql);
                     } else {
                         $data = $db -> fetch_array($result,1);
-                        if ( $content != $data["content"] ) {
+                        if ( $content != addslashes($data["content"]) ) {
                             $ausgaben["output"] .= "neuer Content eingefuegt (v. ".($data["version"]+1).")<br>";
                             $sql = "INSERT INTO site_text (lang,
                                                            label,
