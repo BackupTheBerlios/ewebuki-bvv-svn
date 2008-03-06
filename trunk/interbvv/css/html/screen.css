@@ -700,15 +700,16 @@ div.autocomplete {
 .new {
     background: #A9C0CE;
 }
-#kontakt input {
+.kontakt input {
     float:left;
     margin-top: 1px;
     margin-bottom: 1px;
+    width: 250px;
 }
-#kontakt textarea{
-    width:80%;
+.kontakt textarea{
+    width:400px;
 }
-#kontakt label {
+.kontakt label {
     float: left;
     display: block;
     clear: both;
