@@ -9,19 +9,23 @@
 <body>
 <!--##begin-->
 <!--$Id: kontakt.tem.html 789 2007-09-14 12:14:02Z chaot $-->
-
+<form method="post" action="!#ausgaben_form_aktion">
+    <p>!#ausgaben_form_error</p>
     <div id="substance">
         <p>#(kopf)</p>
         <fieldset id="kontakt">
-            <legend>Adressat und Nachricht</legend>
+            <legend>#(legend_adressat)</legend>
+            <label for="an">#(an)</label>
+            !#element_an
             <label for="betreff">#(betreff)</label>
             !#element_betreff
             <label for="mitteilung">#(mitteilung)</label>
             !#element_mitteilung
         </fieldset>
-        <p>#(hinweis)</p>
+
         <fieldset id="kontakt">
-            <legend>Absender</legend>
+            <p>#(hinweis)</p>
+            <legend>#(legend_absender)</legend>
             <label for="name">#(name)</label>
             !#element_name
             <label for="strasse">#(strasse)</label>
@@ -39,57 +43,22 @@
             <label for="send">#(send)</label>
             !#element_send
         </fieldset>
-
-
-        <p>#(inhalt)</p>
+        <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
+        <div class="clearer">&nbsp;</div>
+        <input type="submit" name="send[]" value="g(send)" class="first" />
+        <input type="reset" name="reset" value="g(reset)" class="next" />
+<!--        <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />-->
+        <div class="clearer">&nbsp;</div>
     </div>
-   <div id="margin">
+    <div id="margin">
         <h1>&nbsp;</h1>
         g(left)
         <!--##hide-hidden_menu-->
         g(hidden_menu)
         <!--##show-->
     </div>
-
-
-<!--<form method="post" action="!#ausgaben_form_aktion" id="eEd">
-    <h1>#(ueberschrift)</h1>
-    <p>#(inhalt)</p>
-    <p>!#ausgaben_form_error</p>
-    <fieldset class="cbra">
-        !#element_betreff
-    </fieldset>
-    <fieldset>
-        <label for="firma">g(firma)</label>
-        !#element_firma
-        <label for="branche">g(branche)</label>
-        !#element_branche
-        <label for="ansprechpartner">g(ansprechpartner)</label>
-        !#element_ansprechpartner
-        <label for="strasse">g(strasse)</label>
-        !#element_strasse
-        <label for="plz">g(plz)</label>
-        !#element_plz
-        <label for="ort">g(ort)</label>
-        !#element_ort
-        <label for="telefon">g(telefon)</label>
-        !#element_telefon
-        <label for="fax">g(fax)</label>
-        !#element_fax
-        <label for="e-mail">g(e-mail)</label>
-        !#element_e-mail
-        <label for="mitteilung">g(mitteilung)</label>
-        !#element_mitteilung
-        <p>#(zusatz)</p>
-        <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
-        <div class="clearer">&nbsp;</div>
-        <input type="submit" name="send[]" value="g(send)" class="first" />
-        <input type="reset" name="reset" value="g(reset)" class="next" />
-        <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />
-        <div class="clearer">&nbsp;</div>
-    </fieldset>
-    <p>!#ausgaben_output</p>
-    <p>!#ausgaben_inaccessible</p>-->
+    <div class="clearer">&nbsp;</div>
+    <p>!#ausgaben_inaccessible</p>
 </form>
 <!--##end-->
 </body>
