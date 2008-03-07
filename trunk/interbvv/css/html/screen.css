@@ -726,3 +726,11 @@ div.autocomplete {
     width: 150px;
     margin:3px 0;
 }
+
+input.klein {
+    width: 50px;
+}
+
+input.medium {
+    width: 248px;
+}
