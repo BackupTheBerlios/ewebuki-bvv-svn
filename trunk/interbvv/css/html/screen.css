@@ -715,6 +715,10 @@ div.autocomplete {
     width: 300px;
 }
 
+input[type=checkbox] {
+    width:auto;
+}
+
 .kontakt textarea{
     width:450px;
 }
