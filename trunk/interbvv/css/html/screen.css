@@ -470,41 +470,53 @@ fieldset.button {
 
 /* terminkalender */
 
+/* hell:   #FEF6DE */
+/* dunkel: #DFB859 */
+
+
 .cal_termine {
-    border:1px solid #8F8F8F;
+    border:1px solid #cccccc;
     border-collapse:collapse;
-    margin:0px 4px;
+    font-size:0.9em;
+    margin:0 4px;
     width:152px;
 }
 
-    .cal_termine td, .cal_termine th {
-        background:#F6EBDF;
-        border: 1px solid #E3D5C4;
+    .cal_termine td {
+        background:#FEF6DE;
+        border:1px solid #feeaad;
         border-bottom: none;
-        font-size:0.9em;
         text-align:center;
     }
 
+        .cal_termine td.first {
+            border-left:1px solid #cccccc;
+        }
+
+        .cal_termine td.last {
+            border-right:1px solid #cccccc;
+        }
+
+    .cal_termine td.today {
+        background:#feeaad;
+    }
+
     .cal_termine th {
-        background:#E3D5C4;
+        background:#feeaad;
     }
 
-    .cal_termine .first {
-        border-left:1px solid #8F8F8F;
+.cal_termine_months {
+    border-bottom:none;
+}
+
+    .cal_termine_months td {
+        background:#feeaad;
+        border:1px solid #FEF6DE;
     }
 
-    .cal_termine .last {
-        border-right:1px solid #8F8F8F;
-    }
-
-    .cal_termine .monat {
-        border: 1px solid #8F8F8F;
-        border-bottom: none;
-    }
-
-    .cal_termine .today {
-        background:#E3D5C4;
-    }
+        .cal_termine_months tr.first_line td {
+            border-top: 1px solid #cccccc;
+        }
 
 /* kasten fuer zusatz-informationen */
 .box{
