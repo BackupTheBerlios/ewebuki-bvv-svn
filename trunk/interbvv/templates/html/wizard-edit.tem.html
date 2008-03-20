@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+<!--##begin-->
+    <div id="substance">
+
+        !#ausgaben_ce_script
+        <form method="post" action="!#ausgaben_form_aktion" id="cEd">
+            #(inhalt)
+            <p>!#ausgaben_form_error</p>
+
+            <fieldset class="ce">
+                <!--##hide-imgpreview-->
+                <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
+                <!--##show-->
+                <!--##hide-img-->
+                <label>Beschriftung</label>
+                <input type="text" name="description" value="!{meat}" />
+<!--                 <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /> -->
+                <input id="eb_submit" class="buttag" type="submit" title="Datei auswaehlen" value="Bild holen" name="add[]"/>
+
+                <fieldset >
+                    <legend>Anzeigengröße</legend>
+                    <!--##loop-show-->
+                    <input type="radio" name="tagwerte[0]" value="!{value}"!{check}>!{label}
+                    <!--##cont-->
+<!--                    <input type="radio" name="tagwerte[1]" value="" checked="true"> nix
+                    <input type="radio" name="tagwerte[1]" value="l"> links
+                    <input type="radio" name="tagwerte[1]" value="r"> rechts-->
+                </fieldset>
+
+                <fieldset >
+                    <legend>Ausrichtung</legend>
+                    <!--##loop-align-->
+                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check}>!{label}
+                    <!--##cont-->
+<!--                    <input type="radio" name="tagwerte[1]" value="" checked="true"> nix
+                    <input type="radio" name="tagwerte[1]" value="l"> links
+                    <input type="radio" name="tagwerte[1]" value="r"> rechts-->
+                </fieldset>
+
+                <label>Rand (in px)</label>
+                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
+
+                <fieldset >
+                    <legend>Detailansicht</legend>
+                    <!--##loop-size-->
+                    <input type="radio" name="tagwerte[3]" value="!{value}"!{check}>!{label}
+                    <!--##cont-->
+<!--                    <input type="radio" name="tagwerte[3]" value="s" checked="true"> klein
+                    <input type="radio" name="tagwerte[3]" value="m"> mittel
+                    <input type="radio" name="tagwerte[3]" value="b"> groß
+                    <input type="radio" name="tagwerte[3]" value="o"> original-->
+                </fieldset>
+
+                <fieldset>
+                    <legend>Abstände</legend>
+                    <label>nach oben</label>
+                    <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+                    <label>nach unten</label>
+                    <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" /><br />
+                    <label>nach links/rechts</label>
+                    <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" /><br />
+                </fieldset>
+                <!--##show-->
+
+                <!--##hide-default-->
+                <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
+                <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" class="!#ausgaben_class" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
+                <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
+                <script type="text/javascript" language="JavaScript">
+                    <!--
+                    // This is for toolbar plugins
+                    var ebCanvas = document.getElementById('content');
+                    //-->
+                </script>
+                <!--##show-->
+            </fieldset>
+
+            <div class="clearer">&nbsp;</div>
+
+            <fieldset>
+                <input type="hidden" name="html" value="!#ausgaben_form_hidden" class="hidden" />
+                <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+                <div class="clearer">&nbsp;</div>
+                <input type="submit" name="send[]" value="g(send)" accesskey="s" class="first" />
+                <input type="reset" name="reset" value="g(reset)" accesskey="r" class="next" />
+                <input type="button" name="abort" value="g(abort)" accesskey="a" onclick="location='!#ausgaben_form_break'" class="next" />
+                <div class="clearer">&nbsp;</div>
+            </fieldset>
+
+        </form>
+
+        !#ausgaben_output
+
+    </div>
+<!--##end-->
+
+    </body>
+</html>

@@ -1,0 +1,143 @@
+<?php
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// "$Id: leer.cfg.php 1131 2007-12-12 08:45:50Z chaot $";
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+    eWeBuKi - a easy website building kit
+    Copyright (C)2001-2007 Werner Ammon ( wa<at>chaos.de )
+
+    This script is a part of eWeBuKi
+
+    eWeBuKi is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    eWeBuKi is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with eWeBuKi; If you did not, you may download a copy at:
+
+    URL:  http://www.gnu.org/licenses/gpl.txt
+
+    You may also request a copy from:
+
+    Free Software Foundation, Inc.
+    59 Temple Place, Suite 330
+    Boston, MA 02111-1307
+    USA
+
+    You may contact the author/development team at:
+
+    Chaos Networks
+    c/o Werner Ammon
+    Lerchenstr. 11c
+
+    86343 Königsbrunn
+
+    URL: http://www.chaos.de
+*/
+////+///////+///////+///////+///////+///////+///////+///////////////////////////////////////////////////////////
+
+    $cfg["wizard"] = array(
+           "subdir" => "customer",
+             "name" => "wizard",
+            "basis" => $pathvars["virtual"]."/wizard", # crc = -1468826685 *
+         "iconpath" => "", # leer: /images/default/; automatik: $pathvars["images"]
+          "archive" => array( "inhalt" ),
+            "color" => array(
+                        "a" => "#eeeeee",
+                        "b" => "#ffffff",
+                       ),
+         "function" => array(
+                     "show" => array("makece"),
+                      "add" => array(""),
+                   "editor" => array("makece"),
+            "editor,shared" => array("filelist","phpdiff"),
+                   "modify" => array("makece"),
+                  "details" => array(""),
+              #"edit,shared" => array("shared1", "shared2"),
+              #"edit,global" => array("global1", "global2"),
+                       ),
+               "db" => array(
+                     "leer" => array(
+                          "entries" => "db_leer",
+                              "key" => "id",
+                            "order" => "sort, label",
+                            "rows"  => 4,
+                     ),
+              ),
+            "tagjs" => "-141347382.modify.js-nextgen",
+             "tags" => $cfg["contented"]["tags"],
+     "allowed_tags" => array(
+                    "H" => array(),
+                    "P" => array("link","b","i"),
+                ),
+
+
+         "add_tags" => array(
+                       "H1" => "[H1]Überschrift Ebene 1[/H1]",
+                       "H2" => "[H2]Überschrift Ebene 2[/H2]",
+                       "H3" => "[H3]Überschrift Ebene 3[/H3]",
+                   "Absatz" => "[P]Absatz[/P]",
+                   "Teaser" => "[P=teaser]Teaser-Absatz[/P]",
+//                 "3er-Kombi" => "[DIV=present]\n[IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]\n[H2]Überschrift[/H2]\n[P]Beschreibung[/P]\n[BR=a][/BR]\n[/DIV]",
+                "3er-Kombi" => "[DIV=present]
+                                [IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]
+                                [H2]Überschrift[/H2]
+                                [P]Beschreibung[/P]
+                                [BR=a][/BR]
+                                [/DIV]",
+                ),
+
+        "wizardtyp" => array(
+                  "default" => array(
+                            "add_tags" => array("H2","H3","Absatz","3er-Kombi"),
+                       "section_block" => array(4,1),
+                        ),
+                ),
+
+
+
+
+
+
+
+
+
+
+       "checkboxes" => array(
+                "img_show" => array(
+                    "tn" => "thumb",
+                     "s" => "small",
+                     "m" => "middle",
+                     "b" => "big",
+                     "o" => "original",
+                ),
+                "img_size" => array(
+                      "" => "none",
+                    "tn" => "thumb",
+                     "s" => "small",
+                     "m" => "middle",
+                     "b" => "big",
+                     "o" => "original",
+                     "l" => "lightbox",
+                ),
+                "img_align" => array(
+                      "" => "nix",
+                     "l" => "links",
+                     "r" => "rechts",
+                ),
+              ),
+            "right" => "",
+    );
+
+    // * tipp: fuer das einfache modul muss der wert $cfg["basis"] natuerlich
+    // "/my" lauten. es funktioniert im beispiel nur ohne aenderung, da das
+    // einfache script $cfg["basis] nicht nutzt.
+
+////+///////+///////+///////+///////+///////+///////+///////////////////////////////////////////////////////////
+?>

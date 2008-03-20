@@ -124,6 +124,7 @@ legend {
 ------------------------------------------------------*/
 #head{
     background:url('/images/html/background.png') repeat-y;
+    position:relative;
     width:980px;
 }
 
@@ -751,3 +752,52 @@ input.klein {
 input.medium {
     width: 248px;
 }
+
+
+/* wizard gestaltung */
+.wizard .button {
+    background-color:#EEEEEE;
+    border:1px solid #cccccc;
+    cursor:pointer;
+    padding:0.5ex 1ex;
+    text-decoration:none;
+    width:auto;
+}
+
+.wizard #sort_content {
+    list-style:none;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+    .wizard #sort_content li {
+        border:1px solid #ccc;
+        list-style:none;
+        margin:0 0 3px;
+        padding:4px 4px 0;
+    }
+
+        .wizard #sort_content li.ajax_move {
+            border-color:#FFC71F;
+        }
+
+        .wizard #sort_content li .clear {
+            padding:0;
+            text-align:right;
+            width:100%;
+        }
+
+    .wizard #sort_content li div.wiz_edit {
+        border:1px solid #ccc;
+        float:left;
+        margin:3px;
+    }
+
+    .wizard #sort_content li div.wiz_edit div.buttons a {
+        background:#eeeeee;
+        font-weight:normal;
+        float:left;
+        margin-right:2px;
+        padding:0.5ex 1ex;
+    }
