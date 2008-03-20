@@ -23,7 +23,7 @@
 
             <div id="head">
                 <div id="banner">
-                    <h1 style="position:absolute;top:10px;border:none;">
+                    <h1 style="position:absolute;top:10px;left:5px;border:none;">
                         <a href="!#pathvars_menuroot/index.html">Bayerische<br /> Vermessungsverwaltung</a>
                     </h1>
                     <img src="../../images/html/wappen.gif" alt="" width="80" style="float:right;" />
@@ -49,8 +49,15 @@
                     <div class="clear"></div>
                 </div>
 
+                <p class="metanavi">
+                    <a href="" >Deutsch</a> |
+                    <a href="" >Sprache</a>
+                    &nbsp;
+                </p>
+                <p class="kekse" style="width:552px;">#(kekse) !#environment_kekse</p>
+
                         <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
-                            <div class="schnellsuche right" style="margin-right:102px;">
+                            <div class="schnellsuche left">
                                 <input value="Dienstellensuche" name="search" onfocus="this.value=''" />
                                 <button type="submit" title="Dienstellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Dienstellensuche'){window.document.suche.suche_feld.value='';}">
                                     <img src="../../images/html/start-suche.png" alt="" />
@@ -58,13 +65,6 @@
                                 <div class="clear"></div>
                             </div>
                         </form>
-
-                <p class="metanavi">
-                    <a href="" >Deutsch</a> |
-                    <a href="" >Sprache</a>
-                    &nbsp;
-                </p>
-                <p class="kekse">#(kekse) !#environment_kekse</p>
 
                 <div class="clear"></div>
             </div>
