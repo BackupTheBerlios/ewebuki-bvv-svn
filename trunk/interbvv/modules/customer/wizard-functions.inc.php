@@ -58,7 +58,7 @@
     // content editor erstellen
     if ( in_array("makece", $cfg["wizard"]["function"][$environment["kategorie"]]) ) {
 
-        function makece($ce_formname, $ce_name, $ce_inhalt) {
+        function makece($ce_formname, $ce_name, $ce_inhalt,$allowed_tags=array()) {
             global $debugging, $environment, $db, $cfg, $pathvars, $ausgaben, $specialvars, $defaults;
 
             // label fuer neue buttons fuellen
@@ -76,17 +76,18 @@
             $tag_marken = explode(":",$environment["parameter"][4]);
             foreach( $cfg["wizard"]["tags"] as $key => $value ) {
 
-                if ( count($tag_marken) > 1 && is_array($cfg["wizard"]["allowed_tags"][$tag_marken[0]]) ) {
-                    if ( !in_array($key,$cfg["wizard"]["allowed_tags"][$tag_marken[0]]) ) continue;
+                // feststellen, ob der tag erlaubt ist
+                if ( count($allowed_tags) > 0 && !in_array($key,$allowed_tags) ) {
+                    continue;
                 }
 
-                // js code erstellen
-                if ( $ausgaben["js"] == "" ) {
-                    $c = "if";
-                } else {
-                    $c = "else if";
-                }
-
+//                 // js code erstellen
+//                 if ( $ausgaben["js"] == "" ) {
+//                     $c = "if";
+//                 } else {
+//                     $c = "else if";
+//                 }
+//
                 if ( $value[1] != "" ) {
                     $k = " [KEY-".$value[1]."]";
                 } else {
@@ -113,9 +114,9 @@
 
 //              else if (st=='b')
 //              st='[B]' + selText + '[\/B]';
-
-                $ausgaben["js"] .= "    ".$c." (st=='".$key."')\n";
-                $ausgaben["js"] .= "        st='[".strtoupper($key).$l.$s.$value[4]."[\/".strtoupper($key)."]'\n";
+//
+//                 $ausgaben["js"] .= "    ".$c." (st=='".$key."')\n";
+//                 $ausgaben["js"] .= "        st='[".strtoupper($key).$l.$s.$value[4]."[\/".strtoupper($key)."]'\n";
 
 
 
@@ -148,47 +149,47 @@
 
 
 
-                // buttons bauen
-                if ( $value[0] == "T" ) {
-                    if ( $cms_old_mode == True ) {
-                        #$ausgaben["ce_button"] .= "<a href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" onMouseOver=\"status='".$value[3]."';return true;\" onMouseOut=\"status='';return true;\"><img src=\"".$defaults["cms-tag"]["path"]."cms-tag-".$key.".png\" alt=\"".$value[3]."\" title=\"".$value[3]."\" width=\"23\" height=\"22\" border=\"0\" /></a>\n ";
-                        $ausgaben["ce_button"] .= "<a href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" onMouseOver=\"status='#(".$key.")';return true;\" onMouseOut=\"status='';return true;\"><img src=\"".$defaults["cms-tag"]["path"]."cms-tag-".$key.".png\" alt=\"#(".$key.")\" title=\"#(".$key.")\" width=\"23\" height=\"22\" border=\"0\" /></a>\n ";
-                    } else {
-                        $ausgaben["ce_button"] .= "<a class=\"buttag\" href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" alt=\"#(".$key.")\" title=\"#(".$key.")\" onMouseOver=\"status='#(".$key.")';return true;\" onMouseOut=\"status='';return true;\">".strtoupper($key)."</a>\n ";
-                    }
-                } elseif ( $value[0] == "B" ) {
-                    $ausgaben["ce_bottom_button"] .= "<a class=\"buttag\" href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" alt=\"#(".$key.")\" title=\"#(".$key.")\" onMouseOver=\"status='#(".$key.")';return true;\" onMouseOut=\"status='';return true;\">".strtoupper($key)."</a>\n ";
-                }
+//                 // buttons bauen
+//                 if ( $value[0] == "T" ) {
+//                     if ( $cms_old_mode == True ) {
+//                         #$ausgaben["ce_button"] .= "<a href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" onMouseOver=\"status='".$value[3]."';return true;\" onMouseOut=\"status='';return true;\"><img src=\"".$defaults["cms-tag"]["path"]."cms-tag-".$key.".png\" alt=\"".$value[3]."\" title=\"".$value[3]."\" width=\"23\" height=\"22\" border=\"0\" /></a>\n ";
+//                         $ausgaben["ce_button"] .= "<a href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" onMouseOver=\"status='#(".$key.")';return true;\" onMouseOut=\"status='';return true;\"><img src=\"".$defaults["cms-tag"]["path"]."cms-tag-".$key.".png\" alt=\"#(".$key.")\" title=\"#(".$key.")\" width=\"23\" height=\"22\" border=\"0\" /></a>\n ";
+//                     } else {
+//                         $ausgaben["ce_button"] .= "<a class=\"buttag\" href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" alt=\"#(".$key.")\" title=\"#(".$key.")\" onMouseOver=\"status='#(".$key.")';return true;\" onMouseOut=\"status='';return true;\">".strtoupper($key)."</a>\n ";
+//                     }
+//                 } elseif ( $value[0] == "B" ) {
+//                     $ausgaben["ce_bottom_button"] .= "<a class=\"buttag\" href=\"#\" onclick=\"INSst('".$key."','".$ce_formname."','".$ce_name."')\" alt=\"#(".$key.")\" title=\"#(".$key.")\" onMouseOver=\"status='#(".$key.")';return true;\" onMouseOut=\"status='';return true;\">".strtoupper($key)."</a>\n ";
+//                 }
 
-                // dropdown bauen
-                if ( $value[5] == "" ) {
-                    $ausgaben["ce_dropdown"] .= "<option value=\"".$key."\">".strtoupper($key)." #(".$key.")</option>\n";
-                }
-                #ce_anker
+//                 // dropdown bauen
+//                 if ( $value[5] == "" ) {
+//                     $ausgaben["ce_dropdown"] .= "<option value=\"".$key."\">".strtoupper($key)." #(".$key.")</option>\n";
+//                 }
+//                 #ce_anker
             }
 
 #echo "<pre>".$ausgaben["njs"]."</pre>";
 
-            $ausgaben["ce_dropdown"] .= "</select>";
+//             $ausgaben["ce_dropdown"] .= "</select>";
 
             // script in seite parsen
             #echo "<pre>".$ausgaben["js"]."</pre>";
             $ausgaben["ce_script"] = parser($cfg["wizard"]["tagjs"],"");
 
-            if ( $cms_old_mode == True ) {
-                $ausgaben["ce_button"] .= "<input name=\"add[]\" type=\"image\" id=\"image\" value=\"add\" src=\"".$defaults["cms-tag"]["path"]."cms-tag-imgb.png\" title=\"#(add)\" width=\"23\" height=\"22\">";
-            } else {
-                $ausgaben["ce_button"] .= "<input type=\"submit\" name=\"add[]\" value=\"FILE\" title=\"#(add)\" class=\"butoth\">";
-            }
+//             if ( $cms_old_mode == True ) {
+//                 $ausgaben["ce_button"] .= "<input name=\"add[]\" type=\"image\" id=\"image\" value=\"add\" src=\"".$defaults["cms-tag"]["path"]."cms-tag-imgb.png\" title=\"#(add)\" width=\"23\" height=\"22\">";
+//             } else {
+//                 $ausgaben["ce_button"] .= "<input type=\"submit\" name=\"add[]\" value=\"FILE\" title=\"#(add)\" class=\"butoth\">";
+//             }
 
-            $ausgaben["ce_upload"] .= "<select style=\"width:95px;font-family:Helvetica, Verdana, Arial, sans-serif;font-size:12px;\" name=\"upload\" onChange=\"submit()\">";
-            $ausgaben["ce_upload"] .= "<option value=\"\">#(upload)</option>";
-            $ausgaben["ce_upload"] .= "<option value=\"1\">1 #(file)</option>";
-            $ausgaben["ce_upload"] .= "<option value=\"2\">2 #(files)</option>";
-            $ausgaben["ce_upload"] .= "<option value=\"3\">3 #(files)</option>";
-            $ausgaben["ce_upload"] .= "<option value=\"4\">4 #(files)</option>";
-            $ausgaben["ce_upload"] .= "<option value=\"5\">5 #(files)</option>";
-            $ausgaben["ce_upload"] .= "</select>";
+//             $ausgaben["ce_upload"] .= "<select style=\"width:95px;font-family:Helvetica, Verdana, Arial, sans-serif;font-size:12px;\" name=\"upload\" onChange=\"submit()\">";
+//             $ausgaben["ce_upload"] .= "<option value=\"\">#(upload)</option>";
+//             $ausgaben["ce_upload"] .= "<option value=\"1\">1 #(file)</option>";
+//             $ausgaben["ce_upload"] .= "<option value=\"2\">2 #(files)</option>";
+//             $ausgaben["ce_upload"] .= "<option value=\"3\">3 #(files)</option>";
+//             $ausgaben["ce_upload"] .= "<option value=\"4\">4 #(files)</option>";
+//             $ausgaben["ce_upload"] .= "<option value=\"5\">5 #(files)</option>";
+//             $ausgaben["ce_upload"] .= "</select>";
 
             return $tn;
         }
@@ -197,9 +198,10 @@
             $preg_sections = array(
                     "H"    => "(\[H[0-9]{1}\])(.*)(\[\/H[0-9]{1}\])",        // ueberschriften
                     "P"    => "(\[P.*\])(.*)(\[\/P\])",                      // absaetze
-                    "LINK" => "(\[LINK.*\])(.*)(\[\/LINK\])",                  // bilder
+                    "LINK" => "(\[LINK.*\])(.*)(\[\/LINK\])",                // links
                     "IMG"  => "(\[IMG.*\])(.*)(\[\/IMG\])",                  // bilder
-                    "SEL"  => "(\[SEL.*\])(.*)(\[\/SEL\])",                  // bilder
+                    "SEL"  => "(\[SEL.*\])(.*)(\[\/SEL\])",                  // gruppierungen
+                    "TAB"  => "(\[TAB.*\])(.*)(\[\/TAB\])",                  // tabellen
             );
             $tag_meat = array();
             foreach ( $preg_sections as $tag=>$preg ) {

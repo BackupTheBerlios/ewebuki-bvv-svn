@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 KÃ¶nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -58,7 +58,31 @@
     if ( is_array($_SESSION["dbzugriff"]) ) {
         if ( in_array($database,$_SESSION["dbzugriff"]) ) $erlaubnis = -1;
     }
-    $db->selectDb($database,FALSE);
+
+    // leere parameter abfangen
+    $reload = 0;
+    if ( $environment["parameter"][1] != "" ) {
+        $db->selectDb($database,FALSE);
+    } else {
+        $reload = -1;
+    }
+    $environment["parameter"][1] = $db->getDb();
+    if ( $environment["parameter"][2] == "" ) {
+        $path = explode("/",str_replace($pathvars["menuroot"],"",$_SERVER["HTTP_REFERER"]));
+        $kategorie = str_replace(".html","", array_pop($path));
+        $ebene = implode("/",$path);
+        if ( count($path) == 0 || (count($path) == 1 && $path[0]=="") ) {
+            $environment["parameter"][2] = $kategorie;
+        } else {
+            $environment["parameter"][2] = crc32($ebene).".".$kategorie;
+        }
+        $reload = -1;
+    }
+    if ( $environment["parameter"][3] == "" ) {
+        $environment["parameter"][3] = $cfg["wizard"]["wizardtyp"]["default"]["def_label"];
+        $reload = -1;
+    }
+    if ( $reload == -1 ) header("Location: ".$cfg["wizard"]["basis"]."/".implode(",",$environment["parameter"]).".html");
 
     if ( $cfg["wizard"]["right"] == "" ||
         priv_check("/".$cfg["wizard"]["subdir"]."/".$cfg["wizard"]["name"],$cfg["wizard"]["right"]) ||
@@ -69,7 +93,11 @@
 
         // page basics
         // ***
-        $environment["parameter"][5] != "" ? $version = " AND version=".$environment["parameter"][5] : $version = "";
+        if ( $environment["parameter"][5] != "" ) {
+            $version = " AND version=".$environment["parameter"][5];
+        } else {
+            $version = "";
+        }
 
         $sql = "SELECT version, html, content, changed, byalias
                   FROM ". SITETEXT ."
@@ -83,6 +111,47 @@
         $result = $db -> query($sql);
 
         $form_values = $db -> fetch_array($result,1);
+
+        // version
+        $ausgaben["vaktuell"] = $form_values["version"];
+        $sql = "SELECT version, html, content, changed, byalias
+                  FROM ". SITETEXT ."
+                 WHERE lang = '".$environment["language"]."'
+                   AND label ='".$environment["parameter"][3]."'
+                   AND tname ='".$environment["parameter"][2]."'
+              ORDER BY version";
+        $result_version = $db -> query($sql);
+        $ausgaben["vgesamt"] = $db -> num_rows($result_version);
+        $aktuell = 0; $back = ""; $next = "";
+        while ( $data = $db -> fetch_array($result_version) ) {
+            if ( $data["version"] == $form_values["version"] ) {
+                $aktuell = -1;
+                continue;
+            }
+            if ( $aktuell == 0 ) $back = $data["version"];
+            if ( $aktuell == -1 ) {
+                $next = $data["version"];
+                break;
+            }
+        }
+        $link = $environment["parameter"][0].",".
+                $environment["parameter"][1].",".
+                $environment["parameter"][2].",".
+                $environment["parameter"][3].",".
+                $environment["parameter"][4].",";
+        if ( $back != "" ) {
+            $hidedata["version_prev"]["link_prev"] = $link.$back.".html";
+            $hidedata["version_prev"]["link_first"] = $link."1.html";
+        }
+        if ( $next != "" ) {
+            $hidedata["version_next"]["link_next"] = $link.$next.".html";
+            $hidedata["version_next"]["link_last"] = $link.$ausgaben["vgesamt"].".html";
+        }
+
+//             $result = $db -> query($sql);
+//             if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
+//             $data = $db -> fetch_array($result, $nop);
+//             $content_exist = $db -> num_rows($result);
 
         // wizard-infos rausfinden (z.b. wizard-typ,..)
         preg_match("/^\[!\]wizard:(.+)\[\/!\]/i",$form_values["content"],$match);
@@ -250,7 +319,7 @@
 
 
     } else {
-//         header("Location: ".$pathvars["virtual"]."/");
+        header("Location: ".$pathvars["virtual"]."/");
     }
 
 

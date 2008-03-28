@@ -122,6 +122,8 @@
                     }
                     if ( $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1] == 0 ) $buffer[] = $cfg["wizard"]["add_tags"][$tag_marken[0]];
                     $content = implode(chr(13).chr(10).chr(13).chr(10),$buffer);
+// echo $content;
+// die;
                     break;
                 case "delete":
                     if ( $tag_marken[0] == "section" ) {
@@ -132,9 +134,8 @@
                         }
                         $content = implode(chr(13).chr(10).chr(13).chr(10),$buffer);
                     } else {
-                        $content = addslashes(substr($form_values["content"],0,$tag_meat[$tag_marken[0]][$tag_marken[1]]["start"]).
-                                              substr($form_values["content"],$tag_meat[$tag_marken[0]][$tag_marken[1]]["end"])
-                        );
+                        $content = substr($form_values["content"],0,$tag_meat[$tag_marken[0]][$tag_marken[1]]["start"]).
+                                   substr($form_values["content"],$tag_meat[$tag_marken[0]][$tag_marken[1]]["end"]);
                     }
                     break;
                 case "move":
@@ -168,7 +169,7 @@
                                     kategorie = '".$_SESSION["kategorie"]."',
                                     crc32 = '".$specialvars["crc32"]."',
                                     html = '".$HTTP_POST_VARS["html"]."',
-                                    content = '".$content."',
+                                    content = '".addslashes($content)."',
                                     changed = '".date("Y-m-d H:i:s")."',
                                     bysurname = '".$_SESSION["surname"]."',
                                     byforename = '".$_SESSION["forename"]."',
@@ -193,7 +194,7 @@
                                         '".$_SESSION["kategorie"]."',
                                         '".$specialvars["crc32"]."',
                                         '0',
-                                        '".$content."',
+                                        '".addslashes($content)."',
                                         '".date("Y-m-d H:i:s")."',
                                         '".$_SESSION["surname"]."',
                                         '".$_SESSION["forename"]."',

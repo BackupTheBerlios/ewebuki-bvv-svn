@@ -73,8 +73,9 @@
             "tagjs" => "-141347382.modify.js-nextgen",
              "tags" => $cfg["contented"]["tags"],
      "allowed_tags" => array(
-                    "H" => array(),
-                    "P" => array("link","b","i"),
+                           "H" => array(),
+                           "P" => array("link","b","i"),
+                    "P=teaser" => array("link","b","file"),
                 ),
 
 
@@ -84,6 +85,7 @@
                        "H3" => "[H3]Überschrift Ebene 3[/H3]",
                    "Absatz" => "[P]Absatz[/P]",
                    "Teaser" => "[P=teaser]Teaser-Absatz[/P]",
+                  "Tabelle" => "[TAB]\n[/TAB]",
 //                 "3er-Kombi" => "[DIV=present]\n[IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]\n[H2]Überschrift[/H2]\n[P]Beschreibung[/P]\n[BR=a][/BR]\n[/DIV]",
                 "3er-Kombi" => "[DIV=present]
                                 [IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]
@@ -95,8 +97,38 @@
 
         "wizardtyp" => array(
                   "default" => array(
-                            "add_tags" => array("H2","H3","Absatz","3er-Kombi"),
+                            "add_tags" => array("H2","H3","Absatz","Teaser","Tabelle","3er-Kombi"),
                        "section_block" => array(4,1),
+                           "def_label" => "inhalt",
+                        ),
+                  "artikel" => array(
+                            "add_tags" => array("H2","Absatz"),
+                       "section_block" => array(4,1),
+                           "def_label" => "inhalt",
+                        ),
+                ),
+
+         "img_edit" => array(
+//              "cb_show_size" => array(
+//                                   "tn" => "thumb",
+//                                    "s" => "small",
+//                                    "m" => "middle",
+//                                    "b" => "big",
+//                                    "o" => "original",
+//                         ),
+//              "cb_link_size" => array(
+//                                     "" => "none",
+//                                   "tn" => "thumb",
+//                                    "s" => "small",
+//                                    "m" => "middle",
+//                                    "b" => "big",
+//                                    "o" => "original",
+//                                    "l" => "lightbox",
+//                         ),
+                 "cb_align" => array(
+                                    "" => "nix",
+                                   "l" => "links",
+                                   "r" => "rechts",
                         ),
                 ),
 
@@ -109,30 +141,8 @@
 
 
 
-       "checkboxes" => array(
-                "img_show" => array(
-                    "tn" => "thumb",
-                     "s" => "small",
-                     "m" => "middle",
-                     "b" => "big",
-                     "o" => "original",
-                ),
-                "img_size" => array(
-                      "" => "none",
-                    "tn" => "thumb",
-                     "s" => "small",
-                     "m" => "middle",
-                     "b" => "big",
-                     "o" => "original",
-                     "l" => "lightbox",
-                ),
-                "img_align" => array(
-                      "" => "nix",
-                     "l" => "links",
-                     "r" => "rechts",
-                ),
-              ),
-            "right" => "",
+
+            "right" => "edit",
     );
 
     // * tipp: fuer das einfache modul muss der wert $cfg["basis"] natuerlich

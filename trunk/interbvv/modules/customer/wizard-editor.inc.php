@@ -71,27 +71,26 @@
 
         $environment["parameter"][6] != "" ? $version = " AND version=".$environment["parameter"][6] : $version = "";
 
-        if ( count($_POST) == 0 ) {
+        #$sql = "SELECT *
+        #          FROM ".$cfg["wizard"]["db"]["leer"]["entries"]."
+        #         WHERE ".$cfg["wizard"]["db"]["leer"]["key"]."='".$environment["parameter"][1]."'";
 
-            #$sql = "SELECT *
-            #          FROM ".$cfg["wizard"]["db"]["leer"]["entries"]."
-            #         WHERE ".$cfg["wizard"]["db"]["leer"]["key"]."='".$environment["parameter"][1]."'";
+        $sql = "SELECT version, html, content, changed, byalias
+                    FROM ". SITETEXT ."
+                    WHERE lang = '".$environment["language"]."'
+                    AND label ='".$environment["parameter"][3]."'
+                    AND tname ='".$environment["parameter"][2]."'
+                    $version
+                    ORDER BY version DESC
+                    LIMIT 0,1";
+        if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
+        $result = $db -> query($sql);
 
-            $sql = "SELECT version, html, content, changed, byalias
-                      FROM ". SITETEXT ."
-                     WHERE lang = '".$environment["language"]."'
-                       AND label ='".$environment["parameter"][3]."'
-                       AND tname ='".$environment["parameter"][2]."'
-                       $version
-                     ORDER BY version DESC
-                     LIMIT 0,1";
-            if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-            $result = $db -> query($sql);
+        #$data = $db -> fetch_array($result, $nop);
+        $form_values = $db -> fetch_array($result,1);
+        $tag_meat = cont_sections($form_values["content"]);
 
-            #$data = $db -> fetch_array($result, $nop);
-            $form_values = $db -> fetch_array($result,1);
-
-        } else {
+        if ( count($_POST) > 0 ) {
             $form_values = $_POST;
         }
 
@@ -225,7 +224,6 @@
                 }
             }
         } elseif ( count($_POST) == 0 ) {
-            $tag_meat = cont_sections($form_values["content"]);
             $form_values["content"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
         }
 
@@ -255,8 +253,7 @@
                     // preview-bild
                     $pic_info = str_replace($cfg["file"]["base"]["webdir"],"",$ausgaben["tagwerte0"]);
                     $pic_array = explode("/",$pic_info);
-                    if ( is_array($_SESSION["file_memo"]) || $pic_array[1] != ""/* || $ausgaben["tagwerte0"] != ""*/ ) {
-// echo $ausgaben["tagwerte0"]."--".$pic_info."<br>";
+                    if ( is_array($_SESSION["file_memo"]) || $pic_array[1] != "" ) {
                         if ( is_array($_SESSION["file_memo"]) ) {
                             $fid = current($_SESSION["file_memo"]);
                         } else {
@@ -270,43 +267,108 @@
                                                              $data["ffart"]."/".
                                                              $fid."/s/".
                                                              $data["ffname"];
+                            $target_src = $cfg["file"]["base"]["webdir"].
+                                          $data["ffart"]."/".
+                                          $fid."/".
+                                          $pic_array[count($pic_array)-2]."/".
+                                          $data["ffname"];
+                            if ( is_array($_SESSION["file_memo"]) && $hidedata["img"]["meat"] == "" ) $hidedata["img"]["meat"] = $data["funder"];
                         }
                         unset($_SESSION["file_memo"]);
                     }
                     // anzeigen-groesse-radiobutton
-                    foreach ( $cfg["wizard"]["checkboxes"]["img_show"] as $value=>$label ) {
-//                         $pic_url = $cfg["file"]["base"]["webdir"].$pic_array[0]."/".$fid."/".$value."/".$pic_array[3];
-                        $pic_url = $cfg["file"]["base"]["webdir"].$data["ffart"]."/".$fid."/".$value."/".$data["ffname"];
-// echo "--".$pic_url."<br>";
-                        $check = "";
-//                         if ( $ausgaben["tagwerte0"] == $pic_url ) $check = " checked=\"checked\"";
-                        if ( strstr($ausgaben["tagwerte0"],"/".$value."/") ) $check = " checked=\"checked\"";
+                    if ( count($cfg["wizard"]["img_edit"]["cb_show_size"]) >0 ) {
+                        foreach ( $cfg["wizard"]["img_edit"]["cb_show_size"] as $value=>$label ) {
+                            $pic_url = $cfg["file"]["base"]["webdir"].$data["ffart"]."/".$fid."/".$value."/".$data["ffname"];
+                            $check = "";
+                            if ( strstr($ausgaben["tagwerte0"],"/".$value."/") ) $check = " checked=\"checked\"";
+                            $dataloop["show"][] = array(
+                                "value" => $pic_url,
+                                "label" => $label,
+                                "check" => $check,
+                            );
+                        }
+                    } else {
                         $dataloop["show"][] = array(
-                            "value" => $pic_url,
-                            "label" => $label,
-                            "check" => $check,
+                            "value" => $target_src,
+                            "label" => "not changeable",
+                            "check" => " checked=\"checked\"",
                         );
                     }
                     // align-radiobutton
-                    foreach ( $cfg["wizard"]["checkboxes"]["img_align"] as $value=>$label ) {
-                        $check = "";
-                        if ( $ausgaben["tagwerte1"] == $value ) $check = " checked=\"checked\"";
+                    if ( count($cfg["wizard"]["img_edit"]["cb_align"]) >0 ) {
+                        foreach ( $cfg["wizard"]["img_edit"]["cb_align"] as $value=>$label ) {
+                            $check = "";
+                            if ( $ausgaben["tagwerte1"] == $value ) $check = " checked=\"checked\"";
+                            $dataloop["align"][] = array(
+                                "value" => $value,
+                                "label" => $label,
+                                "check" => $check,
+                            );
+                        }
+                    } else {
                         $dataloop["align"][] = array(
-                            "value" => $value,
-                            "label" => $label,
-                            "check" => $check,
+                            "value" => $ausgaben["tagwerte1"],
+                            "label" => "not changeable",
+                            "check" => " checked=\"checked\"",
                         );
                     }
                     // size-radiobutton
-                    foreach ( $cfg["wizard"]["checkboxes"]["img_size"] as $value=>$label ) {
-                        $check = "";
-                        if ( $ausgaben["tagwerte3"] == $value ) $check = " checked=\"checked\"";
+                    if ( count($cfg["wizard"]["img_edit"]["cb_link_size"]) > 0 ) {
+                        foreach ( $cfg["wizard"]["img_edit"]["cb_link_size"] as $value=>$label ) {
+                            $check = "";
+                            if ( $ausgaben["tagwerte3"] == $value ) $check = " checked=\"checked\"";
+                            $dataloop["size"][] = array(
+                                "value" => $value,
+                                "label" => $label,
+                                "check" => $check,
+                            );
+                        }
+                    } else {
                         $dataloop["size"][] = array(
-                            "value" => $value,
-                            "label" => $label,
-                            "check" => $check,
+                            "value" => $ausgaben["tagwerte3"],
+                            "label" => "not changeable",
+                            "check" => " checked=\"checked\"",
                         );
                     }
+                    break;
+
+                case "TAB":
+                    $hidedata["tab"] = array();
+                    $opentag = str_replace(array("[","]"),"",$tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"]);
+                    $tag_werte = explode(";",trim(strstr($opentag,"="),"="));
+                    for ($i=0;$i<5;$i++){
+                        if ( is_array($_POST["tagwerte"]) ) {
+                            $ausgaben["tagwerte".$i] = $_POST["tagwerte"][$i];
+                        } elseif ( $tag_werte[$i] != "" ) {
+                            $ausgaben["tagwerte".$i] = $tag_werte[$i];
+                        } else {
+                            $ausgaben["tagwerte".$i] = "";
+                        }
+                    }
+                    // daten auflisten
+                    preg_match_all("/\[ROW\](.*)\[\/ROW\]/Us",$tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"],$rows);
+                    $ausgaben["tabelle"] = "<table width=\"100%\" border=\"1\">\n";
+                    $row_index = 0; $ausgaben["num_row"] = 0;
+                    foreach ( $rows[1] as $row ) {
+                        $ausgaben["tabelle"] .= "<tr>";
+                        preg_match_all("/\[COL\](.*)\[\/COL\]/Us",$row,$cells);
+                        $col_index = 0; $ausgaben["num_col"] = 0;
+                        foreach ( $cells[1] as $cell ) {
+                            $ausgaben["tabelle"] .= "<td style=\"padding:0;\">
+                                                    <input type=\"text\" value=\"".$cell."\" name=\"cells[".$row_index."][".$col_index."]\" style=\"width:100%\" />
+                                                    </td>";
+                            $col_index++; $ausgaben["num_col"]++;
+                        }
+                        $ausgaben["tabelle"] .= "<td style=\"padding:0;\">
+                                                del
+                                                </td>";
+                        $ausgaben["tabelle"] .= "</tr>";
+                        $row_index++; $ausgaben["num_row"]++;
+                    }
+                    $ausgaben["tabelle"] .= "</table>";
+
+// echo "<pre>".print_r($rows,true)."</pre>";
                     break;
 
                 default:
@@ -327,12 +389,12 @@
         / die if abfrage die den save verhindert
         / hat mir nicht gefallen!
         */
-        if ( $HTTP_POST_VARS["PREVIEW"]  ){
+        if ( $_POST["PREVIEW"]  ){
             $hidedata["preview"]["content"] = "#(preview)";
-            $preview = intelilink($HTTP_POST_VARS["content"]);
+            $preview = intelilink($_POST["content"]);
             $preview = tagreplace($preview);
             $hidedata["preview"]["content"] .= nlreplace($preview);
-            $form_values["content"] = $HTTP_POST_VARS["content"];
+            $form_values["content"] = $_POST["content"];
         }
 
 
@@ -393,7 +455,15 @@
             $ausgaben["inhalt"] = $form_values["content"];
 
 
-            $ausgaben["tn"] = makece("ceform", "content", $form_values["content"]);
+            // feststellen, welche Tags erlaub sind
+            $allowed_tags = $cfg["wizard"]["allowed_tags"][$tag_marken[0]];
+            if ( count($tag_marken) > 1 ) {
+                $tag_compl = str_replace(array("[","]"),"",$tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"]);
+                if ( is_array($cfg["wizard"]["allowed_tags"][$tag_compl]) ) {
+                    $allowed_tags = $cfg["wizard"]["allowed_tags"][$tag_compl];
+                }
+            }
+            $ausgaben["tn"] = makece("ceform", "content", $form_values["content"], $allowed_tags);
 
 
             // vogelwilde regex die alte & neue file links findet
@@ -453,10 +523,10 @@
         if ( $HTTP_GET_VARS["referer"] != "" ) {
             $ausgaben["form_referer"] = $HTTP_GET_VARS["referer"];
             $ausgaben["form_break"] = $HTTP_GET_VARS["referer"];
-        } elseif ( $HTTP_POST_VARS["form_referer"] == "" ) {
+        } elseif ( $_POST["form_referer"] == "" ) {
             $ausgaben["form_referer"] = $_SERVER["HTTP_REFERER"];
         } else {
-            $ausgaben["form_referer"] = $HTTP_POST_VARS["form_referer"];
+            $ausgaben["form_referer"] = $_POST["form_referer"];
         }
 
 
@@ -519,14 +589,15 @@
         }
 
         if ( $environment["parameter"][7] == "verify"
-            &&  ( $HTTP_POST_VARS["send"] != ""
-                || $HTTP_POST_VARS["add"] != ""
-                || $HTTP_POST_VARS["sel"] != ""
-                || $HTTP_POST_VARS["upload"] != "" ) ) {
+            &&  ( $_POST["send"] != ""
+                || $_POST["add"] != ""
+                || $_POST["sel"] != ""
+                || $_POST["col_resize"] != ""
+                || $_POST["upload"] != "" ) ) {
 
 
             // form eingaben prüfen
-            form_errors( $form_options, $HTTP_POST_VARS );
+            form_errors( $form_options, $_POST );
 
 
             // gibt es bereits content?
@@ -596,10 +667,10 @@
                         foreach ($allcontent as $key => $value) {
                             if ( $key == $environment["parameter"][4] ) {
                                 $length = strlen( $defaults["section"]["tag"] );
-                                if ( substr($HTTP_POST_VARS["content"],0,$length) == $defaults["section"]["tag"] ) {
-                                    $content .= $defaults["section"]["tag"].substr($HTTP_POST_VARS["content"],$length);
+                                if ( substr($_POST["content"],0,$length) == $defaults["section"]["tag"] ) {
+                                    $content .= $defaults["section"]["tag"].substr($_POST["content"],$length);
                                 } else {
-                                    $content .= $HTTP_POST_VARS["content"];
+                                    $content .= $_POST["content"];
                                 }
                             } elseif ( $key > 0 ) {
                                 $content .= $defaults["section"]["tag"].$value;
@@ -620,9 +691,46 @@
                             $tag_werte[] = $_POST["tagwerte"][$i];
                         }
                         $to_insert = "[IMG=".implode(";",$tag_werte)."]".$_POST["description"]."[/IMG]";
+                    } elseif ( $tag_marken[0] == "TAB" ) {
+                        if ( $_FILES["csv_upload"]["type"] == "text/csv" ) {
+                            $handle = fopen ($_FILES["csv_upload"]["tmp_name"],"r");
+                            $tab = "[TAB=".implode(";",$_POST["tagwerte"])."]\n";
+                            while ( ($csv_data = fgetcsv ($handle, 1000, ";")) !== FALSE ) {
+                                $tab .= "[ROW]\n";
+                                foreach ( $csv_data as $cell ) {
+                                    $tab .= "[COL]".trim($cell)."[/COL]\n";
+                                }
+                                $tab .= "[/ROW]\n";
+                            }
+                            $tab .= "[/TAB]";
+                            fclose ($handle);
+                            $to_insert = $tab;
+                        } else {
+                            $tab = "[TAB=".implode(";",$_POST["tagwerte"])."]\n";
+                            for ($i=0;$i<$_POST["num_row"];$i++) {
+                                $tab .= "[ROW]\n";
+                                for ($k=0;$k<$_POST["num_col"];$k++) {
+                                    $tab .= "[COL]".trim($_POST["cells"][$i][$k])."[/COL]\n";
+                                }
+                                $tab .= "[/ROW]\n";
+                            }
+//                             foreach ( $_POST["cells"] as $row ) {
+//                                 $tab .= "[ROW]\n";
+//                                 foreach ( $row as $cell ) {
+//                                     $tab .= "[COL]".trim($cell)."[/COL]\n";
+//                                 }
+//                                 $tab .= "[/ROW]\n";
+//                             }
+                            $tab .= "[/TAB]";
+echo $tab;
+                            $to_insert = $tab;
+                        }
                     } else {
+                        foreach ( $allowed_tags as $value ) {
+                            $buffer[] = "[/".strtoupper($value)."]";
+                        }
                         $to_insert = $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"].
-                                     $_POST["content"].
+                                     tagremove($_POST["content"],False,$buffer).
                                      $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
                     }
                     $pre_content = substr($data["content"],0,$tag_meat[$tag_marken[0]][$tag_marken[1]]["start"]);
@@ -646,7 +754,7 @@
                 }
 
             } else {
-                $content = $HTTP_POST_VARS["content"];
+                $content = $_POST["content"];
             }
 
 
@@ -663,9 +771,6 @@
                     $content = str_replace($tag[0]," ",$content);
                 }
             }
-
-
-
 
             // evtl. zusaetzliche datensatz aendern
             if ( $ausgaben["form_error"] == ""  ) {
@@ -684,7 +789,7 @@
             if ( $ausgaben["form_error"] == ""  ) {
 
                 if ( $content_exist == 1 && !in_array($environment["parameter"][3], $cfg["wizard"]["archive"]) ) {
-                    if ( $environment["parameter"][4] == "" && $HTTP_POST_VARS["content"] == "" ) {
+                    if ( $environment["parameter"][4] == "" && $_POST["content"] == "" ) {
                         $sql = "DELETE FROM ". SITETEXT ."
                                       WHERE lang = '".$environment["language"]."'
                                         AND label ='".$environment["parameter"][3]."'
@@ -695,7 +800,7 @@
                                        ebene = '".$_SESSION["ebene"]."',
                                        kategorie = '".$_SESSION["kategorie"]."',
                                        crc32 = '".$specialvars["crc32"]."',
-                                       html = '".$HTTP_POST_VARS["html"]."',
+                                       html = '".$_POST["html"]."',
                                        content = '".$content."',
                                        changed = '".date("Y-m-d H:i:s")."',
                                        bysurname = '".$_SESSION["surname"]."',
@@ -720,7 +825,7 @@
                                          '".$_SESSION["ebene"]."',
                                          '".$_SESSION["kategorie"]."',
                                          '".$specialvars["crc32"]."',
-                                         '".$HTTP_POST_VARS["html"]."',
+                                         '".$_POST["html"]."',
                                          '".$content."',
                                          '".date("Y-m-d H:i:s")."',
                                          '".$_SESSION["surname"]."',
@@ -731,7 +836,7 @@
 
 
 //                 $kick = array( "PHPSESSID", "form_referer", "send" );
-//                 foreach($HTTP_POST_VARS as $name => $value) {
+//                 foreach($_POST as $name => $value) {
 //                     if ( !in_array($name,$kick) && !strstr($name, ")" ) ) {
 //                         if ( $sqla != "" ) $sqla .= ", ";
 //                         $sqla .= $name."='".$value."'";
@@ -739,13 +844,13 @@
 //                 }
 
                 // Sql um spezielle Felder erweitern
-                #$ldate = $HTTP_POST_VARS["ldate"];
+                #$ldate = $_POST["ldate"];
                 #$ldate = substr($ldate,6,4)."-".substr($ldate,3,2)."-".substr($ldate,0,2)." ".substr($ldate,11,9);
                 #$sqla .= ", ldate='".$ldate."'";
 
 //                 $sql = "update ".$cfg["wizard"]["db"]["leer"]["entries"]." SET ".$sqla." WHERE ".$cfg["wizard"]["db"]["leer"]["key"]."='".$environment["parameter"][1]."'";
                 if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-// echo "\$sql: $sql<br>";
+echo "\$sql: $sql<br>";
                 $result  = $db -> query($sql);
                 #if ( !$result ) die($db -> error("DB ERROR: "));
                 if ( !$result ) $ausgaben["form_error"] .= $db -> error("#(error_result)<br />");
@@ -754,7 +859,7 @@
 
             // wenn es keine fehlermeldungen gab, die uri $header laden
             if ( $ausgaben["form_error"] == "" ) {
-                if ( $HTTP_POST_VARS["add"] || $HTTP_POST_VARS["sel"] || $HTTP_POST_VARS["upload"] > 0 ) {
+                if ( $_POST["add"] || $_POST["sel"] || $_POST["upload"] > 0 ) {
 
                     $_SESSION["cms_last_edit"] = str_replace(",verify", "", $pathvars["requested"]);
 
@@ -762,14 +867,16 @@
                     $_SESSION["cms_last_ebene"] = $_SESSION["ebene"];
                     $_SESSION["cms_last_kategorie"] = $_SESSION["kategorie"];
 
-                    if ( $HTTP_POST_VARS["upload"] > 0 ) {
-                        header("Location: ".$pathvars["virtual"]."/admin/fileed/upload.html?anzahl=".$HTTP_POST_VARS["upload"]);
+                    if ( $_POST["upload"] > 0 ) {
+                        header("Location: ".$pathvars["virtual"]."/admin/fileed/upload.html?anzahl=".$_POST["upload"]);
                     } elseif ( $_POST["sel"] != "" ) {
                         header("Location: ".$pathvars["virtual"]."/admin/fileed/compilation.html");
                     } else {
                         header("Location: ".$pathvars["virtual"]."/admin/fileed/list.html");
                     }
 
+                } elseif ( $_POST["col_resize"] != "" ) {
+                    header("Location: ".$ausgaben["form_aktion"]."");
                 } else {
                     $pattern = ",v[0-9]*\.html$";
                     $ausgaben["form_referer"] = preg_replace("/".$pattern."/",".html",$ausgaben["form_referer"] );

@@ -11,10 +11,10 @@
     <body>
 
 <!--##begin-->
-    <div id="substance">
+    <div id="substance" class="wizard" style="width:700px;">
 
         !#ausgaben_ce_script
-        <form method="post" action="!#ausgaben_form_aktion" id="cEd">
+        <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
             #(inhalt)
             <p>!#ausgaben_form_error</p>
 
@@ -70,6 +70,37 @@
                     <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" /><br />
                     <label>nach links/rechts</label>
                     <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" /><br />
+                </fieldset>
+                <!--##show-->
+
+                <!--##hide-tab-->
+                <fieldset>
+                    <input type="file" name="csv_upload"/>
+                </fieldset>
+
+                <fieldset>
+                    <label>Align</label>
+                    <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
+                    <label>Width</label>
+                    <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" /><br />
+                    <label>Border</label>
+                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
+                    <label>Cellspacing</label>
+                    <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" /><br />
+                    <label>Cellpadding</label>
+                    <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+                </fieldset>
+
+                <fieldset>
+                    <label>Anzahl Spalten</label>
+                    <input type="text" name="num_col" value="!#ausgaben_num_col" /><br />
+                    <label>Anzahl Zeilen</label>
+                    <input type="text" name="num_row" value="!#ausgaben_num_row" /><br />
+                    <input type="submit" name="col_resize[]" value="g(send)" accesskey="s" class="first" />
+                </fieldset>
+
+                <fieldset>
+                    !#ausgaben_tabelle
                 </fieldset>
                 <!--##show-->
 
