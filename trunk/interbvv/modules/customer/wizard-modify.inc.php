@@ -150,6 +150,7 @@
                         }
                     }
                     $content = implode(chr(13).chr(10).chr(13).chr(10),$buffer);
+// echo "--".$content."<br>";
                     break;
                 default:
                     header("Location: ".$_SERVER["HTTP_REFERER"]);
@@ -201,6 +202,8 @@
                                         '".$_SESSION["email"]."',
                                         '".$_SESSION["alias"]."')";
             }
+// echo "$sql";
+// die;
             $result  = $db -> query($sql);
         }
 

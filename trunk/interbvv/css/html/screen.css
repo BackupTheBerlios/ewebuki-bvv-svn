@@ -759,6 +759,7 @@ input.medium {
     background-color:#EEEEEE;
     border:1px solid #cccccc;
     cursor:pointer;
+    margin-right:5px;
     padding:0.5ex 1ex;
     text-decoration:none;
     width:auto;
@@ -772,10 +773,11 @@ input.medium {
 }
 
     .wizard #sort_content li {
+        background:no-repeat right top;
         border:1px solid #ccc;
         list-style:none;
         margin:0 0 3px;
-        padding:4px 4px 0;
+        padding:20px 4px 0;
     }
 
         .wizard #sort_content li.ajax_move {
@@ -801,3 +803,33 @@ input.medium {
         margin-right:2px;
         padding:0.5ex 1ex;
     }
+
+.wizard form label {
+    display:block;
+    float:left;
+    margin:2px 0;
+    padding:1px;
+    width:120px;
+}
+
+.wizard form input {
+    float:left;
+    font-size:0.95em;
+    margin:2px 0;
+    padding:1px;
+}
+
+.wizard form .cbra input {
+    margin:2px 5px;
+}
+
+.wizard form table input {
+    border:none;
+    margin:0;
+    padding:0;
+    width:100%;
+}
+
+.wizard form br {
+    clear:both;
+}

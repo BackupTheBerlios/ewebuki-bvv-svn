@@ -85,7 +85,7 @@
                        "H3" => "[H3]Überschrift Ebene 3[/H3]",
                    "Absatz" => "[P]Absatz[/P]",
                    "Teaser" => "[P=teaser]Teaser-Absatz[/P]",
-                  "Tabelle" => "[TAB]\n[/TAB]",
+                  "Tabelle" => "[TAB=;100%;;5;]\n[/TAB]",
 //                 "3er-Kombi" => "[DIV=present]\n[IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]\n[H2]Überschrift[/H2]\n[P]Beschreibung[/P]\n[BR=a][/BR]\n[/DIV]",
                 "3er-Kombi" => "[DIV=present]
                                 [IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]
@@ -98,12 +98,12 @@
         "wizardtyp" => array(
                   "default" => array(
                             "add_tags" => array("H2","H3","Absatz","Teaser","Tabelle","3er-Kombi"),
-                       "section_block" => array(4,1),
+                       "section_block" => array(3,1),
                            "def_label" => "inhalt",
                         ),
                   "artikel" => array(
                             "add_tags" => array("H2","Absatz"),
-                       "section_block" => array(4,1),
+                       "section_block" => array(3,1),
                            "def_label" => "inhalt",
                         ),
                 ),

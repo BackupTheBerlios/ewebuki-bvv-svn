@@ -59,6 +59,13 @@
         if ( in_array($database,$_SESSION["dbzugriff"]) ) $erlaubnis = -1;
     }
 
+    // form_referer
+// echo "--".dirname($_SERVER["HTTP_REFERER"])."<br>";
+    if ( !preg_match("/wizard$/",dirname($_SERVER["HTTP_REFERER"])) ) {
+        $_SESSION["form_referer"] = $_SERVER["HTTP_REFERER"];
+    }
+    $ausgaben["form_referer"] = $_SESSION["form_referer"];
+
     // leere parameter abfangen
     $reload = 0;
     if ( $environment["parameter"][1] != "" ) {
@@ -71,6 +78,7 @@
         $path = explode("/",str_replace($pathvars["menuroot"],"",$_SERVER["HTTP_REFERER"]));
         $kategorie = str_replace(".html","", array_pop($path));
         $ebene = implode("/",$path);
+        if ( $kategorie == "" ) $kategorie = "index";
         if ( count($path) == 0 || (count($path) == 1 && $path[0]=="") ) {
             $environment["parameter"][2] = $kategorie;
         } else {
@@ -84,12 +92,12 @@
     }
     if ( $reload == -1 ) header("Location: ".$cfg["wizard"]["basis"]."/".implode(",",$environment["parameter"]).".html");
 
+
     if ( $cfg["wizard"]["right"] == "" ||
         priv_check("/".$cfg["wizard"]["subdir"]."/".$cfg["wizard"]["name"],$cfg["wizard"]["right"]) ||
         priv_check_old("",$cfg["wizard"]["right"]) ||
         $rechte["administration"] == -1 ||
         $erlaubnis == -1 ) {
-
 
         // page basics
         // ***
@@ -112,7 +120,7 @@
 
         $form_values = $db -> fetch_array($result,1);
 
-        // version
+        // versionen-link
         $ausgaben["vaktuell"] = $form_values["version"];
         $sql = "SELECT version, html, content, changed, byalias
                   FROM ". SITETEXT ."
@@ -148,13 +156,8 @@
             $hidedata["version_next"]["link_last"] = $link.$ausgaben["vgesamt"].".html";
         }
 
-//             $result = $db -> query($sql);
-//             if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-//             $data = $db -> fetch_array($result, $nop);
-//             $content_exist = $db -> num_rows($result);
-
         // wizard-infos rausfinden (z.b. wizard-typ,..)
-        preg_match("/^\[!\]wizard:(.+)\[\/!\]/i",$form_values["content"],$match);
+        preg_match("/\[!\]wizard:(.+)\[\/!\]/i",$form_values["content"],$match);
         $wizard_name = "default";
         if ( $match[1] != "" ) {
             $info = explode(";",$match[1]);
@@ -198,9 +201,9 @@
                 }
                 // bauen der "bereichsumrandung"
                 $section = "<!--edit_begin--><div class=\"wiz_edit\" style=\"".$display."\">".
-                           $tmp_tag_meat[$tag][$key]["complete"].
-                           "<p style=\"clear:both;".$display."\" />".
-                           "<div class=\"buttons\">
+                           $tmp_tag_meat[$tag][$key]["complete"]."
+                           <p style=\"clear:both;".$display."\" />
+                           <div class=\"buttons\">
                                 <a href=\"".$edit."\">edit</a>
                                 <a href=\"".$del."\">delete</a>
                            </div>
@@ -214,7 +217,6 @@
 
         // bauen der "uebergeordneten" bereiche (keine verschachtelung)
         $allcontent = seperate_content($content);
-// $ausgaben["output"] .= "<pre>".print_r($allcontent,true)."</pre>";
 
         // vorbereitung fuer die array-sortierung fuer das verschieben
         // * * *
@@ -250,15 +252,19 @@
         // + + +
 
         // bereiche in eine liste pressen
-        $buffer = "";
+        $buffer = "";$i=-1;
         foreach ( $allcontent as $key=>$value ) {
+            // kommentar-bereich nicht beruecksichtigen
             if ( preg_match("/^\[!\].*\[\/!\]/i",$value) ) {
-//                 echo $key.": ".$value;
                 continue;
             }
-            // links
-            if ( $key < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
-              || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1] ) {
+            $i++;
+// echo "<pre>"."wizard-icon-".strtolower(str_replace("=","-",$match[1]))."</pre>--";
+            $ajax_class = array();
+            // links bauen
+            if ( $i < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
+              || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1]
+              || $next != "" ) {
                 $ajax_class = "";
                 $modify_class = " style=\"display:none;\"";
                 $link_up = "";
@@ -268,6 +274,24 @@
                 $modify_class = "";
                 $link_up = arrange_elements($sort_array, $key, "up");
                 $link_down = arrange_elements($sort_array, $key, "down");
+            }
+            // hintergrundbild-schnickschnack
+            preg_match("/\[(.+)\]/U",$value,$match);
+            $pic = strtolower(str_replace("=","-",$match[1]));
+            if ( strstr($pic,";") ) $pic = trim(substr($pic,0,strpos($pic,";")),"-");
+            $pic_array = explode("-",$pic);
+            $style = "";
+            while ( count($pic_array) > 0 ) {
+                $buffer = "wizard-icon-".implode("-",$pic_array).".png";
+                if ( file_exists($pathvars["fileroot"].$pathvars["images"].$buffer) ) {
+                    $style = "background-image:url('".$pathvars["images"].$buffer."');";
+                    break;
+                } elseif ( file_exists($pathvars["fileroot"]."/images/default/".$buffer) ) {
+                    $style = "background-image:url('/images/default/".$buffer."');";
+                    break;
+                } else {
+                    array_pop($pic_array);
+                }
             }
             // loeschen-link
             $del = $cfg["wizard"]["basis"]."/modify,".
@@ -282,6 +306,7 @@
                             "key" => $key,
                           "value" => tagreplace($value),
                           "class" => $ajax_class,
+                          "style" => $style,
                          "modify" => $modify_class,
                         "link_up" => $link_up,
                       "link_down" => $link_down,

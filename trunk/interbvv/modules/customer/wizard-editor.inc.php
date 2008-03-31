@@ -348,21 +348,18 @@
                     }
                     // daten auflisten
                     preg_match_all("/\[ROW\](.*)\[\/ROW\]/Us",$tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"],$rows);
-                    $ausgaben["tabelle"] = "<table width=\"100%\" border=\"1\">\n";
-                    $row_index = 0; $ausgaben["num_row"] = 0;
+                    $ausgaben["tabelle"] = "<table width=\"100%\">\n";
+                    $row_index = 0; $ausgaben["num_row"] = 0; $ausgaben["num_col"] = 0;
                     foreach ( $rows[1] as $row ) {
                         $ausgaben["tabelle"] .= "<tr>";
                         preg_match_all("/\[COL\](.*)\[\/COL\]/Us",$row,$cells);
                         $col_index = 0; $ausgaben["num_col"] = 0;
                         foreach ( $cells[1] as $cell ) {
-                            $ausgaben["tabelle"] .= "<td style=\"padding:0;\">
-                                                    <input type=\"text\" value=\"".$cell."\" name=\"cells[".$row_index."][".$col_index."]\" style=\"width:100%\" />
+                            $ausgaben["tabelle"] .= "<td>
+                                                    <input type=\"text\" value=\"".$cell."\" name=\"cells[".$row_index."][".$col_index."]\" />
                                                     </td>";
                             $col_index++; $ausgaben["num_col"]++;
                         }
-                        $ausgaben["tabelle"] .= "<td style=\"padding:0;\">
-                                                del
-                                                </td>";
                         $ausgaben["tabelle"] .= "</tr>";
                         $row_index++; $ausgaben["num_row"]++;
                     }
@@ -880,7 +877,13 @@ echo "\$sql: $sql<br>";
                 } else {
                     $pattern = ",v[0-9]*\.html$";
                     $ausgaben["form_referer"] = preg_replace("/".$pattern."/",".html",$ausgaben["form_referer"] );
-                    header("Location: ".$ausgaben["form_referer"]."");
+//                     header("Location: ".$ausgaben["form_referer"]."");
+                    $header = $cfg["wizard"]["basis"]."/show,".$environment["parameter"][1].",".
+                                                        $environment["parameter"][2].",".
+                                                        $environment["parameter"][3].",".
+                                                        ",".
+                                                        $environment["parameter"][5].".html";
+                    header("Location: ".$header);
                 }
 
 #                header("Location: ".$header);

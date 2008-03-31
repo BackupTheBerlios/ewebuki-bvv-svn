@@ -18,48 +18,48 @@
             #(inhalt)
             <p>!#ausgaben_form_error</p>
 
-            <fieldset class="ce">
+<!--             <div class="ce"> -->
                 <!--##hide-imgpreview-->
                 <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
                 <!--##show-->
                 <!--##hide-img-->
-                <label>Beschriftung</label>
-                <input type="text" name="description" value="!{meat}" />
-<!--                 <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /> -->
-                <input id="eb_submit" class="buttag" type="submit" title="Datei auswaehlen" value="Bild holen" name="add[]"/>
+                <fieldset >
+                    <label>Beschriftung</label>
+                    <input type="text" name="description" value="!{meat}" /><br />
+                    <input id="eb_submit" class="button" type="submit" title="Datei auswaehlen" value="neues Bild holen" name="add[]"/>
+                </fieldset>
 
                 <fieldset >
                     <legend>Anzeigengröße</legend>
                     <!--##loop-show-->
-                    <input type="radio" name="tagwerte[0]" value="!{value}"!{check}>!{label}
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[0]" value="!{value}"!{check}>!{label}
+                    </label>
                     <!--##cont-->
-<!--                    <input type="radio" name="tagwerte[1]" value="" checked="true"> nix
-                    <input type="radio" name="tagwerte[1]" value="l"> links
-                    <input type="radio" name="tagwerte[1]" value="r"> rechts-->
                 </fieldset>
 
                 <fieldset >
                     <legend>Ausrichtung</legend>
                     <!--##loop-align-->
-                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check}>!{label}
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check}>!{label}
+                    </label>
                     <!--##cont-->
-<!--                    <input type="radio" name="tagwerte[1]" value="" checked="true"> nix
-                    <input type="radio" name="tagwerte[1]" value="l"> links
-                    <input type="radio" name="tagwerte[1]" value="r"> rechts-->
                 </fieldset>
 
-                <label>Rand (in px)</label>
-                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
+                <fieldset >
+                    <legend>Rand</legend>
+                    <label>(in px)</label>
+                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
+                </fieldset>
 
                 <fieldset >
                     <legend>Detailansicht</legend>
                     <!--##loop-size-->
-                    <input type="radio" name="tagwerte[3]" value="!{value}"!{check}>!{label}
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[3]" value="!{value}"!{check}>!{label}
+                    </label>
                     <!--##cont-->
-<!--                    <input type="radio" name="tagwerte[3]" value="s" checked="true"> klein
-                    <input type="radio" name="tagwerte[3]" value="m"> mittel
-                    <input type="radio" name="tagwerte[3]" value="b"> groß
-                    <input type="radio" name="tagwerte[3]" value="o"> original-->
                 </fieldset>
 
                 <fieldset>
@@ -75,10 +75,27 @@
 
                 <!--##hide-tab-->
                 <fieldset>
-                    <input type="file" name="csv_upload"/>
+                    <legend>Tabelle aus CSV</legend>
+                    <input type="file" name="csv_upload"/><br />
+                    <input type="submit" name="col_resize[]" value="Aktualisieren" accesskey="s" class="button" />
                 </fieldset>
 
                 <fieldset>
+                    <legend>Zelleninhalte bearbeiten</legend>
+                    !#ausgaben_tabelle
+                </fieldset>
+
+                <fieldset>
+                    <legend>Dimensionen</legend>
+                    <label>Anzahl Spalten</label>
+                    <input type="text" name="num_col" value="!#ausgaben_num_col" /><br />
+                    <label>Anzahl Zeilen</label>
+                    <input type="text" name="num_row" value="!#ausgaben_num_row" /><br />
+                    <input type="submit" name="col_resize[]" value="Aktualisieren" accesskey="s" class="button" />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Tabellen-Eigenschaften</legend>
                     <label>Align</label>
                     <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
                     <label>Width</label>
@@ -90,32 +107,22 @@
                     <label>Cellpadding</label>
                     <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
                 </fieldset>
-
-                <fieldset>
-                    <label>Anzahl Spalten</label>
-                    <input type="text" name="num_col" value="!#ausgaben_num_col" /><br />
-                    <label>Anzahl Zeilen</label>
-                    <input type="text" name="num_row" value="!#ausgaben_num_row" /><br />
-                    <input type="submit" name="col_resize[]" value="g(send)" accesskey="s" class="first" />
-                </fieldset>
-
-                <fieldset>
-                    !#ausgaben_tabelle
-                </fieldset>
                 <!--##show-->
 
                 <!--##hide-default-->
-                <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
-                <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" class="!#ausgaben_class" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
-                <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
-                <script type="text/javascript" language="JavaScript">
-                    <!--
-                    // This is for toolbar plugins
-                    var ebCanvas = document.getElementById('content');
-                    //-->
-                </script>
+                <fieldset class="ce">
+                    <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
+                    <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" class="!#ausgaben_class" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
+                    <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
+                    <script type="text/javascript" language="JavaScript">
+                        <!--
+                        // This is for toolbar plugins
+                        var ebCanvas = document.getElementById('content');
+                        //-->
+                    </script>
+                </fieldset>
                 <!--##show-->
-            </fieldset>
+<!--             </div> -->
 
             <div class="clearer">&nbsp;</div>
 
@@ -123,9 +130,9 @@
                 <input type="hidden" name="html" value="!#ausgaben_form_hidden" class="hidden" />
                 <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
                 <div class="clearer">&nbsp;</div>
-                <input type="submit" name="send[]" value="g(send)" accesskey="s" class="first" />
-                <input type="reset" name="reset" value="g(reset)" accesskey="r" class="next" />
-                <input type="button" name="abort" value="g(abort)" accesskey="a" onclick="location='!#ausgaben_form_break'" class="next" />
+                <input type="submit" name="send[]" value="g(send)" accesskey="s" class="button" />
+                <input type="reset" name="reset" value="g(reset)" accesskey="r" class="button" />
+                <input type="button" name="abort" value="g(abort)" accesskey="a" onclick="location='!#ausgaben_form_break'" class="button" />
                 <div class="clearer">&nbsp;</div>
             </fieldset>
 

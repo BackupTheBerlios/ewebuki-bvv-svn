@@ -271,7 +271,7 @@
                 }
             }
 
-            return $allcontent;
+            return array_merge($allcontent);
         }
 
     }
