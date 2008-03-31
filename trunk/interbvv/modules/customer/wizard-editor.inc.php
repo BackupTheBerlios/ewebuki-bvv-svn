@@ -876,7 +876,10 @@
                 #$ldate = $_POST["ldate"];
                 #$ldate = substr($ldate,6,4)."-".substr($ldate,3,2)."-".substr($ldate,0,2)." ".substr($ldate,11,9);
                 #$sqla .= ", ldate='".$ldate."'";
-
+                if ( preg_match("/^\[!\]/",$content,$regs) ) {
+                    $sql_regex = "UPDATE ". SITETEXT ." SET content=regexp_replace(content,'^\\\[!]1','[!]0') WHERE tname like '".$environment["parameter"][2]."'";
+                    $result_regex  = $db -> query($sql_regex);
+                }
 //                 $sql = "update ".$cfg["wizard"]["db"]["leer"]["entries"]." SET ".$sqla." WHERE ".$cfg["wizard"]["db"]["leer"]["key"]."='".$environment["parameter"][1]."'";
                 if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
 // echo "\$sql: $sql<br>";
