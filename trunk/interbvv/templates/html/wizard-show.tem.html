@@ -13,16 +13,20 @@
 <!--##begin-->
         <div id="substance" class="wizard" style="width:700px;">
 
-            <span class="right">
-                <!--##hide-version_prev-->
-                | <a href="!{link_first}">&lt;&lt;</a> | <a href="!{link_prev}">&lt;</a> |
-                <!--##show-->
-                g(version) !#ausgaben_vaktuell g(of) !#ausgaben_vgesamt
-                <!--##hide-version_next-->
-                | <a href="!{link_next}">&gt;</a> | <a href="!{link_last}">&gt;&gt;</a> |
-                <!--##show-->
-            </span>
-            <p class="clear" />
+
+            <fieldset>
+                <span class="right">
+                    <!--##hide-version_prev-->
+                    | <a href="!{link_first}">&lt;&lt;</a> | <a href="!{link_prev}">&lt;</a> |
+                    <!--##show-->
+                    g(version) !#ausgaben_vaktuell g(of) !#ausgaben_vgesamt
+                    <!--##hide-version_next-->
+                    | <a href="!{link_next}">&gt;</a> | <a href="!{link_last}">&gt;&gt;</a> |
+                    <!--##show-->
+                </span>
+                <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
+                <p class="clear" />
+            </fieldset>
 
             #(inhalt)
             <ul id="sort_content">
@@ -46,8 +50,8 @@
                     <a href="!{link}" class="button">!{item}</a>
                 <!--##cont-->
             </fieldset>
+
             <fieldset>
-<!--                 <legend>Bereiche hinzufuegen</legend> -->
                 <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
             </fieldset>
 

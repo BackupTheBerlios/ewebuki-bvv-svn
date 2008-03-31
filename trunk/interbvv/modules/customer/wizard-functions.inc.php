@@ -202,6 +202,7 @@
                     "IMG"  => "(\[IMG.*\])(.*)(\[\/IMG\])",                  // bilder
                     "SEL"  => "(\[SEL.*\])(.*)(\[\/SEL\])",                  // gruppierungen
                     "TAB"  => "(\[TAB.*\])(.*)(\[\/TAB\])",                  // tabellen
+                    "LIST" => "(\[LIST.*\])(.*)(\[\/LIST\])",                // listen
             );
             $tag_meat = array();
             foreach ( $preg_sections as $tag=>$preg ) {

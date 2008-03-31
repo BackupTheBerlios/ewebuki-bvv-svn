@@ -140,8 +140,6 @@
         if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "neue ebene    : ".$_SESSION["ebene"].$debugging["char"];;
         if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "neue kategorie: ".$_SESSION["kategorie"].$debugging["char"];;
 
-
-
         // status anzeigen
         $ausgaben["ce_tem_db"]      = "#(db): ".$environment["parameter"][1];
         $ausgaben["ce_tem_name"]    = "#(template): ".$environment["parameter"][2];
@@ -179,57 +177,57 @@
         }
 
 
-        // eWeBuKi tag schutz - sections 1
-        if ( strpos( $form_values["content"], "[/E]") !== false ) {
-            $preg = "|\[E\](.*)\[/E\]|Us";
-            preg_match_all($preg, $form_values["content"], $match, PREG_PATTERN_ORDER );
-            $mark = $defaults["section"]["tag"];
-            $hide = "++";
-            foreach ( $match[0] as $key => $value ) {
-                $escape = str_replace( $mark, $hide, $match[1][$key]);
-                $form_values["content"] = str_replace( $value, "[E]".$escape."[/E]", $form_values["content"]);
-            }
-        }
+//         // eWeBuKi tag schutz - sections 1
+//         if ( strpos( $form_values["content"], "[/E]") !== false ) {
+//             $preg = "|\[E\](.*)\[/E\]|Us";
+//             preg_match_all($preg, $form_values["content"], $match, PREG_PATTERN_ORDER );
+//             $mark = $defaults["section"]["tag"];
+//             $hide = "++";
+//             foreach ( $match[0] as $key => $value ) {
+//                 $escape = str_replace( $mark, $hide, $match[1][$key]);
+//                 $form_values["content"] = str_replace( $value, "[E]".$escape."[/E]", $form_values["content"]);
+//             }
+//         }
 
 
         // evtl. spezielle section
         $tag_marken = explode(":",$environment["parameter"][4]);
 
 
-        if ( count($tag_marken) == 1 ) {
-            if ( is_array($defaults["section"]["tag"]) ) {
-                $preg_search = str_replace(
-                                array("[", "]", "/"),
-                                array("\[","\]","\/"),
-                                implode("|",$defaults["section"]["tag"])
-                );
-                $allcontent = preg_split("/(".$preg_search.")/",$form_values["content"],-1,PREG_SPLIT_DELIM_CAPTURE);
-                $i = 0;
-                foreach ( $allcontent as $key=>$value ) {
-                    if ( in_array($value,$defaults["section"]["tag"]) ) {
-                        $join[$i] = "{".$i."}".$value;
-                    } else {
-                        $join[$i] .= $value;
-                        $i++;
-                    }
-                }
-
-                if ( $environment["parameter"][4] != "" ) {
-                    $form_values["content"] = preg_replace("/\{[0-9]+\}/U","",$join[$environment["parameter"][4]]);
-                }
-            } else {
-                $alldata = explode($defaults["section"]["tag"], $form_values["content"]);
-                if ( $environment["parameter"][4] != "" ) {
-                    $form_values["content"] = $defaults["section"]["tag"].$alldata[$environment["parameter"][4]];
-                }
-            }
-        } elseif ( count($_POST) == 0 ) {
+//         if ( count($tag_marken) == 1 ) {
+//             if ( is_array($defaults["section"]["tag"]) ) {
+//                 $preg_search = str_replace(
+//                                 array("[", "]", "/"),
+//                                 array("\[","\]","\/"),
+//                                 implode("|",$defaults["section"]["tag"])
+//                 );
+//                 $allcontent = preg_split("/(".$preg_search.")/",$form_values["content"],-1,PREG_SPLIT_DELIM_CAPTURE);
+//                 $i = 0;
+//                 foreach ( $allcontent as $key=>$value ) {
+//                     if ( in_array($value,$defaults["section"]["tag"]) ) {
+//                         $join[$i] = "{".$i."}".$value;
+//                     } else {
+//                         $join[$i] .= $value;
+//                         $i++;
+//                     }
+//                 }
+//
+//                 if ( $environment["parameter"][4] != "" ) {
+//                     $form_values["content"] = preg_replace("/\{[0-9]+\}/U","",$join[$environment["parameter"][4]]);
+//                 }
+//             } else {
+//                 $alldata = explode($defaults["section"]["tag"], $form_values["content"]);
+//                 if ( $environment["parameter"][4] != "" ) {
+//                     $form_values["content"] = $defaults["section"]["tag"].$alldata[$environment["parameter"][4]];
+//                 }
+//             }
+//         } elseif ( count($_POST) == 0 ) {
             $form_values["content"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
-        }
+//         }
 
 
-        // eWeBuKi tag schutz - sections 2
-        $form_values["content"] = str_replace( $hide, $mark, $form_values["content"]);
+//         // eWeBuKi tag schutz - sections 2
+//         $form_values["content"] = str_replace( $hide, $mark, $form_values["content"]);
 
 
         // einzelne sektionen
@@ -368,6 +366,23 @@
 // echo "<pre>".print_r($rows,true)."</pre>";
                     break;
 
+                case "LIST":
+                    $hidedata["default"] = array();
+                    $hidedata["list"] = array();
+                    $buffer = explode("[*]",$form_values["content"]);
+                    $form_values["content"] = "";
+                    foreach ( $buffer as $value ) {
+                        if ( $form_values["content"] != "" ) $form_values["content"] .= chr(13).chr(10).chr(13).chr(10);
+                        $form_values["content"] .= trim($value);
+                    }
+                    break;
+
+                case "SEL":
+                    $hidedata["sel"] = array();
+                    $ausgaben["desc"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
+echo "<pre>".print_r($tag_meat["SEL"][0],true)."</pre>";
+                    break;
+
                 default:
                     $hidedata["default"] = array();
                     break;
@@ -419,27 +434,27 @@
         }
 
 
-        // eWeBuKi tag schutz part 3
-        $mark_o = array( "#(", "g(", "#{", "!#" );
-        $hide_o = array( "::1::", "::2::", "::3::", "::4::" );
-        $form_values["content"] = str_replace( $mark_o, $hide_o, $form_values["content"]);
+//         // eWeBuKi tag schutz part 3
+//         $mark_o = array( "#(", "g(", "#{", "!#" );
+//         $hide_o = array( "::1::", "::2::", "::3::", "::4::" );
+//         $form_values["content"] = str_replace( $mark_o, $hide_o, $form_values["content"]);
 
 
-        // wie wird content verarbeitet
-        if ( $form_values["html"] == "-1" ) {
-            $ausgaben["ce_name"] = "content";
-            $ausgaben["ce_inhalt"] = $form_values["content"];
-
-            // epoz fix
-            if ( $specialvars["wysiwyg"] == "epoz" ) {
-                $sea = array("\\","\n","\r","'");
-                $rep = array("\\\\","\\n","\\r","\\'");
-                $ausgaben["ce_inhalt"] = str_replace( $sea, $rep, $ausgaben["ce_inhalt"]);
-            }
-
-            // template version
-            $art = "-".$specialvars["wysiwyg"];
-        } else {
+//         // wie wird content verarbeitet
+//         if ( $form_values["html"] == "-1" ) {
+//             $ausgaben["ce_name"] = "content";
+//             $ausgaben["ce_inhalt"] = $form_values["content"];
+//
+//             // epoz fix
+//             if ( $specialvars["wysiwyg"] == "epoz" ) {
+//                 $sea = array("\\","\n","\r","'");
+//                 $rep = array("\\\\","\\n","\\r","\\'");
+//                 $ausgaben["ce_inhalt"] = str_replace( $sea, $rep, $ausgaben["ce_inhalt"]);
+//             }
+//
+//             // template version
+//             $art = "-".$specialvars["wysiwyg"];
+//         } else {
             // ce editor bauen
 
             $ausgaben["name"] = "content";
@@ -463,56 +478,56 @@
             $ausgaben["tn"] = makece("ceform", "content", $form_values["content"], $allowed_tags);
 
 
-            // vogelwilde regex die alte & neue file links findet
-            // und viel arbeit erspart
-            preg_match_all("/[_\/]([0-9]+)[.\/]/",$form_values["content"],$found);
-            $debugging["ausgabe"] .= "<pre>".print_r($found,True)."</pre>";
+//             // vogelwilde regex die alte & neue file links findet
+//             // und viel arbeit erspart
+//             preg_match_all("/[_\/]([0-9]+)[.\/]/",$form_values["content"],$found);
+//             $debugging["ausgabe"] .= "<pre>".print_r($found,True)."</pre>";
+//
+//             // file memo auslesen und zuruecksetzen
+//             if ( is_array($_SESSION["file_memo"]) ) {
+//                 $array = array_merge($_SESSION["file_memo"],$found[1]);
+// //                 unset($_SESSION["file_memo"]);
+//             } else {
+//                 $array = $found[1];
+//             }
 
-            // file memo auslesen und zuruecksetzen
-            if ( is_array($_SESSION["file_memo"]) ) {
-                $array = array_merge($_SESSION["file_memo"],$found[1]);
-//                 unset($_SESSION["file_memo"]);
-            } else {
-                $array = $found[1];
-            }
+//             // wenn es thumbnails gibt, anzeigen
+//             if ( count($array) >= 1 ) {
+//
+//                 $merken = $db -> getDb();
+//                 if ( $merken != DATABASE ) {
+//                     $db -> selectDB( DATABASE ,"");
+//                 }
+//
+//                 foreach ( $array as $value ) {
+//                     if ( $where != "" ) $where .= " OR ";
+//                     $where .= "fid = '".$value."'";
+//                 }
+//                 $sql = "SELECT * FROM site_file WHERE ".$where." ORDER BY ffname, funder";
+//                 $result = $db -> query($sql);
+//
+//
+//                 if ( $merken != DATABASE ) {
+//                     $db -> selectDB($merken,"");
+//                 }
+//
+//                 filelist($result, "contented");
+//             }
 
-            // wenn es thumbnails gibt, anzeigen
-            if ( count($array) >= 1 ) {
-
-                $merken = $db -> getDb();
-                if ( $merken != DATABASE ) {
-                    $db -> selectDB( DATABASE ,"");
-                }
-
-                foreach ( $array as $value ) {
-                    if ( $where != "" ) $where .= " OR ";
-                    $where .= "fid = '".$value."'";
-                }
-                $sql = "SELECT * FROM site_file WHERE ".$where." ORDER BY ffname, funder";
-                $result = $db -> query($sql);
-
-
-                if ( $merken != DATABASE ) {
-                    $db -> selectDB($merken,"");
-                }
-
-                filelist($result, "contented");
-            }
-
-            if ( is_array($_SESSION["compilation_memo"]) ) {
-                foreach ( $_SESSION["compilation_memo"] as $compid=>$value ) {
-                    $dataloop["selection"][] = array(
-                        "id" => $compid,
-                        "pics" => implode(":",$value)
-                    );
-                }
-                if ( count($dataloop["selection"]) > 0 ) $hidedata["selection"] = array();
-            }
+//             if ( is_array($_SESSION["compilation_memo"]) ) {
+//                 foreach ( $_SESSION["compilation_memo"] as $compid=>$value ) {
+//                     $dataloop["selection"][] = array(
+//                         "id" => $compid,
+//                         "pics" => implode(":",$value)
+//                     );
+//                 }
+//                 if ( count($dataloop["selection"]) > 0 ) $hidedata["selection"] = array();
+//             }
 
 
             // template version
             $art = "";
-        }
+//         }
 
 
 
@@ -719,10 +734,27 @@
 //                                 $tab .= "[/ROW]\n";
 //                             }
                             $tab .= "[/TAB]";
-echo $tab;
                             $to_insert = $tab;
                         }
+                    } elseif ( $tag_marken[0] == "LIST" ) {
+                        // trennen nach leerzeilen
+                        $buffer = explode(chr(13).chr(10).chr(13).chr(10),$_POST["content"]);
+                        $to_insert = implode("\n[*]",$buffer);
+                        // verbotenen tags rausfiltern
+                        $buffer = array();
+                        foreach ( $allowed_tags as $value ) {
+                            $buffer[] = "[/".strtoupper($value)."]";
+                        }
+                        $to_insert = $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"].
+                                     tagremove($to_insert,False,$buffer).
+                                     $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
+echo "hallo<br>";
+echo $to_insert;
+echo "<pre>".print_r($tag_meat["LIST"],true)."</pre>";
+echo "<pre>".print_r($tag_marken,true)."</pre>";
+// die;
                     } else {
+                        // verbotenen tags rausfiltern
                         foreach ( $allowed_tags as $value ) {
                             $buffer[] = "[/".strtoupper($value)."]";
                         }

@@ -109,6 +109,35 @@
                 </fieldset>
                 <!--##show-->
 
+                <!--##hide-sel-->
+                <fieldset>
+<!--                     <legend>Dimensionen</legend> -->
+                    <label>Bezeichnung</label>
+                    <input type="text" name="desc" value="!#ausgaben_desc" /><br />
+                    <input id="eb_submit" class="button" type="submit" title="Datei auswaehlen" value="neues Bild holen" name="sel[]"/>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Tabellen-Eigenschaften</legend>
+                    <label>Align</label>
+                    <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
+                    <label>Width</label>
+                    <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" /><br />
+                    <label>Border</label>
+                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
+                    <label>Cellspacing</label>
+                    <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" /><br />
+                    <label>Cellpadding</label>
+                    <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+                </fieldset>
+                <!--##show-->
+
+                <!--##hide-list-->
+                <fieldset class="ce">
+                    Einzelne Listenpunkte bitte durch Leerzeile trennen!
+                </fieldset>
+                <!--##show-->
+
                 <!--##hide-default-->
                 <fieldset class="ce">
                     <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>

@@ -74,8 +74,9 @@
              "tags" => $cfg["contented"]["tags"],
      "allowed_tags" => array(
                            "H" => array(),
-                           "P" => array("link","b","i"),
+                           "P" => array("link","b","i","acr"),
                     "P=teaser" => array("link","b","file"),
+                        "LIST" => array("link","b","i","acr"),
                 ),
 
 
@@ -86,6 +87,8 @@
                    "Absatz" => "[P]Absatz[/P]",
                    "Teaser" => "[P=teaser]Teaser-Absatz[/P]",
                   "Tabelle" => "[TAB=;100%;;5;]\n[/TAB]",
+                    "Liste" => "[LIST]Listeneintrag[/LIST]",
+                "Selection" => "[SEL]Gruppierung[/SEL]",
 //                 "3er-Kombi" => "[DIV=present]\n[IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]\n[H2]Überschrift[/H2]\n[P]Beschreibung[/P]\n[BR=a][/BR]\n[/DIV]",
                 "3er-Kombi" => "[DIV=present]
                                 [IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]
@@ -97,7 +100,7 @@
 
         "wizardtyp" => array(
                   "default" => array(
-                            "add_tags" => array("H2","H3","Absatz","Teaser","Tabelle","3er-Kombi"),
+                            "add_tags" => array("H2","H3","Absatz","Teaser","Tabelle","3er-Kombi","Liste","Selection"),
                        "section_block" => array(3,1),
                            "def_label" => "inhalt",
                         ),
