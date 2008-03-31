@@ -380,7 +380,7 @@
                 case "SEL":
                     $hidedata["sel"] = array();
                     $ausgaben["desc"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
-echo "<pre>".print_r($tag_meat["SEL"][0],true)."</pre>";
+// echo "<pre>".print_r($tag_meat["SEL"][0],true)."</pre>";
                     break;
 
                 default:
@@ -748,10 +748,10 @@ echo "<pre>".print_r($tag_meat["SEL"][0],true)."</pre>";
                         $to_insert = $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"].
                                      tagremove($to_insert,False,$buffer).
                                      $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
-echo "hallo<br>";
-echo $to_insert;
-echo "<pre>".print_r($tag_meat["LIST"],true)."</pre>";
-echo "<pre>".print_r($tag_marken,true)."</pre>";
+// echo "hallo<br>";
+// echo $to_insert;
+// echo "<pre>".print_r($tag_meat["LIST"],true)."</pre>";
+// echo "<pre>".print_r($tag_marken,true)."</pre>";
 // die;
                     } else {
                         // verbotenen tags rausfiltern
@@ -879,7 +879,7 @@ echo "<pre>".print_r($tag_marken,true)."</pre>";
 
 //                 $sql = "update ".$cfg["wizard"]["db"]["leer"]["entries"]." SET ".$sqla." WHERE ".$cfg["wizard"]["db"]["leer"]["key"]."='".$environment["parameter"][1]."'";
                 if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-echo "\$sql: $sql<br>";
+// echo "\$sql: $sql<br>";
                 $result  = $db -> query($sql);
                 #if ( !$result ) die($db -> error("DB ERROR: "));
                 if ( !$result ) $ausgaben["form_error"] .= $db -> error("#(error_result)<br />");
