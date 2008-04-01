@@ -204,6 +204,13 @@
             }
 // echo "$sql";
 // die;
+
+            // notwendig fuer die artikelverwaltung alle artikel des gleichen tname's werden auf inaktiv gesetzt
+            if ( preg_match("/^\[!\]/",$content,$regs) ) {
+                $sql_regex = "UPDATE ". SITETEXT ." SET content=regexp_replace(content,'^\\\[!]1','[!]0') WHERE tname like '".$environment["parameter"][2]."'";
+                $result_regex  = $db -> query($sql_regex);
+            }
+
             $result  = $db -> query($sql);
         }
 
