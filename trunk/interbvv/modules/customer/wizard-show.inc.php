@@ -367,6 +367,16 @@
             && $_POST["send"] != "" ) {
 
             if ( $content_exists == 0 || $_POST["send"][0] == "version" ) {
+                // notwendig fuer die artikelverwaltung , der bisher aktive artikel wird auf inaktiv gesetzt
+                if ( preg_match("/^\[!\]/",$content,$regs) ) {
+                    $sql_regex = "SELECT * FROM ". SITETEXT ." WHERE content REGEXP '^\\\[!\\\]1' AND tname like '".$environment["parameter"][2]."'";
+                    $result_regex  = $db -> query($sql_regex);
+                    $data_regex = $db -> fetch_array($result_regex,1);
+                    $new_content = preg_replace("/\[!\]1/","[!]0",$data_regex["content"]);
+                    $sql_regex = "UPDATE ". SITETEXT ." SET content ='".$new_content."' WHERE content REGEXP '^\\\[!\\\]1' AND tname like '".$environment["parameter"][2]."'";
+                    $result_regex  = $db -> query($sql_regex);
+                }
+
                 $sql = "INSERT INTO ". SITETEXT ."
                                     (lang, label, tname, version,
                                     ebene, kategorie,
