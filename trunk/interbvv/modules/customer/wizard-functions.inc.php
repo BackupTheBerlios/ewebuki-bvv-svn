@@ -234,6 +234,7 @@
                                 "[SEL",
                                 "[TAB",
                                 "[DIV",
+                                "[IMG",
             );
             // suchmuster bauen und open- und close-tags finden
             $preg = array();

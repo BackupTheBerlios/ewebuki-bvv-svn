@@ -73,6 +73,7 @@
             // auswahl fuer die unterschiedlichen Wizardtypen
             $mark = 0;
             foreach ( $cfg["wizard"]["wizardtyp"] as $key=>$value ) {
+                if ( $value["show_add"] === False ) continue;
                 $checked = "";
                 if ( $key == $environment["parameter"][4] ) {
                     $check = " checked=\"checked\"";

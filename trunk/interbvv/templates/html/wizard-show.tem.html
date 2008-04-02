@@ -13,14 +13,7 @@
 <!--##begin-->
         <div id="substance" class="wizard" style="width:700px;">
 
-            <fieldset>
-                <form method="post" action="!#ausgaben_form_aktion">
-                    <button type="submit" name="send[]" value="save">Abscheichern</button>
-                    <button type="submit" name="send[]" value="version">Abscheichern mit Versionierung</button>
-                </form>
-            </fieldset>
-
-            <fieldset>
+<!--             <fieldset> -->
                 <span class="right">
                     <!--##hide-version_prev-->
                     | <a href="!{link_first}">&lt;&lt;</a> | <a href="!{link_prev}">&lt;</a> |
@@ -30,9 +23,9 @@
                     | <a href="!{link_next}">&gt;</a> | <a href="!{link_last}">&gt;&gt;</a> |
                     <!--##show-->
                 </span>
-                <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
+<!--                 <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a> -->
                 <p class="clear" />
-            </fieldset>
+<!--             </fieldset> -->
 
             #(inhalt)
             <ul id="sort_content">
@@ -57,14 +50,15 @@
                 <!--##cont-->
             </fieldset>
 
-            <fieldset>
+<!--            <fieldset>
                 <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
-            </fieldset>
+            </fieldset>-->
 
             <fieldset>
                 <form method="post" action="!#ausgaben_form_aktion">
-                    <button type="submit" name="send[]" value="save">Abscheichern</button>
-                    <button type="submit" name="send[]" value="version">Abscheichern mit Versionierung</button>
+                    <button type="submit" name="send[]" value="save">Speichern</button>
+                    <button type="submit" name="send[]" value="version">Speichern (neue Version)</button>
+                    <button type="submit" name="send[]" value="cancel">Abbrechen</button>
                 </form>
             </fieldset>
 

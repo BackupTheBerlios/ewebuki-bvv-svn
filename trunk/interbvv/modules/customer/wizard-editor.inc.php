@@ -567,7 +567,7 @@
         #$ausgaben["form_aktion"] = $cfg["wizard"]["basis"]."edit/save,".$environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3].",".$environment["parameter"][4].".html";
         $ausgaben["form_aktion"] = $cfg["wizard"]["basis"]."/editor,".$environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3].",".$environment["parameter"][4].",,,verify.html";
         #$ausgaben["form_abbrechen"] = $_SESSION["page"];
-        $ausgaben["form_break"] = $cfg["wizard"]["basis"]."/editor,".$environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3].",".$environment["parameter"][4].",,,unlock.html";
+        $ausgaben["form_break"] = $cfg["wizard"]["basis"]."/show,".$environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3].",".$environment["parameter"][4].",,,unlock.html";
 
 
         // hidden values

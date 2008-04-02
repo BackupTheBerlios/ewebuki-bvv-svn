@@ -397,7 +397,7 @@
                                     '".$_SESSION["forename"]."',
                                     '".$_SESSION["email"]."',
                                     '".$_SESSION["alias"]."')";
-            } else {
+            } elseif ($_POST["send"][0] == "save") {
                 $sql = "UPDATE ". SITETEXT ." SET
                                     ebene = '".str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]))."',
                                     kategorie = '".str_replace(".html","",basename($_SESSION["form_referer"]))."',
@@ -413,13 +413,15 @@
                                 AND label ='".$environment["parameter"][3]."'
                                 AND tname ='".$environment["parameter"][2]."'
                                 AND version ='".$form_values["version"]."'";
+            } elseif ($_POST["send"][0] == "cancel") {
+                unset($_SESSION["wizard_content"]);
             }
             if ( $result  = $db -> query($sql) ) {
-                $header = $_SESSION["form_referer"];
-                unset($_SESSION["form_referer"]);
                 unset($_SESSION["wizard_content"]);
-                header("Location: ".$header);
             }
+            $header = $_SESSION["form_referer"];
+            unset($_SESSION["form_referer"]);
+            header("Location: ".$header);
 
         }
 
