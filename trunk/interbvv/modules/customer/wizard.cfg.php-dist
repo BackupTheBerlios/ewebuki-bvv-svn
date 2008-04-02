@@ -55,6 +55,7 @@
          "function" => array(
                      "show" => array("makece"),
                       "add" => array(""),
+              "add,shared" => array("menu_convert"),
                    "editor" => array("makece"),
             "editor,shared" => array("filelist","phpdiff"),
                    "modify" => array("makece"),
@@ -106,7 +107,7 @@
                         ),
                   "artikel" => array(
                             "add_tags" => array("H2","Absatz"),
-                       "section_block" => array(3,1),
+                       "section_block" => array(3,0),
                            "def_label" => "inhalt",
                         ),
                 ),

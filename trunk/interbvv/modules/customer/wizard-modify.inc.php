@@ -90,12 +90,18 @@
             if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
             $result = $db -> query($sql);
 
-            #$data = $db -> fetch_array($result, $nop);
             $form_values = $db -> fetch_array($result,1);
 
         } else {
             $form_values = $_POST;
         }
+
+        // falls content in session steht
+        $identifier = $environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3];
+        if ( $_SESSION["wizard_content"][$identifier] != "" ) {
+            $form_values["content"] = $_SESSION["wizard_content"][$identifier];
+        }
+
 
         // wizard-typ rausfinden
         preg_match("/^\[!\]wizard:(.*)\[\/!\]/i",$form_values["content"],$match);
@@ -122,8 +128,6 @@
                     }
                     if ( $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1] == 0 ) $buffer[] = $cfg["wizard"]["add_tags"][$tag_marken[0]];
                     $content = implode(chr(13).chr(10).chr(13).chr(10),$buffer);
-// echo $content;
-// die;
                     break;
                 case "delete":
                     if ( $tag_marken[0] == "section" ) {
@@ -150,68 +154,13 @@
                         }
                     }
                     $content = implode(chr(13).chr(10).chr(13).chr(10),$buffer);
-// echo "--".$content."<br>";
                     break;
                 default:
                     header("Location: ".$_SERVER["HTTP_REFERER"]);
                     break;
             }
 
-            if ( $content_exist == 1 && !in_array($environment["parameter"][3], $cfg["wizard"]["archive"]) ) {
-                if ( $environment["parameter"][4] == "" && $HTTP_POST_VARS["content"] == "" ) {
-                    $sql = "DELETE FROM ". SITETEXT ."
-                                    WHERE lang = '".$environment["language"]."'
-                                    AND label ='".$environment["parameter"][3]."'
-                                    AND tname ='".$environment["parameter"][2]."'";
-                } else {
-                    $sql = "UPDATE ". SITETEXT ." set
-                                    version = ".++$data["version"].",
-                                    ebene = '".$_SESSION["ebene"]."',
-                                    kategorie = '".$_SESSION["kategorie"]."',
-                                    crc32 = '".$specialvars["crc32"]."',
-                                    html = '".$HTTP_POST_VARS["html"]."',
-                                    content = '".addslashes($content)."',
-                                    changed = '".date("Y-m-d H:i:s")."',
-                                    bysurname = '".$_SESSION["surname"]."',
-                                    byforename = '".$_SESSION["forename"]."',
-                                    byemail = '".$_SESSION["email"]."',
-                                    byalias = '".$_SESSION["alias"]."'
-                                WHERE lang = '".$environment["language"]."'
-                                AND label ='".$environment["parameter"][3]."'
-                                AND tname ='".$environment["parameter"][2]."'";
-                }
-            } else {
-                $sql = "INSERT INTO ". SITETEXT ."
-                                    (lang, label, tname, version,
-                                    ebene, kategorie,
-                                    crc32, html, content,
-                                    changed, bysurname, byforename, byemail, byalias)
-                                VALUES (
-                                        '".$environment["language"]."',
-                                        '".$environment["parameter"][3]."',
-                                        '".$environment["parameter"][2]."',
-                                        '".++$form_values["version"]."',
-                                        '".$_SESSION["ebene"]."',
-                                        '".$_SESSION["kategorie"]."',
-                                        '".$specialvars["crc32"]."',
-                                        '0',
-                                        '".addslashes($content)."',
-                                        '".date("Y-m-d H:i:s")."',
-                                        '".$_SESSION["surname"]."',
-                                        '".$_SESSION["forename"]."',
-                                        '".$_SESSION["email"]."',
-                                        '".$_SESSION["alias"]."')";
-            }
-// echo "$sql";
-// die;
-
-            // notwendig fuer die artikelverwaltung alle artikel des gleichen tname's werden auf inaktiv gesetzt
-            if ( preg_match("/^\[!\]/",$content,$regs) ) {
-                $sql_regex = "UPDATE ". SITETEXT ." SET content=regexp_replace(content,'^\\\[!]1','[!]0') WHERE tname like '".$environment["parameter"][2]."'";
-                $result_regex  = $db -> query($sql_regex);
-            }
-
-            $result  = $db -> query($sql);
+            $_SESSION["wizard_content"][$identifier] = $content;
         }
 
         if ( strstr($_SERVER["HTTP_REFERER"],$cfg["wizard"]["basis"]) ) {

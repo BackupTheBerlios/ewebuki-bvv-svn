@@ -60,13 +60,14 @@
     }
 
     // form_referer
-// echo "--".dirname($_SERVER["HTTP_REFERER"])."<br>";
     if ( !preg_match("/wizard$/",dirname($_SERVER["HTTP_REFERER"])) ) {
         $_SESSION["form_referer"] = $_SERVER["HTTP_REFERER"];
     }
     $ausgaben["form_referer"] = $_SESSION["form_referer"];
 
+
     // leere parameter abfangen
+    // * * *
     $reload = 0;
     if ( $environment["parameter"][1] != "" ) {
         $db->selectDb($database,FALSE);
@@ -91,6 +92,7 @@
         $reload = -1;
     }
     if ( $reload == -1 ) header("Location: ".$cfg["wizard"]["basis"]."/".implode(",",$environment["parameter"]).".html");
+    // + + +
 
 
     if ( $cfg["wizard"]["right"] == "" ||
@@ -117,10 +119,18 @@
                  LIMIT 0,1";
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
         $result = $db -> query($sql);
+        $content_exists = $db -> num_rows($result);
 
         $form_values = $db -> fetch_array($result,1);
 
+        // falls content in session steht
+        $identifier = $environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3];
+        if ( $_SESSION["wizard_content"][$identifier] != "" ) {
+            $form_values["content"] = $_SESSION["wizard_content"][$identifier];
+        }
+
         // versionen-link
+        // * * *
         $ausgaben["vaktuell"] = $form_values["version"];
         $sql = "SELECT version, html, content, changed, byalias
                   FROM ". SITETEXT ."
@@ -155,8 +165,10 @@
             $hidedata["version_next"]["link_next"] = $link.$next.".html";
             $hidedata["version_next"]["link_last"] = $link.$ausgaben["vgesamt"].".html";
         }
+        // + + +
 
         // wizard-infos rausfinden (z.b. wizard-typ,..)
+        // * * *
         preg_match("/\[!\]wizard:(.+)\[\/!\]/i",$form_values["content"],$match);
         $wizard_name = "default";
         if ( $match[1] != "" ) {
@@ -164,6 +176,7 @@
             // typ
             if ( is_array($cfg["wizard"]["wizardtyp"][$info[0]]) ) $wizard_name = $info[0];
         }
+        // + + +
 
         // bauen der zu bearbeitenden bereiche
         // * * *
@@ -252,6 +265,7 @@
         // + + +
 
         // bereiche in eine liste pressen
+        // * * *
         $buffer = "";$i=-1;
         foreach ( $allcontent as $key=>$value ) {
             // kommentar-bereich nicht beruecksichtigen
@@ -259,7 +273,6 @@
                 continue;
             }
             $i++;
-// echo "<pre>"."wizard-icon-".strtolower(str_replace("=","-",$match[1]))."</pre>--";
             $ajax_class = array();
             // links bauen
             if ( $i < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
@@ -313,6 +326,7 @@
                          "delete" => $del,
             );
         }
+        // + + +
 
         // link-ziel fuer die ajax-verschieb-sache
         $ausgaben["ajax_request"] = $cfg["wizard"]["basis"]."/modify,".
@@ -338,9 +352,66 @@
             );
         }
 
+        $ausgaben["form_aktion"] = $cfg["wizard"]["basis"]."/show,".
+                                                             $environment["parameter"][1].",".
+                                                             $environment["parameter"][2].",".
+                                                             $environment["parameter"][3].",".
+                                                             $environment["parameter"][4].",".
+                                                             $environment["parameter"][5].",verify.html";
+
         // was anzeigen
         $mapping["main"] = "wizard-show";
         #$mapping["navi"] = "leer";
+
+        if ( $environment["parameter"][6] == "verify"
+            && $_POST["send"] != "" ) {
+
+            if ( $content_exists == 0 || $_POST["send"][0] == "version" ) {
+                $sql = "INSERT INTO ". SITETEXT ."
+                                    (lang, label, tname, version,
+                                    ebene, kategorie,
+                                    crc32, html, content,
+                                    changed, bysurname, byforename, byemail, byalias)
+                            VALUES (
+                                    '".$environment["language"]."',
+                                    '".$environment["parameter"][3]."',
+                                    '".$environment["parameter"][2]."',
+                                    '".++$form_values["version"]."',
+                                    '".str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]))."',
+                                    '".str_replace(".html","",basename($_SESSION["form_referer"]))."',
+                                    '".$specialvars["crc32"]."',
+                                    '0',
+                                    '".$form_values["content"]."',
+                                    '".date("Y-m-d H:i:s")."',
+                                    '".$_SESSION["surname"]."',
+                                    '".$_SESSION["forename"]."',
+                                    '".$_SESSION["email"]."',
+                                    '".$_SESSION["alias"]."')";
+            } else {
+                $sql = "UPDATE ". SITETEXT ." SET
+                                    ebene = '".str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]))."',
+                                    kategorie = '".str_replace(".html","",basename($_SESSION["form_referer"]))."',
+                                    crc32 = '".$specialvars["crc32"]."',
+                                    html = '0',
+                                    content = '".$form_values["content"]."',
+                                    changed = '".date("Y-m-d H:i:s")."',
+                                    bysurname = '".$_SESSION["surname"]."',
+                                    byforename = '".$_SESSION["forename"]."',
+                                    byemail = '".$_SESSION["email"]."',
+                                    byalias = '".$_SESSION["alias"]."'
+                              WHERE lang = '".$environment["language"]."'
+                                AND label ='".$environment["parameter"][3]."'
+                                AND tname ='".$environment["parameter"][2]."'
+                                AND version ='".$form_values["version"]."'";
+            }
+            if ( $result  = $db -> query($sql) ) {
+                $header = $_SESSION["form_referer"];
+                unset($_SESSION["form_referer"]);
+                unset($_SESSION["wizard_content"]);
+                header("Location: ".$header);
+            }
+
+        }
 
 
     } else {

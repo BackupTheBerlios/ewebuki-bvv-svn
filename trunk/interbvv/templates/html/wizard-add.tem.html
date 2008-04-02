@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+<!--##begin-->
+        <div id="substance" class="wizard" style="width:700px;">
+            <!--##hide-add_menu-->
+            <form method="post" action="!#ausgaben_form_aktion" id="">
+                <p>!#ausgaben_form_error</p>
+                <fieldset>
+<!--                    <label for="entry">#(entry)</label>
+                    <input id="entry" class="" type="text" value="hallo" name="entry" /><br />
+                    <label for="label">#(label)</label>
+                    <input id="label" class="" type="text" value="HALLO" name="label" /><br />-->
+                    <label for="entry">#(entry)</label>
+                    !#element_entry<br />
+                    <label for="label">#(label)</label>
+                    !#element_label<br />
+                </fieldset>
+
+                <fieldset>
+                    <ul>
+                        <!--##loop-wizards-->
+                        <li class="clear">
+                            <input type="radio" name="wizard" value="!{value}"!{check} />&nbsp;!{name}
+                        </li>
+                        <!--##cont-->
+                    </ul>
+                </fieldset>
+
+                <fieldset>
+                    <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+                    <input type="hidden" name="refid" value="!#ausgaben_refid" class="hidden" />
+                    <input type="hidden" name="lang" value="de" class="hidden" />
+                    <input type="submit" name="send[]"  value="g(send)" class="first" />
+                    <input type="reset" name="reset" value="g(reset)" class="next" />
+                    <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'"  class="next" />
+                    <div class="clearer"></div>
+                </fieldset>
+            </form>
+            <!--##show-->
+
+            !#ausgaben_output
+            !#ausgaben_inaccessible
+        </div>
+<!--##end-->
+
+    </body>
+</html>

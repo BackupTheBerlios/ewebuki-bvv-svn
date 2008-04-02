@@ -86,8 +86,15 @@
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
         $result = $db -> query($sql);
 
-        #$data = $db -> fetch_array($result, $nop);
         $form_values = $db -> fetch_array($result,1);
+
+        // falls content in session steht
+        $identifier = $environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3];
+        if ( $_SESSION["wizard_content"][$identifier] != "" ) {
+//             $form_values["content"] = $_SESSION["wizard_content"];
+            $form_values["content"] = $_SESSION["wizard_content"][$identifier];
+        }
+
         $tag_meat = cont_sections($form_values["content"]);
 
         if ( count($_POST) > 0 ) {
@@ -625,6 +632,11 @@
             $data = $db -> fetch_array($result, $nop);
             $content_exist = $db -> num_rows($result);
 
+            // falls content in session steht
+            if ( $_SESSION["wizard_content"][$identifier] != "" ) {
+                $data["content"] = $_SESSION["wizard_content"][$identifier];
+            }
+
             // evtl. spezielle section
             if ( $environment["parameter"][4] != "" ) {
 
@@ -726,13 +738,6 @@
                                 }
                                 $tab .= "[/ROW]\n";
                             }
-//                             foreach ( $_POST["cells"] as $row ) {
-//                                 $tab .= "[ROW]\n";
-//                                 foreach ( $row as $cell ) {
-//                                     $tab .= "[COL]".trim($cell)."[/COL]\n";
-//                                 }
-//                                 $tab .= "[/ROW]\n";
-//                             }
                             $tab .= "[/TAB]";
                             $to_insert = $tab;
                         }
@@ -748,11 +753,6 @@
                         $to_insert = $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"].
                                      tagremove($to_insert,False,$buffer).
                                      $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
-// echo "hallo<br>";
-// echo $to_insert;
-// echo "<pre>".print_r($tag_meat["LIST"],true)."</pre>";
-// echo "<pre>".print_r($tag_marken,true)."</pre>";
-// die;
                     } else {
                         // verbotenen tags rausfiltern
                         foreach ( $allowed_tags as $value ) {
@@ -768,6 +768,7 @@
                     $content = $pre_content.
                                $to_insert.
                                $post_content;
+
 
 
 
@@ -816,76 +817,7 @@
 
             // datensatz aendern
             if ( $ausgaben["form_error"] == ""  ) {
-
-                if ( $content_exist == 1 && !in_array($environment["parameter"][3], $cfg["wizard"]["archive"]) ) {
-                    if ( $environment["parameter"][4] == "" && $_POST["content"] == "" ) {
-                        $sql = "DELETE FROM ". SITETEXT ."
-                                      WHERE lang = '".$environment["language"]."'
-                                        AND label ='".$environment["parameter"][3]."'
-                                        AND tname ='".$environment["parameter"][2]."'";
-                    } else {
-                        $sql = "UPDATE ". SITETEXT ." set
-                                       version = ".++$data["version"].",
-                                       ebene = '".$_SESSION["ebene"]."',
-                                       kategorie = '".$_SESSION["kategorie"]."',
-                                       crc32 = '".$specialvars["crc32"]."',
-                                       html = '".$_POST["html"]."',
-                                       content = '".$content."',
-                                       changed = '".date("Y-m-d H:i:s")."',
-                                       bysurname = '".$_SESSION["surname"]."',
-                                       byforename = '".$_SESSION["forename"]."',
-                                       byemail = '".$_SESSION["email"]."',
-                                       byalias = '".$_SESSION["alias"]."'
-                                 WHERE lang = '".$environment["language"]."'
-                                   AND label ='".$environment["parameter"][3]."'
-                                   AND tname ='".$environment["parameter"][2]."'";
-                    }
-                } else {
-                    $sql = "INSERT INTO ". SITETEXT ."
-                                        (lang, label, tname, version,
-                                        ebene, kategorie,
-                                        crc32, html, content,
-                                        changed, bysurname, byforename, byemail, byalias)
-                                 VALUES (
-                                         '".$environment["language"]."',
-                                         '".$environment["parameter"][3]."',
-                                         '".$environment["parameter"][2]."',
-                                         '".++$data["version"]."',
-                                         '".$_SESSION["ebene"]."',
-                                         '".$_SESSION["kategorie"]."',
-                                         '".$specialvars["crc32"]."',
-                                         '".$_POST["html"]."',
-                                         '".$content."',
-                                         '".date("Y-m-d H:i:s")."',
-                                         '".$_SESSION["surname"]."',
-                                         '".$_SESSION["forename"]."',
-                                         '".$_SESSION["email"]."',
-                                         '".$_SESSION["alias"]."')";
-                }
-
-
-//                 $kick = array( "PHPSESSID", "form_referer", "send" );
-//                 foreach($_POST as $name => $value) {
-//                     if ( !in_array($name,$kick) && !strstr($name, ")" ) ) {
-//                         if ( $sqla != "" ) $sqla .= ", ";
-//                         $sqla .= $name."='".$value."'";
-//                     }
-//                 }
-
-                // Sql um spezielle Felder erweitern
-                #$ldate = $_POST["ldate"];
-                #$ldate = substr($ldate,6,4)."-".substr($ldate,3,2)."-".substr($ldate,0,2)." ".substr($ldate,11,9);
-                #$sqla .= ", ldate='".$ldate."'";
-                if ( preg_match("/^\[!\]/",$content,$regs) ) {
-                    $sql_regex = "UPDATE ". SITETEXT ." SET content=regexp_replace(content,'^\\\[!]1','[!]0') WHERE tname like '".$environment["parameter"][2]."'";
-                    $result_regex  = $db -> query($sql_regex);
-                }
-//                 $sql = "update ".$cfg["wizard"]["db"]["leer"]["entries"]." SET ".$sqla." WHERE ".$cfg["wizard"]["db"]["leer"]["key"]."='".$environment["parameter"][1]."'";
-                if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-// echo "\$sql: $sql<br>";
-                $result  = $db -> query($sql);
-                #if ( !$result ) die($db -> error("DB ERROR: "));
-                if ( !$result ) $ausgaben["form_error"] .= $db -> error("#(error_result)<br />");
+                $_SESSION["wizard_content"][$identifier] = $content;
                 if ( $header == "" ) $header = $cfg["wizard"]["basis"]."/list.html";
             }
 
@@ -912,7 +844,6 @@
                 } else {
                     $pattern = ",v[0-9]*\.html$";
                     $ausgaben["form_referer"] = preg_replace("/".$pattern."/",".html",$ausgaben["form_referer"] );
-//                     header("Location: ".$ausgaben["form_referer"]."");
                     $header = $cfg["wizard"]["basis"]."/show,".$environment["parameter"][1].",".
                                                         $environment["parameter"][2].",".
                                                         $environment["parameter"][3].",".
@@ -921,7 +852,6 @@
                     header("Location: ".$header);
                 }
 
-#                header("Location: ".$header);
             }
         }
     } else {

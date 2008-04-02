@@ -13,6 +13,12 @@
 <!--##begin-->
         <div id="substance" class="wizard" style="width:700px;">
 
+            <fieldset>
+                <form method="post" action="!#ausgaben_form_aktion">
+                    <button type="submit" name="send[]" value="save">Abscheichern</button>
+                    <button type="submit" name="send[]" value="version">Abscheichern mit Versionierung</button>
+                </form>
+            </fieldset>
 
             <fieldset>
                 <span class="right">
@@ -53,6 +59,13 @@
 
             <fieldset>
                 <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
+            </fieldset>
+
+            <fieldset>
+                <form method="post" action="!#ausgaben_form_aktion">
+                    <button type="submit" name="send[]" value="save">Abscheichern</button>
+                    <button type="submit" name="send[]" value="version">Abscheichern mit Versionierung</button>
+                </form>
             </fieldset>
 
             <div id="info_box"></div>
