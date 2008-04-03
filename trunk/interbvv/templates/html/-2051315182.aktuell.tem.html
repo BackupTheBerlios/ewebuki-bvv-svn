@@ -13,18 +13,16 @@
 <h1>#(ueberschrift)</h1>
 <p>#(inhalt)</p>
 <p>!#ausgaben_form_error</p>
-<p><a href="!#ausgaben_link_new">g(new)</a></p>
-
+<!--##hide-new-->
+<p><a href="!{link}">g(new)</a></p>
+<!--##show-->
 <!--##loop-list-->
-
 <div>
 <h2>!{titel}</h2>
 <img style="float:right" src=/file/picture/thumbnail/tn_!{image}></img>!{teaser}<a href="!{detaillink}">&nbsp;Artikel lesen</a>
-<p><a href="!{editlink}">
-edit</a> <a href="!{deletelink}">delete</a></p>
+<p>!{editlink} !{deletelink}</p>
 <div class="clearer"></div>
 </div>
-
 <!--##cont-->
 </div>
 <!--<p style="float:left">g(anzahl) !#ausgaben_anzahl</p>
