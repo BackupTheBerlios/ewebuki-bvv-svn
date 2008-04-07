@@ -481,7 +481,7 @@
                         }
                     }
                     // gibt es eine banner-grafik kommt das 3.ebene-menue darunter und der link kommt weg
-                    $content = preg_replace("/(\[DIV=sub_menu\].+\[\/DIV\])(\n*\[IMG=[^\]]+\].+\[\/IMG\])/".$preg_mod,
+                    $content = preg_replace("/(\[DIV=sub_menu\].+\[\/DIV\])(\n*\[IMG=[^\]]+\].*\[\/IMG\])/".$preg_mod,
                                             '${2}${3}${1}',
                                             $content
                     );
