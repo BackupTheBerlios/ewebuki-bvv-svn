@@ -489,6 +489,15 @@
                                             '${1};;;;10;10${2}',
                                             $content
                     );
+                    $content = preg_replace("/(\[\/H1\][\n]*)(\[IMG=[^\]]+\].*\[\/IMG\])/".$preg_mod,
+                                            '${1}'."\n\n[DIV=banner]\n".'${2}'."\n[/DIV]\n\n",
+                                            $content
+                    );
+                    // "3-er-Kombination"
+                    $content = preg_replace("/(\[H2\][\n]*)(\[IMG=[^\]]+\].*\[\/IMG\][\n]*)([^\[]+\[\/H2\][\n]*)(\[P[^\]]*\].*\[\/P\][\n]*)/".$preg_mod,
+                                            "[DIV=present]\n".'${2}'."\n".'${1}${3}'."\n".'${4}'."[/DIV]\n",
+                                            $content
+                    );
                     // menuepunkte der 4. ebene unten einblenden
                     $add_m1 = "\n[DIV=aktuell]\ng(additional_news)\n[M2=l][/M2]\n[/DIV]\n";
                     if ( $index_child == 3 && check_sub_item($$var_child) > 0 ) {
