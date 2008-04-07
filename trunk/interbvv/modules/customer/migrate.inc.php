@@ -494,8 +494,8 @@
                                             $content
                     );
                     // "3-er-Kombination"
-                    $content = preg_replace("/(\[H2\][\n]*)(\[IMG=[^\]]+\].*\[\/IMG\][\n]*)([^\[]+\[\/H2\][\n]*)(\[P[^\]]*\].*\[\/P\][\n]*)/".$preg_mod,
-                                            "[DIV=present]\n".'${2}'."\n".'${1}${3}'."\n".'${4}'."[/DIV]\n",
+                    $content = preg_replace("/(\[H2\][\n]*)(\[IMG=[^\]]+\].*\[\/IMG\][\n]*)([^\[]+\[\/H2\][\n]*)(\[P)[^\]]*(\].*\[\/P\][\n]*)/".$preg_mod,
+                                            "[DIV=present]\n".'${2}'."\n".'${1}${3}'."\n".'${4}${5}'."[BR=a][/BR]\n[/DIV]\n",
                                             $content
                     );
                     // menuepunkte der 4. ebene unten einblenden

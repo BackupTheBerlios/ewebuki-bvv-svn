@@ -260,45 +260,6 @@ legend {
     overflow:hidden;
 }
 
-    /* sub-menu */
-    /* * * * */
-    #substance .sub_menu {
-        border:1px solid #ccc;
-        border-top:5px solid #ccc;
-        float:right;
-        margin:5px 0;
-        width:150px;
-        overflow:hidden;
-        text-align:right;
-    }
-
-        #substance .sub_menu h2 {
-            background:#9AC7E4;
-            margin:0;
-            padding:0.3em;
-        }
-
-        #substance .sub_menu p {
-            padding:0 0.3em;
-            width:auto;
-        }
-
-        #substance .sub_menu ul {
-            list-style:none;
-            margin:0.5em 0;
-            padding:0;
-            width:auto;
-        }
-
-        #substance .sub_menu li, #substance .aktuell a {
-            font-weight:bold;
-            list-style-image:none;
-            padding-right:0.3em;
-        }
-
-    /* + + + */
-    /* sub-menu */
-
     #substance .left {
         float:left;
         width:380px;
@@ -368,7 +329,47 @@ legend {
         width:auto;
     }
 
+    /* sub-menu */
+    /* * * * */
+    #substance .sub_menu {
+        border:1px solid #ccc;
+        border-top:5px solid #ccc;
+        float:right;
+        margin:5px 0;
+        width:150px;
+        overflow:hidden;
+        text-align:right;
+    }
+
+        #substance .sub_menu h2 {
+            background:#9AC7E4;
+            margin:0;
+            padding:0.3em;
+        }
+
+        #substance .sub_menu p {
+            padding:0 0.3em;
+            width:auto;
+        }
+
+        #substance .sub_menu ul {
+            list-style:none;
+            margin:0.5em 0;
+            padding:0;
+            width:auto;
+        }
+
+        #substance .sub_menu li, #substance .aktuell a {
+            font-weight:bold;
+            list-style-image:none;
+            padding-right:0.3em;
+        }
+
+    /* + + + */
+    /* sub-menu */
+
     /* aktuell-box */
+    /* * * * */
     #substance .aktuell {
         background:#fafafa;
         border-top:5px solid #cccccc;
@@ -387,6 +388,23 @@ legend {
             background:url('/images/html/dash.png') no-repeat;
             padding-left:16px;
         }
+    /* + + + */
+    /* aktuell-box */
+
+    /* 3-er Kombination (bild,ueberschrift,absatz) */
+    /* * * * */
+    #substance .present {
+    }
+
+        #substance .present h2 {
+            margin-top:0;
+        }
+
+        #substance .present p {
+            margin-bottom:0;
+        }
+    /* + + + */
+    /* 3-er Kombination */
 
     #substance.news h2 {
         font-size:1.15em;
