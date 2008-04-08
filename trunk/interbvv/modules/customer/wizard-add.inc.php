@@ -97,6 +97,7 @@
             $element = array_merge(form_elements( "site_menu", $form_values ), form_elements( "site_menu_lang", $form_values ));
 
             // form elemente erweitern
+            if ( $element["extend"] != "" ) $hidedata["extend"] = array();
             if ( is_array($_SESSION["form_error"]) ) {
                 foreach ( $_SESSION["form_error"]["post"] as $key=>$value ) {
                     $element[$key] = str_replace("value=\"\"","value=\"".$value."\"",$element[$key]);
@@ -174,7 +175,7 @@
 
         // unzugaengliche #(marken) sichtbar machen
         // ***
-        if ( isset($HTTP_GET_VARS["edit"]) ) {
+        if ( isset($_GET["edit"]) ) {
             $ausgaben["inaccessible"] = "inaccessible values:<br />";
             $ausgaben["inaccessible"] .= "# (error_result) #(error_result)<br />";
             $ausgaben["inaccessible"] .= "# (error_dupe) #(error_dupe)<br />";

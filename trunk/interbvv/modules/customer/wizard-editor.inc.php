@@ -91,7 +91,6 @@
         // falls content in session steht
         $identifier = $environment["parameter"][1].",".$environment["parameter"][2].",".$environment["parameter"][3];
         if ( $_SESSION["wizard_content"][$identifier] != "" ) {
-//             $form_values["content"] = $_SESSION["wizard_content"];
             $form_values["content"] = $_SESSION["wizard_content"][$identifier];
         }
 
@@ -598,13 +597,18 @@
         // page basics
 
         // lock aufheben
-        if ( $environment["parameter"][7] != "" ) {
+        if ( $environment["parameter"][7] != "" && $_POST["cancel"] != "" ) {
             $sql = "DELETE FROM site_lock
                           WHERE label ='".$environment["parameter"][3]."'
                             AND tname ='".$environment["parameter"][2]."'
                             AND lang = '".$environment["language"]."'";
             $result  = $db -> query($sql);
-//             header("Location: ".$_SESSION["page"]."");
+            $header = $cfg["wizard"]["basis"]."/show,".$environment["parameter"][1].",".
+                                                $environment["parameter"][2].",".
+                                                $environment["parameter"][3].",".
+                                                ",".
+                                                $environment["parameter"][5].".html";
+            header("Location: ".$header);
         }
 
         if ( $environment["parameter"][7] == "verify"

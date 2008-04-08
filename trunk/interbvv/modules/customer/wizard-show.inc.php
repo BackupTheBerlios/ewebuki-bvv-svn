@@ -50,6 +50,8 @@
     // 4: [leer]
     // 5: version
 
+// echo "<h1>".tname2path($environment["parameter"][2])."</h1>";
+// echo "<pre>".print_r(wizard_release(tname2path($environment["parameter"][2])),true)."</pre>";
     // erlaubnis bei intrabvv speziell setzen
     $database = $environment["parameter"][1];
     if ( is_array($_SESSION["katzugriff"]) ) {
@@ -78,6 +80,14 @@
     if ( $environment["parameter"][2] == "" ) {
         $path = explode("/",str_replace($pathvars["menuroot"],"",$_SERVER["HTTP_REFERER"]));
         $kategorie = str_replace(".html","", array_pop($path));
+        if ( strstr($kategorie,",") ) {
+            $buffer = explode(",",$kategorie,2);
+            $kategorie = $buffer[0];
+            if ( preg_match("/^v([0-9]+)/U",$buffer[1],$match) ) {
+                $environment["parameter"][4] = "";
+                $environment["parameter"][5] = $match[1];
+            }
+        }
         $ebene = implode("/",$path);
         if ( $kategorie == "" ) $kategorie = "index";
         if ( count($path) == 0 || (count($path) == 1 && $path[0]=="") ) {
@@ -91,7 +101,10 @@
         $environment["parameter"][3] = $cfg["wizard"]["wizardtyp"]["default"]["def_label"];
         $reload = -1;
     }
-    if ( $reload == -1 ) header("Location: ".$cfg["wizard"]["basis"]."/".implode(",",$environment["parameter"]).".html");
+    if ( $reload == -1 ) {
+        ksort($environment["parameter"]);
+        header("Location: ".$cfg["wizard"]["basis"]."/".implode(",",$environment["parameter"]).".html");
+    }
     // + + +
 
 
@@ -109,7 +122,7 @@
             $version = "";
         }
 
-        $sql = "SELECT version, html, content, changed, byalias
+        $sql = "SELECT *
                   FROM ". SITETEXT ."
                  WHERE lang = '".$environment["language"]."'
                    AND label ='".$environment["parameter"][3]."'
@@ -178,6 +191,27 @@
         }
         // + + +
 
+        // freigabe-test
+        $blocked = 0;
+        if ( $specialvars["content_release"] == -1 ) {
+            // ist bereits eine freigabe angefordert
+            $sql = "SELECT *
+                    FROM ". SITETEXT ."
+                    WHERE lang = '".$environment["language"]."'
+                    AND label ='".$environment["parameter"][3]."'
+                    AND tname ='".$environment["parameter"][2]."'
+                    AND hide=-2";
+            $result = $db -> query($sql);
+            $blocked = $db->num_rows($result);
+            if ( $blocked > 0 ) {
+                $hidedata["blocked"] = array();
+            } else {
+                $hidedata["edit"] = array();
+            }
+        } else {
+            $hidedata["default"] = array();
+        }
+
         // bauen der zu bearbeitenden bereiche
         // * * *
         $tag_meat = cont_sections($form_values["content"]);
@@ -213,14 +247,20 @@
                     $display = "display:inline;";
                 }
                 // bauen der "bereichsumrandung"
-                $section = "<!--edit_begin--><div class=\"wiz_edit\" style=\"".$display."\">".
-                           $tmp_tag_meat[$tag][$key]["complete"]."
-                           <p style=\"clear:both;".$display."\" />
-                           <div class=\"buttons\">
-                                <a href=\"".$edit."\">edit</a>
-                                <a href=\"".$del."\">delete</a>
-                           </div>
-                           </div><!--edit_end-->";
+                if ( $blocked > 0 ) {
+                    $section = "<!--edit_begin-->".
+                                $tmp_tag_meat[$tag][$key]["complete"]."
+                                <!--edit_end-->";
+                } else {
+                    $section = "<!--edit_begin--><div class=\"wiz_edit\" style=\"".$display."\">".
+                                $tmp_tag_meat[$tag][$key]["complete"]."
+                                <p style=\"clear:both;".$display."\" />
+                                <div class=\"buttons\">
+                                        <a href=\"".$edit."\">edit</a>
+                                        <a href=\"".$del."\">delete</a>
+                                </div>
+                                </div><!--edit_end-->";
+                }
                 // tag_meat-array neu durchzaehlen
                 $content = $pre_section.$section.$post_section;
                 $tmp_tag_meat = cont_sections($content);
@@ -277,7 +317,7 @@
             // links bauen
             if ( $i < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
               || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1]
-              || $next != "" ) {
+              || $next != "" || $blocked > 0 ) {
                 $ajax_class = "";
                 $modify_class = " style=\"display:none;\"";
                 $link_up = "";
@@ -339,7 +379,10 @@
 
         // add-buttons
         foreach ( $cfg["wizard"]["add_tags"] as $key=>$value ) {
-            if ( !in_array($key,$cfg["wizard"]["wizardtyp"][$wizard_name]["add_tags"]) ) continue;
+            if ( is_array($cfg["wizard"]["wizardtyp"][$wizard_name]["add_tags"])
+              && !in_array($key,$cfg["wizard"]["wizardtyp"][$wizard_name]["add_tags"]) ) {
+                continue;
+            }
             $dataloop["add_buttons"][] = array(
                 "link" => $cfg["wizard"]["basis"]."/modify,".
                           $environment["parameter"][1].",".
@@ -363,8 +406,32 @@
         $mapping["main"] = "wizard-show";
         #$mapping["navi"] = "leer";
 
+        // unzugaengliche #(marken) sichtbar machen
+        // ***
+        if ( isset($_GET["edit"]) ) {
+            $ausgaben["inaccessible"] = "inaccessible values:<br />";
+            $ausgaben["inaccessible"] .= "# (error_result) #(error_result)<br />";
+            $ausgaben["inaccessible"] .= "# (error_dupe) #(error_dupe)<br />";
+        } else {
+            $ausgaben["inaccessible"] = "";
+        }
+
         if ( $environment["parameter"][6] == "verify"
             && $_POST["send"] != "" ) {
+
+            $ebene = str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]));
+            $kategorie = str_replace(".html","",basename($_SESSION["form_referer"]));
+            if ( strstr($kategorie,",") ) $kategorie = substr($kategorie,0,strpos($kategorie,","));
+
+            // die naechste freie versionsnummer finden
+            $sql = "SELECT max(version) as max_version
+                      FROM ". SITETEXT ."
+                     WHERE lang = '".$environment["language"]."'
+                       AND label ='".$environment["parameter"][3]."'
+                       AND tname ='".$environment["parameter"][2]."'";
+            $result = $db -> query($sql);
+            $data = $db -> fetch_array($result,1);
+            $next_version = $data["max_version"] + 1;
 
             if ( $content_exists == 0 || $_POST["send"][0] == "version" ) {
                 // notwendig fuer die artikelverwaltung , der bisher aktive artikel wird auf inaktiv gesetzt
@@ -376,19 +443,31 @@
                     $sql_regex = "UPDATE ". SITETEXT ." SET content ='".$new_content."' WHERE content REGEXP '^\\\[!\\\]1' AND tname like '".$environment["parameter"][2]."'";
                     $result_regex  = $db -> query($sql_regex);
                 }
+                // freigabe-test
+                if ( $specialvars["content_release"] == -1 ) {
+                    $hide1 = ",hide";
+                    if ( $_POST["release_mark"] == -1 ) {
+                        $hide2 = ",-2";
+                    } else {
+                        $hide2 = ",-1";
+                    }
+                } else {
+                    $hide1 = "";
+                    $hide2 = "";
+                }
 
                 $sql = "INSERT INTO ". SITETEXT ."
                                     (lang, label, tname, version,
                                     ebene, kategorie,
                                     crc32, html, content,
-                                    changed, bysurname, byforename, byemail, byalias)
+                                    changed, bysurname, byforename, byemail, byalias".$hide1.")
                             VALUES (
                                     '".$environment["language"]."',
                                     '".$environment["parameter"][3]."',
                                     '".$environment["parameter"][2]."',
-                                    '".++$form_values["version"]."',
-                                    '".str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]))."',
-                                    '".str_replace(".html","",basename($_SESSION["form_referer"]))."',
+                                    '".$next_version."',
+                                    '".$ebene."',
+                                    '".$kategorie."',
                                     '".$specialvars["crc32"]."',
                                     '0',
                                     '".$form_values["content"]."',
@@ -396,11 +475,22 @@
                                     '".$_SESSION["surname"]."',
                                     '".$_SESSION["forename"]."',
                                     '".$_SESSION["email"]."',
-                                    '".$_SESSION["alias"]."')";
+                                    '".$_SESSION["alias"]."'
+                                    ".$hide2.")";
             } elseif ($_POST["send"][0] == "save") {
+                // freigabe-test
+                if ( $specialvars["content_release"] == -1 ) {
+                    if ( $_POST["release_mark"] == -1 ) {
+                        $hide = ",hide=-2";
+                    } else {
+                        $hide = ",hide=-1";
+                    }
+                } else {
+                    $hide = "";
+                }
                 $sql = "UPDATE ". SITETEXT ." SET
-                                    ebene = '".str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]))."',
-                                    kategorie = '".str_replace(".html","",basename($_SESSION["form_referer"]))."',
+                                    ebene = '".$ebene."',
+                                    kategorie = '".$kategorie."',
                                     crc32 = '".$specialvars["crc32"]."',
                                     html = '0',
                                     content = '".$form_values["content"]."',
@@ -409,6 +499,7 @@
                                     byforename = '".$_SESSION["forename"]."',
                                     byemail = '".$_SESSION["email"]."',
                                     byalias = '".$_SESSION["alias"]."'
+                                    ".$hide."
                               WHERE lang = '".$environment["language"]."'
                                 AND label ='".$environment["parameter"][3]."'
                                 AND tname ='".$environment["parameter"][2]."'

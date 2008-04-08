@@ -276,6 +276,49 @@
             return array_merge($allcontent);
         }
 
+        // welche seiten unterhalb der url sind zur freigabe vorgesehen
+        function wizard_release($url="/") {
+            global $db, $cfg, $pathvars, $environment;
+
+            $path = explode("/",$url);
+            $kategorie = array_pop($path);
+            $ebene = implode("/",$path);
+            $sql = "SELECT *
+                      FROM site_text
+                     WHERE (ebene LIKE '".$url."%' OR (ebene='".$ebene."'
+                        AND kategorie='".$kategorie."')
+                           )
+                       AND label='".$environment["parameter"][3]."'
+                       AND hide=-2";
+            $result = $db -> query($sql);
+
+            while ( $data = $db -> fetch_array($result) ) {
+                if ( $data["ebene"] == "" ) {
+                    $tname = $data["kategorie"];
+                } else {
+                    $tname = crc32($data["ebene"]).".".$data["kategorie"];
+                }
+                $path = $data["ebene"]."/".$data["kategorie"];
+                // rechte checken
+                if ( !priv_check($path,"publish") ) continue;
+                // tabellen farben wechseln
+                if ( $cfg["wizard"]["color"]["set"] == $cfg["wizard"]["color"]["a"]) {
+                    $cfg["wizard"]["color"]["set"] = $cfg["wizard"]["color"]["b"];
+                } else {
+                    $cfg["wizard"]["color"]["set"] = $cfg["wizard"]["color"]["a"];
+                }
+                $new_releases[] = array(
+                    "path" => $path,
+                    "view" => $pathvars["menuroot"].$data["ebene"]."/".$data["kategorie"].",v".$data["version"].".html",
+                  "unlock" => "release,".$environment["parameter"][1].",".$tname.",".$environment["parameter"][3].",unlock,".$data["version"].".html",
+                 "release" => "release,".$environment["parameter"][1].",".$tname.",".$environment["parameter"][3].",release,".$data["version"].".html",
+                   "color" => $cfg["wizard"]["color"]["set"],
+                );
+            }
+
+            return $new_releases;
+        }
+
     }
 
     ### platz fuer weitere funktionen ###

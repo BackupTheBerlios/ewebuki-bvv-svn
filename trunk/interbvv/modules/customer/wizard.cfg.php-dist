@@ -54,12 +54,14 @@
                        ),
          "function" => array(
                      "show" => array("makece"),
+              "show,shared" => array("menu_convert"),
                       "add" => array(""),
               "add,shared" => array("menu_convert"),
                    "editor" => array("makece"),
             "editor,shared" => array("filelist","phpdiff"),
                    "modify" => array("makece"),
-                  "details" => array(""),
+                  "release" => array("makece"),
+           "release,shared" => array("menu_convert"),
               #"edit,shared" => array("shared1", "shared2"),
               #"edit,global" => array("global1", "global2"),
                        ),
@@ -80,7 +82,7 @@
                         "LIST" => array("link","b","i","acr"),
                 ),
 
-
+        // alle elemente die eingefuegt werden koennen
          "add_tags" => array(
                        "H1" => "[H1]Überschrift Ebene 1[/H1]",
                        "H2" => "[H2]Überschrift Ebene 2[/H2]",
@@ -90,7 +92,6 @@
                   "Tabelle" => "[TAB=;100%;;5;]\n[/TAB]",
                     "Liste" => "[LIST]Listeneintrag[/LIST]",
                 "Selection" => "[SEL]Gruppierung[/SEL]",
-//                 "3er-Kombi" => "[DIV=present]\n[IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]\n[H2]Überschrift[/H2]\n[P]Beschreibung[/P]\n[BR=a][/BR]\n[/DIV]",
                 "3er-Kombi" => "[DIV=present]
                                 [IMG=/file/jpg/2/tn/dummy.jpg;l;0;l;0;0;5][/IMG]
                                 [H2]Überschrift[/H2]
@@ -101,6 +102,12 @@
 
         "wizardtyp" => array(
                   "default" => array(
+//                             "add_tags" => array(),           // array mit allen tags die eingefuegt werden koennen (leer=alle)
+                       "section_block" => array(0,0),           // gibt an, wieviele sichtbaren bereich von oben,unten nicht verschoben werden koennen
+                           "def_label" => "inhalt",
+                            "show_add" => False,                // muss false gesetzt sein, wenn es nicht in der add-liste auftauchen soll
+                        ),
+             "content_def1" => array(
                             "add_tags" => array("H2","H3","Absatz","Teaser","Tabelle","3er-Kombi","Liste","Selection"),
                        "section_block" => array(3,1),
                            "def_label" => "inhalt",

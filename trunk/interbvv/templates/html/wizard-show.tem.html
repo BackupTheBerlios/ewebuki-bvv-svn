@@ -54,6 +54,7 @@
                 <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
             </fieldset>-->
 
+            <!--##hide-default-->
             <fieldset>
                 <form method="post" action="!#ausgaben_form_aktion">
                     <button type="submit" name="send[]" value="save">Speichern</button>
@@ -61,9 +62,27 @@
                     <button type="submit" name="send[]" value="cancel">Abbrechen</button>
                 </form>
             </fieldset>
+            <!--##show-->
+
+            <!--##hide-edit-->
+            <fieldset>
+                <form method="post" action="!#ausgaben_form_aktion">
+                    <button type="submit" name="send[]" value="version">Speichern (neue Version)</button>
+                    <button type="submit" name="send[]" value="cancel">Abbrechen</button><br />
+                    <input type="checkbox" value="-1" name="release_mark" />Freigabe anfordern
+                </form>
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-blocked-->
+            <fieldset>
+                <input type="checkbox" value="-1" name="release_mark" checked="true" disabled="true" />Freigabe bereits angefordert
+            </fieldset>
+            <!--##show-->
 
             <div id="info_box"></div>
             !#ausgaben_output
+            !#ausgaben_inaccessible
 
             <script type="text/javascript">
                 Sortable.create("sort_content",
