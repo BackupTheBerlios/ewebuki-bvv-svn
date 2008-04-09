@@ -814,13 +814,26 @@ input.medium {
         margin:3px;
     }
 
-    .wizard #sort_content li div.wiz_edit div.buttons a {
-        background:#eeeeee;
-        font-weight:normal;
-        float:left;
-        margin-right:2px;
-        padding:0.5ex 1ex;
+        .wizard #sort_content li div.wiz_edit div.buttons a {
+            background:#eeeeee;
+            font-weight:normal;
+            float:left;
+            margin-right:2px;
+            padding:0.5ex 1ex;
+        }
+
+    .wizard #sort_content li span.wiz_edit {
+        border:1px solid #ccc;
+/*         margin:3px; */
     }
+
+        .wizard #sort_content li span.wiz_edit span.buttons {
+            display:none;
+        }
+
+        .wizard #sort_content li span.wiz_edit:hover span.buttons {
+            display:inline;
+        }
 
 .wizard form label {
     display:block;
@@ -830,7 +843,7 @@ input.medium {
     width:120px;
 }
 
-.wizard form input {
+.wizard form input, .wizard form button {
     float:left;
     font-size:0.95em;
     margin:2px 0;

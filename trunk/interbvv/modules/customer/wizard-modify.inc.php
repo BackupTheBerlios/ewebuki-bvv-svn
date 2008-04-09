@@ -142,6 +142,11 @@
                                    substr($form_values["content"],$tag_meat[$tag_marken[0]][$tag_marken[1]]["end"]);
                     }
                     break;
+                case "rip":
+                    $content = substr($form_values["content"],0,$tag_meat[$tag_marken[0]][$tag_marken[1]]["start"]).
+                               $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"].
+                               substr($form_values["content"],$tag_meat[$tag_marken[0]][$tag_marken[1]]["end"]);
+                    break;
                 case "move":
                     $allcontent = seperate_content($form_values["content"]);
                     $i = 0;

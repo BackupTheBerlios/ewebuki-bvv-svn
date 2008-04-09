@@ -141,7 +141,7 @@
                 <!--##hide-default-->
                 <fieldset class="ce">
                     <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
-                    <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" class="!#ausgaben_class" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
+                    <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" class="!#ausgaben_class" !#ausgaben_eventh2 onchange="preview()">!#ausgaben_inhalt</textarea>
                     <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
                     <script type="text/javascript" language="JavaScript">
                         <!--
@@ -166,7 +166,41 @@
                 <div class="clearer">&nbsp;</div>
             </fieldset>
 
+            <fieldset id="pre">
+                <legend>Vorschau</legend>
+                <div id="preview"></div>
+                <button class="button" type="button" onclick="preview();">Aktualisieren</button>
+            </fieldset>
+
         </form>
+
+        <script type="text/javascript">
+//             var update = new Ajax.PeriodicalUpdater('preview',
+//                                                     '!#ausgaben_form_aktion',
+//                                                     {
+//                                                         asynchronous:true,
+//                                                         parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
+//                                                         frequency: 2,
+//                                                         encoding: 'LATIN9',
+// //                                                         encoding: 'UTF-8',
+//                                                         onSuccess:function(){
+// //                                                             new Effect.Highlight('preview');
+//                                                             update.options.parameters = 'ajax=on&send[]=send&' + Form.serialize('cEd');
+//                                                         }
+//                                                     }
+//             );
+            function preview() {
+                new Effect.Highlight('pre');
+                var update = new Ajax.Updater('preview',
+                                            '!#ausgaben_form_aktion',
+                                            {
+                                                asynchronous:true,
+                                                parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
+                                            }
+                );
+            }
+            preview();
+        </script>
 
         !#ausgaben_output
 

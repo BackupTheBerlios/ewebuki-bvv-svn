@@ -50,8 +50,6 @@
     // 4: [leer]
     // 5: version
 
-// echo "<h1>".tname2path($environment["parameter"][2])."</h1>";
-// echo "<pre>".print_r(wizard_release(tname2path($environment["parameter"][2])),true)."</pre>";
     // erlaubnis bei intrabvv speziell setzen
     $database = $environment["parameter"][1];
     if ( is_array($_SESSION["katzugriff"]) ) {
@@ -237,28 +235,47 @@
                         $tag.":".$key.",".
                         $environment["parameter"][5].",".
                         "delete.html";
+                $rip = $cfg["wizard"]["basis"]."/modify,".
+                        $environment["parameter"][1].",".
+                        $environment["parameter"][2].",".
+                        $environment["parameter"][3].",".
+                        $tag.":".$key.",".
+                        $environment["parameter"][5].",".
+                        "rip.html";
                 // bereiche vor oder nach den tag
                 $pre_section  = substr($content,0,$tmp_tag_meat[$tag][$key]["start"]);
+                $pre_section  = preg_replace("/[ ]$/","&nbsp;",$pre_section);
                 $post_section = substr($content,$tmp_tag_meat[$tag][$key]["end"]);
+                $post_section  = preg_replace("/^[ ]/","&nbsp;",$post_section);
                 // test, inline-elemente als solche umzusetzen
                 $display = "";
-                $inline = array("LINK","IMG");
+                $inline = array("LINK","IMG","Fett");
                 if ( in_array($tag,$inline) ) {
                     $display = "display:inline;";
+                }
+                $button = "";
+                foreach ( $tmp_tag_meat[$tag][$key]["buttons"] as $buttons ) {
+                    $button .= "<a href=\"".$$buttons."\">[".$buttons."]</a>";
                 }
                 // bauen der "bereichsumrandung"
                 if ( $blocked > 0 ) {
                     $section = "<!--edit_begin-->".
                                 $tmp_tag_meat[$tag][$key]["complete"]."
                                 <!--edit_end-->";
+                } elseif ( $value["type"] == "inline" ) {
+                    $section = "<!--edit_begin--><span class=\"wiz_edit\" style=\"".$display."\">".
+                                trim($tmp_tag_meat[$tag][$key]["complete"]).
+                                "<span class=\"buttons\"> ".
+                                    $button.
+                                "</span>".
+                                "</span><!--edit_end-->";
                 } else {
                     $section = "<!--edit_begin--><div class=\"wiz_edit\" style=\"".$display."\">".
                                 $tmp_tag_meat[$tag][$key]["complete"]."
                                 <p style=\"clear:both;".$display."\" />
-                                <div class=\"buttons\">
-                                        <a href=\"".$edit."\">edit</a>
-                                        <a href=\"".$del."\">delete</a>
-                                </div>
+                                <div class=\"buttons\">".
+                                    $button.
+                                "</div>
                                 </div><!--edit_end-->";
                 }
                 // tag_meat-array neu durchzaehlen
@@ -266,6 +283,7 @@
                 $tmp_tag_meat = cont_sections($content);
             }
         }
+
         // + + +
 
         // bauen der "uebergeordneten" bereiche (keine verschachtelung)

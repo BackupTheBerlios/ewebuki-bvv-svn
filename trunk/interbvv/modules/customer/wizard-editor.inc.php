@@ -57,8 +57,6 @@
 
     $db->selectDb($database,FALSE);
 
-
-
     if ( $cfg["wizard"]["right"] == "" ||
         priv_check("/".$cfg["wizard"]["subdir"]."/".$cfg["wizard"]["name"],$cfg["wizard"]["right"]) ||
         priv_check_old("",$cfg["wizard"]["right"]) ||
@@ -369,7 +367,6 @@
                     }
                     $ausgaben["tabelle"] .= "</table>";
 
-// echo "<pre>".print_r($rows,true)."</pre>";
                     break;
 
                 case "LIST":
@@ -821,6 +818,13 @@
 
             // datensatz aendern
             if ( $ausgaben["form_error"] == ""  ) {
+
+                if ( $_POST["ajax"] == "on" ) {
+                    $content = tagreplace($content);
+                    $content = tagreplace($to_insert);
+                    echo preg_replace("/#\{.+\}/U","",$content);
+                    die;
+                }
                 $_SESSION["wizard_content"][$identifier] = $content;
                 if ( $header == "" ) $header = $cfg["wizard"]["basis"]."/list.html";
             }

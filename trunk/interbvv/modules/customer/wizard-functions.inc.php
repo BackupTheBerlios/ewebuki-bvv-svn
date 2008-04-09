@@ -195,18 +195,11 @@
         }
 
         function cont_sections($content) {
-            $preg_sections = array(
-                    "H"    => "(\[H[0-9]{1}\])(.*)(\[\/H[0-9]{1}\])",        // ueberschriften
-                    "P"    => "(\[P.*\])(.*)(\[\/P\])",                      // absaetze
-                    "LINK" => "(\[LINK.*\])(.*)(\[\/LINK\])",                // links
-                    "IMG"  => "(\[IMG.*\])(.*)(\[\/IMG\])",                  // bilder
-                    "SEL"  => "(\[SEL.*\])(.*)(\[\/SEL\])",                  // gruppierungen
-                    "TAB"  => "(\[TAB.*\])(.*)(\[\/TAB\])",                  // tabellen
-                    "LIST" => "(\[LIST.*\])(.*)(\[\/LIST\])",                // listen
-            );
+            global $cfg;
+
             $tag_meat = array();
-            foreach ( $preg_sections as $tag=>$preg ) {
-                preg_match_all("/".$preg."/Us",$content,$match,PREG_OFFSET_CAPTURE);
+            foreach ( $cfg["wizard"]["ed_boxed"] as $tag=>$preg ) {
+                preg_match_all("/".$preg[0]."/Us",$content,$match,PREG_OFFSET_CAPTURE);
                 foreach ( $match[0] as $key=>$value ) {
                     $tag_meat[$tag][] = array(
                                 "tag_start" => $match[1][$key][0],
@@ -215,6 +208,8 @@
                                 "complete"  => $match[0][$key][0],
                                 "start"     => $match[0][$key][1],
                                 "end"       => $match[0][$key][1] + strlen($match[0][$key][0]),
+                                "type"      => $preg[1],
+                                "buttons"   => $preg[2],
                     );
 
                     $tag_meat["order"][$match[0][$key][1]] = $tag;
@@ -238,6 +233,8 @@
             );
             // suchmuster bauen und open- und close-tags finden
             $preg = array();
+            $split_tags["open"][] = "<!--edit_begin-->";
+            $split_tags["close"][] = "<!--edit_end-->";
             foreach ( $array as $tag ) {
                 $end_tag = str_replace("[","[/",$tag);
                 $split_tags["open"][] = $tag;
@@ -247,30 +244,17 @@
             }
             $separate = preg_split("/(".implode("|",$preg).")|(<!--edit_begin-->)|(<!--edit_end-->)/",$content,-1,PREG_SPLIT_DELIM_CAPTURE);
 
-            $end = "--"; $i = 0;
+            $end = "--"; $i = 0;$close = 0;
             $allcontent = array();
-            foreach ( $separate as $line ) {
+            foreach ( $separate as $index => $line ) {
                 if ( trim($line) == "" ) continue;
-                if ( $close == 1 ) {
-                    $buffer = explode("]",$line,2);
-                    $allcontent[$i] .= $buffer[0]."]";
-    //                 $i++;
-                    $close = 0;
-                    $line = $buffer[1];
-                    if ( trim($line) == "" ) continue;
-                }
-                if ( in_array($line,$split_tags["open"]) && $end == "--" ) {
-                    $i++;
-                    $end = $split_tags["close"][$line];
-                } elseif ( $line == "<!--edit_begin-->" && $end == "--" ) {
-                    $i++;
-                    $end = "<!--edit_end-->";
+                if ( in_array($line,$split_tags["open"]) ) {
+                    if ($close == 0) $i++;
+                    $close++;
+                } elseif ( in_array($line,$split_tags["close"]) ) {
+                    $close--;
                 }
                 $allcontent[$i] .= trim($line);
-                if ( $line == $end ) {
-                    if ( $end != "<!--edit_end-->" ) $close = 1;
-                    $end = "--";
-                }
             }
 
             return array_merge($allcontent);
