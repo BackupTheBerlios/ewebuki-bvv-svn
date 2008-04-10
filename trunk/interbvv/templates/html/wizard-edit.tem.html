@@ -111,25 +111,58 @@
 
                 <!--##hide-sel-->
                 <fieldset>
-<!--                     <legend>Dimensionen</legend> -->
                     <label>Bezeichnung</label>
-                    <input type="text" name="desc" value="!#ausgaben_desc" /><br />
-                    <input id="eb_submit" class="button" type="submit" title="Datei auswaehlen" value="neues Bild holen" name="sel[]"/>
+                    <input type="text" name="description" value="!#ausgaben_description" /><br />
+                    <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
                 </fieldset>
 
                 <fieldset>
-                    <legend>Tabellen-Eigenschaften</legend>
-                    <label>Align</label>
-                    <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
-                    <label>Width</label>
-                    <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" /><br />
-                    <label>Border</label>
-                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
-                    <label>Cellspacing</label>
-                    <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" /><br />
-                    <label>Cellpadding</label>
-                    <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+<!--                     <input id="eb_submit" class="button" type="submit" title="Gruppierung holen" value="neue Gruppierung holen" name="sel[]"/> -->
+                    <button type="submit" class="button" value="Gruppierung holen" name="sel[]">Neue Gruppierung holen</button>
                 </fieldset>
+
+                <fieldset >
+                    <legend>Detailansicht</legend>
+                    <!--##loop-size-->
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
+                    </label>
+                    <!--##cont-->
+                </fieldset>
+
+                <fieldset >
+                    <legend>Optionen</legend>
+                    <label class="cbra">
+                        <input type="checkbox" name="tagwerte[2]" value="TRUE"!{check_thumb} />Thumbnails anzeigen
+                    </label>
+                    <label class="cbra">
+                        <input type="checkbox" name="tagwerte[4]" value="l"!{check_lbox} />Lightbox-Modus
+                    </label>
+                </fieldset>
+
+                <fieldset >
+                    <legend>"GRID"</legend>
+                    <ul style="width:700px;list-style:none;padding:0;margin:0;" id="grid_list">
+                        <!--##loop-list_images-->
+                        <li class="thumbs">
+                            <img src="!{src}" alt="!{alt}" title="!{title} g(edit)" />
+                            <p>
+                                <input type="checkbox" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
+                            </p>
+                        </li>
+                        <!--##cont-->
+                    </ul>
+                </fieldset>
+
+                <script type="text/javascript">
+                    function session_update(compid,fileid) {
+                        new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
+                                        {asynchronous:true
+                                        }
+                        );
+                        preview();
+                    }
+                </script>
                 <!--##show-->
 
                 <!--##hide-list-->

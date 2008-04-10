@@ -382,8 +382,58 @@
 
                 case "SEL":
                     $hidedata["sel"] = array();
-                    $ausgaben["desc"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
-// echo "<pre>".print_r($tag_meat["SEL"][0],true)."</pre>";
+                    // ausgabenwerte werden belegt
+                    $ausgaben["description"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
+                    $tag_werte = explode(";",str_replace(array("[SEL=","]"),"",$tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"]));
+                    for ($i=0;$i<=4;$i++) {
+                        $ausgaben["tagwerte".$i] = $tag_werte[$i];
+                    }
+                    // size-radiobutton
+                    if ( count($cfg["wizard"]["sel_edit"]["cb_link_size"]) > 0 ) {
+                        foreach ( $cfg["wizard"]["sel_edit"]["cb_link_size"] as $value=>$label ) {
+                            $check = "";
+                            if ( $ausgaben["tagwerte1"] == $value ) $check = " checked=\"checked\"";
+                            $dataloop["size"][] = array(
+                                "value" => $value,
+                                "label" => $label,
+                                "check" => $check,
+                            );
+                        }
+                    } else {
+                        $dataloop["size"][] = array(
+                            "value" => $ausgaben["tagwerte1"],
+                            "label" => "not changeable",
+                            "check" => " checked=\"checked\"",
+                        );
+                    }
+                    // checkboxen
+                    if ( $ausgaben["tagwerte2"] != "" ) $hidedata["sel"]["check_thumb"] = " checked=\"true\"";
+                    if ( $ausgaben["tagwerte4"] != "" ) $hidedata["sel"]["check_lbox"] = " checked=\"true\"";
+                    // selection aus session/tag holen
+                    if ( is_array($_SESSION["compilation_memo"]) || $tag_werte[3] != "" ) {
+                        if ( is_array($_SESSION["compilation_memo"]) ) {
+                            $ausgaben["tagwerte0"] = key($_SESSION["compilation_memo"]);
+                            $array = current($_SESSION["compilation_memo"]);
+                        } elseif ( $tag_werte[3] != "" ) {
+                            $array = explode(":",$tag_werte[3]);
+                        }
+
+                        $sql = "SELECT *
+                                  FROM site_file
+                                 WHERE fhit
+                                  LIKE '%p".$ausgaben["tagwerte0"].",%'";
+                        $result = $db -> query($sql);
+                        // dataloop wird ueber eine share-funktion aufgebaut
+                        filelist($result, "fileed");
+
+                        foreach ( $dataloop["list_images"] as $key=>$value ) {
+                            if ( in_array($key,$array) ) {
+                                $dataloop["list_images"][$key]["checked"] = " checked=\"true\"";
+                            } else {
+                                $dataloop["list_images"][$key]["checked"] = "";
+                            }
+                        }
+                    }
                     break;
 
                 default:
@@ -478,6 +528,7 @@
                     $allowed_tags = $cfg["wizard"]["allowed_tags"][$tag_compl];
                 }
             }
+            if ($allowed_tags == "") $allowed_tags = array();
             $ausgaben["tn"] = makece("ceform", "content", $form_values["content"], $allowed_tags);
 
 
@@ -754,6 +805,13 @@
                         $to_insert = $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"].
                                      tagremove($to_insert,False,$buffer).
                                      $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
+                    } elseif ( $tag_marken[0] == "SEL" ) {
+                        if ( is_array($_POST["tagwerte"][3]) ) $_POST["tagwerte"][3] = implode(":",$_POST["tagwerte"][3]);
+                        $tag_werte = array();
+                        for ($i = 0; $i <= 4; $i++) {
+                            $tag_werte[] = $_POST["tagwerte"][$i];
+                        }
+                        $to_insert = "[SEL=".implode(";",$tag_werte)."]".$_POST["description"]."[/SEL]";
                     } else {
                         // verbotenen tags rausfiltern
                         foreach ( $allowed_tags as $value ) {
@@ -822,8 +880,8 @@
                 if ( $_POST["ajax"] == "on" ) {
                     $content = tagreplace($content);
                     $content = tagreplace($to_insert);
-                    echo preg_replace("/#\{.+\}/U","",$content);
-                    die;
+                    echo preg_replace(array("/#\{.+\}/U","/g\(.+\)/U"),"",$content);
+                    die ;
                 }
                 $_SESSION["wizard_content"][$identifier] = $content;
                 if ( $header == "" ) $header = $cfg["wizard"]["basis"]."/list.html";
@@ -842,6 +900,7 @@
                     if ( $_POST["upload"] > 0 ) {
                         header("Location: ".$pathvars["virtual"]."/admin/fileed/upload.html?anzahl=".$_POST["upload"]);
                     } elseif ( $_POST["sel"] != "" ) {
+                        unset($_SESSION["compilation_memo"]);
                         header("Location: ".$pathvars["virtual"]."/admin/fileed/compilation.html");
                     } else {
                         header("Location: ".$pathvars["virtual"]."/admin/fileed/list.html");
