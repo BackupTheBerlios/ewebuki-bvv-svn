@@ -436,6 +436,34 @@
                     }
                     break;
 
+                case "LINK":
+                    $hidedata["link"] = array();
+                    // ausgabenwerte werden belegt
+                    $ausgaben["description"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
+                    $tag_werte = explode(";",str_replace(array("[LINK=","]"),"",$tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"]));
+                    for ($i=0;$i<=2;$i++) {
+                        $ausgaben["tagwerte".$i] = $tag_werte[$i];
+                    }
+                    // link-target
+                    if ( count($cfg["wizard"]["link_edit"]["cb_target"]) > 0 ) {
+                        foreach ( $cfg["wizard"]["link_edit"]["cb_target"] as $value=>$label ) {
+                            $check = "";
+                            if ( $ausgaben["tagwerte1"] == $value ) $check = " checked=\"checked\"";
+                            $dataloop["target"][] = array(
+                                "value" => $value,
+                                "label" => $label,
+                                "check" => $check,
+                            );
+                        }
+                    } else {
+                        $dataloop["target"][] = array(
+                            "value" => $ausgaben["tagwerte1"],
+                            "label" => "not changeable",
+                            "check" => " checked=\"checked\"",
+                        );
+                    }
+                    break;
+
                 default:
                     $hidedata["default"] = array();
                     break;
@@ -812,6 +840,13 @@
                             $tag_werte[] = $_POST["tagwerte"][$i];
                         }
                         $to_insert = "[SEL=".implode(";",$tag_werte)."]".$_POST["description"]."[/SEL]";
+                    } elseif ( $tag_marken[0] == "LINK" ) {
+                        if ( is_array($_POST["tagwerte"][3]) ) $_POST["tagwerte"][3] = implode(":",$_POST["tagwerte"][3]);
+                        $tag_werte = array();
+                        for ($i = 0; $i <= 2; $i++) {
+                            $tag_werte[] = $_POST["tagwerte"][$i];
+                        }
+                        $to_insert = "[LINK=".implode(";",$tag_werte)."]".$_POST["description"]."[/LINK]";
                     } else {
                         // verbotenen tags rausfiltern
                         foreach ( $allowed_tags as $value ) {
@@ -881,6 +916,11 @@
                     $content = tagreplace($content);
                     $content = tagreplace($to_insert);
                     echo preg_replace(array("/#\{.+\}/U","/g\(.+\)/U"),"",$content);
+// echo "<pre>";
+// echo $to_insert."<br>";
+// echo print_r($_SESSION["compilation_memo"],true);
+// echo print_r($_POST,true);
+// echo "</pre>";
                     die ;
                 }
                 $_SESSION["wizard_content"][$identifier] = $content;

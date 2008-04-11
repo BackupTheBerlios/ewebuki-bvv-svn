@@ -850,6 +850,10 @@ input.medium {
     padding:1px;
 }
 
+.wizard form input.big {
+    width:250px;
+}
+
 .wizard form .cbra input {
     margin:2px 5px;
 }
@@ -863,4 +867,10 @@ input.medium {
 
 .wizard form br {
     clear:both;
+}
+
+.wizard #preview {
+    border-bottom:1px solid #CCCCCC;
+    margin-bottom:10px;
+    padding-bottom:10px;
 }

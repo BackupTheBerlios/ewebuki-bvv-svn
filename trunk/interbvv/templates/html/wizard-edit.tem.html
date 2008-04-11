@@ -171,6 +171,27 @@
                 </fieldset>
                 <!--##show-->
 
+                <!--##hide-link-->
+                <fieldset >
+<!--                     <legend>Optionen</legend> -->
+                    <label>Bezeichnung</label>
+                    <input type="text" name="description" value="!#ausgaben_description" class="big" /><br />
+                    <label>Link-Adresse</label>
+                    <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" class="big" /><br />
+                    <label>Title</label>
+                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="big" /><br />
+                </fieldset>
+
+                <fieldset>
+                    <legend>Link-Ziel</legend>
+                    <!--##loop-target-->
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
+                    </label>
+                    <!--##cont-->
+                </fieldset>
+                <!--##show-->
+
                 <!--##hide-default-->
                 <fieldset class="ce">
                     <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
