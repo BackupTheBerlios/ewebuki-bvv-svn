@@ -56,7 +56,7 @@
                      "show" => array("makece"),
               "show,shared" => array("menu_convert","filelist"),
                       "add" => array(""),
-               "add,shared" => array("menu_convert"),
+              "add,shared" => array("menu_convert"),
                    "editor" => array("makece"),
             "editor,shared" => array("filelist","phpdiff"),
                    "modify" => array("makece"),
@@ -76,7 +76,7 @@
             "tagjs" => "-141347382.modify.js-nextgen",
              "tags" => $cfg["contented"]["tags"],
          "ed_boxed" => array(
-                "H"    => array(                                        // ueberschriften
+                    "H"    => array(                                    // ueberschriften
                                 "(\[H[0-9]{1}\])(.*)(\[\/H[0-9]{1}\])",
                                 "block",
                                 array("edit","del")
@@ -131,9 +131,9 @@
 
         // alle elemente die eingefuegt werden koennen
          "add_tags" => array(
-                       "H1" => "[H1]Überschrift Ebene 1[/H1]",
-                       "H2" => "[H2]Überschrift Ebene 2[/H2]",
-                       "H3" => "[H3]Überschrift Ebene 3[/H3]",
+                       "H1" => "[H1]&Uuml;berschrift Ebene 1[/H1]",
+                       "H2" => "[H2]&Uuml;berschrift Ebene 2[/H2]",
+                       "H3" => "[H3]&Uuml;berschrift Ebene 3[/H3]",
                    "Absatz" => "[P]Absatz[/P]",
                    "Teaser" => "[P=teaser]Teaser-Absatz[/P]",
                   "Tabelle" => "[TAB=;100%;;5;]\n[/TAB]",
@@ -141,7 +141,7 @@
                 "Selection" => "[SEL]Gruppierung[/SEL]",
                 "3er-Kombi" => "[DIV=present]
                                 [IMG=/file/jpg/2/s/dummy.jpg;l;0;l;0;0;5][/IMG]
-                                [H2]Überschrift[/H2]
+                                [H2]&Uuml;berschrift[/H2]
                                 [P]Beschreibung[/P]
                                 [BR=a][/BR]
                                 [/DIV]",
@@ -154,11 +154,6 @@
                            "def_label" => "inhalt",
                             "show_add" => False,                // muss false gesetzt sein, wenn es nicht in der add-liste auftauchen soll
                         ),
-             "content_def1" => array(
-                            "add_tags" => array("H2","H3","Absatz","Teaser","Tabelle","3er-Kombi","Liste","Selection"),
-                       "section_block" => array(3,1),
-                           "def_label" => "inhalt",
-                        ),
                   "artikel" => array(
                             "add_tags" => array("H2","Absatz"),
                        "section_block" => array(3,0),
@@ -167,26 +162,43 @@
                 ),
 
          "img_edit" => array(
-//              "cb_show_size" => array(
-//                                   "tn" => "thumb",
-//                                    "s" => "small",
-//                                    "m" => "middle",
-//                                    "b" => "big",
-//                                    "o" => "original",
-//                         ),
-//              "cb_link_size" => array(
-//                                     "" => "none",
-//                                   "tn" => "thumb",
-//                                    "s" => "small",
-//                                    "m" => "middle",
-//                                    "b" => "big",
-//                                    "o" => "original",
-//                                    "l" => "lightbox",
-//                         ),
+             "cb_show_size" => array(
+                                  "tn" => "thumb",
+                                   "s" => "small",
+                                   "m" => "middle",
+                                   "b" => "big",
+                                   "o" => "original",
+                        ),
+             "cb_link_size" => array(
+                                    "" => "none",
+                                  "tn" => "thumb",
+                                   "s" => "small",
+                                   "m" => "middle",
+                                   "b" => "big",
+                                   "o" => "original",
+                                   "l" => "lightbox",
+                        ),
                  "cb_align" => array(
                                     "" => "nix",
                                    "l" => "links",
                                    "r" => "rechts",
+                        ),
+                ),
+
+         "sel_edit" => array(
+             "cb_link_size" => array(
+                                   "s" => "small",
+                                   "m" => "middle",
+                                   "b" => "big",
+                                   "o" => "original",
+                        ),
+                ),
+
+        "link_edit" => array(
+                "cb_target" => array(
+                                    "" => "nope",
+                              "_blank" => "_blank",
+                               "_self" => "_self",
                         ),
                 ),
 

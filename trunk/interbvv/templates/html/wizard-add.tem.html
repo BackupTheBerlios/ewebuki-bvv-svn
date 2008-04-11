@@ -11,7 +11,7 @@
     <body>
 
 <!--##begin-->
-        <div id="substance" class="wizard" style="width:700px;">
+        <div id="substance" class="wizard">
             <!--##hide-add_menu-->
             <form method="post" action="!#ausgaben_form_aktion" id="">
                 <p>!#ausgaben_form_error</p>
@@ -21,10 +21,10 @@
                     <label for="label">#(label)</label>
                     !#element_label<br />
             <!--##show-->
-                    <!--##hide-extend-->
+            <!--##hide-extend-->
                     <label for="label">#(extend)</label>
                     !#element_extend<br />
-                    <!--##show-->
+            <!--##show-->
             <!--##hide-add_menu-->
                 </fieldset>
 
@@ -44,7 +44,7 @@
                     <input type="hidden" name="lang" value="de" class="hidden" />
                     <input type="submit" name="send[]"  value="g(send)" class="first" />
                     <input type="reset" name="reset" value="g(reset)" class="next" />
-                    <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'"  class="next" />
+                    <input type="button" name="abort" value="g(abort)" class="next" onclick="location='!#ausgaben_form_break'"  />
                     <div class="clearer"></div>
                 </fieldset>
             </form>

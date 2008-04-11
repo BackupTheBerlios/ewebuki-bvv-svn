@@ -772,105 +772,115 @@ input.medium {
 }
 
 
-/* wizard gestaltung */
-.wizard .button {
-    background-color:#EEEEEE;
-    border:1px solid #cccccc;
-    cursor:pointer;
-    margin-right:5px;
-    padding:0.5ex 1ex;
-    text-decoration:none;
-    width:auto;
+/* wizard gestaltung
+------------------------*/
+#substance.wizard {
+    background:#FFFFFF;
+    width:710px;
 }
 
-.wizard #sort_content {
-    list-style:none;
-    margin:0;
-    padding:0;
-    width:100%;
-}
-
-    .wizard #sort_content li {
-        background:no-repeat right top;
-        border:1px solid #ccc;
-        list-style:none;
-        margin:0 0 3px;
-        padding:20px 4px 0;
+    .wizard .button {
+        background-color:#EEEEEE;
+        border:1px solid #cccccc;
+        cursor:pointer;
+        margin-right:5px;
+        padding:0.5ex 1ex;
+        text-decoration:none;
+        width:auto;
     }
 
-        .wizard #sort_content li.ajax_move {
-            border-color:#FFC71F;
+    .wizard #sort_content {
+        padding:0;
+        width:100%;
+    }
+
+        .wizard #sort_content li {
+            background:no-repeat right top;
+            border:1px solid #ccc;
+            list-style:none;
+            margin:0 0 3px;
+            padding:20px 4px 0;
         }
 
-        .wizard #sort_content li .clear {
+            .wizard #sort_content li.ajax_move {
+                border-color:#FFC71F;
+            }
+
+                .wizard #sort_content li .clear {
+                    padding:0;
+                    text-align:right;
+                    width:100%;
+                }
+
+            .wizard #sort_content li div.wiz_edit {
+                border:1px solid #ccc;
+                float:left;
+                margin:3px;
+            }
+
+                .wizard #sort_content li div.wiz_edit div.buttons a {
+                    background:#eeeeee;
+                    font-weight:normal;
+                    float:left;
+                    margin-right:2px;
+                    padding:0.5ex 1ex;
+                }
+
+            .wizard #sort_content li span.wiz_edit {
+                border:1px solid #ccc;
+            }
+
+                .wizard #sort_content li span.wiz_edit span.buttons {
+                    display:none;
+                }
+
+                .wizard #sort_content li span.wiz_edit:hover span.buttons {
+                    display:inline;
+                }
+
+    .wizard form label {
+        display:block;
+        float:left;
+        margin:2px 0;
+        padding:1px;
+        width:120px;
+    }
+
+    .wizard form input, .wizard form button {
+        float:left;
+        font-size:0.95em;
+        margin:2px 0;
+        padding:1px;
+    }
+
+        .wizard form .cbra input {
+            margin:2px 5px;
+        }
+
+        .wizard form table input {
+            border:none;
+            margin:0;
             padding:0;
-            text-align:right;
             width:100%;
         }
 
-    .wizard #sort_content li div.wiz_edit {
-        border:1px solid #ccc;
-        float:left;
-        margin:3px;
+    .wizard form input.big {
+        width:250px;
     }
 
-        .wizard #sort_content li div.wiz_edit div.buttons a {
-            background:#eeeeee;
-            font-weight:normal;
-            float:left;
-            margin-right:2px;
-            padding:0.5ex 1ex;
-        }
-
-    .wizard #sort_content li span.wiz_edit {
-        border:1px solid #ccc;
-/*         margin:3px; */
+    .wizard form br {
+        clear:both;
     }
 
-        .wizard #sort_content li span.wiz_edit span.buttons {
-            display:none;
-        }
+    .wizard #preview {
+        border-bottom:1px solid #CCCCCC;
+        margin-bottom:10px;
+        padding-bottom:10px;
+    }
 
-        .wizard #sort_content li span.wiz_edit:hover span.buttons {
-            display:inline;
-        }
-
-.wizard form label {
-    display:block;
-    float:left;
-    margin:2px 0;
-    padding:1px;
-    width:120px;
-}
-
-.wizard form input, .wizard form button {
-    float:left;
-    font-size:0.95em;
-    margin:2px 0;
-    padding:1px;
-}
-
-.wizard form input.big {
-    width:250px;
-}
-
-.wizard form .cbra input {
-    margin:2px 5px;
-}
-
-.wizard form table input {
-    border:none;
-    margin:0;
-    padding:0;
-    width:100%;
-}
-
-.wizard form br {
-    clear:both;
-}
-
-.wizard #preview {
-    border-bottom:1px solid #CCCCCC;
-    margin-bottom:10px;
-    padding-bottom:10px;
-}
+    .wizard #grid_list {
+        list-style:none;
+        margin:0;
+        padding:0;
+        width:680px;
+    }

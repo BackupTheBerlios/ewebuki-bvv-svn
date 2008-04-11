@@ -11,201 +11,196 @@
     <body>
 
 <!--##begin-->
-    <div id="substance" class="wizard" style="width:700px;">
-
+    <div id="substance" class="wizard">
         !#ausgaben_ce_script
         <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
             #(inhalt)
             <p>!#ausgaben_form_error</p>
 
-<!--             <div class="ce"> -->
-                <!--##hide-imgpreview-->
-                <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
-                <!--##show-->
-                <!--##hide-img-->
-                <fieldset >
-                    <label>Beschriftung</label>
-                    <input type="text" name="description" value="!{meat}" /><br />
-                    <input id="eb_submit" class="button" type="submit" title="Datei auswaehlen" value="neues Bild holen" name="add[]"/>
-                </fieldset>
+            <!--##hide-imgpreview-->
+            <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
+            <!--##show-->
+            <!--##hide-img-->
+            <fieldset >
+                <label>Beschriftung</label>
+                <input type="text" name="description" value="!{meat}" /><br />
+                <input type="submit" id="eb_submit" name="add[]" value="neues Bild holen" title="Datei auswaehlen" class="button" />
+            </fieldset>
 
-                <fieldset >
-                    <legend>Anzeigengröße</legend>
-                    <!--##loop-show-->
-                    <label class="cbra">
-                        <input type="radio" name="tagwerte[0]" value="!{value}"!{check}>!{label}
-                    </label>
+            <fieldset >
+                <legend>Anzeigengröße</legend>
+                <!--##loop-show-->
+                <label class="cbra">
+                    <input type="radio" name="tagwerte[0]" value="!{value}"!{check} />!{label}
+                </label>
+                <!--##cont-->
+            </fieldset>
+
+            <fieldset >
+                <legend>Ausrichtung</legend>
+                <!--##loop-align-->
+                <label class="cbra">
+                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
+                </label>
+                <!--##cont-->
+            </fieldset>
+
+            <fieldset >
+                <legend>Rand</legend>
+                <label>(in px)</label>
+                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
+            </fieldset>
+
+            <fieldset >
+                <legend>Detailansicht</legend>
+                <!--##loop-size-->
+                <label class="cbra">
+                    <input type="radio" name="tagwerte[3]" value="!{value}"!{check} />!{label}
+                </label>
+                <!--##cont-->
+            </fieldset>
+
+            <fieldset>
+                <legend>Abstände</legend>
+                <label>nach oben</label>
+                <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+                <label>nach unten</label>
+                <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" /><br />
+                <label>nach links/rechts</label>
+                <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" /><br />
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-tab-->
+            <fieldset>
+                <legend>Tabelle aus CSV</legend>
+                <input type="file" name="csv_upload"/><br />
+                <input type="submit" name="col_resize[]" value="Aktualisieren" class="button" />
+            </fieldset>
+
+            <fieldset>
+                <legend>Zelleninhalte bearbeiten</legend>
+                !#ausgaben_tabelle
+            </fieldset>
+
+            <fieldset>
+                <legend>Dimensionen</legend>
+                <label>Anzahl Spalten</label>
+                <input type="text" name="num_col" value="!#ausgaben_num_col" /><br />
+                <label>Anzahl Zeilen</label>
+                <input type="text" name="num_row" value="!#ausgaben_num_row" /><br />
+                <input type="submit" name="col_resize[]" value="Aktualisieren" class="button" />
+            </fieldset>
+
+            <fieldset>
+                <legend>Tabellen-Eigenschaften</legend>
+                <label>Align</label>
+                <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
+                <label>Width</label>
+                <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" /><br />
+                <label>Border</label>
+                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
+                <label>Cellspacing</label>
+                <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" /><br />
+                <label>Cellpadding</label>
+                <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-sel-->
+            <fieldset>
+                <label>Bezeichnung</label>
+                <input type="text" name="description" value="!#ausgaben_description" /><br />
+                <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
+            </fieldset>
+
+            <fieldset>
+                <button type="submit" name="sel[]" value="Gruppierung holen" class="button">Neue Gruppierung holen</button>
+            </fieldset>
+
+            <fieldset >
+                <legend>Detailansicht</legend>
+                <!--##loop-size-->
+                <label class="cbra">
+                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
+                </label>
+                <!--##cont-->
+            </fieldset>
+
+            <fieldset >
+                <legend>Optionen</legend>
+                <label class="cbra">
+                    <input type="checkbox" name="tagwerte[2]" value="TRUE"!{check_thumb} />Thumbnails anzeigen
+                </label>
+                <label class="cbra">
+                    <input type="checkbox" name="tagwerte[4]" value="l"!{check_lbox} />Lightbox-Modus
+                </label>
+            </fieldset>
+
+            <fieldset >
+                <legend>"GRID"</legend>
+                <ul id="grid_list">
+                    <!--##loop-list_images-->
+                    <li class="thumbs">
+                        <img src="!{src}" alt="!{alt}" title="!{title} g(edit)" />
+                        <p>
+                            <input type="checkbox" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
+                        </p>
+                    </li>
                     <!--##cont-->
-                </fieldset>
+                </ul>
+            </fieldset>
 
-                <fieldset >
-                    <legend>Ausrichtung</legend>
-                    <!--##loop-align-->
-                    <label class="cbra">
-                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check}>!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
+            <script type="text/javascript">
+                function session_update(compid,fileid) {
+                    new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
+                                    {asynchronous:true
+                                    }
+                    );
+                    preview();
+                }
+            </script>
+            <!--##show-->
 
-                <fieldset >
-                    <legend>Rand</legend>
-                    <label>(in px)</label>
-                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
-                </fieldset>
+            <!--##hide-list-->
+            <fieldset class="ce">
+                Einzelne Listenpunkte bitte durch Leerzeile trennen!
+            </fieldset>
+            <!--##show-->
 
-                <fieldset >
-                    <legend>Detailansicht</legend>
-                    <!--##loop-size-->
-                    <label class="cbra">
-                        <input type="radio" name="tagwerte[3]" value="!{value}"!{check}>!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
+            <!--##hide-link-->
+            <fieldset >
+                <label>Bezeichnung</label>
+                <input type="text" name="description" value="!#ausgaben_description" class="big" /><br />
+                <label>Link-Adresse</label>
+                <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" class="big" /><br />
+                <label>Title</label>
+                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="big" /><br />
+            </fieldset>
 
-                <fieldset>
-                    <legend>Abstände</legend>
-                    <label>nach oben</label>
-                    <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
-                    <label>nach unten</label>
-                    <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" /><br />
-                    <label>nach links/rechts</label>
-                    <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" /><br />
-                </fieldset>
-                <!--##show-->
+            <fieldset>
+                <legend>Link-Ziel</legend>
+                <!--##loop-target-->
+                <label class="cbra">
+                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
+                </label>
+                <!--##cont-->
+            </fieldset>
+            <!--##show-->
 
-                <!--##hide-tab-->
-                <fieldset>
-                    <legend>Tabelle aus CSV</legend>
-                    <input type="file" name="csv_upload"/><br />
-                    <input type="submit" name="col_resize[]" value="Aktualisieren" accesskey="s" class="button" />
-                </fieldset>
-
-                <fieldset>
-                    <legend>Zelleninhalte bearbeiten</legend>
-                    !#ausgaben_tabelle
-                </fieldset>
-
-                <fieldset>
-                    <legend>Dimensionen</legend>
-                    <label>Anzahl Spalten</label>
-                    <input type="text" name="num_col" value="!#ausgaben_num_col" /><br />
-                    <label>Anzahl Zeilen</label>
-                    <input type="text" name="num_row" value="!#ausgaben_num_row" /><br />
-                    <input type="submit" name="col_resize[]" value="Aktualisieren" accesskey="s" class="button" />
-                </fieldset>
-
-                <fieldset>
-                    <legend>Tabellen-Eigenschaften</legend>
-                    <label>Align</label>
-                    <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
-                    <label>Width</label>
-                    <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" /><br />
-                    <label>Border</label>
-                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
-                    <label>Cellspacing</label>
-                    <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" /><br />
-                    <label>Cellpadding</label>
-                    <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
-                </fieldset>
-                <!--##show-->
-
-                <!--##hide-sel-->
-                <fieldset>
-                    <label>Bezeichnung</label>
-                    <input type="text" name="description" value="!#ausgaben_description" /><br />
-                    <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
-                </fieldset>
-
-                <fieldset>
-<!--                     <input id="eb_submit" class="button" type="submit" title="Gruppierung holen" value="neue Gruppierung holen" name="sel[]"/> -->
-                    <button type="submit" class="button" value="Gruppierung holen" name="sel[]">Neue Gruppierung holen</button>
-                </fieldset>
-
-                <fieldset >
-                    <legend>Detailansicht</legend>
-                    <!--##loop-size-->
-                    <label class="cbra">
-                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
-
-                <fieldset >
-                    <legend>Optionen</legend>
-                    <label class="cbra">
-                        <input type="checkbox" name="tagwerte[2]" value="TRUE"!{check_thumb} />Thumbnails anzeigen
-                    </label>
-                    <label class="cbra">
-                        <input type="checkbox" name="tagwerte[4]" value="l"!{check_lbox} />Lightbox-Modus
-                    </label>
-                </fieldset>
-
-                <fieldset >
-                    <legend>"GRID"</legend>
-                    <ul style="width:700px;list-style:none;padding:0;margin:0;" id="grid_list">
-                        <!--##loop-list_images-->
-                        <li class="thumbs">
-                            <img src="!{src}" alt="!{alt}" title="!{title} g(edit)" />
-                            <p>
-                                <input type="checkbox" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
-                            </p>
-                        </li>
-                        <!--##cont-->
-                    </ul>
-                </fieldset>
-
-                <script type="text/javascript">
-                    function session_update(compid,fileid) {
-                        new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
-                                        {asynchronous:true
-                                        }
-                        );
-                        preview();
-                    }
+            <!--##hide-default-->
+            <fieldset class="ce">
+                <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
+                <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" !#ausgaben_eventh2 onchange="preview()" class="!#ausgaben_class">!#ausgaben_inhalt</textarea>
+                <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
+                <script type="text/javascript" language="JavaScript">
+                    <!--
+                    // This is for toolbar plugins
+                    var ebCanvas = document.getElementById('content');
+                    //-->
                 </script>
-                <!--##show-->
-
-                <!--##hide-list-->
-                <fieldset class="ce">
-                    Einzelne Listenpunkte bitte durch Leerzeile trennen!
-                </fieldset>
-                <!--##show-->
-
-                <!--##hide-link-->
-                <fieldset >
-<!--                     <legend>Optionen</legend> -->
-                    <label>Bezeichnung</label>
-                    <input type="text" name="description" value="!#ausgaben_description" class="big" /><br />
-                    <label>Link-Adresse</label>
-                    <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" class="big" /><br />
-                    <label>Title</label>
-                    <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="big" /><br />
-                </fieldset>
-
-                <fieldset>
-                    <legend>Link-Ziel</legend>
-                    <!--##loop-target-->
-                    <label class="cbra">
-                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
-                <!--##show-->
-
-                <!--##hide-default-->
-                <fieldset class="ce">
-                    <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
-                    <textarea id="content" name="!#ausgaben_name" cols="80" rows="15" title="!#ausgaben_lock" class="!#ausgaben_class" !#ausgaben_eventh2 onchange="preview()">!#ausgaben_inhalt</textarea>
-                    <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
-                    <script type="text/javascript" language="JavaScript">
-                        <!--
-                        // This is for toolbar plugins
-                        var ebCanvas = document.getElementById('content');
-                        //-->
-                    </script>
-                </fieldset>
-                <!--##show-->
-<!--             </div> -->
+            </fieldset>
+            <!--##show-->
 
             <div class="clearer">&nbsp;</div>
 
@@ -215,7 +210,6 @@
                 <div class="clearer">&nbsp;</div>
                 <input type="submit" name="send[]" value="g(send)" accesskey="s" class="button" />
                 <input type="reset" name="reset" value="g(reset)" accesskey="r" class="button" />
-<!--                 <input type="button" name="abort" value="g(abort)" accesskey="a" onclick="location='!#ausgaben_form_break'" class="button" /> -->
                 <input type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button" />
                 <div class="clearer">&nbsp;</div>
             </fieldset>
@@ -223,7 +217,7 @@
             <fieldset id="pre">
                 <legend>Vorschau</legend>
                 <div id="preview"></div>
-                <button class="button" type="button" onclick="preview();">Aktualisieren</button>
+                <button type="button" onclick="preview();" class="button">Aktualisieren</button>
             </fieldset>
 
         </form>

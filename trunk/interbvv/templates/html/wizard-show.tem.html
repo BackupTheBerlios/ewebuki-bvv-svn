@@ -11,21 +11,19 @@
     <body>
 
 <!--##begin-->
-        <div id="substance" class="wizard" style="width:700px;">
+        <div id="substance" class="wizard">
 
-<!--             <fieldset> -->
-                <span class="right">
-                    <!--##hide-version_prev-->
-                    | <a href="!{link_first}">&lt;&lt;</a> | <a href="!{link_prev}">&lt;</a> |
-                    <!--##show-->
-                    g(version) !#ausgaben_vaktuell g(of) !#ausgaben_vgesamt
-                    <!--##hide-version_next-->
-                    | <a href="!{link_next}">&gt;</a> | <a href="!{link_last}">&gt;&gt;</a> |
-                    <!--##show-->
-                </span>
-<!--                 <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a> -->
-                <p class="clear" />
-<!--             </fieldset> -->
+            <!--versions-umschalter-->
+            <span class="right">
+                <!--##hide-version_prev-->
+                | <a href="!{link_first}">&lt;&lt;</a> | <a href="!{link_prev}">&lt;</a> |
+                <!--##show-->
+                g(version) !#ausgaben_vaktuell g(of) !#ausgaben_vgesamt
+                <!--##hide-version_next-->
+                | <a href="!{link_next}">&gt;</a> | <a href="!{link_last}">&gt;&gt;</a> |
+                <!--##show-->
+            </span>
+            <p class="clear" />
 
             #(inhalt)
             <ul id="sort_content">
@@ -41,8 +39,8 @@
                 </li>
                 <!--##cont-->
             </ul>
-
             <p style="clear:both;" />
+
             <fieldset>
                 <legend>Bereiche hinzufuegen</legend>
                 <!--##loop-add_buttons-->
@@ -50,16 +48,12 @@
                 <!--##cont-->
             </fieldset>
 
-<!--            <fieldset>
-                <a href="!#ausgaben_form_referer" class="button">zur&uuml;ck zur Seite</a>
-            </fieldset>-->
-
             <!--##hide-default-->
             <fieldset>
                 <form method="post" action="!#ausgaben_form_aktion">
-                    <button type="submit" name="send[]" value="save">Speichern</button>
-                    <button type="submit" name="send[]" value="version">Speichern (neue Version)</button>
-                    <button type="submit" name="send[]" value="cancel">Abbrechen</button>
+                    <button type="submit" name="send[]" value="save" class="button">Speichern</button>
+                    <button type="submit" name="send[]" value="version" class="button">Speichern (neue Version)</button>
+                    <button type="submit" name="send[]" value="cancel" class="button">Abbrechen</button>
                 </form>
             </fieldset>
             <!--##show-->
@@ -67,16 +61,16 @@
             <!--##hide-edit-->
             <fieldset>
                 <form method="post" action="!#ausgaben_form_aktion">
-                    <button type="submit" name="send[]" value="version">Speichern (neue Version)</button>
-                    <button type="submit" name="send[]" value="cancel">Abbrechen</button><br />
-                    <input type="checkbox" value="-1" name="release_mark" />Freigabe anfordern
+                    <button type="submit" name="send[]" value="version" class="button">Speichern (neue Version)</button>
+                    <button type="submit" name="send[]" value="cancel" class="button">Abbrechen</button><br />
+                    <input type="checkbox" name="release_mark" value="-1" class="button" />Freigabe anfordern
                 </form>
             </fieldset>
             <!--##show-->
 
             <!--##hide-blocked-->
             <fieldset>
-                <input type="checkbox" value="-1" name="release_mark" checked="true" disabled="true" />Freigabe bereits angefordert
+                <input type="checkbox" name="release_mark" value="-1" checked="true" disabled="true" />Freigabe bereits angefordert
             </fieldset>
             <!--##show-->
 
