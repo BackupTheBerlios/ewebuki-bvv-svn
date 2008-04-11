@@ -104,7 +104,7 @@
 
 
         // wizard-typ rausfinden
-        preg_match("/^\[!\]wizard:(.*)\[\/!\]/i",$form_values["content"],$match);
+        preg_match("/\[!\]wizard:(.*)\[\/!\]/i",$form_values["content"],$match);
         if ( $match[1] != "" && is_array($cfg["wizard"]["wizardtyp"][$match[1]]) ) {
             $wizard_name = $match[1];
         } else {
