@@ -328,10 +328,18 @@
 
             // bereiche in eine liste pressen
             // * * *
-            $buffer = "";$i=-1;
+            $buffer = ""; $i=-1; $block=0; $pre = "";
             foreach ( $allcontent as $key=>$value ) {
                 // kommentar-bereich nicht beruecksichtigen
-                if ( preg_match("/^\[!\].*\[\/!\]/i",$value) ) {
+                if ( preg_match("/^\[!\].*\[\/!\]/is",$value) ) {
+                    continue;
+                } elseif ( preg_match("/^\[!\]/is",$value) )  {
+                    $block = -1;
+                    continue;
+                } elseif ( $block == -1 ) {
+                    if ( preg_match("/\[\/!\]/is",$value) ) {
+                        $block = 0;
+                    }
                     continue;
                 }
                 $i++;
@@ -438,8 +446,8 @@
                 $ausgaben["inaccessible"] = "";
             }
 
-            if ( $environment["parameter"][6] == "verify"
-                && $_POST["send"] != "" ) {
+            if ( ($environment["parameter"][6] == "verify"
+                && $_POST["send"] != "") || $_SESSION["form_send"] != "" ) {
 
                 $ebene = str_replace(array($pathvars["virtual"],$pathvars["webroot"]),"",dirname($_SESSION["form_referer"]));
                 $kategorie = str_replace(".html","",basename($_SESSION["form_referer"]));
@@ -455,7 +463,7 @@
                 $data = $db -> fetch_array($result,1);
                 $next_version = $data["max_version"] + 1;
 
-                if ( $content_exists == 0 || $_POST["send"][0] == "version" ) {
+                if ( $content_exists == 0 || $_POST["send"][0] == "version" || $_SESSION["form_send"] == "version" ) {
                     // notwendig fuer die artikelverwaltung , der bisher aktive artikel wird auf inaktiv gesetzt
                     if ( preg_match("/^\[!\]/",$content,$regs) ) {
                         $sql_regex = "SELECT * FROM ". SITETEXT ." WHERE content REGEXP '^\\\[!\\\]1' AND tname like '".$environment["parameter"][2]."'";
@@ -499,7 +507,7 @@
                                         '".$_SESSION["email"]."',
                                         '".$_SESSION["alias"]."'
                                         ".$hide2.")";
-                } elseif ($_POST["send"][0] == "save") {
+                } elseif ($_POST["send"][0] == "save" || $_SESSION["form_send"] == "save") {
                     // freigabe-test
                     if ( $specialvars["content_release"] == -1 ) {
                         if ( $_POST["release_mark"] == -1 ) {
@@ -534,6 +542,7 @@
                 }
                 $header = $_SESSION["form_referer"];
                 unset($_SESSION["form_referer"]);
+                unset($_SESSION["form_send"]);
                 header("Location: ".$header);
 
             }

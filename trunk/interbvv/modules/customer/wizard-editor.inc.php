@@ -623,6 +623,11 @@
             $ausgaben["form_referer"] = $_POST["form_referer"];
         }
 
+        if ( $_SESSION["form_referer"] == "" && !strstr($_SERVER["HTTP_REFERER"],$cfg["wizard"]["basis"]) ) {
+            $_SESSION["form_referer"] = $_SERVER["HTTP_REFERER"];
+            $_SESSION["form_send"] = "version";
+        }
+
 
 
         // +++
@@ -915,6 +920,7 @@
                 if ( $_POST["ajax"] == "on" ) {
                     $content = tagreplace($content);
                     $content = tagreplace($to_insert);
+                    $content = tagremove($content);
                     echo preg_replace(array("/#\{.+\}/U","/g\(.+\)/U"),"",$content);
 // echo "<pre>";
 // echo $to_insert."<br>";

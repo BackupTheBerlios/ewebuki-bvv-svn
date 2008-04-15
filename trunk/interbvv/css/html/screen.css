@@ -307,7 +307,7 @@ legend {
         background:#EFF2FA;
         border:1px solid #ccc;
         padding:2px;
-        width:auto;
+/*         width:auto; */
     }
 
     #substance img {
@@ -832,6 +832,7 @@ input.medium {
 
                 .wizard #sort_content li span.wiz_edit span.buttons {
                     display:none;
+                    font-weight:normal;
                 }
 
                 .wizard #sort_content li span.wiz_edit:hover span.buttons {

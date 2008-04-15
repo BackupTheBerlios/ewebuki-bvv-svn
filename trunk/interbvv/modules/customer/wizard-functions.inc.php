@@ -77,7 +77,7 @@
             foreach( $cfg["wizard"]["tags"] as $key => $value ) {
 
                 // feststellen, ob der tag erlaubt ist
-                if ( count($allowed_tags) > 0 && !in_array($key,$allowed_tags) ) {
+                if ( is_array($allowed_tags) && !in_array($key,$allowed_tags) ) {
                     continue;
                 }
 
@@ -199,23 +199,65 @@
 
             $tag_meat = array();
             foreach ( $cfg["wizard"]["ed_boxed"] as $tag=>$preg ) {
-                preg_match_all("/".$preg[0]."/Us",$content,$match,PREG_OFFSET_CAPTURE);
-                foreach ( $match[0] as $key=>$value ) {
-                    $tag_meat[$tag][] = array(
-                                "tag_start" => $match[1][$key][0],
-                                "tag_end"   => $match[3][$key][0],
-                                "meat"      => $match[2][$key][0],
-                                "complete"  => $match[0][$key][0],
-                                "start"     => $match[0][$key][1],
-                                "end"       => $match[0][$key][1] + strlen($match[0][$key][0]),
-                                "type"      => $preg[1],
-                                "buttons"   => $preg[2],
-                    );
+//                 if ( $tag != "B" && $tag != "I" && $tag != "P" ) continue;
+                $open_tag = $preg[0][0];
+                $close_tag = $preg[0][1];
+                if ( $close_tag == "" ) $close_tag = str_replace("[","[/",$open_tag);
+                $preg_tag[] = str_replace(
+                                array("[","]","/"),
+                                array("\[","\]","\/"),
+                                $open_tag
+                );
+                $preg_tag[] = str_replace(
+                                array("[","]","/"),
+                                array("\[","\]","\/"),
+                                $close_tag
+                );
+                $match = preg_split("/(".implode(")|(",$preg_tag).")/Us",$content,-1,PREG_SPLIT_DELIM_CAPTURE);
+                $index = 0;
 
-                    $tag_meat["order"][$match[0][$key][1]] = $tag;
+                $level = 0; $index = -1; $max = -1; $mark = 0; $work = $match; $pre = "";$buffer = array(); $ind_lev = array();
+                foreach ( $match as $value ) {
+                    if ( $value == $open_tag ) {
+                        $level++; $max++;
+                        $index = $max;
+                        $ind_lev[$level] = $index;
+                        $buffer[$index]["start"] = strlen($pre);
+                    } elseif ( $value == $close_tag ) {
+                        $buffer[$index]["complete"] .= $value;
+                        $mark = -1;
+                        $pre .= array_shift($work);
+                        continue;
+                    } elseif ( $mark == -1 ) {
+                        $split = explode("]",$value,2);
+                        // tag-infos einarbeiten
+                        $buffer[$index]["complete"] .= $split[0]."]";
+                        $buffer[$index]["end"] .= $buffer[$index]["start"] + strlen($buffer[$index]["complete"]);
+                        $buffer[$index]["tag_start"] = substr($buffer[$index]["complete"],0,strpos($buffer[$index]["complete"],"]"))."]";
+                        $buffer[$index]["tag_end"] = strrchr($buffer[$index]["complete"],"[");
+                        $len = $buffer[$index]["end"] - $buffer[$index]["start"];
+                        $buffer[$index]["meat"] = substr(
+                                                        $buffer[$index]["complete"],
+                                                        strpos($buffer[$index]["complete"],"]") + 1,
+                                                        $len - strlen($buffer[$index]["tag_start"]) - strlen($buffer[$index]["tag_end"])
+                                                    );
+                        $buffer[$index]["type"] = $preg[1];
+                        $buffer[$index]["buttons"] = $preg[2];
+                        if ( $level > 1 ) {
+                            $value = $buffer[$ind_lev[$level]]["complete"].$split[1];
+                        } else {
+                            $value = $split[1];
+                        }
+                        $level--; $mark = 0;
+                        $index = $ind_lev[$level];
+                    }
+                    $pre .= array_shift($work);
+                    if ( $level == 0 ) continue;
+                    $buffer[$index]["complete"] .= $value;
+
                 }
+                $tag_meat[$tag] = $buffer;
             }
-            if (is_array($tag_meat["order"])) ksort($tag_meat["order"]);
             return $tag_meat;
         }
 
@@ -230,6 +272,7 @@
                                 "[TAB",
                                 "[DIV",
                                 "[IMG",
+                                "[!",
             );
             // suchmuster bauen und open- und close-tags finden
             $preg = array();
@@ -244,7 +287,7 @@
             }
             $separate = preg_split("/(".implode("|",$preg).")|(<!--edit_begin-->)|(<!--edit_end-->)/",$content,-1,PREG_SPLIT_DELIM_CAPTURE);
 
-            $end = "--"; $i = 0;$close = 0;
+            $end = "--"; $i = 0; $close = 0; $mark = 0;
             $allcontent = array();
             foreach ( $separate as $index => $line ) {
                 if ( trim($line) == "" ) continue;
@@ -252,7 +295,7 @@
                     if ($close == 0) $i++;
                     $close++;
                 } elseif ( in_array($line,$split_tags["close"]) ) {
-                    $close--;
+                    $close--; $mark = -1;
                 }
                 $allcontent[$i] .= trim($line);
             }

@@ -140,9 +140,16 @@
                         AND hide<>0
                         AND version<>".$environment["parameter"][5];
                 $result = $db -> query($sql);
+                $sql = "UPDATE ". SITETEXT ."
+                        SET hide=0
+                        WHERE lang = '".$environment["language"]."'
+                        AND label ='".$environment["parameter"][3]."'
+                        AND tname ='".$environment["parameter"][2]."'
+                        AND version=".$environment["parameter"][5]."
+                        AND hide=1";
                 // freigegebenen Datensatz aktualisieren
                 $sql = "UPDATE ". SITETEXT ."
-                        SET version=".$next_version.", hide=0
+                        SET version=".$next_version.", hide=1
                         WHERE lang = '".$environment["language"]."'
                         AND label ='".$environment["parameter"][3]."'
                         AND tname ='".$environment["parameter"][2]."'

@@ -47,9 +47,8 @@
     // 1: Datenbank
     // 2: tname
     // 3: label
-    // 4: marke
-    // 5: version
-    // 6: modus
+    // 4: wizardtyp
+    // 5: mid
 
     // erlaubnis bei intrabvv speziell setzen
     $database = $environment["parameter"][1];
@@ -106,13 +105,18 @@
             }
 
             // rausfinden, welcher menupunkt einen unterpunkt bekommen soll
-            if ( $_SESSION["REFERER"] != "" && preg_match("/wizard$/",dirname($_SESSION["REFERER"])) ) {
-                $url = str_replace(array($pathvars["virtual"],".html"),"",$_SESSION["REFERER"]);
+            if ( $environment["parameter"][5] != "" ) {
+                $mid = $environment["parameter"][5];
             } else {
-                $url = str_replace(array($pathvars["webroot"].$pathvars["virtual"],".html"),"",$_SERVER["HTTP_REFERER"]);
-                $_SESSION["REFERER"] = $pathvars["virtual"].$url;
+                if ( $_SESSION["REFERER"] != "" && preg_match("/wizard$/",dirname($_SESSION["REFERER"])) ) {
+                    $url = str_replace(array($pathvars["virtual"],".html"),"",$_SESSION["REFERER"]);
+                } else {
+                    $url = str_replace(array($pathvars["webroot"].$pathvars["virtual"],".html"),"",$_SERVER["HTTP_REFERER"]);
+                    $_SESSION["REFERER"] = $pathvars["virtual"].$url;
+                }
+                $point = make_id($url);
+                $mid = $point["mid"];
             }
-            $point = make_id($url);
             $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/menued/add,".$point["mid"].",,verify.html";
             $ausgaben["refid"] = $point["mid"];
 

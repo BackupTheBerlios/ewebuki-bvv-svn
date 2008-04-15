@@ -77,47 +77,47 @@
              "tags" => $cfg["contented"]["tags"],
          "ed_boxed" => array(
                     "H"    => array(                                    // ueberschriften
-                                "(\[H[0-9]{1}\])(.*)(\[\/H[0-9]{1}\])",
+                                array("[H"),
                                 "block",
                                 array("edit","del")
                             ),
                     "P"    => array(                                    // absaetze
-                                "(\[P.*\])(.*)(\[\/P\])",
+                                array("[P"),
                                 "block",
                                 array("edit","del")
                             ),
                     "LINK" => array(                                    // links
-                                "(\[LINK.*\])(.*)(\[\/LINK\])",
+                                array("[LINK"),
                                 "inline",
                                 array("edit","rip")
                             ),
                     "IMG"  => array(                                    // bilder
-                                "(\[IMG.*\])(.*)(\[\/IMG\])",
+                                array("[IMG"),
                                 "block",
                                 array("edit","del")
                             ),
                     "SEL"  => array(                                    // gruppierungen
-                                "(\[SEL.*\])(.*)(\[\/SEL\])",
+                                array("[SEL"),
                                 "block",
                                 array("edit","del")
                             ),
                     "TAB"  => array(                                    // tabellen
-                                "(\[TAB.*\])(.*)(\[\/TAB\])",
+                                array("[TAB"),
                                 "block",
                                 array("edit","del")
                             ),
                     "LIST" => array(                                    // listen
-                                "(\[LIST.*\])(.*)(\[\/LIST\])",
+                                array("[LIST"),
                                 "block",
                                 array("edit","del")
                             ),
                     "B" => array(                                       // fett
-                                "(\[B\])(.*)(\[\/B\])",
+                                array("[B"),
                                 "inline",
                                 array("edit","rip")
                             ),
-                    "I" => array(                                       // fett
-                                "(\[I\])(.*)(\[\/I\])",
+                    "I" => array(                                       // kursiv
+                                array("[I"),
                                 "inline",
                                 array("edit","rip")
                             ),
@@ -127,6 +127,7 @@
                            "P" => array("link","b","i","acr"),
                     "P=teaser" => array("link","b","file"),
                         "LIST" => array("link","b","i","acr"),
+                           "B" => array(),
                 ),
 
         // alle elemente die eingefuegt werden koennen
