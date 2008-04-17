@@ -63,6 +63,8 @@
         $specialvars["editlock"] = -1;
     }
 
+    $ausgaben["row"] = "";
+
     include $pathvars["moduleroot"]."admin/bloged.cfg.php";
 
     // laden der eigentlichen funktion
@@ -100,24 +102,21 @@
 
         $work = show_blog($url,$tags,"admin","termine","0,10");
 
-        foreach ( $work as $key => $value ) {
-            $array[$value["veranstalter"]][$key]["name"] = $value["name"];
-            $array[$value["veranstalter"]][$key]["termin_bg"] = $value["termin_bg"];
-            $array[$value["veranstalter"]][$key]["termin_en"] = $value["termin_en"];
-            $array[$value["veranstalter"]][$key]["veranstalter"] = $value["veranstalter"];
-            $array[$value["veranstalter"]][$key]["datum"] = $value["datum"];
-            $array[$value["veranstalter"]][$key]["ort"] = $value["ort"];
-            $array[$value["veranstalter"]][$key]["beschreibung"] = $value["beschreibung"];
-            $array[$value["veranstalter"]][$key]["deletelink"] = $value["deletelink"];
-            $array[$value["veranstalter"]][$key]["editlink"] = $value["editlink"];
-            $array[$value["veranstalter"]][$key]["detaillink"] = $value["detaillink"];
-            $array[$value["veranstalter"]][$key]["id"] = $value["id"];
+        if ( is_array($work) ) {
+            foreach ( $work as $key => $value ) {
+                $array[$value["veranstalter"]][$key]["name"] = $value["name"];
+                $array[$value["veranstalter"]][$key]["termin_bg"] = $value["termin_bg"];
+                $array[$value["veranstalter"]][$key]["termin_en"] = $value["termin_en"];
+                $array[$value["veranstalter"]][$key]["veranstalter"] = $value["veranstalter"];
+                $array[$value["veranstalter"]][$key]["datum"] = $value["datum"];
+                $array[$value["veranstalter"]][$key]["ort"] = $value["ort"];
+                $array[$value["veranstalter"]][$key]["beschreibung"] = $value["beschreibung"];
+                $array[$value["veranstalter"]][$key]["deletelink"] = $value["deletelink"];
+                $array[$value["veranstalter"]][$key]["editlink"] = $value["editlink"];
+                $array[$value["veranstalter"]][$key]["detaillink"] = $value["detaillink"];
+                $array[$value["veranstalter"]][$key]["id"] = $value["id"];
+            }
         }
-
-// echo "<pre>";
-// print_r($work);
-// print_r($array);
-// echo "</pre>";
 
         if ( $environment["parameter"][2] != "" ) {
             $hidedata["detail"] = $work[1];
@@ -143,21 +142,23 @@
             }
             $hidedata["list"]["on"] = "on";
             $counter = 0;
-            foreach ( $array as $key => $value ) {
-                $table = "";
-                $counter++;
-                $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter:".$key."</th></tr>";
-                $table .= "<tr><th align=\"left\" width=\"20%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th>";
-                foreach ( $value as $test => $test1 ) {
+            if ( is_array($array) ) {
+                foreach ( $array as $key => $value ) {
+                    $table = "";
                     $counter++;
-                    $table .= "<tr><td>".$test1["termin_bg"]."&nbsp;-&nbsp;".$test1["termin_en"]."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a></td>";
-                    if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                        $table .= "<td>".$test1["editlink"]."</td>";
-                        $table .= "<td>".$test1["deletelink"]."</td>";
+                    $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter:".$key."</th></tr>";
+                    $table .= "<tr><th align=\"left\" width=\"20%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th>";
+                    foreach ( $value as $test => $test1 ) {
+                        $counter++;
+                        $table .= "<tr><td>".$test1["termin_bg"]."&nbsp;-&nbsp;".$test1["termin_en"]."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a></td>";
+                        if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
+                            $table .= "<td>".$test1["editlink"]."</td>";
+                            $table .= "<td>".$test1["deletelink"]."</td>";
+                        }
+                        $table .= "</tr>";
                     }
-                    $table .= "</tr>";
+                    $ausgaben["row"] .= parser( "-1721433623.list-row", "");
                 }
-                $ausgaben["row"] .= parser( "-1721433623.list-row", "");
             }
         }
     }
