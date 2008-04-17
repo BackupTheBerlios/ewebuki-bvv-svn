@@ -335,7 +335,7 @@ legend {
         border:1px solid #ccc;
         border-top:5px solid #ccc;
         float:right;
-        margin:5px 0;
+        margin:0.7em 0;
         width:150px;
         overflow:hidden;
         text-align:right;
@@ -394,6 +394,7 @@ legend {
     /* 3-er Kombination (bild,ueberschrift,absatz) */
     /* * * * */
     #substance .present {
+        margin:0.5em 0pt 1.5em;
     }
 
         #substance .present h2 {

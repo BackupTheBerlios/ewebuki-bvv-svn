@@ -79,10 +79,15 @@
         foreach ( $cfg["migrate"]["subdirs"] as $subdir_entry=>$subdir_label ) {
             $ausgaben["output"] .= "<h2>Subdir: $subdir_entry</h2>";
 
-            $url_subdir_entry = "m_".$subdir_entry;
-
-            // anlegen des Sub-Dir-Menueeintrags
-            $refid_1 = get_mid($url_subdir_entry,0,$subdir_label,'-1');
+            if ( in_array($subdir_entry,$cfg["migrate"]["no_migrate_hide"]) ) {
+                $url_subdir_entry = $subdir_entry;
+                // anlegen des Sub-Dir-Menueeintrags
+                $refid_1 = get_mid($url_subdir_entry,0,$subdir_label);
+            } else {
+                $url_subdir_entry = "m_".$subdir_entry;
+                // anlegen des Sub-Dir-Menueeintrags
+                $refid_1 = get_mid($url_subdir_entry,0,$subdir_label,'-1');
+            }
 
             if ( !is_dir($cfg["migrate"]["path"].$subdir_entry."/txt") ) continue;
 
