@@ -329,6 +329,14 @@ legend {
         width:auto;
     }
 
+    /* banner-grafik */
+    /* * * * */
+    #substance .banner img {
+        margin:0 !important;
+    }
+    /* + + + */
+    /* banner-grafik */
+
     /* sub-menu */
     /* * * * */
     #substance .sub_menu {
