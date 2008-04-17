@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>kontakt</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: kontakt.tem.html 789 2007-09-14 12:14:02Z chaot $-->
+<div id="substance">
+    #(inhalt)
+    <form method="post" action="!#ausgaben_form_aktion">
+        <fieldset class="kontakt">
+            #(hinweis1)
+            <legend>#(legend_karten)</legend>
+            <input id="top10" class="klein" type="text" value="" name="plz" tabindex="1" />
+            <label for="top10" class="label_right">#(top10)</label>
+            <p class="clear"></p>
+            <input id="top50" class="klein" type="text" value="" name="plz" tabindex="2" />
+            <label for="top50" class="label_right">#(top50)</label>
+            <p class="clear"></p>
+            #(hinweis2)
+        </fieldset>
+
+        <fieldset class="kontakt">
+            <legend>#(legend_adresse)</legend>
+            <label for="surname">#(surname)</label>
+            <input id="surname" class="" type="text" value="" name="surname" tabindex="6"/>
+            <label for="forename">#(forename)</label>
+            <input id="forename" class="" type="text" value="" name="forename" tabindex="7"/>
+            <label for="strasse">#(strasse)</label>
+            <input id="strasse" class="" type="text" value="" name="strasse" tabindex="8"/>
+            <label for="plz">#(plz)</label>
+            <input id="plz" class="klein" type="text" value="" name="plz" tabindex="9"/>
+            <input id="ort" class="medium" type="text" value="" name="ort" tabindex="10"/>
+            <label for="land">#(land)</label>
+            <input id="land" class="" type="text" value="" name="land" tabindex="11"/>
+            <label for="email">#(email)</label>
+            <input id="email" class="" type="text" value="" name="email" tabindex="12"/>
+            <label for="tel">#(tel)</label>
+            <input id="tel" class="" type="text" value="" name="tel" tabindex="13"/>
+        </fieldset>
+
+        <fieldset class="button">
+            <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
+            <div class="clearer">&nbsp;</div>
+            <input type="submit" name="send[]" value="g(send)" class="first" tabindex="20" />
+            <input type="reset" name="reset" value="g(reset)" class="next" tabindex="21" />
+    <!--        <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />-->
+            <div class="clearer">&nbsp;</div>
+        </fieldset>
+    </form>
+</div>
+<!--##end-->
+</body>
+</html>
