@@ -168,7 +168,12 @@
                     foreach ( $match[0] as $key=>$value ) {
                         $tag = utf8_decode($match[2][$key]);
                         if ( $cfg["migrate"]["utf-8"] == False ) $tag = $match[2][$key];
-                        /* evtl menu-eintrag ergaenzen */
+                        $tag = str_replace(
+                                    array("Ü","Ä","Ö","ü","ä","ö"),
+                                    array("Ue","Ae","Oe","ue","ae","oe"),
+                                    $tag
+                        );
+//                         /* evtl menu-eintrag ergaenzen */
 //                         if ( ($tag == "BVV-Überschrift" || $cfg["migrate"]["tags"][$tag]["start"] == "[H1]" ) && $merker == 0 ) {
 //                             if ( $menu[1] != "" ) {
 //                                 $refid_3 = get_mid(str_replace(" ","_",$menu[1]),$refid_2,$match[4][$key]);
