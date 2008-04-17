@@ -772,6 +772,12 @@ input[type=checkbox] {
     margin:3px 0;
 }
 
+    .kontakt label.label_right {
+        clear:none;
+        margin-left:5px;
+        width:450px;
+    }
+
 input.klein {
     width: 50px;
 }
