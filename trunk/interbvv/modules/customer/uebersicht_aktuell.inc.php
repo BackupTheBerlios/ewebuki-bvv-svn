@@ -89,7 +89,7 @@
         $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
     }
 
-    $mapping["main"] = "uebersichtsseite_aktuell";
+    $mapping["main"] = "uebersicht_aktuell";
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
 
