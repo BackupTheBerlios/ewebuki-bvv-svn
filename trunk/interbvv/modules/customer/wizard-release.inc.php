@@ -225,7 +225,7 @@
 //
 //         // bauen der zu bearbeitenden bereiche
 //         // * * *
-//         $tag_meat = cont_sections($form_values["content"]);
+//         $tag_meat = content_split_all($form_values["content"]);
 //         $tag_order = $tag_meat["order"];
 //         unset($tag_meat["order"]);
 //         $tmp_tag_meat = $tag_meat;
@@ -268,13 +268,13 @@
 //                            </div><!--edit_end-->";
 //                 // tag_meat-array neu durchzaehlen
 //                 $content = $pre_section.$section.$post_section;
-//                 $tmp_tag_meat = cont_sections($content);
+//                 $tmp_tag_meat = content_split_all($content);
 //             }
 //         }
 //         // + + +
 //
 //         // bauen der "uebergeordneten" bereiche (keine verschachtelung)
-//         $allcontent = seperate_content($content);
+//         $allcontent = content_level1($content);
 //
 //         // vorbereitung fuer die array-sortierung fuer das verschieben
 //         // * * *

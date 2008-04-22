@@ -194,12 +194,11 @@
             return $tn;
         }
 
-        function cont_sections($content) {
+        function content_split_all($content) {
             global $cfg;
 
             $tag_meat = array();
             foreach ( $cfg["wizard"]["ed_boxed"] as $tag=>$preg ) {
-//                 if ( $tag != "B" && $tag != "I" && $tag != "P" ) continue;
                 $open_tag = $preg[0][0];
                 $close_tag = $preg[0][1];
                 if ( $close_tag == "" ) $close_tag = str_replace("[","[/",$open_tag);
@@ -261,28 +260,22 @@
             return $tag_meat;
         }
 
-        function seperate_content($content) {
+        function content_level1($content) {
+            global $cfg;
 
-            // tags in verschiedenen ebenen
-            $array = array(
-                                "[H",
-                                "[P",
-                                "[LIST",
-                                "[SEL",
-                                "[TAB",
-                                "[DIV",
-                                "[IMG",
-                                "[!",
-            );
             // suchmuster bauen und open- und close-tags finden
             $preg = array();
             $split_tags["open"][] = "<!--edit_begin-->";
             $split_tags["close"][] = "<!--edit_end-->";
-            foreach ( $array as $tag ) {
-                $end_tag = str_replace("[","[/",$tag);
-                $split_tags["open"][] = $tag;
-                $split_tags["close"][$tag] = $end_tag;
-                $preg[] = str_replace(array("[","/"),array("\[","\/"),$tag);
+            foreach ( $cfg["wizard"]["ed_boxed"] as $key=>$value ) {
+                if ( $value[0][1] == "" ) {
+                    $end_tag = str_replace("[","[/",$value[0][0]);
+                } else {
+                    $end_tag = $value[0][1];
+                }
+                $split_tags["open"][]  = $value[0][0];
+                $split_tags["close"][] = $end_tag;
+                $preg[] = str_replace(array("[","/"),array("\[","\/"),$value[0][0]);
                 $preg[] = str_replace(array("[","/"),array("\[","\/"),$end_tag);
             }
             $separate = preg_split("/(".implode("|",$preg).")|(<!--edit_begin-->)|(<!--edit_end-->)/",$content,-1,PREG_SPLIT_DELIM_CAPTURE);

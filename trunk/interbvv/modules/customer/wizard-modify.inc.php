@@ -113,13 +113,13 @@
 
         // evtl. spezielle section
         $tag_marken = explode(":",$environment["parameter"][4]);
-        $tag_meat = cont_sections($form_values["content"]);
+        $tag_meat = content_split_all($form_values["content"]);
 
         if ( ( count($tag_marken) >  1 || $environment["parameter"][4] == "nop" )
           && strstr($_SERVER["HTTP_REFERER"],$cfg["wizard"]["basis"]) ) {
             switch ( $environment["parameter"][6] ) {
                 case "add":
-                    $allcontent = seperate_content($form_values["content"]);
+                    $allcontent = content_level1($form_values["content"]);
                     foreach ( $allcontent as $key=>$value ) {
                         if ( (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1] ) {
                             $buffer[] = preg_replace("/^[ ]+/m","",$cfg["wizard"]["add_tags"][$tag_marken[0]]);
@@ -131,7 +131,7 @@
                     break;
                 case "delete":
                     if ( $tag_marken[0] == "section" ) {
-                        $allcontent = seperate_content($form_values["content"]);
+                        $allcontent = content_level1($form_values["content"]);
                         foreach ( $allcontent as $key=>$value ) {
                             if ( $key == $tag_marken[1] ) continue;
                             $buffer[] = trim($value);
@@ -148,7 +148,7 @@
                                substr($form_values["content"],$tag_meat[$tag_marken[0]][$tag_marken[1]]["end"]);
                     break;
                 case "move":
-                    $allcontent = seperate_content($form_values["content"]);
+                    $allcontent = content_level1($form_values["content"]);
                     $i = 0;
                     foreach ( $allcontent as $key=>$value ) {
                         if ( in_array($key,$_GET["sort_content"]) ) {

@@ -103,6 +103,7 @@
         ksort($environment["parameter"]);
         header("Location: ".$cfg["wizard"]["basis"]."/".implode(",",$environment["parameter"]).".html");
     }
+    // leere parameter abfangen
     // + + +
 
 
@@ -181,6 +182,7 @@
                 $hidedata["version_next"]["link_last"] = $link.$ausgaben["vgesamt"].".html";
             }
             // + + +
+            // versionen-link
 
             // wizard-infos rausfinden (z.b. wizard-typ,..)
             // * * *
@@ -192,8 +194,10 @@
                 if ( is_array($cfg["wizard"]["wizardtyp"][$info[0]]) ) $wizard_name = $info[0];
             }
             // + + +
+            // wizard-infos rausfinden
 
             // freigabe-test
+            // * * *
             $blocked = 0;
             if ( $specialvars["content_release"] == -1 ) {
                 // ist bereits eine freigabe angefordert
@@ -213,10 +217,12 @@
             } else {
                 $hidedata["default"] = array();
             }
+            // + + +
+            // freigabe-test
 
             // bauen der zu bearbeitenden bereiche
             // * * *
-            $tag_meat = cont_sections($form_values["content"]);
+            $tag_meat = content_split_all($form_values["content"]);
             $tag_order = $tag_meat["order"];
             unset($tag_meat["order"]);
             $tmp_tag_meat = $tag_meat;
@@ -251,12 +257,13 @@
                     $pre_section  = preg_replace("/[ ]$/","&nbsp;",$pre_section);
                     $post_section = substr($content,$tmp_tag_meat[$tag][$key]["end"]);
                     $post_section  = preg_replace("/^[ ]/","&nbsp;",$post_section);
-                    // test, inline-elemente als solche umzusetzen
+                    // test: inline-elemente als solche umzusetzen
                     $display = "";
                     $inline = array("LINK","IMG","Fett");
                     if ( in_array($tag,$inline) ) {
                         $display = "display:inline;";
                     }
+                    // knoepfe
                     $button = "";
                     foreach ( $tmp_tag_meat[$tag][$key]["buttons"] as $buttons ) {
                         $button .= "<a href=\"".$$buttons."\">[".$buttons."]</a>";
@@ -273,6 +280,8 @@
                                         $button.
                                     "</span>".
                                     "</span><!--edit_end-->";
+                    } elseif ( $value["type"] == "hide" ) {
+                        $section = trim($tmp_tag_meat[$tag][$key]["complete"]);
                     } else {
                         $section = "<!--edit_begin--><div class=\"wiz_edit\" style=\"".$display."\">".
                                     $tmp_tag_meat[$tag][$key]["complete"]."
@@ -284,121 +293,126 @@
                     }
                     // tag_meat-array neu durchzaehlen
                     $content = $pre_section.$section.$post_section;
-                    $tmp_tag_meat = cont_sections($content);
+                    $tmp_tag_meat = content_split_all($content);
                 }
             }
-
             // + + +
+            // bauen der zu bearbeitenden bereiche
 
             // bauen der "uebergeordneten" bereiche (keine verschachtelung)
-            $allcontent = seperate_content($content);
-
-            // vorbereitung fuer die array-sortierung fuer das verschieben
             // * * *
-            $i = 10;
-            foreach ( $allcontent as $key=>$value ) {
-                if ($key < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
-                || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1]) {
-                    continue;
-                } else {
-                    $sort_array[($key*10)] = "sort_content[]=".$key;
-                    $i = $i +10;
+            $allcontent = content_level1($content);
+            if ( count($allcontent) > 0 ) {
+                // vorbereitung fuer die array-sortierung fuer das verschieben
+                // * * *
+                $i = 10;
+                foreach ( $allcontent as $key=>$value ) {
+                    if ($key < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
+                    || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1]) {
+                        continue;
+                    } else {
+                        $sort_array[($key*10)] = "sort_content[]=".$key;
+                        $i = $i +10;
+                    }
                 }
-            }
-            function arrange_elements($sort_array, $key, $direction) {
-                global $environment, $cfg;
+                function arrange_elements($sort_array, $key, $direction) {
+                    global $environment, $cfg;
 
-                if ( $direction == "up" ) {
-                    $sort_array[($key*10)-11] = $sort_array[($key*10)];
-                } elseif ( $direction == "down" ) {
-                    $sort_array[($key*10)+11] = $sort_array[($key*10)];
+                    if ( $direction == "up" ) {
+                        $sort_array[($key*10)-11] = $sort_array[($key*10)];
+                    } elseif ( $direction == "down" ) {
+                        $sort_array[($key*10)+11] = $sort_array[($key*10)];
+                    }
+                    unset($sort_array[($key*10)]);
+                    ksort($sort_array);
+                    $link = $cfg["wizard"]["basis"]."/modify,".
+                            $environment["parameter"][1].",".
+                            $environment["parameter"][2].",".
+                            $environment["parameter"][3].",".
+                            "nop,".
+                            $environment["parameter"][5].",".
+                            "move.html?".implode("&",$sort_array);
+                    return $link;
                 }
-                unset($sort_array[($key*10)]);
-                ksort($sort_array);
-                $link = $cfg["wizard"]["basis"]."/modify,".
+                // + + +
+                // vorbereitung fuer die array-sortierung fuer das verschieben
+
+                // bereiche in eine liste pressen
+                // * * *
+                $buffer = ""; $i=-1; $block=0; $pre = "";
+                foreach ( $allcontent as $key=>$value ) {
+                    // kommentar-bereich nicht beruecksichtigen
+                    if ( preg_match("/^\[!\].*\[\/!\]/is",$value) ) {
+                        continue;
+                    } elseif ( preg_match("/^\[!\]/is",$value) )  {
+                        $block = -1;
+                        continue;
+                    } elseif ( $block == -1 ) {
+                        if ( preg_match("/\[\/!\]/is",$value) ) {
+                            $block = 0;
+                        }
+                        continue;
+                    }
+                    $i++;
+                    $ajax_class = array();
+                    // links bauen
+                    if ( $i < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
+                    || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1]
+                    || $next != "" || $blocked > 0 ) {
+                        $ajax_class = "";
+                        $modify_class = " style=\"display:none;\"";
+                        $link_up = "";
+                        $link_down = "";
+                    } else {
+                        $ajax_class = "ajax_move";
+                        $modify_class = "";
+                        $link_up = arrange_elements($sort_array, $key, "up");
+                        $link_down = arrange_elements($sort_array, $key, "down");
+                    }
+                    // hintergrundbild-schnickschnack
+                    preg_match("/\[(.+)\]/U",$value,$match);
+                    $pic = strtolower(str_replace("=","-",$match[1]));
+                    if ( strstr($pic,";") ) $pic = trim(substr($pic,0,strpos($pic,";")),"-");
+                    $pic_array = explode("-",$pic);
+                    $style = "";
+                    while ( count($pic_array) > 0 ) {
+                        $buffer = "wizard-icon-".implode("-",$pic_array).".png";
+                        if ( file_exists($pathvars["fileroot"].$pathvars["images"].$buffer) ) {
+                            $style = "background-image:url('".$pathvars["images"].$buffer."');";
+                            break;
+                        } elseif ( file_exists($pathvars["fileroot"]."/images/default/".$buffer) ) {
+                            $style = "background-image:url('/images/default/".$buffer."');";
+                            break;
+                        } else {
+                            array_pop($pic_array);
+                        }
+                    }
+                    // loeschen-link
+                    $del = $cfg["wizard"]["basis"]."/modify,".
                         $environment["parameter"][1].",".
                         $environment["parameter"][2].",".
                         $environment["parameter"][3].",".
-                        "nop,".
+                        "section:".$key.",".
                         $environment["parameter"][5].",".
-                        "move.html?".implode("&",$sort_array);
-                return $link;
+                        "delete.html";
+
+                    $dataloop["sort_content"][] = array(
+                                "key"       => $key,
+                                "value"     => tagreplace($value),
+                                "class"     => $ajax_class,
+                                "style"     => $style,
+                                "modify"    => $modify_class,
+                                "link_up"   => $link_up,
+                                "link_down" => $link_down,
+                                "delete"    => $del,
+                    );
+                }
             }
             // + + +
-
             // bereiche in eine liste pressen
-            // * * *
-            $buffer = ""; $i=-1; $block=0; $pre = "";
-            foreach ( $allcontent as $key=>$value ) {
-                // kommentar-bereich nicht beruecksichtigen
-                if ( preg_match("/^\[!\].*\[\/!\]/is",$value) ) {
-                    continue;
-                } elseif ( preg_match("/^\[!\]/is",$value) )  {
-                    $block = -1;
-                    continue;
-                } elseif ( $block == -1 ) {
-                    if ( preg_match("/\[\/!\]/is",$value) ) {
-                        $block = 0;
-                    }
-                    continue;
-                }
-                $i++;
-                $ajax_class = array();
-                // links bauen
-                if ( $i < $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][0]
-                || (count($allcontent) - $key) <= $cfg["wizard"]["wizardtyp"][$wizard_name]["section_block"][1]
-                || $next != "" || $blocked > 0 ) {
-                    $ajax_class = "";
-                    $modify_class = " style=\"display:none;\"";
-                    $link_up = "";
-                    $link_down = "";
-                } else {
-                    $ajax_class = "ajax_move";
-                    $modify_class = "";
-                    $link_up = arrange_elements($sort_array, $key, "up");
-                    $link_down = arrange_elements($sort_array, $key, "down");
-                }
-                // hintergrundbild-schnickschnack
-                preg_match("/\[(.+)\]/U",$value,$match);
-                $pic = strtolower(str_replace("=","-",$match[1]));
-                if ( strstr($pic,";") ) $pic = trim(substr($pic,0,strpos($pic,";")),"-");
-                $pic_array = explode("-",$pic);
-                $style = "";
-                while ( count($pic_array) > 0 ) {
-                    $buffer = "wizard-icon-".implode("-",$pic_array).".png";
-                    if ( file_exists($pathvars["fileroot"].$pathvars["images"].$buffer) ) {
-                        $style = "background-image:url('".$pathvars["images"].$buffer."');";
-                        break;
-                    } elseif ( file_exists($pathvars["fileroot"]."/images/default/".$buffer) ) {
-                        $style = "background-image:url('/images/default/".$buffer."');";
-                        break;
-                    } else {
-                        array_pop($pic_array);
-                    }
-                }
-                // loeschen-link
-                $del = $cfg["wizard"]["basis"]."/modify,".
-                    $environment["parameter"][1].",".
-                    $environment["parameter"][2].",".
-                    $environment["parameter"][3].",".
-                    "section:".$key.",".
-                    $environment["parameter"][5].",".
-                    "delete.html";
-
-                $dataloop["sort_content"][] = array(
-                                "key" => $key,
-                            "value" => tagreplace($value),
-                            "class" => $ajax_class,
-                            "style" => $style,
-                            "modify" => $modify_class,
-                            "link_up" => $link_up,
-                        "link_down" => $link_down,
-                            "delete" => $del,
-                );
-            }
-            // + + +
 
             // link-ziel fuer die ajax-verschieb-sache
+            // * * *
             $ausgaben["ajax_request"] = $cfg["wizard"]["basis"]."/modify,".
                                         $environment["parameter"][1].",".
                                         $environment["parameter"][2].",".
@@ -406,8 +420,10 @@
                                         "nop,".
                                         $environment["parameter"][5].",".
                                         "move.html";
+            // + + +
 
             // add-buttons
+            // * * *
             foreach ( $cfg["wizard"]["add_tags"] as $key=>$value ) {
                 if ( is_array($cfg["wizard"]["wizardtyp"][$wizard_name]["add_tags"])
                 && !in_array($key,$cfg["wizard"]["wizardtyp"][$wizard_name]["add_tags"]) ) {
@@ -424,7 +440,9 @@
                     "item" => $key
                 );
             }
+            // + + +
 
+            // navigation erstellen
             $ausgaben["form_aktion"] = $cfg["wizard"]["basis"]."/show,".
                                                                 $environment["parameter"][1].",".
                                                                 $environment["parameter"][2].",".
