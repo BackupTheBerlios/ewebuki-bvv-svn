@@ -276,7 +276,7 @@ ins {
             width:100%;
         }
 
-    #substance div.wide p, #substance div.wide ul {
+    #substance div.wide p, #substance div.wide ul, #substance.wide p, #substance.wide ul {
         width:auto;
     }
 
