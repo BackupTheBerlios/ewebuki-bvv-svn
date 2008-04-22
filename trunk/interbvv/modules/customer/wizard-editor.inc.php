@@ -225,6 +225,7 @@
 //                 }
 //             }
 //         } elseif ( count($_POST) == 0 ) {
+// echo "<pre>".print_r($form_values,true)."</pre>";
             $form_values["content"] = $tag_meat[$tag_marken[0]][$tag_marken[1]]["meat"];
 //         }
 
@@ -796,13 +797,13 @@
                     if ( $tag_marken[0] == "IMG" ) {
                         $tag_werte = array();
                         for ($i = 0; $i <= 6; $i++) {
-                            $tag_werte[] = $form_values["tagwerte"][$i];
+                            $tag_werte[] = $_POST["tagwerte"][$i];
                         }
-                        $to_insert = "[IMG=".implode(";",$tag_werte)."]".$form_values["description"]."[/IMG]";
+                        $to_insert = "[IMG=".implode(";",$tag_werte)."]".$_POST["description"]."[/IMG]";
                     } elseif ( $tag_marken[0] == "TAB" ) {
                         if ( $_FILES["csv_upload"]["type"] == "text/csv" ) {
                             $handle = fopen ($_FILES["csv_upload"]["tmp_name"],"r");
-                            $tab = "[TAB=".implode(";",$form_values["tagwerte"])."]\n";
+                            $tab = "[TAB=".implode(";",$_POST["tagwerte"])."]\n";
                             while ( ($csv_data = fgetcsv ($handle, 1000, ";")) !== FALSE ) {
                                 $tab .= "[ROW]\n";
                                 foreach ( $csv_data as $cell ) {
@@ -814,11 +815,11 @@
                             fclose ($handle);
                             $to_insert = $tab;
                         } else {
-                            $tab = "[TAB=".implode(";",$form_values["tagwerte"])."]\n";
-                            for ($i=0;$i<$form_values["num_row"];$i++) {
+                            $tab = "[TAB=".implode(";",$_POST["tagwerte"])."]\n";
+                            for ($i=0;$i<$_POST["num_row"];$i++) {
                                 $tab .= "[ROW]\n";
-                                for ($k=0;$k<$form_values["num_col"];$k++) {
-                                    $tab .= "[COL]".trim($form_values["cells"][$i][$k])."[/COL]\n";
+                                for ($k=0;$k<$_POST["num_col"];$k++) {
+                                    $tab .= "[COL]".trim($_POST["cells"][$i][$k])."[/COL]\n";
                                 }
                                 $tab .= "[/ROW]\n";
                             }
@@ -827,7 +828,7 @@
                         }
                     } elseif ( $tag_marken[0] == "LIST" ) {
                         // trennen nach leerzeilen
-                        $buffer = explode(chr(13).chr(10).chr(13).chr(10),$form_values["content"]);
+                        $buffer = explode(chr(13).chr(10).chr(13).chr(10),$_POST["content"]);
                         $to_insert = implode("\n[*]",$buffer);
                         // verbotenen tags rausfiltern
                         $buffer = array();
@@ -838,26 +839,26 @@
                                      tagremove($to_insert,False,$buffer).
                                      $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
                     } elseif ( $tag_marken[0] == "SEL" ) {
-                        if ( is_array($form_values["tagwerte"][3]) ) $form_values["tagwerte"][3] = implode(":",$form_values["tagwerte"][3]);
+                        if ( is_array($_POST["tagwerte"][3]) ) $_POST["tagwerte"][3] = implode(":",$_POST["tagwerte"][3]);
                         $tag_werte = array();
                         for ($i = 0; $i <= 4; $i++) {
-                            $tag_werte[] = $form_values["tagwerte"][$i];
+                            $tag_werte[] = $_POST["tagwerte"][$i];
                         }
-                        $to_insert = "[SEL=".implode(";",$tag_werte)."]".$form_values["description"]."[/SEL]";
+                        $to_insert = "[SEL=".implode(";",$tag_werte)."]".$_POST["description"]."[/SEL]";
                     } elseif ( $tag_marken[0] == "LINK" ) {
-                        if ( is_array($form_values["tagwerte"][3]) ) $form_values["tagwerte"][3] = implode(":",$form_values["tagwerte"][3]);
+                        if ( is_array($_POST["tagwerte"][3]) ) $_POST["tagwerte"][3] = implode(":",$_POST["tagwerte"][3]);
                         $tag_werte = array();
                         for ($i = 0; $i <= 2; $i++) {
-                            $tag_werte[] = $form_values["tagwerte"][$i];
+                            $tag_werte[] = $_POST["tagwerte"][$i];
                         }
-                        $to_insert = "[LINK=".implode(";",$tag_werte)."]".$form_values["description"]."[/LINK]";
+                        $to_insert = "[LINK=".implode(";",$tag_werte)."]".$_POST["description"]."[/LINK]";
                     } else {
                         // verbotenen tags rausfiltern
                         foreach ( $allowed_tags as $value ) {
                             $buffer[] = "[/".strtoupper($value)."]";
                         }
                         $to_insert = $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_start"].
-                                     tagremove($form_values["content"],False,$buffer).
+                                     tagremove($_POST["content"],False,$buffer).
                                      $tag_meat[$tag_marken[0]][$tag_marken[1]]["tag_end"];
                     }
                     $pre_content = substr($data["content"],0,$tag_meat[$tag_marken[0]][$tag_marken[1]]["start"]);
@@ -920,6 +921,9 @@
                     $content = tagreplace($content);
                     $content = tagreplace($to_insert);
                     $content = tagremove($content);
+                    if ( get_magic_quotes_gpc() == 1 ) {
+                        $content = stripslashes($content);
+                    }
                     echo preg_replace(array("/#\{.+\}/U","/g\(.+\)/U"),"",$content);
 // echo "<pre>";
 // echo $to_insert."<br>";
@@ -927,6 +931,9 @@
 // echo print_r($_POST,true);
 // echo "</pre>";
                     die ;
+                }
+                if ( get_magic_quotes_gpc() == 1 ) {
+                    $content = stripslashes($content);
                 }
                 $_SESSION["wizard_content"][$identifier] = $content;
                 if ( $header == "" ) $header = $cfg["wizard"]["basis"]."/list.html";
@@ -967,7 +974,7 @@
             }
         }
     } else {
-//         header("Location: ".$pathvars["virtual"]."/");
+        header("Location: ".$pathvars["virtual"]."/");
     }
 
 
