@@ -73,35 +73,66 @@
     $url = $environment["ebene"]."/".$environment["kategorie"];
     $id = make_id($url);
 
-    if ( $environment["parameter"][4] == "add" ) {
+    // laden der eigentlichen funktion
+    include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+
+    // erstellen der tags die angezeigt werden
+    foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value) {
+        if ( $value["show"] == 1 ) {
+            $tags[$key] = $value["name"];
+        }
+    }
+
+    // erstellen der tags die angezeigt werden
+    foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value) {
+        $tags[$key] = $value;
+    }
+
+    // erstellen der tags die angezeigt werden
+    foreach ( $cfg["bloged"]["blogs"][$url]["tags"] as $key => $value) {
+        $tags[$key] = $value;
+    }
+
+    $work = show_blog($url,$tags,"admin","termine","0,10");
+    sort($work);
+
+
+// echo "<pre>";
+// print_r($work);
+// echo "</pre>";
+    // ADD und EDIT von Terminen
+    if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
+        $hidedata["add"]["termin_bg"] = date("Y-m-d");
+        $hidedata["add"]["termin_en"] = date("Y-m-d");
         $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
-        $hidedata["add"]["on"] = "on";
-        $count = 0;
-        foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value ) {
-            $count++;
-            $dataloop["add"][$count]["label"] = $key;
-            $dataloop["add"][$count]["name"] = $value["name"];
+        $sql = "SELECT content FROM site_text WHERE tname='".crc32($url).".".$work[0]["id"]."'";
+#echo $sql;
+        $result = $db -> query($sql);
+        $data = $db -> fetch_array($result,1);
+        foreach ( $tags as $key => $value ) {
+                preg_match("/\[$value\](.*)\[\/$value\]/",$data["content"],$regs);
+                $hidedata["add"][$key] = $regs[1];
+//                 echo "<pre>";
+//                 print_r($regs);
+//                 echo "</pre>";
         }
+
+        if ( $_POST ) {
+
+            foreach ( $_POST as $key => $value ) {
+                $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$_POST[$key]."[/".$key."]",$data["content"]);
+            }
+            $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE tname='".crc32($url).".".$work[0]["id"]."'";
+            $result = $db -> query($sql);
+            header("Location: ".$pathvars["virtual"].$url.",,".$work[0]["id"].".html");
+        }
+        if ( $environment["parameter"][4] == "edit" ) {
+            $ausgaben["form_aktion"] = $pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html";
+        }
+
+
+
     } else {
-        // laden der eigentlichen funktion
-        include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-
-        // erstellen der tags die angezeigt werden
-        foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value) {
-            if ( $value["show"] == 1 ) {
-                $tags[$key] = $value["name"];
-            }
-        }
-
-       // erstellen der tags die angezeigt werden
-        foreach ( $cfg["bloged"]["blogs"][$url]["tags"] as $key => $value) {
-            if ( $value["show"] == 1 ) {
-                $tags[$key] = $value["name"];
-            }
-        }
-
-        $work = show_blog($url,$tags,"admin","termine","0,10");
-
         if ( is_array($work) ) {
             foreach ( $work as $key => $value ) {
                 $array[$value["veranstalter"]][$key]["name"] = $value["name"];
@@ -117,25 +148,38 @@
                 $array[$value["veranstalter"]][$key]["id"] = $value["id"];
             }
         }
-
+// echo "<pre>";
+// print_r($work);
+// print_r($array);
+// echo "</pre>";
         if ( $environment["parameter"][2] != "" ) {
-            $hidedata["detail"] = $work[1];
+            $hidedata["detail"] = $work[0];
             foreach ( $tags as $key => $value ) {
-                if ( $key == "titel" && $work[1][$key] != "" ) {
+                if ( $key == "titel" && $work[0][$key] != "" ) {
                     $dataloop["detail"][$key]["desc"] = "Weitere Informationen";
-                    $dataloop["detail"][$key]["name"] = "<a href=\"termine,,".$work[1]["id"].",all.html\">bitte drücken</a>";
+                    $dataloop["detail"][$key]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">bitte drücken</a>";
                 }
-                if ( !array_key_exists($key,$array[$work[1]["veranstalter"]][1]) )continue;
-                $dataloop["detail"][$key]["name"] = $array[$work[1]["veranstalter"]][1][$key];
+                if ( !array_key_exists($key,$array[$work[0]["veranstalter"]][0]) )continue;
+                $dataloop["detail"][$key]["name"] = $array[$work[0]["veranstalter"]][0][$key];
                 $dataloop["detail"][$key]["desc"] = "#(".$key.")";
             }
+
+            if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
+                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$work[0]["id"].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".crc32($url).".".$work[0]["id"].",inhalt.html\"> |Weitere Infos hinzufügen|"."</a>";
+                $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
+            }
+
+            // gesamten content betrachten
             if ( $environment["parameter"][3] == "all" ) {
-                $sql = "SELECT html, content FROM ". SITETEXT ." WHERE tname='".crc32($url).".".$work[1]["id"]."' AND lang='".$environment["language"]."'AND label='inhalt' ORDER BY version DESC LIMIT 0,1";
+                $sql = "SELECT html, content FROM ". SITETEXT ." WHERE tname='".crc32($url).".".$work[0]["id"]."' AND lang='".$environment["language"]."'AND label='inhalt' ORDER BY version DESC LIMIT 0,1";
                 $result = $db -> query($sql);
                 $data = $db -> fetch_array($result,1);
-                $hidedata["detail_all"]["tet"] = tagreplace($data["content"]);
+                $out = nlreplace($data["content"]);
+                $hidedata["detail_all"]["tet"] = tagreplace($out);
             }
+
         } else {
+            // liste 
             // new link
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
                 $hidedata["newlink"]["link"] = $pathvars["virtual"].$url.",,,,add.html";
@@ -144,19 +188,15 @@
             $counter = 0;
             if ( is_array($array) ) {
                 foreach ( $array as $key => $value ) {
+
                     $table = "";
                     $counter++;
                     $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter:".$key."</th></tr>";
-                    $table .= "<tr><th align=\"left\" width=\"20%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th>";
+                    $table .= "<tr><th align=\"left\" width=\"20%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th><tr>";
                     foreach ( $value as $test => $test1 ) {
-                        $counter++;
-                        $table .= "<tr><td>".$test1["termin_bg"]."&nbsp;-&nbsp;".$test1["termin_en"]."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a></td>";
-                        if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                            $table .= "<td>".$test1["editlink"]."</td>";
-                            $table .= "<td>".$test1["deletelink"]."</td>";
-                        }
-                        $table .= "</tr>";
+                        $table .= "<tr><td>".$test1["termin_bg"]."&nbsp;-&nbsp;".$test1["termin_en"]."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a></td></tr>";
                     }
+
                     $ausgaben["row"] .= parser( "-1721433623.list-row", "");
                 }
             }
