@@ -213,6 +213,22 @@ ins {
             color:#fff;
         }
 
+            #navi .menu ul a span {
+                display:none;
+            }
+
+            #navi .menu ul a:hover span {
+                background:#EEEEEE;
+                border:1px solid #CCCCCC;
+                color:#303030;
+/*                 display:block; */
+                left:25px;
+                font-style:italic;
+                padding:0.3em;
+                position:absolute;
+                z-index:100;
+            }
+
     #navi ul.navigation {
         border-bottom:1px solid #FFFFFF;
         margin:0 0 0 15px;
@@ -223,9 +239,10 @@ ins {
         }
 
         #navi ul.navigation li {
-            border-top:1px solid #FFFFFF;
+            border-top:2px solid #FFFFFF;
             padding:5px 0;
             list-style:none;
+            position:relative;
         }
 
             #navi ul.navigation li a {
@@ -276,7 +293,11 @@ ins {
             width:100%;
         }
 
-    #substance div.wide p, #substance div.wide ul, #substance.wide p, #substance.wide ul {
+    #substance div.wide p,
+    #substance div.present p,
+    #substance div.wide ul,
+    #substance.wide p,
+    #substance.wide ul {
         width:auto;
     }
 
@@ -387,7 +408,8 @@ ins {
     /* 3-er Kombination (bild,ueberschrift,absatz) */
     /* * * * */
     #substance .present {
-        margin:0.5em 0pt 1.5em;
+        clear:both;
+        margin:0.5em 0 1.5em;
     }
 
         #substance .present h2 {
@@ -395,7 +417,6 @@ ins {
         }
 
         #substance .present p {
-            margin-bottom:0;
         }
     /* + + + */
     /* 3-er Kombination */
@@ -835,6 +856,14 @@ input.medium {
                     display:inline;
                 }
 
+    .wizard fieldset.buttons {
+        text-align:right;
+    }
+
+        .wizard fieldset.buttons button {
+            float:none;
+        }
+
     .wizard form label {
         display:block;
         float:left;
@@ -843,23 +872,23 @@ input.medium {
         width:120px;
     }
 
-    .wizard form input, .wizard form button {
-        float:left;
-        font-size:0.95em;
-        margin:2px 0;
-        padding:1px;
-    }
-
-        .wizard form .cbra input {
-            margin:2px 5px;
+        .wizard form input, .wizard form button {
+            float:left;
+            font-size:0.95em;
+            margin:2px 0;
+            padding:1px;
         }
 
-        .wizard form table input {
-            border:none;
-            margin:0;
-            padding:0;
-            width:100%;
-        }
+            .wizard form .cbra input {
+                margin:2px 5px;
+            }
+
+            .wizard form table input {
+                border:none;
+                margin:0;
+                padding:0;
+                width:100%;
+            }
 
     .wizard form input.big {
         width:250px;
