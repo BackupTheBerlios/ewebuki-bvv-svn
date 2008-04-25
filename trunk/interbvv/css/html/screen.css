@@ -245,6 +245,10 @@ ins {
             position:relative;
         }
 
+        html>body #navi ul.navigation li{
+            border-width:1px;
+        }
+
             #navi ul.navigation li a {
                 font-weight:bold;
             }
