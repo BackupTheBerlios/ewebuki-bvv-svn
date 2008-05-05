@@ -85,7 +85,7 @@
     $work_array = show_blog("/aktuell/termine",$tags,"disabled","","0,4");
     foreach ( $work_array as $key => $value ) {
         $dataloop["termine"][$value["id"]]["datum"] = $value["datum"];
-        $dataloop["termine"][$value["id"]]["titel"] = $value["titel"];
+        $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
         $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
     }
 
