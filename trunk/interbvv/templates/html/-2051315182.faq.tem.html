@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>bloged.list</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: -2051315182.list.tem.html 1311 2008-04-08 08:55:20Z buffy1860 $-->
+<div id="substance">
+    <h1>#(ueberschrift)</h1>
+    <p>#(inhalt)</p>
+    <p>!#ausgaben_form_error</p>
+    <!--##hide-new-->
+    <p><a href="!{link}">g(new)</a></p>
+    <!--##show-->
+    <!--##loop-list-->
+    <a href="!{faqlink}">!{titel}</a>
+    <div style="background:#EEEEEE">!{faqcontent}</div>
+    <p> !{editlink} !{deletelink}</p>
+    <!--##cont-->
+!#ausgaben_inhalt_selector
+</div>
+<div id="margin">
+    <h1>&nbsp;</h1>
+    !#ausgaben_calendar
+    g(left)
+    <!--##hide-hidden_menu-->
+    g(hidden_menu)
+    <!--##show-->
+</div>
+<p>!#ausgaben_output</p>
+<p>!#ausgaben_inaccessible</p>
+<!--##end-->
+</body>
+</html>
