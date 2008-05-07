@@ -45,14 +45,12 @@
     <form method="post" action="!#ausgaben_form_aktion">
         <fieldset>
             <label for="lang">#(name)</label><input class="medium" type="text" name="NAME" value="!{name}"/><br />
-            <label for="lang">#(termin_bg)</label><script>DateInput('TERMIN1', 'true', 'YYYY-MM-DD', '!{termin_bg}' )</script>
-            <label for="lang">#(termin_en)</label><script>DateInput('TERMIN2', 'true', 'YYYY-MM-DD', '!{termin_en}' )</script>
-            <label for="lang">#(no_end)</label><input type="checkbox" name="no_end"/><br />
+            <label for="lang">#(termin_bg)</label><input class="small" type="text" name="TERMIN1[0]" value="!{termin_bg0}"/><input class="small" type="text" name="TERMIN1[1]" value="!{termin_bg1}"/><input class="small" type="text" name="TERMIN1[2]" value="!{termin_bg2}"/><br />
+            <label for="lang">#(termin_bg)</label><input class="small" type="text" name="TERMIN2[0]" value="!{termin_en0}"/><input class="small" type="text" name="TERMIN2[1]" value="!{termin_en1}"/><input class="small" type="text" name="TERMIN2[2]" value="!{termin_en2}"/><br />
             <label for="lang">#(ort)</label><input class="medium" type="text" name="ORT" value="!{ort}"/><br />
             <label for="lang">#(veranstalter)</label><select type="text" name="VERANSTALTER" value="!{veranstalter}">
             <option>LVG</option><option>VA</option><option>FM</option></select><br />
             <label for="lang">#(beschreibung)</label><input type="text" name="BESCHREIBUNG" value="!{beschreibung}"/><br />
-            <label for="lang">#(zusatz)</label><input type="checkbox" name="zusatz"/><br />
             <input type="submit" name="send[]"  value="g(send)" class="first" />
         </fieldset>
     </form>
