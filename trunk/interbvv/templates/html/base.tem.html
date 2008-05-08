@@ -23,24 +23,14 @@
 
             <div id="head">
                 <div id="banner">
-                    <h1 style="position:absolute;top:10px;left:5px;border:none;">
+                    <h1 style="position:absolute;top:10px;left:5px;border:none;!#ausgaben_display_banner">
                         <a href="!#pathvars_menuroot/index.html">Bayerische<br /> Vermessungsverwaltung</a>
                     </h1>
                     <img src="../../images/html/wappen.gif" alt="" width="80" style="float:right;" />
-                    <img src="../../images/html/banner.jpg" width="880" alt="" style="float:left;" />
+                    <img src="../../images/html/!#ausgaben_banner" width="880" alt="" style="float:left;" />
                     <div class="clear"></div>
                 </div>
                 <div id="headnavi">
-                    <form action="!#pathvars_menuroot/search.html" id="qsearch" method="post">
-                        <div class="schnellsuche right">
-                            <input type="hidden" value="!#pathvars_requested" name="requested"/>
-                            <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
-                            <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
-                                <img src="../../images/html/start-suche.png" alt="" />
-                            </button>
-                            <div class="clear"></div>
-                        </div>
-                    </form>
                     <ul>
                         <!--##loop-headnavi-->
                         <li><a href="!#pathvars_menuroot/!{url}">!{desc}</a></li>
@@ -54,60 +44,32 @@
                     <a href="" >Sprache</a>
                     &nbsp;
                 </p>
-                <p class="kekse" style="width:552px;">#(kekse) !#environment_kekse</p>
+                <p class="kekse" style="width:550px;">#(kekse) !#environment_kekse</p>
 
-                        <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
-                            <div class="schnellsuche left">
-                                <input value="Dienstellensuche" name="search" onfocus="this.value=''" />
-                                <button type="submit" title="Dienstellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Dienstellensuche'){window.document.suche.suche_feld.value='';}">
-                                    <img src="../../images/html/start-suche.png" alt="" />
-                                </button>
-                                <div class="clear"></div>
-                            </div>
-                        </form>
+                <p class="metanavi" style="text-align:left;display:none;">
+                    &nbsp;Schrift
+                    <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;padding:0 5px;vertical-align:bottom;">
+                        A
+                    </a>
+                    <a title="Schriftgr&ouml;&szlig;e klein" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:medium;padding:0 5px;vertical-align:bottom;">
+                        A
+                    </a>
+                    <a title="Schriftgr&ouml;&szlig;e klein" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:large;padding:0 5px;vertical-align:bottom;">
+                        A
+                    </a>
+                </p>
 
                 <div class="clear"></div>
             </div>
 
             <div class="clear"></div>
 
-            <div id="navi">
-                <div class="menu">
-                    <h1>&nbsp;</h1>
-                    !#ausgaben_menu
-                </div>
-                <h1>&nbsp;</h1>
-                <ul class="navigation">
-                    <li id="fontsize" style="display:none;">
-                        Schriftgr&ouml;&szlig;en<br />
-                        <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;float:left;padding:0 5px;vertical-align:bottom;">
-                            A
-                        </a>
-                        <a title="Schriftgr&ouml;&szlig;e klein" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:medium;float:left;padding:0 5px;vertical-align:bottom;">
-                            A
-                        </a>
-                        <a title="Schriftgr&ouml;&szlig;e klein" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:large;float:left;padding:0 5px;vertical-align:bottom;">
-                            A
-                        </a>
-                        <p  class="clear" />
-                    </li>
-                    <li><a href="!#pathvars_virtual/impressum.html">Impressum/<br /> Datenschutz</a></li>
-                </ul>
-                <div id="lock">
-                    &nbsp;
-                </div>
-                #{auth}
-            </div>
+            #{navi}
 
             #{screen}
 
-            <div id="foot">
-                <!--##loop-headnavi-->
-                <a href="!#pathvars_menuroot/!{url}">!{desc}</a>&nbsp;-&nbsp;
-                <!--##cont-->
-                <a href="!#pathvars_pretorian">&lambda;</a>
-                #(foot)
-            </div>
+            #{foot}
+            <div class="clear"></div>
 
         </div>
 

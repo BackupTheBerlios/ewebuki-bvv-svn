@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>auth</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: auth.tem.html 1231 2008-02-04 10:40:22Z buffy1860 $-->
+
+<!--##hide-authArea-->
+<div class="box">
+    <h3>#(ueberschrift)</h3>
+    <p>!{message}</p>
+<!--##show-->
+
+<!--##hide-authTools-->
+    <h3>#(desc)</h3>
+    <ul>
+    <!--##loop-authTools-->
+        <li><a href="!{url}" title="!{title}">!{label}!{end}</a></li>
+    <!--##cont-->
+    </ul>
+<!--##show-->
+
+<!--##hide-authInPlace-->
+    <ul>
+        <!--##loop-authInPlace-->
+        <li><a href="!{link}">!{desc}</a></li>
+        <!--##cont-->
+    </ul>
+<!--##show-->
+
+<!--##hide-authArea-->
+    <form method="post" action="!#ausgaben_auth_url">
+<!--##show-->
+
+    <!--##hide-authLogin-->
+        <fieldset class="buttons">
+            <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" />
+<!--             <input type="text" name="user" style="width:50;font-size:9px" /> -->
+<!--             <input type="password" name="pass" style="width:50;font-size:9px" /> -->
+            <label style="width:100%;">Benutzer
+            <input type="text" name="user" style="width:100%;" /></label>
+            <label style="width:100%;">Passwort
+            <input type="password" name="pass" style="width:100%;" /></label><br />
+            <input type="submit" name="login" value="login" style="width:100%;" />
+        </fieldset>
+    <!--##show-->
+
+    <!--##hide-authLogout-->
+        <fieldset class="buttons">
+            <input type="submit" name="logout" value="logout" style="width:100%;" />
+        </fieldset>
+    <!--##show-->
+
+<!--##hide-authArea-->
+    </form>
+<!--##show-->
+
+<!--##hide-authArea-->
+</div>
+<!--##show-->
+
+<!--##end-->
+</body>
+</html>

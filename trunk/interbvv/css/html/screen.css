@@ -90,7 +90,7 @@ select, input, button {
     line-height:1.4em;
 }
 textarea{
-    width:100%;
+    width:90%;
 }
     button, input[type=button], input[type=submit]{
         cursor:pointer;
@@ -518,13 +518,20 @@ fieldset.button {
     .schnellsuche input{
         border:none;
         float:left;
+        font-size:1em;
         width:125px;
     }
 
     .schnellsuche button{
         border:none;
         float:right;
+        height:1.2em;
         margin:0;
+        padding:0;
+    }
+
+    .schnellsuche img{
+        margin:0 !important;
         padding:0;
     }
 /* + + + */
@@ -620,9 +627,14 @@ fieldset.button {
         margin:1px 0;
     }
 
-    .box p {
+    .box p, .box ul, .box fieldset {
         padding:0 3px;
         text-align:left;
+    }
+
+    #margin .box ul, .box fieldset {
+        padding:3px;
+        margin:3px;
     }
 
 /* viewer-design */
@@ -818,7 +830,8 @@ input.medium {
 ------------------------*/
 #substance.wizard {
     background:#FFFFFF;
-    width:710px;
+    padding:10px 0;
+    width:880px;
 }
 
     .wizard .button {
@@ -881,14 +894,6 @@ input.medium {
                     display:inline;
                 }
 
-    .wizard fieldset.buttons {
-        text-align:right;
-    }
-
-        .wizard fieldset.buttons button {
-            float:none;
-        }
-
     .wizard form label {
         display:block;
         float:left;
@@ -897,15 +902,26 @@ input.medium {
         width:120px;
     }
 
+        .wizard form label.cbra {
+            text-align:left;
+            width:170px;
+        }
+
         .wizard form input, .wizard form button {
             float:left;
             font-size:0.95em;
             margin:2px 0;
             padding:1px;
+            width:250px;
         }
 
-            .wizard form .cbra input {
+            .wizard form .cbra {
+                clear:both;
+            }
+
+            .wizard form .cbra input, .wizard form .thumbs input {
                 margin:2px 5px;
+                width:auto;
             }
 
             .wizard form table input {
@@ -922,6 +938,28 @@ input.medium {
     .wizard form br {
         clear:both;
     }
+
+    .wizard fieldset.buttons {
+        text-align:right;
+    }
+
+        .wizard .box fieldset.buttons {
+            text-align:left;
+        }
+
+        .wizard fieldset.buttons button, .wizard fieldset.buttons input {
+            float:none;
+            width:auto;
+        }
+
+        .wizard fieldset.buttons form {
+            float:right;
+        }
+
+        .wizard fieldset fieldset {
+            float:left;
+            margin-right:15px;
+        }
 
     .wizard #preview {
         border-bottom:1px solid #CCCCCC;

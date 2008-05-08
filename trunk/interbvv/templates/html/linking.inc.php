@@ -97,6 +97,28 @@
         $hidedata["hidden_menu"] = array();
     }
 
+    if ( $environment["ebene"] == "/wizard" ){
+        $mapping["navi"] = "leer";
+        $mapping["foot"] = "leer";
+    }
+
+    // banner-steuerung
+    $ausgaben["banner"] = "banner.jpg";
+    $ausgaben["display_banner"] = "";
+    if ( $_GET["change_banner"] != "" ) {
+        $banner = explode(":",$_GET["change_banner"]);
+        if ( file_exists(rtrim($pathvars["fileroot"],"/").$pathvars["images"].$banner[0]) ) {
+            $ausgaben["banner"] = $banner[0];
+            if ( count($banner) > 1 ) $ausgaben["display_banner"] = "display:none;";
+        }
+    }
+
+    // wizard-test
+    if ( $environment["ebene"] == "" && $environment["kategorie"] == "login" ){
+//         $mapping["navi"] = "leer";
+//         $mapping["foot"] = "leer";
+    }
+
   if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ $script_name ++ ]".$debugging["char"];
 
 //////////////////////////////////////////////////////////////////////////////////////
