@@ -1,69 +1,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
-<title>bloged.list</title>
-<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>termine-liste</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
 <!--##begin-->
-<!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
-<div id="substance">
-    <h1>#(ueberschrift)</h1>
-    <!--##hide-newlink-->
-    <p><a href="!{link}">g(new)</a></p>
-    <!--##show-->
+        <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+        <div id="substance">
+            <h1>#(ueberschrift)</h1>
+            <!--##hide-newlink-->
+            <p><a href="!{link}">g(new)</a></p>
+            <!--##show-->
 
 <!-- LIST -->
-
-    <!--##hide-list-->
-    !#ausgaben_row
-    <!--##show-->
-
+            <!--##hide-list-->
+            !#ausgaben_row
+            <!--##show-->
 <!-- LIST -->
 
 <!-- DETAIL -->
-
-    <!--##hide-detail-->
-    <table width="100%">
-    <!--##show-->
-    <!--##loop-detail-->
-    <tr><td width="10%">!{desc}</td><td>!{name}</td></tr>
-    <!--##cont-->
-    <!--##hide-detail-->
-    </table>
-    <!--##show-->
-    <!--##hide-detail_all-->
-    <br />
-    !{tet}
-    <!--##show-->
+            <!--##hide-detail-->
+            <table width="100%">
+            <!--##show-->
+                <!--##loop-detail-->
+                <tr><td width="10%">!{desc}</td><td>!{name}</td></tr>
+                <!--##cont-->
+            <!--##hide-detail-->
+            </table>
+            <!--##show-->
+            <!--##hide-detail_all-->
+            <br />
+            !{tet}
+            <!--##show-->
 <!-- DETAIL -->
 
 <!-- ADD -->
-    <!--##hide-add-->
-    <form method="post" action="!#ausgaben_form_aktion">
-        <fieldset>
-            <label for="lang">#(name)</label><input class="medium" type="text" name="NAME" value="!{name}"/><br />
-            <label for="lang">#(termin_bg)</label><input class="small" type="text" name="TERMIN1[0]" value="!{termin_bg0}"/><input class="small" type="text" name="TERMIN1[1]" value="!{termin_bg1}"/><input class="small" type="text" name="TERMIN1[2]" value="!{termin_bg2}"/><br />
-            <label for="lang">#(termin_bg)</label><input class="small" type="text" name="TERMIN2[0]" value="!{termin_en0}"/><input class="small" type="text" name="TERMIN2[1]" value="!{termin_en1}"/><input class="small" type="text" name="TERMIN2[2]" value="!{termin_en2}"/><br />
-            <label for="lang">#(ort)</label><input class="medium" type="text" name="ORT" value="!{ort}"/><br />
-            <label for="lang">#(veranstalter)</label><select type="text" name="VERANSTALTER" value="!{veranstalter}">
-            <option>LVG</option><option>VA</option><option>FM</option></select><br />
-            <label for="lang">#(beschreibung)</label><input type="text" name="BESCHREIBUNG" value="!{beschreibung}"/><br />
-            <input type="submit" name="send[]"  value="g(send)" class="first" />
-        </fieldset>
-    </form>
-    <!--##show-->
-
+            <!--##hide-add-->
+            <form method="post" action="!#ausgaben_form_aktion">
+                <fieldset>
+                    <label for="lang">#(name)</label><input class="medium" type="text" name="NAME" value="!{name}"/><br />
+                    <label for="lang">#(termin_bg)</label><input class="small" type="text" name="TERMIN1[0]" value="!{termin_bg0}"/><input class="small" type="text" name="TERMIN1[1]" value="!{termin_bg1}"/><input class="small" type="text" name="TERMIN1[2]" value="!{termin_bg2}"/><br />
+                    <label for="lang">#(termin_bg)</label><input class="small" type="text" name="TERMIN2[0]" value="!{termin_en0}"/><input class="small" type="text" name="TERMIN2[1]" value="!{termin_en1}"/><input class="small" type="text" name="TERMIN2[2]" value="!{termin_en2}"/><br />
+                    <label for="lang">#(ort)</label><input class="medium" type="text" name="ORT" value="!{ort}"/><br />
+                    <label for="lang">#(veranstalter)</label><select type="text" name="VERANSTALTER" value="!{veranstalter}">
+                    <option>LVG</option><option>VA</option><option>FM</option></select><br />
+                    <label for="lang">#(beschreibung)</label><input type="text" name="BESCHREIBUNG" value="!{beschreibung}"/><br />
+                    <input type="submit" name="send[]"  value="g(send)" class="first" />
+                </fieldset>
+            </form>
+            <!--##show-->
 <!-- ADD -->
-
-</div>
-    <div id="margin">
-        <h1>&nbsp;</h1>
-        !#ausgaben_calendar
-        g(left)
-    </div>
+        #{margin}
 <!--##end-->
-</body>
+    </body>
 </html>

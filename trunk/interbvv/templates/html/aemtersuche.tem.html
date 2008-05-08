@@ -1,160 +1,95 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
     <head>
-        <title>Neues Internet</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>aemtersuche</title>
         <meta name="author" content="" />
         <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
     </head>
     <body>
 <!--##begin-->
+        <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+        <div id="substance">
+            <div class="wide">
+                #(inhalt)
+                <fieldset>
+                    <form method="get" action="">
+                        <input type="text" class="textfield" name="search" value="!#ausgaben_search" style="width:300px;" />
+                        <button value="send" class="button">g(send)</button>
+                    </form>
+                </fieldset>
 
-    <div id="substance">
+                <!--##hide-hit_nop-->
+                <div class="box">
+                    #(no-hits)
+                </div>
+                <!--##show-->
 
-        <div class="wide">
+                <!--##hide-hit_toomuch-->
+                <div class="box">
+                    #(toomuch-hits)
+                </div>
+                <!--##show-->
 
-            #(inhalt)
+                <!--##hide-hit_list-->
+                <div class="box">
+                    #(gemeindeliste)
+                    <ul>
+                        <!--##loop-hits-->
+                        <li>
+                            <a href="!{link}">!{hl}</a>
+                        </li>
+                        <!--##cont-->
+                    </ul>
+                </div>
+                <!--##show-->
 
-            <fieldset>
-                <form method="get" action="">
-                    <input type="text" class="textfield" name="search" value="!#ausgaben_search" style="width:300px;" />
-                    <button value="send" class="button">Senden</button>
-<!--                     <span id="indicator" style="display: none"> -->
-<!--                         <img src="/images/html/ajax_indicator.gif" alt="Working..." /> -->
-<!--                     </span> -->
-<!--                     <div id="div_auto" class="autocomplete" style="display: none"></div> -->
-                </form>
-            </fieldset>
+                <!--##hide-hit_one-->
+                <p><b>!{place}</b></p>
+                <p>#(treffer)</p>
 
-            <!--##hide-hit_nop-->
-            <div class="box">
-                #(no-hits)
+                <div class="box">
+                    <h2>!{beschreibung}</h2>
+                    <p>!{zusatz}</p>
+                    <table width="100%" border="0" summary="!{beschreibung} !{zusatz} - Amtsinformation">
+                        <tr>
+                            <th><img src="../../images/html/icon_adresse.jpg" alt="Adresse:" /></th>
+                            <td align="left">!{strasse}<br />!{ort}</td>
+                        </tr>
+                        <tr>
+                            <th><img src="../../images/html/icon_telefon.jpg" alt="Telefon:" /></th>
+                            <td align="left">!{fon}</td>
+                        </tr>
+                        <tr>
+                            <th><img src="../../images/html/icon_fax.jpg" alt="Fax:" /></th>
+                            <td align="left">!{fax}</td>
+                        </tr>
+                        <tr>
+                            <th><img src="../../images/html/icon_email.jpg" alt="e-Mail:" /></th>
+                            <td align="left"><a href="mailto:!{email}">!{email}</a></td>
+                        </tr>
+                        <tr>
+                            <th><img src="../../images/html/icon_home.jpg" alt="Internet:" /></th>
+                            <td align="left"><a href="!{internet}">Vermessungsamt im Internet</a></td>
+                        </tr>
+                        <tr>
+                            <th><img src="../../images/html/icon_lage.jpg" alt="BayernViewer:" /></th>
+                            <td align="left"><a href="!{bayview}">Vermessungsamt im BayernViewer</a></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--##show-->
+
+                !#ausgaben_output
+
             </div>
-            <!--##show-->
-
-            <!--##hide-hit_toomuch-->
-            <div class="box">
-                #(toomuch-hits)
-            </div>
-            <!--##show-->
-
-            <!--##hide-hit_list-->
-            <div class="box">
-                #(gemeindeliste)
-                <ul>
-                    <!--##loop-hits-->
-                    <li>
-                        <a href="!{link}">!{hl}</a>
-                    </li>
-                    <!--##cont-->
-                </ul>
-            </div>
-            <!--##show-->
-
-            <!--##hide-hit_one-->
-            <p><b>!{place}</b></p>
-            <p>#(treffer)</p>
-
-            <div class="box">
-                <h2>!{beschreibung}</h2>
-                <p>!{zusatz}</p>
-                <table width="100%" border="0" summary="!{beschreibung} !{zusatz} - Amtsinformation">
-                    <tr>
-                        <th><img src="../../images/html/icon_adresse.jpg" alt="Adresse:" /></th>
-                        <td align="left">!{strasse}<br />!{ort}</td>
-                    </tr>
-                    <tr>
-                        <th><img src="../../images/html/icon_telefon.jpg" alt="Telefon:" /></th>
-                        <td align="left">!{fon}</td>
-                    </tr>
-                    <tr>
-                        <th><img src="../../images/html/icon_fax.jpg" alt="Fax:" /></th>
-                        <td align="left">!{fax}</td>
-                    </tr>
-                    <tr>
-                        <th><img src="../../images/html/icon_email.jpg" alt="e-Mail:" /></th>
-                        <td align="left"><a href="mailto:!{email}">!{email}</a></td>
-                    </tr>
-                    <tr>
-                        <th><img src="../../images/html/icon_home.jpg" alt="Internet:" /></th>
-                        <td align="left"><a href="!{internet}">Vermessungsamt im Internet</a></td>
-                    </tr>
-                    <tr>
-                        <th><img src="../../images/html/icon_lage.jpg" alt="BayernViewer:" /></th>
-                        <td align="left"><a href="!{bayview}">Vermessungsamt im BayernViewer</a></td>
-                    </tr>
-                </table>
-            </div>
-            <!--##show-->
-
-            !#ausgaben_output
 
         </div>
-
-    </div>
-
-    <div id="margin" style="padding:0;">
-        #{auth}
-        !#ausgaben_calendar
-        #{search}
-        g(left)
-        <!--##hide-hidden_menu-->
-        g(hidden_menu)
-        <!--##show-->
-    </div>
+        #{margin}
 <!--##end-->
-
-
-
-
-
-
-
-    <div id="content" style="background:url(/images/html/dienststellen-backgr.jpg) right no-repeat;float:left;">
-        #(inhalt)
-        <fieldset>
-            <form method="get" action="">
-                <input type="text" class="textfield" id="auto" name="auto_search" value="!#ausgaben_auto_search" style="width:20em;" />
-                <button value="send" class="button">Senden</button>
-                <span id="indicator" style="display: none">
-                    <img src="/images/html/ajax_indicator.gif" alt="Working..." />
-                </span>
-                <div id="div_auto" class="autocomplete" style="display: none"></div>
-            </form>
-            <script type="text/javascript">
-                new Ajax.Autocompleter(
-                    'auto',
-                    'div_auto',
-                    '!#ausgaben_target.html?auto=on',
-                    {frequency:0.4,
-                        indicator:'indicator',
-                        afterUpdateElement:'submit()'}
-                )
-            </script>
-        </fieldset>
-<!--##hide-treffer-->
-        #(treffer)
-        <div class="box">
-            <a href="!{link}">
-                <p>!{beschreibung}</p>
-                <p>!{zusatz}</p>
-                <p>!{strasse}</p>
-                <p>!{ort}</p>
-            </a>
-        </div>
-<!--##show-->
-<!--##hide-treffer_liste-->
-        #(gemeindeliste)
-        <ul>
-<!--##loop-treffer-->
-        <li>
-            <a href="!{link}">!{item}</a>
-        </li>
-<!--##cont-->
-        </ul>
-<!--##show-->
-        #(content1)
-    </div>
-<!--             </div> -->
     </body>
 </html>

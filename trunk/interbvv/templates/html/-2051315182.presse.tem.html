@@ -1,37 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
-<title>bloged.list</title>
-<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>presse-liste</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
 <!--##begin-->
-<!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
-<div id="substance">
-<h1>#(ueberschrift)</h1>
-<p>!#ausgaben_form_error</p>
-<!--##hide-new-->
-<p><a href="!{link}">g(new)</a></p>
-<!--##show-->
-<!--##loop-list-->
-<div>
-!{datum} <b><a href="!{detaillink}">!{titel}</a></b>
-<p>!{editlink} !{deletelink}</p>
-<div class="clearer"></div>
-</div>
-<!--##cont-->
-</div>
-<div id="margin" style="padding:0;">
-    #{auth}
-    !#ausgaben_calendar
-    #{search}
-    g(left)
-    <!--##hide-hidden_menu-->
-    g(hidden_menu)
-    <!--##show-->
-</div>
+        <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+        <div id="substance">
+            <h1>#(ueberschrift)</h1>
+            <p>!#ausgaben_form_error</p>
+            <!--##hide-new-->
+            <p><a href="!{link}">g(new)</a></p>
+            <!--##show-->
+            <!--##loop-list-->
+            <div>
+                !{datum} <b><a href="!{detaillink}">!{titel}</a></b>
+                <p>!{editlink} !{deletelink}</p>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+        </div>
+        #{margin}
 <!--##end-->
-</body>
+    </body>
 </html>
