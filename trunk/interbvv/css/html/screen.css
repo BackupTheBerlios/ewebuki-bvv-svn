@@ -59,6 +59,27 @@ fieldset{
     margin:5px 0;
     padding:5px;
 }
+
+fieldset select, fieldset input{
+    width:150px;
+}
+
+fieldset .small{
+    width:50px;
+}
+
+fieldset .medium{
+    width:248px;
+}
+
+fieldset label {
+    float: left;
+    display: block;
+    clear: both;
+    width: 150px;
+    margin:3px 0;
+}
+
 legend {
     font-weight:bold;
 }
@@ -784,7 +805,7 @@ div.autocomplete {
             width:450px;
         }
 
-input.klein {
+input.small {
     width: 50px;
 }
 
