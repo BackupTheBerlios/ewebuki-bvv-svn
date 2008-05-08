@@ -142,67 +142,15 @@
 
 </div>
 
-<div id="margin">
+<div id="margin" style="padding:0;">
+    #{auth}
+    !#ausgaben_calendar
+    #{search}
     g(left)
+    <!--##hide-hidden_menu-->
+    g(hidden_menu)
+    <!--##show-->
 </div>
-<!--##end-->
-
-
-<hr />
-        <div id="content">
-            <div class="right">&nbsp;
-<!--##loop-ast-->
-                <a href="!{link}">!{amt}</a>&nbsp;
-<!--##cont-->
-                g(kopf)
-            </div>
-            <hr />
-
-            <!--##hide-lokal-->
-            <h2>Nachrichten des Vermessungamtes</h2>
-            <!--##loop-lokal-->
-            <p><a href="!{link}">!{item}</a></p>
-            <!--##cont-->
-            <!--##show-->
-
-            <!--##hide-bayern-->
-            <h2>Nachrichten aus Bayern</h2>
-            <!--##loop-bayern-->
-            <p><a href="!{link}">!{item}</a></p>
-            <!--##cont-->
-            <!--##show-->
-
-            <!--##hide-bezirk-->
-            <h2>Amtsbezirkskarten</h2>
-            <p>
-                <a href="../../images/html/aemter/va!{amtakz}.pdf">
-                    <img src="../../images/html/icon_pdf.png" width="14" height="14" border="0" alt="" />Der Amtsbezirk im pdf-Format
-                </a>
-            </p>
-            <img src="../../images/html/aemter/va!{amtakz}_amtsbezirk.gif" border="0" title="Amtsbezirk, !#ausgaben_amt" alt="Amtsbezirk, !#ausgaben_amt">
-            <h2>Gemeinden und Gemarkungen</h2>
-            <table width="90%" style="border:1px solid #f4f4f4;">
-                <tr style="">
-                    <th>Gemeinde</th>
-                    <th>Gemarkungen</th>
-                </tr>
-                <!--##loop-gmd-->
-                <tr style="background:!{color}">
-                    <td>!{item}</td>
-                    <td>!{gmkg}</td>
-                </tr>
-                <!--##cont-->
-            </table>
-            <!--##show-->
-
-            #(inhalt)
-
-            #(head1)
-            #(teaser1)
-            #(content1)
-            !#ausgaben_output
-
-        </div>
 <!--##end-->
 
     </body>
