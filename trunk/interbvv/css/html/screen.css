@@ -647,6 +647,10 @@ fieldset.button {
         margin:3px;
     }
 
+.search {
+    background:#FEF6DE;
+}
+
 /* viewer-design */
 .viewer {
     border:1px solid #CCCCCC;
