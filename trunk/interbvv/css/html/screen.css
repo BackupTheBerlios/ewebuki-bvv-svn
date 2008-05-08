@@ -36,12 +36,12 @@ h3 {
 /* links */
 a{
     background-color:inherit;
-    color:#4775A3;
+    color:#2C5A93;
     text-decoration:none;
 }
 
     a:hover{
-        color:#4775A3;
+        color:#2C5A93;
         text-decoration:underline;
     }
 
@@ -149,7 +149,7 @@ ins {
 
     /* feld mit der kopfnavigation und dem suchfeld */
     #headnavi{
-        background:#4775A3;
+        background:#2C5A93;
         width:880px;
     }
 
@@ -169,7 +169,7 @@ ins {
         }
 
             #head li a{
-                color:#FFFFFF;
+                color:#EEF3FB;
                 display:block;
                 padding:0 10px;
             }
@@ -182,7 +182,7 @@ ins {
     }
 
     #head p.metanavi{
-        background:#9AC7E4;
+        background:#EEF3FB;
         margin:0;
         text-align:right;
         width:160px;
@@ -200,7 +200,7 @@ ins {
 /* globale menue spalte
 -----------------------*/
 #navi {
-    background:#9AC7E4;
+    background:#EEF3FB;
     color:#FFFFFF;
     float:left;
     overflow:hidden;
@@ -209,7 +209,7 @@ ins {
 
     #navi h1 {
         border:none;
-        color:#9AC7E4;
+        color:#EEF3FB;
         padding-left:15px;
     }
 
@@ -220,14 +220,14 @@ ins {
 
     /* seiten-navigation */
     #navi .menu {
-        background:#4775A3;
+        background:#2C5A93;
         margin-bottom:10px;
         padding-bottom:10px;
         padding-top:10px;
     }
 
         #navi .menu h1 {
-            color:#4775A3;
+            color:#2C5A93;
         }
 
         #navi .menu ul a {
@@ -251,7 +251,7 @@ ins {
             }
 
     #navi ul.navigation {
-        border-bottom:1px solid #FFFFFF;
+/*         border-bottom:1px solid #FFFFFF; */
         margin:0 0 0 15px;
     }
 
@@ -260,22 +260,32 @@ ins {
         }
 
         #navi ul.navigation li {
-            border-top:2px solid #FFFFFF;
+/*             border-top:2px solid #FFFFFF; */
             padding:5px 0;
             list-style:none;
             position:relative;
         }
 
-        html>body #navi ul.navigation li{
-            border-width:1px;
-        }
-
-            #navi ul.navigation li a {
+            #navi .menu ul.navigation li a {
                 font-weight:bold;
+                color:#EEF3FB;
             }
+
+                #navi ul.navigation li.Level1Active a {
+                    color:#FEEAAD;
+                }
+
+                    #navi .menu ul.navigation li.Level1Active li a {
+                        color:#EEF3FB;
+                    }
+
+                        #navi ul.navigation li.Level1Active li.Level2Active a {
+                            color:#FEEAAD;
+                        }
 
                 #navi ul.navigation li a:hover {
                     text-decoration:none;
+                    color:#FFFFFF;
                 }
 
             #navi ul.navigation ul li {
@@ -283,7 +293,7 @@ ins {
                 padding:2px 0;
             }
 
-                #navi ul.navigation ul li a {
+                #navi .menu ul.navigation ul li a {
                     font-weight:normal;
                 }
 
@@ -382,7 +392,7 @@ ins {
     }
 
         #substance .sub_menu h2 {
-            background:#9AC7E4;
+            background:#EEF3FB;
             margin:0;
             padding:0.3em;
         }
@@ -597,9 +607,9 @@ fieldset.button {
 }
 
     .viewer h1, #substance .sub_menu h3 {
-        background:#9AC7E4;
+        background:#EEF3FB;
         border:none;
-        border-bottom:1px solid #9AC7E4;
+        border-bottom:1px solid #EEF3FB;
         margin:0;
         padding:0.2em 3px;
         text-align:left;
