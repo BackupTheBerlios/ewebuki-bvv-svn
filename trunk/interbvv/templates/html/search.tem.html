@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+<!--##begin-->
+<div class="box">
+    <h3>Suche</h3>
+    <form action="!#pathvars_menuroot/search.html" id="qsearch" method="post">
+        <div class="schnellsuche">
+            <input type="hidden" value="!#pathvars_requested" name="requested"/>
+            <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
+            <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+                <img src="../../images/html/start-suche.png" alt="" />
+            </button>
+            <div class="clear"></div>
+        </div>
+    </form>
+    <form action="!#pathvars_menuroot/amtsuche.html" method="get" id="suche">
+        <div class="schnellsuche">
+            <input value="Dienstellensuche" type="text" name="search" onfocus="this.value=''" />
+            <button type="submit" title="Dienstellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Dienstellensuche'){window.document.suche.suche_feld.value='';}">
+                <img src="../../images/html/start-suche.png" alt="" />
+            </button>
+            <div class="clear"></div>
+        </div>
+    </form>
+    <h3>Schriftgr&ouml;&szlig;e &auml;ndern</h3>
+    <p>
+        <a title="Schriftgr&ouml;&szlig;e klein" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:small;padding:0 5px;vertical-align:bottom;font-weight:bold;">
+            A
+        </a>
+        <a title="Schriftgr&ouml;&szlig;e klein" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:medium;padding:0 5px;vertical-align:bottom;font-weight:bold;">
+            A
+        </a>
+        <a title="Schriftgr&ouml;&szlig;e klein" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:large;padding:0 5px;vertical-align:bottom;font-weight:bold;">
+            A
+        </a>
+    </p>
+</div>
+<!--##end-->
+
+    </body>
+</html>
