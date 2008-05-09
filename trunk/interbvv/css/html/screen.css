@@ -197,6 +197,10 @@ ins {
         width:150px;
     }
 
+    #hidden_navi, .hidden {
+        display:none;
+    }
+
 /* globale menue spalte
 -----------------------*/
 #navi {
