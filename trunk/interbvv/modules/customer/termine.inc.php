@@ -184,8 +184,7 @@
                 $sql = "SELECT html, content FROM ". SITETEXT ." WHERE tname='".crc32($url).".".$work[0]["id"]."' AND lang='".$environment["language"]."'AND label='inhalt' ORDER BY version DESC LIMIT 0,1";
                 $result = $db -> query($sql);
                 $data = $db -> fetch_array($result,1);
-                $out = nlreplace($data["content"]);
-                $hidedata["detail_all"]["tet"] = tagreplace($out);
+                $hidedata["detail_all"]["tet"] = tagreplace($data["content"]);
             }
 
         } else {
@@ -201,11 +200,11 @@
 
                     $table = "";
                     $counter++;
-                    $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter:".$key."</th></tr>";
-                    $table .= "<tr><th align=\"left\" width=\"20%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th><tr>";
+                    $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter: ".$key."</th></tr>";
+                    $table .= "<tr><th align=\"center\" width=\"30%\"><b>Datum</b></th><th align=\"center\" width=\"80%\"><b>Beschreibung</b></th><tr>";
                     foreach ( $value as $test => $test1 ) {
                         ( $test1["termin_en"] == 0 ) ? $anzeige = date ("d.m.Y", $test1["termin_bg"]) : $anzeige = date ("d.m.Y", $test1["termin_bg"])."&nbsp;-&nbsp;".date ("d.m.Y", $test1["termin_en"]);
-                        $table .= "<tr><td>".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> [".$test1["deletelink"]."]</td></tr>";
+                        $table .= "<tr><td align=\"center\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
                     }
 
                     $ausgaben["row"] .= parser( "-1721433623.list-row", "");

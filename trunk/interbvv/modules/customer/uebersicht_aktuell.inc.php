@@ -81,10 +81,15 @@
     $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","0,4");
 
     // loopen der termine
+    $tags = "";
+    $tags["termin1"] = "TERMIN1";
     $tags["titel"] = "NAME";
+    $tags["termin2"] = "TERMIN2";
     $work_array = show_blog("/aktuell/termine",$tags,"disabled","","0,4");
+    sort($work_array);
+
     foreach ( $work_array as $key => $value ) {
-        $dataloop["termine"][$value["id"]]["datum"] = $value["datum"];
+        $dataloop["termine"][$value["id"]]["datum"] = date ("d.m.Y", $value["termin1_org"]);
         $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
         $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
     }
