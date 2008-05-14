@@ -115,8 +115,8 @@
 
     // wizard-test
     if ( $environment["ebene"] == "" && $environment["kategorie"] == "login" ){
-//         $mapping["navi"] = "leer";
-//         $mapping["foot"] = "leer";
+        $mapping["navi"] = "leer";
+        $mapping["foot"] = "leer";
     }
 
   if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ $script_name ++ ]".$debugging["char"];

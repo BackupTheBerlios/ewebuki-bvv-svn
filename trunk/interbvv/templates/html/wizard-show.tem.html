@@ -13,6 +13,8 @@
 <!--##begin-->
         <div id="substance" class="wizard">
 
+            #(inhalt)
+
             <!--versions-umschalter-->
             <span class="right">
                 <!--##hide-version_prev-->
@@ -24,16 +26,14 @@
                 <!--##show-->
             </span>
             <p class="clear" />
-
-            #(inhalt)
             <ul id="sort_content">
                 <!--##loop-sort_content-->
                 <li id="item_!{key}" class="!{class}" style="!{style}">
                     !{value}
                     <p class="clear" !{modify}>
-                        <a href="!{link_up}" class="button">UP</a>
-                        <a href="!{link_down}" class="button">DOWN</a>
-                        <a href="!{delete}" class="button">x</a>
+                        <a href="!{link_up}" class="button" title="#(wiz_moveup_desc)">#(wiz_moveup)</a>
+                        <a href="!{link_down}" class="button" title="#(wiz_movedown_desc)">#(wiz_movedown)</a>
+                        <a href="!{delete}" class="button" title="#(wiz_delete_desc)">#(wiz_delete)</a>
                     </p>
                     <p class="clear" />
                 </li>
@@ -49,7 +49,7 @@
             </fieldset>
 
             <!--##hide-default-->
-            <fieldset>
+            <fieldset class="buttons">
                 <form method="post" action="!#ausgaben_form_aktion">
                     <button type="submit" name="send[]" value="save" class="button">Speichern</button>
                     <button type="submit" name="send[]" value="version" class="button">Speichern (neue Version)</button>
@@ -59,11 +59,11 @@
             <!--##show-->
 
             <!--##hide-edit-->
-            <fieldset>
+            <fieldset class="buttons">
                 <form method="post" action="!#ausgaben_form_aktion">
                     <button type="submit" name="send[]" value="version" class="button">Speichern (neue Version)</button>
                     <button type="submit" name="send[]" value="cancel" class="button">Abbrechen</button><br />
-                    <input type="checkbox" name="release_mark" value="-1" class="button" />Freigabe anfordern
+                    <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />Freigabe anfordern</label>
                 </form>
             </fieldset>
             <!--##show-->

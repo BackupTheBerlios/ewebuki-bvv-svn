@@ -11,25 +11,17 @@
 <!--$Id: auth.tem.html 1231 2008-02-04 10:40:22Z buffy1860 $-->
 
 <!--##hide-authArea-->
-<div class="box">
-    <h3>#(ueberschrift)</h3>
-    <p>!{message}</p>
 <!--##show-->
 
-<!--##hide-authTools-->
-    <h3>#(desc)</h3>
-    <ul>
-    <!--##loop-authTools-->
-        <li><a href="!{url}" title="!{title}">!{label}!{end}</a></li>
-    <!--##cont-->
-    </ul>
-<!--##show-->
 
 <!--##hide-authInPlace-->
+<div class="box">
+    <h3>#(ueberschrift)</h3>
     <ul>
         <!--##loop-authInPlace-->
         <li><a href="!{link}">!{desc}</a></li>
         <!--##cont-->
+        <li><a href="!#pathvars_pretorian">Administration</a></li>
     </ul>
 <!--##show-->
 
@@ -37,22 +29,9 @@
     <form method="post" action="!#ausgaben_auth_url">
 <!--##show-->
 
-    <!--##hide-authLogin-->
-        <fieldset class="buttons">
-            <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" />
-<!--             <input type="text" name="user" style="width:50;font-size:9px" /> -->
-<!--             <input type="password" name="pass" style="width:50;font-size:9px" /> -->
-            <label style="width:100%;">Benutzer
-            <input type="text" name="user" style="width:100%;" /></label>
-            <label style="width:100%;">Passwort
-            <input type="password" name="pass" style="width:100%;" /></label><br />
-            <input type="submit" name="login" value="login" style="width:100%;" />
-        </fieldset>
-    <!--##show-->
-
     <!--##hide-authLogout-->
         <fieldset class="buttons">
-            <input type="submit" name="logout" value="logout" style="width:100%;" />
+            <input type="submit" name="logout" value="logout" style="width:100%" />
         </fieldset>
     <!--##show-->
 
@@ -60,7 +39,7 @@
     </form>
 <!--##show-->
 
-<!--##hide-authArea-->
+<!--##hide-authInPlace-->
 </div>
 <!--##show-->
 

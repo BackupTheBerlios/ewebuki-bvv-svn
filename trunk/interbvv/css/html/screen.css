@@ -610,6 +610,10 @@ fieldset.button {
 /*     -moz-border-radius-topright:20px; */
 }
 
+    .wizard .box {
+        text-align:inherit;
+    }
+
     .viewer h1, #substance .sub_menu h3 {
         background:#EEF3FB;
         border:none;

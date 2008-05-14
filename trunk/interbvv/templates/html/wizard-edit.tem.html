@@ -14,131 +14,143 @@
     <div id="substance" class="wizard">
         !#ausgaben_ce_script
         <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
+
+        <div id="wiz_ed">
             #(inhalt)
             <p>!#ausgaben_form_error</p>
 
+<!--  IMG-Tag bearbeiten  -->
+            <!--##hide-img-->
+            #(img_inhalt)
+            <!--##show-->
             <!--##hide-imgpreview-->
             <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
             <!--##show-->
             <!--##hide-img-->
             <fieldset >
-                <label>Beschriftung</label>
-                <input type="text" name="description" value="!{meat}" /><br />
-                <input type="submit" id="eb_submit" name="add[]" value="neues Bild holen" title="Datei auswaehlen" class="button" />
+                <label>#(description)</label>
+                <input type="text" name="description" value="!{description}" /><br />
+                <input type="submit" id="eb_submit" name="add[]" value="#(get_file)" title="Datei auswaehlen" class="button" />
             </fieldset>
 
-            <fieldset >
-                <legend>Anzeigengröße</legend>
-                <!--##loop-show-->
-                <label class="cbra">
-                    <input type="radio" name="tagwerte[0]" value="!{value}"!{check} />!{label}
-                </label>
-                <!--##cont-->
-            </fieldset>
-
-            <fieldset >
-                <legend>Ausrichtung</legend>
-                <!--##loop-align-->
-                <label class="cbra">
-                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
-                </label>
-                <!--##cont-->
-            </fieldset>
-
-            <fieldset >
-                <legend>Rand</legend>
-                <label>(in px)</label>
+            <fieldset>
+                <legend>#(values)</legend>
+                <label>#(top)</label>
+                <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
+                <label>#(bottom)</label>
+                <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" /><br />
+                <label>#(side)</label>
+                <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" /><br />
+                <label>#(border)</label>
                 <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
             </fieldset>
 
-            <fieldset >
-                <legend>Detailansicht</legend>
-                <!--##loop-size-->
-                <label class="cbra">
-                    <input type="radio" name="tagwerte[3]" value="!{value}"!{check} />!{label}
-                </label>
-                <!--##cont-->
-            </fieldset>
-
             <fieldset>
-                <legend>Abstände</legend>
-                <label>nach oben</label>
-                <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
-                <label>nach unten</label>
-                <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" /><br />
-                <label>nach links/rechts</label>
-                <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" /><br />
+                <fieldset >
+                    <legend>#(size)</legend>
+                    <!--##loop-show-->
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[0]" value="!{value}"!{check} />!{label}
+                    </label>
+                    <!--##cont-->
+                </fieldset>
+
+                <fieldset >
+                    <legend>#(align)</legend>
+                    <!--##loop-align-->
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
+                    </label>
+                    <!--##cont-->
+                </fieldset>
+
+                <fieldset >
+                    <legend>#(detail_size)</legend>
+                    <!--##loop-size-->
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[3]" value="!{value}"!{check} />!{label}
+                    </label>
+                    <!--##cont-->
+                </fieldset>
             </fieldset>
             <!--##show-->
 
+<!--  TAB-Tag bearbeiten  -->
             <!--##hide-tab-->
+            #(tab_inhalt)
             <fieldset>
-                <legend>Tabelle aus CSV</legend>
+                <legend>#(csvtab)</legend>
                 <input type="file" name="csv_upload"/><br />
-                <input type="submit" name="col_resize[]" value="Aktualisieren" class="button" />
+                <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
             </fieldset>
 
             <fieldset>
-                <legend>Zelleninhalte bearbeiten</legend>
+                <legend>#(edit_cells)</legend>
                 !#ausgaben_tabelle
             </fieldset>
 
             <fieldset>
-                <legend>Dimensionen</legend>
-                <label>Anzahl Spalten</label>
+                <legend>#(dimension)</legend>
+                <label>#(num_col)</label>
                 <input type="text" name="num_col" value="!#ausgaben_num_col" /><br />
-                <label>Anzahl Zeilen</label>
+                <label>#(num_row)</label>
                 <input type="text" name="num_row" value="!#ausgaben_num_row" /><br />
-                <input type="submit" name="col_resize[]" value="Aktualisieren" class="button" />
+                <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
             </fieldset>
 
             <fieldset>
-                <legend>Tabellen-Eigenschaften</legend>
-                <label>Align</label>
+                <legend>#(attributes)</legend>
+                <label>#(align)</label>
                 <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
-                <label>Width</label>
+                <label>#(width)</label>
                 <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" /><br />
-                <label>Border</label>
+                <label>#(border)</label>
                 <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
-                <label>Cellspacing</label>
+                <label>#(cellspacing)</label>
                 <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" /><br />
-                <label>Cellpadding</label>
+                <label>#(cellpadding)</label>
                 <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" /><br />
             </fieldset>
             <!--##show-->
 
+<!--  SEL-Tag bearbeiten  -->
             <!--##hide-sel-->
+            #(sel_inhalt)
             <fieldset>
-                <label>Bezeichnung</label>
+                <label>#(description)</label>
                 <input type="text" name="description" value="!#ausgaben_description" /><br />
                 <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
             </fieldset>
 
             <fieldset>
-                <button type="submit" name="sel[]" value="Gruppierung holen" class="button">Neue Gruppierung holen</button>
+                <label>#(add_sel)</label>
+                <input type="file" name="new_sel" value="hallo" /><br />
+                <button type="submit" name="sel[]" value="#(get_sel)" class="button">#(get_sel)</button>
+            </fieldset>
+
+            <fieldset>
+                <fieldset >
+                    <legend>#(detail_size)</legend>
+                    <!--##loop-size-->
+                    <label class="cbra">
+                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
+                    </label>
+                    <!--##cont-->
+                </fieldset>
+
+                <fieldset >
+                    <legend>#(attributes)</legend>
+                    <label class="cbra">
+                        <input type="checkbox" name="tagwerte[2]" value="TRUE"!{check_thumb} />#(show_thumbs)
+                    </label>
+                    <label class="cbra">
+                        <input type="checkbox" name="tagwerte[4]" value="l"!{check_lbox} />#(lightbox)
+                    </label>
+                </fieldset>
             </fieldset>
 
             <fieldset >
-                <legend>Detailansicht</legend>
-                <!--##loop-size-->
-                <label class="cbra">
-                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
-                </label>
-                <!--##cont-->
-            </fieldset>
-
-            <fieldset >
-                <legend>Optionen</legend>
-                <label class="cbra">
-                    <input type="checkbox" name="tagwerte[2]" value="TRUE"!{check_thumb} />Thumbnails anzeigen
-                </label>
-                <label class="cbra">
-                    <input type="checkbox" name="tagwerte[4]" value="l"!{check_lbox} />Lightbox-Modus
-                </label>
-            </fieldset>
-
-            <fieldset >
-                <legend>"GRID"</legend>
+                <legend>#(grid)</legend>
                 <ul id="grid_list">
                     <!--##loop-list_images-->
                     <li class="thumbs">
@@ -157,34 +169,39 @@
                                     {asynchronous:true
                                     }
                     );
-                    preview();
                 }
             </script>
             <!--##show-->
 
-            <!--##hide-list-->
-            <fieldset class="ce">
-                Einzelne Listenpunkte bitte durch Leerzeile trennen!
-            </fieldset>
-            <!--##show-->
-
+<!--  LINK-Tag bearbeiten  -->
             <!--##hide-link-->
+            #(link_inhalt)
             <fieldset >
-                <label>Bezeichnung</label>
-                <input type="text" name="description" value="!#ausgaben_description" class="big" /><br />
-                <label>Link-Adresse</label>
-                <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" class="big" /><br />
-                <label>Title</label>
-                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="big" /><br />
+                <label>#(description)</label>
+                <input type="text" name="description" value="!#ausgaben_description" /><br />
+                <label>#(link)</label>
+                <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
+                <label>#(title)</label>
+                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
             </fieldset>
 
             <fieldset>
-                <legend>Link-Ziel</legend>
+                <legend>#(target)</legend>
                 <!--##loop-target-->
                 <label class="cbra">
-                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} onclick="preview();" />!{label}
+                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
                 </label>
                 <!--##cont-->
+            </fieldset>
+            <!--##show-->
+
+
+
+
+
+            <!--##hide-list-->
+            <fieldset class="ce">
+                Einzelne Listenpunkte bitte durch Leerzeile trennen!
             </fieldset>
             <!--##show-->
 
@@ -204,21 +221,25 @@
 
             <div class="clearer">&nbsp;</div>
 
-            <fieldset>
-                <input type="hidden" name="html" value="!#ausgaben_form_hidden" class="hidden" />
-                <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
-                <div class="clearer">&nbsp;</div>
-                <input type="submit" name="send[]" value="g(send)" accesskey="s" class="button" />
-                <input type="reset" name="reset" value="g(reset)" accesskey="r" class="button" />
-                <input type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button" />
+        </div>
+
+            <div class="clearer">&nbsp;</div>
+
+            <div id="vorschau" style="display:none;width:540px;"></div>
+
+            <div class="clearer">&nbsp;</div>
+
+            <fieldset class="buttons">
+                <button type="button" onclick="preview();" class="button">g(preview)</button>
+                <button type="submit" name="send[]" value="g(send)" accesskey="s" class="button">g(send)</button>
+                <button type="reset" name="reset" value="g(reset)" accesskey="r" class="button">g(reset)</button>
+                <button type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button">g(abort)</button>
                 <div class="clearer">&nbsp;</div>
             </fieldset>
-
-            <fieldset id="pre">
+<!--            <fieldset id="pre">
                 <legend>Vorschau</legend>
                 <div id="preview"></div>
-                <button type="button" onclick="preview();" class="button">Aktualisieren</button>
-            </fieldset>
+            </fieldset>-->
 
         </form>
 
@@ -238,19 +259,50 @@
 //                                                     }
 //             );
             function preview() {
-                new Effect.Highlight('pre');
-                var update = new Ajax.Updater('preview',
-                                            '!#ausgaben_form_aktion',
-                                            {
-                                                asynchronous:true,
-                                                parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
-                                            }
-                );
+                if ( $('vorschau').style.display == 'none' ) {
+                    var update = new Ajax.Updater('vorschau',
+                                                '!#ausgaben_form_aktion',
+                                                {
+                                                    asynchronous:true,
+                                                    parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
+                                                    onSuccess:function(){
+                                                        new Effect.Parallel(
+                                                            [
+                                                                new Effect.BlindDown('vorschau'),
+                                                                new Effect.BlindUp('wiz_ed')
+                                                            ]
+                                                        );
+                                                    }
+                                                }
+                    );
+                    return false;
+//                     new Effect.BlindDown('vorschau');
+//                     new Effect.BlindUp('wiz_ed');
+                } else {
+                    new Effect.Parallel(
+                        [
+                            new Effect.BlindUp('vorschau'),
+                            new Effect.BlindDown('wiz_ed')
+                        ]
+                    );
+//                     new Effect.BlindUp('vorschau');
+//                     new Effect.BlindDown('wiz_ed');
+                }
+//                 new Effect.Highlight('pre');
+//                 new Effect.Highlight('pre');
+//                 var update = new Ajax.Updater('preview',
+//                                             '!#ausgaben_form_aktion',
+//                                             {
+//                                                 asynchronous:true,
+//                                                 parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
+//                                             }
+//                 );
             }
-            preview();
+//             preview();
         </script>
 
         !#ausgaben_output
+        !#ausgaben_inaccessible
 
     </div>
 <!--##end-->
