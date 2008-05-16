@@ -216,7 +216,7 @@
 
                 break;
 
-            case "amtsbezirk";
+            case "amtsbezirk":
                 $hidedata["bezirk"]["amtakz"] = $amtid;
                 $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde".
                         " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
@@ -251,6 +251,13 @@
                         "gmkg" => $gmkg,
                         "color" => $cfg["aemter"]["color"]["set"]
                     );
+                }
+                break;
+
+            case "info":
+                $hidedata["info"]["inhalt"] = "#(handicap_".$amtid.")";
+                if ( isset($_GET["edit"]) && priv_check("/aemter/".$amtid,"edit") ) {
+                    $hidedata["info"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,handicap_".$amtid.".html\">VA".$amtid.": Informationen bearbeiten</a>";
                 }
                 break;
         }
