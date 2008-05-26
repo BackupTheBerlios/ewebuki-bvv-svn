@@ -19,10 +19,10 @@
                 <fieldset class="kontakt">
                     #(hinweis1)
                     <legend>#(legend_karten)</legend>
-                    <input id="top10" class="klein" type="text" value="" name="plz" tabindex="1" />
+                    <input id="top10" class="small" type="text" value="" name="plz" tabindex="1" />
                     <label for="top10" class="label_right">#(top10)</label>
                     <p class="clear"></p>
-                    <input id="top50" class="klein" type="text" value="" name="plz" tabindex="2" />
+                    <input id="top50" class="small" type="text" value="" name="plz" tabindex="2" />
                     <label for="top50" class="label_right">#(top50)</label>
                     <p class="clear"></p>
                     #(hinweis2)
@@ -37,7 +37,7 @@
                     <label for="strasse">#(strasse)</label>
                     <input id="strasse" class="" type="text" value="" name="strasse" tabindex="8" />
                     <label for="plz">#(plz)</label>
-                    <input id="plz" class="klein" type="text" value="" name="plz" tabindex="9" />
+                    <input id="plz" class="small" type="text" value="" name="plz" tabindex="9" />
                     <input id="ort" class="medium" type="text" value="" name="ort" tabindex="10" />
                     <label for="land">#(land)</label>
                     <input id="land" class="" type="text" value="" name="land" tabindex="11" />
@@ -48,8 +48,10 @@
                 </fieldset>
 
                 <fieldset class="kontakt">
-                    <input id="nutzung" type="checkbox" value="-1" name="nutzung" tabindex="14" />
-                    <label for="nutzung" class="label_right">#(nutzungsbedingung)</label>
+
+                    <label for="nutzung" class="label_right">
+                        <input id="nutzung" type="checkbox" value="-1" name="nutzung" tabindex="14" />#(nutzungsbedingung)
+                    </label>
                 </fieldset>
 
                 <fieldset class="button">

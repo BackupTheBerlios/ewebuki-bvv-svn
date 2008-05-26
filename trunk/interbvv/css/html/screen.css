@@ -840,6 +840,11 @@ div.autocomplete {
             width:450px;
         }
 
+            .kontakt label.label_right input {
+                margin-right:5px;
+                width:auto;
+            }
+
 input.small {
     width: 50px;
 }
