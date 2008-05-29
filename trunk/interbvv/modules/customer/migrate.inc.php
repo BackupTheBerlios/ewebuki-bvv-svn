@@ -532,7 +532,7 @@
                     if ( $ebene == "" ) {
                         $tname = $kategorie;
                     } else {
-                        $tname = crc32($ebene).".".$kategorie;
+                        $tname = eCRC($ebene).".".$kategorie;
                     }
                     $tname = substr($tname,0,$maxlength);
                     $sql = "SELECT *

@@ -49,8 +49,8 @@
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ** ".$script["name"]." ** ]".$debugging["char"];
 
-        $pfad="/pfad_des_ursprungs-dump.sql";
-        $pfad_aus="/pfad_des_bereinigten_dumps.sql";
+        $pfad="/tmp/nunaber.sql";
+        $pfad_aus="/tmp/nunaber_clean.sql";
         $fp2 = fopen($pfad_aus,"w");
         $fp = fopen($pfad,"r");
 

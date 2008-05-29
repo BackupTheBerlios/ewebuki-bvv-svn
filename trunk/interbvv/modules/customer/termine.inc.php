@@ -105,7 +105,7 @@
         $hidedata["add"]["termin_en1"] = "";
         $hidedata["add"]["termin_en2"] = "";
         $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
-        $sql = "SELECT content FROM site_text WHERE tname='".crc32($url).".".$work[0]["id"]."'";
+        $sql = "SELECT content FROM site_text WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
         $result = $db -> query($sql);
         $data = $db -> fetch_array($result,1);
         if ( $environment["parameter"][4] == "edit" ) {
@@ -135,7 +135,7 @@
                 }
                 $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
             }
-            $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE tname='".crc32($url).".".$work[0]["id"]."'";
+            $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
             $result = $db -> query($sql);
             header("Location: ".$pathvars["virtual"].$url.",,".$work[0]["id"].".html");
         }
@@ -175,13 +175,13 @@
             }
 
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$work[0]["id"].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".crc32($url).".".$work[0]["id"].",inhalt.html\"> |Weitere Infos hinzufügen|"."</a>";
+                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$work[0]["id"].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Weitere Infos hinzufügen|"."</a>";
                 $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
             }
 
             // gesamten content betrachten
             if ( $environment["parameter"][3] == "all" ) {
-                $sql = "SELECT html, content FROM ". SITETEXT ." WHERE tname='".crc32($url).".".$work[0]["id"]."' AND lang='".$environment["language"]."'AND label='inhalt' ORDER BY version DESC LIMIT 0,1";
+                $sql = "SELECT html, content FROM ". SITETEXT ." WHERE tname='".eCRC($url).".".$work[0]["id"]."' AND lang='".$environment["language"]."'AND label='inhalt' ORDER BY version DESC LIMIT 0,1";
                 $result = $db -> query($sql);
                 $data = $db -> fetch_array($result,1);
                 $hidedata["detail_all"]["tet"] = tagreplace($data["content"]);
@@ -222,7 +222,7 @@
     }
 
     // was anzeigen
-    $mapping["main"] = crc32($environment["ebene"]).".list";
+    $mapping["main"] = eCRC($environment["ebene"]).".list";
     #$mapping["navi"] = "leer";
 
 if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
