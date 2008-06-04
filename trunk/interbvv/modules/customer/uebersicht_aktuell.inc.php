@@ -70,8 +70,8 @@
     include $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
     include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
     $tags[titel] = "H1";
-    $tags[teaser] = "P";
-    $tags[image] = "IMG";
+    $tags[teaser] = "P=teaser";
+    $tags[image] = "IMG=";
 
     // loopen der artikel
     $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","","0,1");
