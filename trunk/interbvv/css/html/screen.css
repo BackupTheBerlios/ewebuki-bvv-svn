@@ -386,6 +386,7 @@ ins {
     /* sub-menu */
     /* * * * */
     #substance .sub_menu {
+	background:#FFFFFF;
         border:1px solid #CCCCCC;
         border-top:5px solid #CCCCCC;
         float:right;
