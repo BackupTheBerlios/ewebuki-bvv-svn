@@ -352,7 +352,7 @@ ins {
             margin-left:15px;
         }
     /* liste ohne punkte */
-    #substance ul.no-style {
+    ul.no-style {
         list-style:none;
         margin-left:0;
         padding-left:0;
