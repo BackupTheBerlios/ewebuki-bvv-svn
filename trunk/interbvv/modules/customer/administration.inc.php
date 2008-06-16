@@ -128,7 +128,18 @@
         $mapping["main"] = "administration";
 
         // wohin schicken
-        #n/a
+        if ( !strstr($_SERVER["HTTP_REFERER"],"/login.html" )
+          && !strstr($_SERVER["HTTP_REFERER"],"/wizard/") ) {
+            session_start();
+            $_SESSION["admin_back_link"] = $_SERVER["HTTP_REFERER"];
+        }
+        if ( is_array($hidedata["authArea"]) ) {
+            if ( preg_match("/^".str_replace("/","\/",$pathvars["webroot"].$pathvars["subdir"]."/auth/")."/",$_SESSION["admin_back_link"]) ) {
+                $hidedata["authArea"]["back"] = $_SESSION["admin_back_link"];
+            } else {
+                $hidedata["authArea"]["back"] = str_replace($pathvars["webroot"].$pathvars["subdir"],$pathvars["webroot"].$pathvars["subdir"]."/auth",$_SESSION["admin_back_link"]);
+            }
+        }
 
         // +++
         // page basics
