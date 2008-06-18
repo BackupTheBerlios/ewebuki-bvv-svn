@@ -163,10 +163,6 @@
         if ( $environment["parameter"][2] != "" ) {
             $hidedata["detail"] = $work[0];
             foreach ( $tags as $key => $value ) {
-                if ( $key == "titel" && $work[0][$key] != "" ) {
-                    $dataloop["detail"][$key]["desc"] = "Weitere Informationen";
-                    $dataloop["detail"][$key]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">bitte drücken</a>";
-                }
                 if ( !array_key_exists($key,$array[$work[0]["veranstalter_org"]][0]) )continue;
                 if ( strstr($key,"termin")) {
                     $dataloop["detail"][$key]["name"] = date ("d.m.Y",$array[$work[0]["veranstalter_org"]][0][$key]);
@@ -174,6 +170,15 @@
                     $dataloop["detail"][$key]["name"] = $array[$work[0]["veranstalter_org"]][0][$key];
                 }
                 $dataloop["detail"][$key]["desc"] = "#(".$key.")";
+            }
+
+            if ( $work[0]["titel"] != "" ) {
+                if ( $environment["parameter"][3] == "all" ) {
+                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schließen</a>";
+                } else {
+                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">Öffnen</a>";
+                }
+                $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
             }
 
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
