@@ -65,16 +65,16 @@
 
     $ausgaben["row"] = "";
 
-    include $pathvars["moduleroot"]."admin/bloged.cfg.php";
+    #include $pathvars["moduleroot"]."admin/bloged.cfg.php";
 
     // laden der eigentlichen funktion
-    include $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+    #include $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
 
     $url = $environment["ebene"]."/".$environment["kategorie"];
     $id = make_id($url);
 
     // laden der eigentlichen funktion
-    include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+    #include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 
     // erstellen der tags die angezeigt werden
     foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value) {
@@ -94,7 +94,9 @@
     }
 
     $work = show_blog($url,$tags,"admin","termine","0,10");
-    sort($work);
+    if ( is_array($work) ) {
+        sort($work);
+    }
 
     // ADD und EDIT von Terminen
     if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
