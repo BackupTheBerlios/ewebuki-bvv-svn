@@ -90,7 +90,9 @@
 
     if ( strstr($environment["ebene"],"/admin")
       || $environment["kategorie"] == "sitemap"){
-            $mapping["screen"] = "screen_admin";
+        $mapping["screen"] = "screen_admin";
+        $mapping["navi"] = "leer";
+        $mapping["foot"] = "leer";
     }
 
     if ( preg_match("/^\/m_/",$environment["ebene"]."/".$environment["kategorie"]) ) {
@@ -117,6 +119,12 @@
     if ( $environment["ebene"] == "" && $environment["kategorie"] == "login" ){
         $mapping["navi"] = "leer";
         $mapping["foot"] = "leer";
+    }
+
+    // sub_menu wird ausgeblendet wenn man tiefer als level 2 steht
+    if ( $pathvars["level_depth"] - ($pathvars["virtual_depth"] - 1) >= 3 ) {
+        unset($hidedata["level3"]);
+        $hidedata["level_up"] = array();
     }
 
   if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ $script_name ++ ]".$debugging["char"];
