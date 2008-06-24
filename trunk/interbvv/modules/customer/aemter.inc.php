@@ -162,9 +162,14 @@
                                         );
         $wms_background = $cfg["aemter"]["wms"]["url"];
 
+        $hidedata["sub_menu"][0] = "enable";
+
         switch ($environment["parameter"][0]){
             // startseite
             case "index":
+
+                $hidedata["index"][0] = "enable";
+                unset($hidedata["sub_menu"]);
 
                 // nachrichten
 //                 $sql = "SELECT * FROM db_info WHERE ifqdn0 IN ('www','intra".$amtid."') ORDER BY ivon";
@@ -213,6 +218,12 @@
                 $hidedata["gallery"]["viewer"] = $form_values["adbayernviewer"];
                 $hidedata["gallery"]["viewer"] = $link;
 
+                if ( $environment["parameter"][1] == "print" ) {
+                    $hidedata["gal_print"][] = "enable";
+                } else {
+                    $hidedata["gal_sel"][] = "enable";
+                }
+
 
                 break;
 
@@ -256,8 +267,22 @@
 
             case "info":
                 $hidedata["info"]["inhalt"] = "#(handicap_".$amtid.")";
-                if ( isset($_GET["edit"]) && priv_check("/aemter/".$amtid,"edit") ) {
-                    $hidedata["info"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,handicap_".$amtid.".html\">VA".$amtid.": Informationen bearbeiten</a>";
+                if ( /*isset($_GET["edit"]) && */priv_check("/aemter/".$amtid,"edit") ) {
+                    $hidedata["info"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,handicap_".$amtid.".html\" class=\"button\">VA".$amtid.": Informationen bearbeiten</a>";
+                }
+                break;
+
+            case "ansprech":
+                $hidedata["ansprech"]["inhalt"] = "#(ansprech_".$amtid.")";
+                if ( /*isset($_GET["edit"]) && */priv_check("/aemter/".$amtid,"edit") ) {
+                    $hidedata["ansprech"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,ansprech_".$amtid.".html\" class=\"button\">VA".$amtid.": Ansprechpartner</a>";
+                }
+                break;
+
+            case "amtschronik":
+                $hidedata["amtschronik"]["inhalt"] = "#(amtschronik_".$amtid.")";
+                if ( /*isset($_GET["edit"]) && */priv_check("/aemter/".$amtid,"edit") ) {
+                    $hidedata["amtschronik"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,amtschronik_".$amtid.".html\" class=\"button\">VA".$amtid.": Amtschronik</a>";
                 }
                 break;
         }

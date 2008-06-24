@@ -13,15 +13,45 @@
     <body>
 <!--##begin-->
         <div id="substance">
-            <h1>Dienststellen der Bayerischen Vermessungsverwaltung</h1>
+            <h1>!#ausgaben_amt</h1>
+<!--             <h1>Dienststellen der Bayerischen Vermessungsverwaltung</h1> -->
             <!--##hide-amtpic-->
 <!--             <p class="amt_banner" style="background:url('!{scr_bg}') no-repeat bottom;"> -->
             <p class="amt_banner" style="background:url('../../images/html/dienststellen.jpg') no-repeat bottom;">
                 <img src="!{src}" alt="!#ausgaben_amt (Hintergrund ist Digitales Orthophoto)" title="!#ausgaben_amt (Hintergrund ist Digitales Orthophoto)" style="" />
             </p>
             <!--##show-->
-            <h2>!#ausgaben_amt</h2>
 
+            <!--##hide-sub_menu-->
+            <div class="sub_menu">
+                <p>
+                    <b><a href="index.html">&Uuml;bersicht</a></b>
+                    <a href="standort.html">Standortanzeige</a><br />
+                    <a href="ansprech.html">Ansprechpartner</a><br />
+                    #(connection)<br />
+                    <a href="amtsbezirk.html">Amtsbezirk</a><br />
+                    <a href="amtschronik.html">Amtschronik</a><br />
+                    <a href="info.html">Informationen f&uuml;r behinderte Menschen</a><br />
+                </p>
+            </div>
+            <!--##show-->
+
+<!--             <h2>!#ausgaben_amt</h2> -->
+
+            <!--##hide-sub_menu-->
+            <p style="display:none;">
+                <b><a href="index.html">&Uuml;bersicht</a></b> -
+                <a href="standort.html">Standortanzeige</a> -
+                <a href="ansprech.html">Ansprechpartner</a> -
+                #(connection) -
+                <a href="amtsbezirk.html">Amtsbezirk</a> -
+                <a href="amtschronik.html">Amtschronik</a> -
+                <a href="info.html">Informationen f&uuml;r behinderte Menschen</a>
+            </p>
+            <!--##show-->
+
+            <!--##hide-index-->
+            <h2>Informationen</h2>
             <div class="amt_info_box">
                 <span title="Anschrift">
                     <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
@@ -74,24 +104,34 @@
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
+            #(aktuell)
+            #(test)
+            <!--##show-->
 
             <!--##hide-gallery-->
-            <h2>So finden Sie uns:</h2>
-
-
+            #(location)
+            <div class="amt_info_box">
+                <span title="Anschrift">
+                    <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
+                    <div>!#ausgaben_str</div>
+                    <div>!#ausgaben_plz !#ausgaben_ort</div>
+                </span>
+                <span title="Bayernviewer">
+                    <img src="../../images/html/icon_anfahrt.jpg" title="Bayernviewer:" alt="Bayernviewer:" />
+                    <div><a href="!{viewer}">Das Vermessungsamt im BayernViewer</a></div>
+                </span>
+            </div>
+            <div class="clear"></div>
+            <!--##show-->
+            <!--##hide-gal_sel-->
             <div class="selection_teaser">
                 <b>Anfahrtskizzen</b>
                 <div>
                     <ul>
-                        <!--##loop-gallery_alt-->
-                        <li class="thumbs">
-                            <a href="standort,!{id}.html#standort" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">va!{amtakz}_anfahrt!{id}</a>
-                        </li>
-                        <!--##cont-->
                         <!--##loop-gallery-->
                         <li class="thumbs">
                             <a href="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" title="Anfahrtskizze !{id}" rel="lightbox[skizze]" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">
-                                va!{amtakz}_anfahrt!{id}
+<!--                                 va!{amtakz}_anfahrt!{id} -->
                             </a>
                         </li>
                         <!--##cont-->
@@ -101,10 +141,21 @@
                 <div class="clear"></div>
                 <span>&nbsp;</span>
             </div>
-            <p>
-                <a href="!{viewer}"><img src="../../images/html/icon_anfahrt1.gif" alt="BayernViewer:" style="vertical-align:middle;" /> Das Vermessungsamt im BayernViewer</a>
-            </p>
+            <a href="standort,print.html">Print-Ansicht</a>
             <div class="clear"></div>
+            <!--##show-->
+            <!--##hide-gal_print-->
+            <!--##loop-gallery-->
+<!--             <li class="thumbs"> -->
+                <h3>Anfahrtskizze !{id}</h3>
+                <img src="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" />
+<!--                <a href="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" title="Anfahrtskizze !{id}" rel="lightbox[skizze]" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">
+                    va!{amtakz}_anfahrt!{id}
+                </a>-->
+                <div class="clear"></div>
+<!--             </li> -->
+            <!--##cont-->
+            <a href="standort.html">Galerie-Ansicht</a>
             <!--##show-->
 
             <!--##hide-bezirk-->
@@ -141,9 +192,21 @@
 
             <!--##hide-info-->
             #(handicap)
-            <div class="clear"></div>
             !{inhalt}
+            !{wizard}
             <div class="clear"></div>
+            <!--##show-->
+
+            <!--##hide-ansprech-->
+            #(ansprech)
+            !{inhalt}
+            !{wizard}
+            <div class="clear"></div>
+            <!--##show-->
+
+            <!--##hide-amtschronik-->
+            #(amtschronik)
+            !{inhalt}
             !{wizard}
             <div class="clear"></div>
             <!--##show-->

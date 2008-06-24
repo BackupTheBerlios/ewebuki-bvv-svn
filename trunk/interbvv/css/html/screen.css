@@ -454,11 +454,17 @@ ins {
     }
 
         #substance .present h2 {
+            margin-left:160px;
             margin-top:0;
         }
 
         #substance .present p {
+            margin-left:160px;
         }
+
+            #substance .present p a {
+                font-weight:bold;
+            }
     /* + + + */
     /* 3-er Kombination */
 
