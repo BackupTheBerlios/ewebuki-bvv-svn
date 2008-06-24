@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+<!--##begin-->
+            <div style="background:#FFFFFF;float:left;">
+<!--                 <h3>Schema</h3> -->
+                <img src="../../images/html/img_map_deco_page_start.png" style="float:left;border:0;" usemap="#map_start" />
+
+                <ul id="img_map">
+                    <!--##loop-img_map-->
+                    <li style="float:left;" id="item_hm_!{key}">
+                        <a href="!{link}">
+                            <img src="!{src}" border="0" />
+                        </a>
+                    </li>
+                    <!--##cont-->
+                </ul>
+
+                <script type="text/javascript">
+                    Sortable.create(
+                        'img_map',
+                        {
+                            onUpdate:function(){
+                                new Ajax.Request(
+                                    '!#ausgaben_ajax_request?' + Sortable.serialize('img_map'),
+                                    {
+                                        onComplete:function(element){
+//                                             new Effect.Pulsate('img_map',{duration:3.0});
+                                            location.href  = '!#ausgaben_empty_show_url';
+                                        }
+                                    }
+                                );
+                            }
+                        }
+                    );
+                </script>
+
+                <map name="map_start">
+                    <area shape="rect" coords="0,0,160,21" href="!#ausgaben_item_0_link" />
+                    <area shape="rect" coords="0,21,160,70" href="!#ausgaben_item_1_link" />
+                    <area shape="rect" coords="0,70,160,105" href="!#ausgaben_item_2_link" />
+                </map>
+            </div>
+<!--##end-->
+
+    </body>
+</html>
