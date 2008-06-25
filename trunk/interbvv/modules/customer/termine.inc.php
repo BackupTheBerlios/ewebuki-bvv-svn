@@ -93,13 +93,14 @@
         $tags[$key] = $value;
     }
 
-    $work = show_blog($url,$tags,"admin","termine","0,10");
+    $work = $dataloop["list"];
     if ( is_array($work) ) {
         sort($work);
     }
 
     // ADD und EDIT von Terminen
     if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
+        $hidedata["add"]["link"] = $url;
         $hidedata["add"]["termin_bg0"] = date("d");
         $hidedata["add"]["termin_bg1"] = date("m");
         $hidedata["add"]["termin_bg2"] = date("Y");
@@ -188,10 +189,7 @@
 
             // gesamten content betrachten
             if ( $environment["parameter"][3] == "all" ) {
-                $sql = "SELECT html, content FROM ". SITETEXT ." WHERE tname='".eCRC($url).".".$work[0]["id"]."' AND lang='".$environment["language"]."'AND label='inhalt' ORDER BY version DESC LIMIT 0,1";
-                $result = $db -> query($sql);
-                $data = $db -> fetch_array($result,1);
-                $hidedata["detail_all"]["tet"] = tagreplace($data["content"]);
+                $hidedata["detail_all"]["tet"] = $work[0]["all"];
             }
 
         } else {
