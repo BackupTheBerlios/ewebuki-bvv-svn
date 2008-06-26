@@ -93,7 +93,11 @@
         $tags[$key] = $value;
     }
 
-    $work = $dataloop["list"];
+    if ( $environment["parameter"][2] == "" ) {
+        $work = $dataloop["list"];
+    } else {
+        $work = $all;
+    }
     if ( is_array($work) ) {
         sort($work);
     }
