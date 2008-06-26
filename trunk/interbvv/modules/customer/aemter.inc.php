@@ -288,6 +288,23 @@
         }
 
 
+        // BUFFY
+        if ( $environment["parameter"][2] != "" ) {
+            $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
+                        ".$cfg["changed"]["db"]["changed"]["changed"].",
+                        ".$cfg["changed"]["db"]["changed"]["surname"].",
+                        ".$cfg["changed"]["db"]["changed"]["forename"].",
+                        ".$cfg["changed"]["db"]["changed"]["email"].",
+                        ".$cfg["changed"]["db"]["changed"]["alias"]."
+                    FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
+                    WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
+                ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
+            $result = $db -> query($sql);
+            $data = $db -> fetch_array($result);
+            $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
+        }
+        // BUFFY
+
         // +++
         // funktions bereich
 
