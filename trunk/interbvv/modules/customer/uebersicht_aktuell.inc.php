@@ -75,7 +75,7 @@
 
     // loopen der artikel
     $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","","0,1","","/aktuell/archiv");
-    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","1,3");
+    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","1,3","","/aktuell/archiv");
 
     // loopen der pressemitteilungen
     $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","0,4");
