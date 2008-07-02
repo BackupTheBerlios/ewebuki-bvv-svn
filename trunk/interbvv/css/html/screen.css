@@ -498,12 +498,11 @@ ins {
 -----------------------*/
 #foot {
     background:#FFFFFF;
-    border-top:1px solid #CCCCCC;
     clear:both;
     line-height:1.5em;
-    margin-left:170px;
+    padding-top:5px;
     text-align:center;
-    width:540px;
+    width:880px;
 }
 
 /*----------------------
