@@ -159,18 +159,51 @@
                     $highlighted .= " (".$data[$cfg["amtsuche"]["db"]["plz"]["teil"]].")";
                 }
                 $highlighted = preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$highlighted);
+
                 // gesuchter ort
                 $place = $data[$cfg["amtsuche"]["db"]["plz"]["plz"]]." ".$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]];
                 if ( $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] != "" && $data[$cfg["amtsuche"]["db"]["plz"]["gmd"]] != $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] ) {
                     $place .= " (".$data[$cfg["amtsuche"]["db"]["plz"]["teil"]].")";
                 }
 
+                // gemeindeteil
+                $gmd_teil = "&nbsp;";
+                if ( $data[$cfg["amtsuche"]["db"]["plz"]["gmd"]] != $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] ) {
+                    $gmd_teil = $data[$cfg["amtsuche"]["db"]["plz"]["teil"]];
+                }
+
+                // amt finden
+                $sql_amt = "SELECT *
+                            FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
+                            JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
+                                ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                            WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."'";
+                $result_amt = $db -> query($sql_amt);
+                $data_amt   = $db -> fetch_array($result_amt,1);
+                // auf aussen-, service-stelle testen
+                if ( $data_amt["adkate"] == 5 || $data_amt["adkate"] == 8 ) {
+                    $neben = "<br />".$data_amt[$cfg["amtsuche"]["db"]["kategorie"]["lang"]]." ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                    $sql_ha = "SELECT *
+                                FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
+                                JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
+                                ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                                WHERE ".$cfg["amtsuche"]["db"]["amt"]["key"]."='".$data_amt[$cfg["amtsuche"]["db"]["amt"]["parent"]]."'";
+                    $result_ha = $db -> query($sql_ha);
+                    $data_ha   = $db -> fetch_array($result_ha,1);
+                    $dienststelle = "Vermessungamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                } else {
+                    $neben = "";
+                    $dienststelle = "Vermessungamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                }
+
                 $dataloop["hits"][] = array(
-                     "plz" => $data[$cfg["amtsuche"]["db"]["plz"]["plz"]],
-                     "gmd" => $data[$cfg["amtsuche"]["db"]["plz"]["gmd"]],
-                    "teil" => $data[$cfg["amtsuche"]["db"]["plz"]["teil"]],
-                     "amt" => $data[$cfg["amtsuche"]["db"]["plz"]["amt"]],
-                    "link" => "?amt=".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."&place=".urlencode($place),
+                 "amtzahl" => $data[$cfg["amtsuche"]["db"]["plz"]["amt"]],
+                     "amt" => $dienststelle.$neben,
+                     "plz" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["plz"]]),
+                     "gmd" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]]),
+                    "teil" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$gmd_teil),
+           "link_amt_info" => "?amt=".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."&place=".urlencode($place),
+          "link_amt_seite" => $pathvars["virtual"]."/aemter/".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."/index.html",
                       "hl" => $highlighted,
                 );
             }

@@ -38,13 +38,31 @@
                 <!--##hide-hit_list-->
                 <div class="box">
                     #(gemeindeliste)
-                    <ul>
+                    <ul style="display:none;">
                         <!--##loop-hits-->
                         <li>
-                            <a href="!{link}">!{hl}</a>
+                            <a href="!{link_amt_info}">!{hl}</a>
                         </li>
                         <!--##cont-->
                     </ul>
+                    <table width="100%">
+                        <tr>
+                            <th>Postleitzahl</th>
+                            <th>Gemeinde</th>
+                            <th>Gemeindeteil</th>
+                            <th>Vermessungsamt</th>
+                        </tr>
+                        <!--##loop-hits-->
+                        <tr>
+                            <td>!{plz}</td>
+                            <td>!{gmd}</td>
+                            <td>!{teil}</td>
+                            <td>
+                                <a href="!{link_amt_seite}" title="direkt zur Startseite des Vermessungsamts">!{amt}</a>
+                            </td>
+                        </tr>
+                        <!--##cont-->
+                    </table>
                 </div>
                 <!--##show-->
 
