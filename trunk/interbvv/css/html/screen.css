@@ -286,6 +286,7 @@ ins {
 
                         #navi ul.navigation li.Level1Active li.Level2Active a {
                             color:#FEEAAD;
+                            font-weight:bold;
                         }
 
                 #navi ul.navigation li a:hover {
@@ -387,7 +388,7 @@ ins {
     /* sub-menu */
     /* * * * */
     #substance .sub_menu {
-	background:#FFFFFF;
+        background:#FFFFFF;
         border:1px solid #CCCCCC;
         border-top:5px solid #CCCCCC;
         float:right;
@@ -410,15 +411,21 @@ ins {
 
         #substance .sub_menu ul {
             list-style:none;
-            margin:0.5em 0;
+            margin:/*0.5em */0;
             padding:0;
             width:auto;
         }
 
         #substance .sub_menu li, #substance .aktuell a {
-            font-weight:bold;
             list-style-image:none;
             padding-right:0.3em;
+        }
+        #substance .aktuell a {
+            font-weight:bold;
+        }
+        #substance .sub_menu li {
+/*             background:#eeeeee; */
+            margin:2px 0;
         }
     /* + + + */
     /* sub-menu */
