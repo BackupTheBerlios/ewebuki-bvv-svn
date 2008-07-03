@@ -23,7 +23,7 @@
             <!--##show-->
 
             <!--##hide-sub_menu-->
-            <div class="sub_menu">
+            <div class="sub_menu" style="display:none;">
                 <p>
                     <b><a href="index.html">&Uuml;bersicht</a></b>
                     <a href="standort.html">Standortanzeige</a><br />
@@ -36,17 +36,15 @@
             </div>
             <!--##show-->
 
-<!--             <h2>!#ausgaben_amt</h2> -->
-
             <!--##hide-sub_menu-->
-            <p style="display:none;">
+            <p>
                 <b><a href="index.html">&Uuml;bersicht</a></b> -
-                <a href="standort.html">Standortanzeige</a> -
+                <a href="standort.html">Standort</a> -
                 <a href="ansprech.html">Ansprechpartner</a> -
-                #(connection) -
+<!--                 #(connection) - -->
                 <a href="amtsbezirk.html">Amtsbezirk</a> -
-                <a href="amtschronik.html">Amtschronik</a> -
-                <a href="info.html">Informationen f&uuml;r behinderte Menschen</a>
+                <a href="amtschronik.html">Amtschronik</a>
+<!--                 <a href="info.html">Informationen f&uuml;r behinderte Menschen</a> -->
             </p>
             <!--##show-->
 
@@ -104,8 +102,12 @@
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
+            #(aktuell_heading)
             #(aktuell)
-            #(test)
+            <!--##show-->
+
+            <!--##hide-artikel-->
+            #(aktuell)
             <!--##show-->
 
             <!--##hide-gallery-->

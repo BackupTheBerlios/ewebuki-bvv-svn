@@ -171,35 +171,12 @@
             // startseite
             case "index":
 
-                $hidedata["index"][0] = "enable";
-                unset($hidedata["sub_menu"]);
-
-                // nachrichten
-//                 $sql = "SELECT * FROM db_info WHERE ifqdn0 IN ('www','intra".$amtid."') ORDER BY ivon";
-//                 $result = $db -> query($sql);
-//                 while ( $data = $db->fetch_array($result,1) ) {
-//                     if ( $data["ifqdn0"] == "www" ){
-//                         // bayernweit
-//                         $dataloop["bayern"][] = array(
-//                             "link" => "news,".$data["iid"].".html",
-//                             "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
-//                         );
-//                         $hidedata["bayern"][0] = "enable";
-//                     }else{
-//                         // lokal
-//                         $dataloop["lokal"][] = array(
-//                             "link" => "news/details,".$data["iid"].".html",
-//                             "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
-//                         );
-//                         $hidedata["lokal"][0] = "enable";
-//                     }
-//
-//                     // alle
-//                     $dataloop["news"][] = array(
-//                         "link" => "news,".$data["iid"].".html",
-//                         "item" => $data["ititel"]." (".substr($data["ivon"],8,2).".".substr($data["ivon"],5,2).".".substr($data["ivon"],0,4).")"
-//                     );
-//                 }
+                if ( $environment["parameter"][2] != "" ) {
+                    $hidedata["artikel"][0] = "enable";
+                } else {
+                    $hidedata["index"][0] = "enable";
+                    unset($hidedata["sub_menu"]);
+                }
                 break;
 
             case "standort":
