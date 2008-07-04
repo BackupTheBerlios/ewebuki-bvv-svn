@@ -572,7 +572,7 @@ fieldset.button {
     border:1px solid #CCCCCC;
     border-collapse:collapse;
     font-size:0.9em;
-    margin:0 4px 20px;
+    margin:0 0px 0px;
     width:152px;
 }
 
@@ -601,7 +601,7 @@ fieldset.button {
 
 .cal_termine_months {
     border-bottom:none;
-    margin:0 4px;
+    margin:0 0px;
 }
 
     .cal_termine_months td {
