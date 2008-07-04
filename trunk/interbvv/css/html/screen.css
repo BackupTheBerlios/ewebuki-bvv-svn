@@ -291,7 +291,7 @@ ins {
 
                 #navi ul.navigation li a:hover {
                     text-decoration:none;
-                    color:#FFFFFF;
+/*                     color:#FFFFFF; */
                 }
 
             #navi ul.navigation ul li {
@@ -865,6 +865,11 @@ input.small {
 
 input.medium {
     width: 248px;
+}
+
+/* brotkrumen */
+.last_bread_crumb {
+    font-weight:bold;
 }
 
 

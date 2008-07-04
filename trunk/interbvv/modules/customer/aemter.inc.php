@@ -210,6 +210,7 @@
                 break;
 
             case "amtsbezirk":
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/amtsbezirk.html\">Amtsbezirk</a>";
                 $hidedata["bezirk"]["amtakz"] = $amtid;
                 $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde".
                         " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
@@ -248,6 +249,7 @@
                 break;
 
             case "info":
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/info.html\">Informationen f&uuml;r behinderte Menschen</a>";
                 $hidedata["info"]["inhalt"] = "#(handicap_".$amtid.")";
                 if ( priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["info"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,handicap_".$amtid.".html\" class=\"button\">VA".$amtid.": Informationen bearbeiten</a>";
@@ -255,6 +257,7 @@
                 break;
 
             case "ansprech":
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/ansprech.html\">Ansprechpartner</a>";
                 $hidedata["ansprech"]["inhalt"] = "#(ansprech_".$amtid.")";
                 if (priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["ansprech"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,ansprech_".$amtid.".html\" class=\"button\">VA".$amtid.": Ansprechpartner</a>";
@@ -262,6 +265,7 @@
                 break;
 
             case "amtschronik":
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/amtschronik.html\">Amtschronik</a>";
                 $hidedata["amtschronik"]["inhalt"] = "#(amtschronik_".$amtid.")";
                 if ( priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["amtschronik"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,amtschronik_".$amtid.".html\" class=\"button\">VA".$amtid.": Amtschronik</a>";
