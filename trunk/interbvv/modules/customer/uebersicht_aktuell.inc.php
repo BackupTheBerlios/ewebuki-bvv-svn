@@ -65,7 +65,7 @@
 
     // kalender einblenden
     include $pathvars["moduleroot"]."libraries/function_calendar.inc.php";
-    $ausgaben["calendar"] .= calendar("","","cal_termine",-1,-1);
+    $ausgaben["calendar"] .= "<div class=\"box\">".calendar("","","cal_termine",-1,-1)."</div>";
 
     include $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
     include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
