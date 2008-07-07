@@ -20,12 +20,14 @@
             <input type="hidden" name="kategorie" value="!{kategorie}"/>
             </form>
             <!--##show-->
+            <ul>
             <!--##loop-list-->
-            !{rubric}
-            <div><b><a href="!{faqlink}">!{titel_org}</a></b></div>
+            <li>!{rubric}
+            <div><b><a href="!{faqlink}" name="!{faqanker}">!{titel_org}</a></b></div>
             !{faq}
-            !{editlink} !{deletelink} !{sort}
+            !{editlink} !{deletelink} !{sort}</li>
             <!--##cont-->
+            </ul>
 <!--##end-->
     </body>
 </html>
