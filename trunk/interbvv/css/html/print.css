@@ -1,0 +1,43 @@
+@import "screen.css";
+
+body {
+    font-family: Georgia, "Bitstream Vera Serif", serif;
+    font-size:14px;
+}
+
+/* allgemeine print-definitionen
+        aenderungen, die fuer mehrere
+        bereiche gelten
+------------------------------------------------------*/
+#headnavi,
+#navi,
+#margin,
+#foot,
+#debug,
+.metanavi,
+.sub_menu {
+    display:none;
+}
+
+#head,
+#banner,
+#substance,
+#substance p,
+.kekse {
+    width:100% !important;
+}
+
+#site,
+#head {
+    background:none;
+}
+
+/* kopfbereich anpassen */
+#banner {
+    background:none;
+    margin-bottom:2em;
+}
+
+    #banner h1 {
+        display:block
+    }

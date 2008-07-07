@@ -148,6 +148,19 @@ ins {
     width:980px;
 }
 
+    #banner {
+        background:url('/images/html/banner_1.jpg') no-repeat;
+        position:relative;
+    }
+
+        #banner h1 {
+            border:none;
+            bottom:0px;
+            position:absolute;
+            right:100px;
+            text-align:right;
+        }
+
     /* feld mit der kopfnavigation und dem suchfeld */
     #headnavi{
         background:#2C5A93;
@@ -192,6 +205,7 @@ ins {
     #head p.kekse{
         margin:0;
         padding-left:10px;
+        width:550px;
     }
 
     #head .schnellsuche{
