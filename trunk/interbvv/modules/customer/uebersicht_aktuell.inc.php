@@ -74,18 +74,18 @@
     $tags[image] = "IMG=";
 
     // loopen der artikel
-    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","","0,1","","/aktuell/archiv");
-    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","1,3","","/aktuell/archiv");
+    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","0,1","/aktuell/archiv");
+    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,3","/aktuell/archiv");
 
     // loopen der pressemitteilungen
-    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","0,4");
+    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4");
 
     // loopen der termine
     $tags = "";
     $tags["termin1"] = "TERMIN1";
     $tags["titel"] = "NAME";
     $tags["termin2"] = "TERMIN2";
-    $work_array = show_blog("/aktuell/termine",$tags,"disabled","","0,4");
+    $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4");
     sort($work_array);
 
     foreach ( $work_array as $key => $value ) {
