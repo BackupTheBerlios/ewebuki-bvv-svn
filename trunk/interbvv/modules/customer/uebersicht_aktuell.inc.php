@@ -86,12 +86,13 @@
     $tags["titel"] = "NAME";
     $tags["termin2"] = "TERMIN2";
     $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4");
-    sort($work_array);
-
-    foreach ( $work_array as $key => $value ) {
-        $dataloop["termine"][$value["id"]]["datum"] = date ("d.m.Y", $value["termin1_org"]);
-        $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
-        $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
+    if ( is_array($work_array) ) {
+        sort($work_array);
+        foreach ( $work_array as $key => $value ) {
+            $dataloop["termine"][$value["id"]]["datum"] = date ("d.m.Y", $value["termin1_org"]);
+            $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
+            $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
+        }
     }
 
     $mapping["main"] = "uebersicht_aktuell";
