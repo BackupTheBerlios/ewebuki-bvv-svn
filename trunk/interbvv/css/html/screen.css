@@ -156,6 +156,7 @@ ins {
         #banner h1 {
             border:none;
             bottom:0px;
+            display:none;
             position:absolute;
             right:100px;
             text-align:right;
