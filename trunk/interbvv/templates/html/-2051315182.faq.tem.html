@@ -12,6 +12,23 @@
     </head>
     <body>
 <!--##begin-->
+<script type="text/javascript">
+function resetForm(){
+document.forms['modify'].reset();
+}
+
+function anzeigen(id) {
+show = document.getElementById(id).style.display;
+if ( show == 'none' ) {
+new Effect.BlindDown(id);
+} else {
+new Effect.BlindUp(id)
+}
+return false;
+}
+
+</script>
+
             <p>!#ausgaben_form_error</p>
             <!--##hide-new-->
             <form action="/auth/admin/bloged/add.html" method="post">
@@ -23,8 +40,8 @@
             <ul>
             <!--##loop-list-->
             <li>!{rubric}
-            <div><b><a href="!{faqlink}" name="!{faqanker}">!{titel_org}</a></b></div>
-            !{faq}
+            <div><b><a style="cursor: pointer" onClick="anzeigen('faq_!{id}');">!{titel_org}</a></b></div>
+            <div id=faq_!{id} style="display:none">!{faq}</div>
             !{editlink} !{deletelink} !{sort}</li>
             <!--##cont-->
             </ul>
