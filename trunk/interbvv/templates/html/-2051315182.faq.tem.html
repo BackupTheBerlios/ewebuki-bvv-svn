@@ -20,9 +20,9 @@ document.forms['modify'].reset();
 function anzeigen(id) {
 show = document.getElementById(id).style.display;
 if ( show == 'none' ) {
-new Effect.BlindDown(id);
+new Effect.BlindDown(id, {duration: 0.1});
 } else {
-new Effect.BlindUp(id)
+new Effect.BlindUp(id, {duration: 0.1})
 }
 return false;
 }
