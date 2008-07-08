@@ -368,7 +368,8 @@ ins {
         }
             #substance ul li blockquote {
                 margin:0.3em 1em;
-                width:100%;
+/*                 width:100%; */
+                background-color:#EEF3FB;
             }
     /* liste ohne punkte */
     ul.no-style {
