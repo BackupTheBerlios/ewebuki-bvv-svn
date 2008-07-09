@@ -65,7 +65,12 @@
             <div class="box" style="width:620px;">
                 <h2>!{heading}</h2>
                 <p>
-                    <a href="/auth/admin/bloged/add,273.html">!{new}</a>
+                    <form action="/auth/admin/bloged/add.html" method="post">
+                        <input type="submit" value="Neuen Artikel erfassen" name="blog"/>
+                        <input type="hidden" name="link" value="/aktuell/archiv"/>
+                        <input type="hidden" name="kategorie" value="/aktuell/archiv"/>
+                    </form>
+                    <div class="clearer" style="clear:left;"></div>
                 </p>
 <!--##show-->
 <!--##hide-artikel_edit-->
@@ -101,7 +106,7 @@
             <div class="box" style="width:620px;">
                 <h2>!{heading}</h2>
                 <p>
-                    <a href="/auth/admin/bloged/add,273.html">!{new}</a>
+                    <a href="/auth/aktuell/termine,,,,add.html">Neuen Termin erfassen</a>
                 </p>
 <!--##show-->
 <!--##hide-termine_edit-->
@@ -137,7 +142,12 @@
             <div class="box" style="width:620px;">
                 <h2>!{heading}</h2>
                 <p>
-                    <a href="/auth/admin/bloged/add,273.html">!{new}</a>
+                    <form action="/auth/admin/bloged/add.html" method="post">
+                        <input type="submit" value="Neue Pressemitteilung erfassen" name="blog"/>
+                        <input type="hidden" name="link" value="/aktuell/presse"/>
+                        <input type="hidden" name="kategorie" value="/aktuell/presse"/>
+                    </form>
+                    <div class="clearer" style="clear:left;"></div>
                 </p>
 <!--##show-->
 <!--##hide-presse_edit-->
