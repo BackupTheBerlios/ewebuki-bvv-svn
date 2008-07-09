@@ -11,7 +11,7 @@ body{
     font:76% Verdana,Tahoma,Arial,sans-serif;
     line-height:1.3em;
     margin:0;
-    padding:8px;
+/*    padding:8px;*/
 }
 
 /* ueberschriften */
@@ -145,22 +145,27 @@ ins {
 #head{
     background:url('/images/html/background.png') repeat-y;
     position:relative;
-    width:980px;
+    width:975px;
 }
 
     #banner {
-        background:url('/images/html/banner_1.jpg') no-repeat;
+        background:url('/images/html/banner.jpg') no-repeat;
         position:relative;
     }
 
         #banner h1 {
             border:none;
-            bottom:0px;
-            display:none;
+            bottom:3px;
+            font-size:1.3em;
+/*            display:none;*/
             position:absolute;
-            right:100px;
+            right:95px;
             text-align:right;
         }
+
+            #banner h1:hover {
+                text-decoration:none !important;
+            }
 
     /* feld mit der kopfnavigation und dem suchfeld */
     #headnavi{
