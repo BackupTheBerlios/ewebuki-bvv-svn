@@ -91,7 +91,7 @@
         foreach ( $work_array as $key => $value ) {
             $dataloop["termine"][$value["id"]]["datum"] = date ("d.m.Y", $value["termin1_org"]);
             $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
-            $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
+            $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].".html";
         }
     }
 
