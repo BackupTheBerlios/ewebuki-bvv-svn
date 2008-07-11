@@ -13,7 +13,6 @@
     <body>
 <!--##begin-->
         <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
-        <p>!#ausgaben_form_error</p>
         <!--##hide-new-->
             <form action="/auth/admin/bloged/add.html" method="post">
             <input type="submit" value="g(new)" name="blog"/>
@@ -25,12 +24,10 @@
         <p style="float:right;text-align:right;font-size:85%"><a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>&nbsp;|&nbsp;<a href="">Kontakt</a></p>
         <p style="font-size:85%">!{changed}</p>
         <div class="clearer"></div>
-        <!--##show-->
-        <!--##hide-all-->
         !{inhalt}
         <!--##show-->
         <!--##loop-list-->
-        <h3><a href="!{allink}">!{titel_org}</a></h3>
+        !{datum} <a href="!{allink}">!{titel_org}</a>
         <p>!{editlink} !{deletelink}</p>
         <!--##cont-->
 <!--##end-->
