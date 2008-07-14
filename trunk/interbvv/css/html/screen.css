@@ -138,19 +138,24 @@ ins {
 #site{
     background:url('/images/html/background.png') repeat-y;
     width:1000px;
+    z-index:1;
 }
 
 /* kopfbereich mit banner, logo, kopfnavigation, kekse
 ------------------------------------------------------*/
 #head{
-    background:url('/images/html/background.png') repeat-y;
+/*     background: url('/images/html/background.png') repeat-y; */
     position:relative;
-    width:975px;
+    width:990px;
 }
 
     #banner {
-        background:url('/images/html/banner.jpg') no-repeat;
+/*         background: url('/images/html/banner.jpg') no-repeat yellow; */
+        background-image: url('/images/html/banner.jpg');
+        background-repeat: no-repeat;
         position:relative;
+        width:990px;
+        z-index:10;
     }
 
         #banner h1 {
@@ -174,7 +179,7 @@ ins {
     }
 
     /* head-navigation */
-    #head ul {
+    #headnavi ul {
         height:2em;
         line-height:2em;
         margin:0 0 0 160px;
@@ -182,13 +187,13 @@ ins {
         width:540px;
     }
 
-        #head li{
+        #headnavi li{
             float:left;
             list-style-type:none;
             white-space:nowrap;
         }
 
-            #head li a{
+            #headnavi li a{
                 color:#EEF3FB;
                 display:block;
                 padding:0 10px;
@@ -482,7 +487,10 @@ ins {
     /* * * * */
     #substance .present {
         clear:both;
+        float:left;
         margin:0.5em 0 1.5em;
+        padding:0;
+        width:100%;
     }
 
         #substance .present h2 {
@@ -555,6 +563,14 @@ ins {
     float:left;
 }
 
+.anchor {
+    clear:both;
+    display:block;
+    padding-top: 25px;
+    text-align:right;
+    width:100% !important;
+}
+
 fieldset.button {
     text-align:right;
     padding-right:81px;
@@ -571,8 +587,8 @@ fieldset.button {
     .schnellsuche input{
         border:none;
         float:left;
-        font-size:1em;
-        width:125px;
+        font-size:0.9em;
+        width:120px;
     }
 
     .schnellsuche button{

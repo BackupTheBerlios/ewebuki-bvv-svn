@@ -15,7 +15,8 @@ body {
 #foot,
 #debug,
 .metanavi,
-.sub_menu {
+.sub_menu,
+.banner {
     display:none;
 }
 

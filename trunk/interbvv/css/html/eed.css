@@ -324,11 +324,12 @@ li.thumbs a.pic {
 
     .selection_teaser div {
         background:#fff;
-        padding-left:16px;
+        float:left;
+        width:532px;
     }
 
     .selection_teaser ul {
-        margin:0;
+        margin:0 0 0 16px;
         padding:0;
     }
 

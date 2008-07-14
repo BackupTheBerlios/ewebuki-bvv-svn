@@ -60,10 +60,10 @@
 // -----------------------------------------------------------------------------------
 
 //
-//	Configuration
+//	Configurationn
 //
-var fileLoadingImage = "/images/default/lb/loading.gif";
-var fileBottomNavCloseImage = "/images/default/lb/closelabel.gif";
+var fileLoadingImage = "/images/html/lb/loading.gif";
+var fileBottomNavCloseImage = "/images/html/lb/closelabel.gif";
 
 var overlayOpacity = 0.8;	// controls transparency of shadow overlay
 
@@ -582,12 +582,12 @@ Lightbox.prototype = {
 
 		if((key == 'x') || (key == 'o') || (key == 'c') || (keycode == escapeKey)){	// close lightbox
 			myLightbox.end();
-		} else if((key == 'p') || (keycode == 37)){	// display previous image
+		} else if((key == 'p') || (key == 'z') || (keycode == 37)){	// display previous image
 			if(activeImage != 0){
 				myLightbox.disableKeyboardNav();
 				myLightbox.changeImage(activeImage - 1);
 			}
-		} else if((key == 'n') || (keycode == 39)){	// display next image
+		} else if((key == 'n') || (key == 'w') || (keycode == 39)){	// display next image
 			if(activeImage != (imageArray.length - 1)){
 				myLightbox.disableKeyboardNav();
 				myLightbox.changeImage(activeImage + 1);
