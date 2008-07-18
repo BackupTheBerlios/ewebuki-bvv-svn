@@ -829,7 +829,7 @@ div.autocomplete {
 /*     border:1px solid silver; */
 }
 
-    .amt_info_box p, .amt_info_box span{
+    .amt_info_box p, .amt_info_box div {
         margin:/*0.5em*/ 0;
         display:block;
         float:left;
@@ -837,13 +837,22 @@ div.autocomplete {
         width:45%;
     }
 
-        .amt_info_box p img, .amt_info_box span img{
+    .amt_info_box div {
+        margin-bottom:5px;
+    }
+
+        .amt_info_box div.clear {
+            width:100%;
+        }
+
+        .amt_info_box p img, .amt_info_box div img {
             float:left;
-            margin-bottom:0.5em;
+/*             margin-bottom:0.5em; */
             vertical-align:middle;
         }
 
-        .amt_info_box div {
+        .amt_info_box span {
+            display:block;
             margin-left:40px;
         }
 
