@@ -82,14 +82,20 @@
 
     // loopen der termine
     $tags = "";
-    $tags["termin1"] = "TERMIN1";
+    $tags["termin1"] = "SORT";
     $tags["titel"] = "NAME";
-    $tags["termin2"] = "TERMIN2";
+    $tags["termin2"] = "TERMIN";
     $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4");
+
     if ( is_array($work_array) ) {
+        foreach ( $work_array as $key => $value ) {
+            $value =array_pad($value,-16,mktime(0,0,0,substr($value["termin1_org"],3,2),substr($value["termin1_org"],0,2),substr($value["termin1_org"],6,4)));
+            $work_array[$key] = $value;
+        }
+
         sort($work_array);
         foreach ( $work_array as $key => $value ) {
-            $dataloop["termine"][$value["id"]]["datum"] = date ("d.m.Y", $value["termin1_org"]);
+            $dataloop["termine"][$value["id"]]["datum"] = substr($value["termin1_org"],0,2).".".substr($value["termin1_org"],3,2).".".substr($value["termin1_org"],6,4);
             $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
             $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].".html";
         }

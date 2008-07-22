@@ -99,59 +99,55 @@
         $work = $all;
     }
     if ( is_array($work) ) {
+        foreach ( $work as $key => $value ) {
+            $value =array_pad($value,-31,mktime(0,0,0,substr($value["termin_org"],3,2),substr($value["termin_org"],0,2),substr($value["termin_org"],6,4)));
+            $work[$key] = $value;
+        }
+
         sort($work);
     }
 
     // ADD und EDIT von Terminen
     if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
         $hidedata["add"]["link"] = $url;
-        $hidedata["add"]["termin_bg0"] = date("d");
-        $hidedata["add"]["termin_bg1"] = date("m");
-        $hidedata["add"]["termin_bg2"] = date("Y");
-        $hidedata["add"]["termin_en0"] = "";
-        $hidedata["add"]["termin_en1"] = "";
-        $hidedata["add"]["termin_en2"] = "";
+        $hidedata["add"]["name"] = "";
+        $hidedata["add"]["ort"] = "";
+        $hidedata["add"]["beschreibung"] = "";
+        $hidedata["add"]["sort"] = "";
+        $hidedata["add"]["termin"] = "";
+        $hidedata["add"]["termin_en"] = "";
+        $hidedata["add"]["wizard"] = "artikel";
+
         $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
         $sql = "SELECT content FROM site_text WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
         $result = $db -> query($sql);
         $data = $db -> fetch_array($result,1);
         if ( $environment["parameter"][4] == "edit" ) {
             foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value ) {
-                    preg_match("/\[$value\](.*)\[\/$value\]/",$data["content"],$regs);
-                    if ( strstr($key,"termin")) {
-                        if ( $regs[1] != 0 ) {
-                            $hidedata["add"][$key."0"] = date ("d", $regs[1]);
-                            $hidedata["add"][$key."1"] = date ("m", $regs[1]);
-                            $hidedata["add"][$key."2"] = date ("Y", $regs[1]);
-                        }
-                    } else {
-                        $hidedata["add"][$key] = $regs[1];
-                    }
+                if ( is_array($value) ) {
+                    $value = $value["tag"];
+                }
+                preg_match("/\[$value\](.*)\[\/$value\]/",$data["content"],$regs);
+                if ( $regs[1] == "01-01-1970" ) $regs[1] = "";
+                $hidedata["add"][$key] = $regs[1];
             }
             $ausgaben["form_aktion"] = $pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html";
         }
-
+        $ausgaben["calendar"] = "";
         if ( $_POST ) {
             foreach ( $_POST as $key => $value ) {
-                if ( strstr($key,"TERMIN")) {
-                    if ( $value[1] == "" ) {
-                        $value = mktime(1,0,0,1,1,1970);
-                    } else {
-                        $value = mktime(0,0,0,(int)$value[1],(int)$value[0],(int)$value[2]);
-                    }
-                }
+                 if ( $key == "TERMIN" && $value == "" ) $value = "01-01-1970";
                 $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
             }
-            $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
+            $sql = "UPDATE site_text SET content ='".$data["content"]."[!]wizard:artikel[/!]' WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
             $result = $db -> query($sql);
             header("Location: ".$pathvars["virtual"].$url.",,".$work[0]["id"].".html");
         }
-
     } else {
         if ( is_array($work) ) {
             foreach ( $work as $key => $value ) {
                 $array[$value["veranstalter_org"]][$key]["name"] = $value["name_org"];
-                $array[$value["veranstalter_org"]][$key]["termin_bg"] = $value["termin_bg_org"];
+                $array[$value["veranstalter_org"]][$key]["termin"] = $value["termin_org"];
                 $array[$value["veranstalter_org"]][$key]["termin_en"] = $value["termin_en_org"];
                 $array[$value["veranstalter_org"]][$key]["veranstalter"] = $value["veranstalter_org"];
                 $array[$value["veranstalter_org"]][$key]["datum"] = $value["datum"];
@@ -166,11 +162,16 @@
 
         // Anzeige der Metadaten
         if ( $environment["parameter"][2] != "" ) {
+            $ausgaben["calendar"] = "";
             $hidedata["detail"] = $work[0];
             foreach ( $tags as $key => $value ) {
                 if ( !array_key_exists($key,$array[$work[0]["veranstalter_org"]][0]) )continue;
                 if ( strstr($key,"termin")) {
-                    $dataloop["detail"][$key]["name"] = date ("d.m.Y",$array[$work[0]["veranstalter_org"]][0][$key]);
+                    if ( $array[$work[0]["veranstalter_org"]][0][$key] == "01-01-1970" ) {
+                       continue;
+                    } else {
+                        $dataloop["detail"][$key]["name"] = substr($array[$work[0]["veranstalter_org"]][0][$key],0,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],3,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],6,4);
+                    }
                 } else {
                     $dataloop["detail"][$key]["name"] = $array[$work[0]["veranstalter_org"]][0][$key];
                 }
@@ -212,7 +213,11 @@
                     $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter: ".$key."</th></tr>";
                     $table .= "<tr><th align=\"center\" width=\"30%\"><b>Datum</b></th><th align=\"center\" width=\"80%\"><b>Beschreibung</b></th><tr>";
                     foreach ( $value as $test => $test1 ) {
-                        ( $test1["termin_en"] == 0 ) ? $anzeige = date ("d.m.Y", $test1["termin_bg"]) : $anzeige = date ("d.m.Y", $test1["termin_bg"])."&nbsp;-&nbsp;".date ("d.m.Y", $test1["termin_en"]);
+                        if ( $test1["termin_en"] == "01-01-1970" ) {
+                            $anzeige = substr($test1["termin"],0,2).".".substr($test1["termin"],3,2).".".substr($test1["termin"],6,4);
+                        } else {
+                            $anzeige = substr($test1["termin"],0,2).".".substr($test1["termin"],3,2).".".substr($test1["termin"],6,4)."&nbsp;-&nbsp;".substr($test1["termin_en"],0,2).".".substr($test1["termin_en"],3,2).".".substr($test1["termin_en"],6,4);
+                        }
                         $table .= "<tr><td align=\"center\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
                     }
 
