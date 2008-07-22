@@ -291,7 +291,7 @@ ins {
 
         #navi ul.navigation li {
 /*             border-top:2px solid #FFFFFF; */
-            padding:5px 0;
+            padding:5px 5px 5px 0;
             list-style:none;
             position:relative;
         }
