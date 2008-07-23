@@ -104,7 +104,7 @@
             $value =array_pad($value,$anzahl,mktime(0,0,0,substr($value["termin_org"],8,2),substr($value["termin_org"],5,2),substr($value["termin_org"],0,4)));
             $work[$key] = $value;
         }
-        sort($work);
+        ksort($work);
     }
 
     // ADD und EDIT von Terminen
