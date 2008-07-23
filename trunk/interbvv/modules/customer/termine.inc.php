@@ -100,10 +100,10 @@
     }
     if ( is_array($work) ) {
         foreach ( $work as $key => $value ) {
-            $value =array_pad($value,-31,mktime(0,0,0,substr($value["termin_org"],3,2),substr($value["termin_org"],0,2),substr($value["termin_org"],6,4)));
+            $anzahl = -(count($value)+1);
+            $value =array_pad($value,$anzahl,mktime(0,0,0,substr($value["termin_org"],8,2),substr($value["termin_org"],5,2),substr($value["termin_org"],0,4)));
             $work[$key] = $value;
         }
-
         sort($work);
     }
 
