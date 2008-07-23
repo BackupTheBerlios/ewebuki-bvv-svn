@@ -128,7 +128,7 @@
                     $value = $value["tag"];
                 }
                 preg_match("/\[$value\](.*)\[\/$value\]/",$data["content"],$regs);
-                if ( $regs[1] == "01-01-1970" ) $regs[1] = "";
+                if ( $regs[1] == "1970-01-01" ) $regs[1] = "";
                 $hidedata["add"][$key] = $regs[1];
             }
             $ausgaben["form_aktion"] = $pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html";
@@ -136,7 +136,7 @@
         $ausgaben["calendar"] = "";
         if ( $_POST ) {
             foreach ( $_POST as $key => $value ) {
-                 if ( $key == "TERMIN" && $value == "" ) $value = "01-01-1970";
+                 if ( $key == "TERMIN" && $value == "" ) $value = "1970-01-01";
                 $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
             }
             $sql = "UPDATE site_text SET content ='".$data["content"]."[!]wizard:artikel[/!]' WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
@@ -167,10 +167,10 @@
             foreach ( $tags as $key => $value ) {
                 if ( !array_key_exists($key,$array[$work[0]["veranstalter_org"]][0]) )continue;
                 if ( strstr($key,"termin")) {
-                    if ( $array[$work[0]["veranstalter_org"]][0][$key] == "01-01-1970" ) {
+                    if ( $array[$work[0]["veranstalter_org"]][0][$key] == "1970-01-01" ) {
                        continue;
                     } else {
-                        $dataloop["detail"][$key]["name"] = substr($array[$work[0]["veranstalter_org"]][0][$key],0,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],3,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],6,4);
+                        $dataloop["detail"][$key]["name"] = substr($array[$work[0]["veranstalter_org"]][0][$key],8,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],5,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],0,4);
                     }
                 } else {
                     $dataloop["detail"][$key]["name"] = $array[$work[0]["veranstalter_org"]][0][$key];
@@ -213,10 +213,10 @@
                     $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter: ".$key."</th></tr>";
                     $table .= "<tr><th align=\"center\" width=\"30%\"><b>Datum</b></th><th align=\"center\" width=\"80%\"><b>Beschreibung</b></th><tr>";
                     foreach ( $value as $test => $test1 ) {
-                        if ( $test1["termin_en"] == "01-01-1970" ) {
-                            $anzeige = substr($test1["termin"],0,2).".".substr($test1["termin"],3,2).".".substr($test1["termin"],6,4);
+                        if ( $test1["termin_en"] == "1970-01-01" ) {
+                            $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4);
                         } else {
-                            $anzeige = substr($test1["termin"],0,2).".".substr($test1["termin"],3,2).".".substr($test1["termin"],6,4)."&nbsp;-&nbsp;".substr($test1["termin_en"],0,2).".".substr($test1["termin_en"],3,2).".".substr($test1["termin_en"],6,4);
+                            $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4)."&nbsp;-&nbsp;".substr($test1["termin_en"],8,2).".".substr($test1["termin_en"],5,2).".".substr($test1["termin_en"],0,4);
                         }
                         $table .= "<tr><td align=\"center\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
                     }
