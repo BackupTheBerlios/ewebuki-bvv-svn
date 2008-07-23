@@ -211,14 +211,14 @@
                     $table = "";
                     $counter++;
                     $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter: ".$key."</th></tr>";
-                    $table .= "<tr><th align=\"center\" width=\"30%\"><b>Datum</b></th><th align=\"center\" width=\"80%\"><b>Beschreibung</b></th><tr>";
+                    $table .= "<tr><th align=\"left\" width=\"30%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th><tr>";
                     foreach ( $value as $test => $test1 ) {
                         if ( $test1["termin_en"] == "1970-01-01" ) {
                             $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4);
                         } else {
                             $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4)."&nbsp;-&nbsp;".substr($test1["termin_en"],8,2).".".substr($test1["termin_en"],5,2).".".substr($test1["termin_en"],0,4);
                         }
-                        $table .= "<tr><td align=\"center\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
+                        $table .= "<tr><td align=\"left\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
                     }
 
                     $ausgaben["row"] .= parser( "-1721433623.list-row", "");
