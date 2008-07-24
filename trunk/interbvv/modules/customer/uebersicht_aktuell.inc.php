@@ -101,7 +101,7 @@
         }
     }
 
-    $mapping["main"] = "uebersicht_aktuell";
+    $mapping["main"] = "aktuell";
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
 

@@ -15,17 +15,58 @@
         <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
         <div id="substance" class="wide">
             <!--##hide-changed-->
-            <p style="float:right;text-align:right;font-size:85%">
+<!--            <p style="float:right;text-align:right;font-size:85%">
                 <a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>&nbsp;|&nbsp;<a href="">Kontakt</a>
             </p>
-            <p style="font-size:85%">!{changed}</p>
+            <p style="font-size:85%">!{changed}</p>-->
             <!--##show-->
             #(inhalt)
+            !#ausgaben_output
+
+            <!--##hide-new-->
+            <p><a href="!{link}">g(new)</a></p>
+            <!--##show-->
+            <h1>#(ueberschrift)</h1>
+            <!--##loop-artikel-->
+            <div>
+                <h2>!{titel_org}</h2>
+                <img src="/file/!{image_img_art}/!{image_img_id}/s/test.png" style="float:right;margin: 5px 0px 5px 10px" alt="!{titel_org}"></img>!{teaser_org}
+                <p><b><a href="!{detaillink}" title="!{titel_org}">Beitrag lesen</a></b></p>
+                <p>!{editlink} !{deletelink}</p>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+            <h2>Weitere Schlagzeilen</h2>
+            <!--##loop-artikel2-->
+            <div>
+                !{datum} <a href="!{detaillink}">!{titel_org}</a>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+            #(uebersicht_artikel)
+            <hr />
+            <h2>Pressemitteilungen</h2>
+            <!--##loop-presse-->
+            <div>
+                !{datum} <a href="!{detaillink}">!{titel_org}</a>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+  	    #(uebersicht_presse)
+            <hr />
+            <h2>Termine</h2>
+            <!--##loop-termine-->
+            <div>
+                !{datum} <a href="!{detaillink}">!{titel}</a>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+	    #(uebersicht_termine)
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
-            !#ausgaben_output
-        </div>
+    </div>
+
         #{margin}
 <!--##end-->
     </body>
