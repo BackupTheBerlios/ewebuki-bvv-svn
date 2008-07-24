@@ -359,6 +359,10 @@ ins {
         margin:0 10px 5px 0 !important;
     }
 
+    #substance .single_news p {
+        width:100%;
+    }
+
     #substance div.wide p,
     #substance div.present p,
     #substance div.wide ul,
