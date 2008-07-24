@@ -144,16 +144,12 @@ ins {
 /* kopfbereich mit banner, logo, kopfnavigation, kekse
 ------------------------------------------------------*/
 #head{
-/*     background: url('/images/html/background.png') repeat-y; */
-    position:relative;
     width:990px;
 }
 
     #banner {
-/*         background: url('/images/html/banner.jpg') no-repeat yellow; */
         background-image: url('/images/html/banner.jpg');
         background-repeat: no-repeat;
-        position:relative;
         width:990px;
         z-index:10;
     }
@@ -162,7 +158,6 @@ ins {
             border:none;
             bottom:3px;
             font-size:1.3em;
-/*            display:none;*/
             position:absolute;
             right:95px;
             text-align:right;
@@ -541,9 +536,17 @@ ins {
     clear:both;
     line-height:1.5em;
     padding-top:5px;
-    text-align:center;
     width:880px;
 }
+
+    #foot .foot_links {
+        text-align:center;
+    }
+
+    #foot .foot_source {
+        display:none;
+        font-weight:bold;
+    }
 
 /*----------------------
   klassen definitionen
@@ -927,8 +930,8 @@ input.medium {
 ------------------------*/
 #substance.wizard {
     background:#FFFFFF;
-    padding:10px 0;
-    width:880px;
+    padding:15px 0 0 10px;
+    width:870px;
 }
 
     .wizard .button {

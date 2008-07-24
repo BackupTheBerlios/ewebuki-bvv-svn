@@ -9,27 +9,36 @@ body {
         aenderungen, die fuer mehrere
         bereiche gelten
 ------------------------------------------------------*/
-#headnavi,
-#navi,
-#margin,
-#foot,
+
 #debug,
+#headnavi,
+#margin,
+#navi,
+.anchor,
+.banner,
+.foot_links,
 .metanavi,
-.sub_menu,
-.banner {
-    display:none;
+.sub_menu {
+    display:none !important;
 }
 
+.foot_source {
+    display:block !important;
+}
+
+/* #banner, */
+#foot,
 #head,
-#banner,
+#site,
 #substance,
-#substance p,
 .kekse {
+    padding-left:0;
+    padding-right:0;
     width:100% !important;
 }
 
-#site,
-#head {
+#head,
+#site {
     background:none;
 }
 
@@ -38,7 +47,3 @@ body {
     background:none;
     margin-bottom:2em;
 }
-
-    #banner h1 {
-        display:block
-    }
