@@ -354,6 +354,11 @@ ins {
             width:100%;
         }
 
+    #substance .single_news img {
+        float:left !important;
+        margin:0 10px 5px 0 !important;
+    }
+
     #substance div.wide p,
     #substance div.present p,
     #substance div.wide ul,
