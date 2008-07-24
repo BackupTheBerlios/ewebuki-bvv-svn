@@ -14,6 +14,14 @@
 <!--##begin-->
         <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
         <div id="substance" class="wide">
+            <!--##hide-changed-->
+            <p style="float:right;text-align:right;font-size:85%">
+                <a href="/auth/aktuell/archiv.html">Übersicht</a>&nbsp;|&nbsp;<a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>
+            </p>
+            <p style="font-size:85%">!{changed}</p>
+            <div class="clearer"></div>
+            <!--##show-->
+            #(inhalt)
             <!--##hide-new-->
             <form action="/auth/admin/bloged/add.html" method="post">
                 <input type="submit" value="g(new)" name="blog"/>
@@ -29,21 +37,10 @@
             <div class="clearer"></div>
             !{inhalt}
             <!--##show-->
-            <!--##hide-list-->
-            <h1>Aktuelle Meldungen</h1>
-            <!--##show-->
             <!--##loop-list-->
-            !{datum} <a href="!{allink}">!{titel_org}</a>
+            !{datum} <a href="!{detaillink}">!{titel_org}</a>
             <p>!{editlink} !{deletelink}</p>
             <!--##cont-->
-            <!--##hide-changed-->
-            <p style="float:right;text-align:right;font-size:85%">
-                <a href="/auth/aktuell/archiv.html">Übersicht</a>&nbsp;|&nbsp;<a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>
-            </p>
-            <p style="font-size:85%">!{changed}</p>
-            <div class="clearer"></div>
-            <!--##show-->
-            #(inhalt)
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
