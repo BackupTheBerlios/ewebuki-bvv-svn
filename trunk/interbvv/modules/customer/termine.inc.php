@@ -64,6 +64,7 @@
     }
 
     $ausgaben["row"] = "";
+    $ausgaben["inhalt"] = "";
 
     #include $pathvars["moduleroot"]."admin/bloged.cfg.php";
 
@@ -204,6 +205,7 @@
 
         } else {
             // liste 
+            $ausgaben["inhalt"] = "#(inhalt)";
             // new link
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
                 $hidedata["newlink"]["link"] = $pathvars["virtual"].$url.",,,,add.html";
