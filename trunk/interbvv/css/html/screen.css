@@ -212,6 +212,7 @@ ins {
         margin:0;
         padding-left:10px;
         width:550px;
+        white-space:nowrap;
     }
 
     #head .schnellsuche{
