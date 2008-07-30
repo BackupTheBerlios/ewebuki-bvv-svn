@@ -1,0 +1,30 @@
+<!--##begin-->
+<!--##hide-rss-->
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>BVV-Feed: !{label}</title>
+        <link>http://www.geodaten.bayern.de</link>
+        <description>Bayerische Vermessungsverwaltung - RSS-Feed</description>
+        <language>!{lang}</language>
+        <pubDate>!{pubDate}</pubDate>
+        <lastBuildDate>!{lastBuildDate}</lastBuildDate>
+        <image>
+            <title>Bayerische Vermessungsverwaltung</title>
+            <url>!#pathvars_webroot/images/html/wappen.png</url>
+            <link>!#pathvars_webroot</link>
+        </image>
+        <!--##loop-items-->
+        <item>
+            <title>!{title}</title>
+            <link>!{link}</link>
+            <description>!{teaser}</description>
+            <pubDate>!{pubDate}</pubDate>
+            <guid>!{link}</guid>
+
+        </item>
+        <!--##cont-->
+    </channel>
+</rss>
+<!--##show-->
+<!--##end-->
