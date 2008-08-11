@@ -135,6 +135,10 @@ a img{
         padding:0;
     }
 
+        #content_blocks div.clearer {
+            clear: none;
+        }
+
         #content_blocks li {
             background:no-repeat right top;
             border:1px solid #DDDDDD;
