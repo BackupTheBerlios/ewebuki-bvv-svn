@@ -103,11 +103,11 @@
             </div>
             <div class="clear"></div>
             #(aktuell_heading)
-            #(aktuell)
+<!--             #(aktuell) -->
             <!--##show-->
 
             <!--##hide-artikel-->
-            #(aktuell)
+<!--             #(aktuell) -->
             <!--##show-->
 
             <!--##hide-gallery-->
@@ -208,6 +208,69 @@
             <!--##show-->
 
             #(inhalt)
+
+        !#ausgaben_artikel
+        <!--##hide-artikel-->
+            <form action="/auth/admin/bloged/add.html" method="post">
+            <input type="submit" value="g(new)" name="blog"/>
+            <input type="hidden" name="link" value="!{link}"/>
+            <input type="hidden" name="kategorie" value="!{kategorie}"/>
+            </form>
+        <!--##show-->
+
+        <!--##loop-artikel-->
+        !{datum} <a href="artikel,,!{id}.html">!{titel_org}</a>
+        <p>!{editlink} !{deletelink}</p>
+        <!--##cont-->
+        !#ausgaben_presse
+        <!--##hide-presse-->
+            <form action="/auth/admin/bloged/add.html" method="post">
+            <input type="submit" value="g(new)" name="blog"/>
+            <input type="hidden" name="link" value="!{link}"/>
+            <input type="hidden" name="kategorie" value="!{kategorie}"/>
+            </form>
+        <!--##show-->
+
+        <!--##loop-presse-->
+        !{datum} <a href="presse,,!{id}.html">!{titel_org}</a>
+        <p>!{editlink} !{deletelink}</p>
+        <!--##cont-->
+
+        !#ausgaben_termine
+        <!--##hide-termine-->
+            <form action="/auth/admin/bloged/add.html" method="post">
+            <input type="submit" value="g(new)" name="blog"/>
+            <input type="hidden" name="link" value="!{link}"/>
+            <input type="hidden" name="kategorie" value="!{kategorie}"/>
+            </form>
+        <!--##show-->
+
+        <!--##loop-termine-->
+        !{datum} <a href="termine,,!{id}.html">!{titel_org}</a>
+        <p>!{editlink} !{deletelink}</p>
+        <!--##cont-->
+
+        <!--##hide-termine_detail-->
+        <p style="float:right;text-align:right;font-size:85%">
+            <a href="/auth/aktuell/termine.html">&Uuml;bersicht</a>&nbsp;|&nbsp;<a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>
+        </p>
+        <table width="100%">
+        <!--##show-->
+            <!--##loop-termine_detail-->
+            <tr><td style="width:20%;">!{desc}</td><td>!{name}</td></tr>
+            <!--##cont-->
+        <!--##hide-termine_detail-->
+        </table>
+        <!--##show-->
+
+        <!--##hide-all-->
+        <p style="float:right;text-align:right;font-size:85%"><a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>&nbsp;|&nbsp;<a href="">Kontakt</a></p>
+        <p style="font-size:85%">!{changed}</p>
+        <div class="clearer"></div>
+        !{inhalt}
+        <!--##show-->
+
+<!--             !#ausgaben_aktuell -->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>

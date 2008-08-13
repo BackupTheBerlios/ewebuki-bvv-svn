@@ -66,8 +66,8 @@
         // datensatz holen
         $sql = "SELECT *
                   FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
-                  JOIN db_adrd_kate on (adkate=katid)
-                 WHERE adakz=".$amtid;
+                  JOIN db_adrd_kate on (cast(adkate as signed)=katid)
+                 WHERE adakz='".$amtid."'";
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
         $result = $db -> query($sql);
         $form_values = $db -> fetch_array($result,1);
@@ -87,7 +87,7 @@
 
             $sql = "SELECT *
                       FROM db_adrd
-                      JOIN db_adrd_kate ON (adkate=katid)
+                      JOIN db_adrd_kate ON (cast(adkate as signed)=katid)
                      WHERE adid=".$id." AND adkate IN ('3','4','5','8')";
             $result = $db -> query($sql);
             $data = $db->fetch_array($result,1);
@@ -100,7 +100,7 @@
 
             $sql = "SELECT *
                       FROM db_adrd
-                        JOIN db_adrd_kate ON (adkate=katid)
+                        JOIN db_adrd_kate ON (cast(adkate as signed)=katid)
                        WHERE adparent=".$id." AND adkate IN ('5','8')";
             $result = $db -> query($sql);
             while ( $data = $db->fetch_array($result,1) ){
@@ -118,7 +118,7 @@
         // gibt es einen aussenstelle?
         $sql = "SELECT *
                   FROM db_adrd
-                  JOIN db_adrd_kate ON (adkate=katid)
+                  JOIN db_adrd_kate ON (cast(adkate as signed)=katid)
                  WHERE adparent=".$form_values["adid"]."
                    AND adkate IN ('5','8')";
         $result = $db -> query($sql);
@@ -166,18 +166,138 @@
         $wms_background = $cfg["aemter"]["wms"]["url"];
 
         $hidedata["sub_menu"][0] = "enable";
-
+        $ausgaben["artikel"] = "";
+        $ausgaben["presse"] = "";
+        $ausgaben["termine"] = "";
         switch ($environment["parameter"][0]){
             // startseite
             case "index":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 
-                if ( $environment["parameter"][2] != "" ) {
-                    $hidedata["artikel"][0] = "enable";
+                if ( $environment["ebene"] == "" ) {
+                    $kat = "/".$environment["kategorie"];
                 } else {
-                    $hidedata["index"][0] = "enable";
-                    unset($hidedata["sub_menu"]);
+                    $kat = $environment["ebene"]."/".$environment["kategorie"];
                 }
+
+                // erstellen der tags die angezeigt werden
+                if ( is_array($cfg["bloged"]["blogs"]["/aktuell/archiv"]["tags"]) ) {
+                    foreach ( $cfg["bloged"]["blogs"]["/aktuell/archiv"]["tags"] as $key => $value) {
+                        $tags[$key] = $value;
+                    }
+                }
+
+                if ( $environment["parameter"][2] == "" ) {
+                    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
+                    $hidedata["artikel"] = $hidedata["new"];
+                    if ( count($dataloop["artikel"]) > 0 ) {
+                        $ausgaben["artikel"] = "<h2>Aktuelle Artikel</h2>";
+                    }
+
+
+                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
+                    $hidedata["presse"] = $hidedata["new"];
+                    if ( count($dataloop["presse"]) > 0 ) {
+                        $ausgaben["presse"] = "<h2>Aktuelle Pressemitteilungen</h2>";
+                    }
+                    $tags["titel"]["tag"] = "NAME";
+                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
+
+                    $hidedata["termine"] = $hidedata["new"];
+                    if ( count($dataloop["termine"]) > 0 ) {
+                        $ausgaben["termine"] = "<h2>Aktuelle Termine</h2>";
+                    }
+
+
+                } 
+
+//                 if ( $environment["parameter"][2] != "" ) {
+//                     $hidedata["artikel"][0] = "enable";
+//                 } else {
+//                     $hidedata["index"][0] = "enable";
+//                     unset($hidedata["sub_menu"]);
+//                 }
+
                 break;
+            case "artikel":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+
+                $tags[] = "";
+                $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
+                $hidedata["all"]["inhalt"] = $all[1]["all"];
+// 
+//                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["forename"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["email"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["alias"]."
+//                             FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
+//                             WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
+//                         ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
+//                     $result = $db -> query($sql);
+//                     $data = $db -> fetch_array($result);
+//                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
+// 
+
+                break;
+            case "presse":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+
+                $tags[] = "";
+                $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
+                $hidedata["all"]["inhalt"] = $all[1]["all"];
+// 
+//                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["forename"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["email"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["alias"]."
+//                             FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
+//                             WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
+//                         ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
+//                     $result = $db -> query($sql);
+//                     $data = $db -> fetch_array($result);
+//                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
+// 
+
+                break;
+
+            case "termine":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+                $hidedata["termine_detail"]["in"] = "on";
+                $tags["name"] = "NAME";
+                $tags["name"] = "NAME";
+                #$tags["name"] = "NAME";
+                $all = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
+                foreach ( $tags as $key => $value ) {
+                    $dataloop["termine_detail"][$key][name] = "hallo";
+                }
+
+                #$hidedata["all"]["inhalt"] = $all[1]["all"];
+// 
+//                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["forename"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["email"].",
+//                                 ".$cfg["changed"]["db"]["changed"]["alias"]."
+//                             FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
+//                             WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
+//                         ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
+//                     $result = $db -> query($sql);
+//                     $data = $db -> fetch_array($result);
+//                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
+// 
+
+                break;
+
+
 
             case "standort":
 
@@ -272,24 +392,6 @@
                 }
                 break;
         }
-
-
-        // BUFFY
-        if ( $environment["parameter"][2] != "" ) {
-            $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
-                        ".$cfg["changed"]["db"]["changed"]["changed"].",
-                        ".$cfg["changed"]["db"]["changed"]["surname"].",
-                        ".$cfg["changed"]["db"]["changed"]["forename"].",
-                        ".$cfg["changed"]["db"]["changed"]["email"].",
-                        ".$cfg["changed"]["db"]["changed"]["alias"]."
-                    FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
-                    WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
-                ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
-            $result = $db -> query($sql);
-            $data = $db -> fetch_array($result);
-            $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
-        }
-        // BUFFY
 
         // +++
         // funktions bereich

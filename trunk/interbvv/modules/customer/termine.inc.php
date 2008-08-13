@@ -115,7 +115,11 @@
 
     // ADD und EDIT von Terminen
     if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
-        $hidedata["add"]["link"] = $url;
+        if ( $environment["parameter"][5] != "" ) {
+            $hidedata["add"]["link"] = "/aemter/".$environment["parameter"][5]."/index";
+        } else {
+            $hidedata["add"]["link"] = $url;
+        }
         $hidedata["add"]["name"] = "";
         $hidedata["add"]["ort"] = "";
         $hidedata["add"]["beschreibung"] = "";
