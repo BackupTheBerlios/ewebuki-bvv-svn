@@ -229,7 +229,7 @@
 
                 $tags[] = "";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
-                $hidedata["all"]["inhalt"] = $all[1]["all"];
+                $hidedata["all"]["out"] = $all[1]["all"];
 // 
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
@@ -252,7 +252,7 @@
 
                 $tags[] = "";
                 $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
-                $hidedata["all"]["inhalt"] = $all[1]["all"];
+                $hidedata["all"]["out"] = $all[1]["all"];
 // 
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
