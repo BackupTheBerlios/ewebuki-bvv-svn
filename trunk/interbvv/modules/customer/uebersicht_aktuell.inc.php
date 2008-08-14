@@ -78,14 +78,14 @@
     $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,3","/aktuell/archiv");
 
     // loopen der pressemitteilungen
-    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4");
+    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4","/aktuell/presse");
 
     // loopen der termine
     $tags = "";
     $tags["termin1"] = "SORT";
     $tags["titel"] = "NAME";
     $tags["termin2"] = "TERMIN";
-    $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4");
+    $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aktuell/termine");
 
     if ( is_array($work_array) ) {
         foreach ( $work_array as $key => $value ) {
