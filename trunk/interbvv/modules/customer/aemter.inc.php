@@ -175,6 +175,9 @@
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 
+                $hidedata["index"][0] = "enable";
+                unset($hidedata["sub_menu"]);
+
                 if ( $environment["ebene"] == "" ) {
                     $kat = "/".$environment["kategorie"];
                 } else {
