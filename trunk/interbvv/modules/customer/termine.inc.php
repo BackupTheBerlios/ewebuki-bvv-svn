@@ -185,7 +185,7 @@
                 } else {
                     $dataloop["detail"][$key]["name"] = $array[$work[0]["veranstalter_org"]][0][$key];
                 }
-                $dataloop["detail"][$key]["desc"] = "#(".$key.")";
+                $dataloop["detail"][$key]["desc"] = "g(termine_".$key.")";
             }
 
             if ( $work[0]["titel"] != "" ) {

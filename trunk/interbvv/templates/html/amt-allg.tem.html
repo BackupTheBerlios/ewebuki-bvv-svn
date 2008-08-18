@@ -238,17 +238,32 @@
 
         !#ausgaben_termine
         <!--##hide-termine-->
-            <form action="/auth/admin/bloged/add.html" method="post">
-            <input type="submit" value="g(new)" name="blog"/>
-            <input type="hidden" name="link" value="!{link}"/>
-            <input type="hidden" name="kategorie" value="!{kategorie}"/>
-            </form>
+            <a href="termine,,,,add.html">NEU      </a><br />
         <!--##show-->
 
         <!--##loop-termine-->
         !{datum} <a href="termine,,!{id}.html">!{titel_org}</a>
-        <p>!{editlink} !{deletelink}</p>
+        <p>!{deletelink}</p>
         <!--##cont-->
+
+        <!--##hide-termine_add-->
+            <form method="post" action="!#ausgaben_form_aktion">
+                <fieldset>
+                    <label for="lang">g(termine_name)</label><input class="medium" type="text" name="NAME" value="!{name}"/><br /><br />
+                    <label for="lang">g(termine_termin)</label><input class="medium" type="text" name="SORT" value="!{termin}"/><br /><br />
+                    <label for="lang">g(termine_termin_en)</label><input class="medium" type="text" name="TERMIN" value="!{termin_en}"/><br /><br />
+                    <label for="lang">g(termine_ort)</label><input class="medium" type="text" name="ORT" value="!{ort}"/><br /><br />
+                    <label for="lang">g(termine_veranstalter)</label><select type="text" name="VERANSTALTER" value="!{veranstalter}">
+                    <option>VA</option></select><br /><br />
+                    <label for="lang">g(termine_beschreibung)</label><textarea name="BESCHREIBUNG"/>!{beschreibung}</textarea><br /><br />
+                    <input type="hidden" name="wizard" value="!{wizard}"/><br /><br />
+                    <input type="submit" name="send[]"  value="g(send)" class="first" />
+                    <input type="hidden" name="link"  value="/aktuell/termine"/>
+                    <input type="hidden" name="kategorie"  value="/aemter/74/index"/>
+                </fieldset>
+            </form>
+        <!--##show-->
+
 
         <!--##hide-termine_detail-->
         <p style="float:right;text-align:right;font-size:85%">
