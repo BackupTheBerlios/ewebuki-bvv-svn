@@ -112,7 +112,7 @@
             $sql_amt = "SELECT *
                           FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
                           JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
-                            ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                            ON ( CAST (".$cfg["amtsuche"]["db"]["amt"]["kat"]." AS SIGNED ) =".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
                          WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$akz."'";
             $result_amt = $db -> query($sql_amt);
             $data_amt   = $db -> fetch_array($result_amt,1);
@@ -122,7 +122,7 @@
                 $sql_ha = "SELECT *
                              FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
                              JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
-                               ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                               ON ( CAST (".$cfg["amtsuche"]["db"]["amt"]["kat"]." AS SIGNED ) =".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
                             WHERE ".$cfg["amtsuche"]["db"]["amt"]["key"]."='".$data_amt[$cfg["amtsuche"]["db"]["amt"]["parent"]]."'";
                 $result_ha = $db -> query($sql_ha);
                 $data_ha   = $db -> fetch_array($result_ha,1);
