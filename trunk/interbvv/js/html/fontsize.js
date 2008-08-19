@@ -3,7 +3,7 @@
     init wird bei jedem seitenaufruf ausgefuehrt
     */
     function init() {
-        document.getElementById('fontsize').style.display="list-item";
+//         document.getElementById('fontsize').style.display="list-item";
         initFontSize();
     }
 
