@@ -17,10 +17,19 @@
             <form method="post" action="!#ausgaben_form_aktion">
                 #(kopf)
                 <p>!#ausgaben_form_error</p>
+                <!--##hide-success-->
+                <p>
+                    #(success)
+                </p>
+                <!--##show-->
+                <!--##hide-referer-->-->
+                <p>
+                    #(referer)
+                    <div class="clearer">&nbsp;</div>
+                </p>
+                <!--##show-->
                 <fieldset class="kontakt">
                     <legend>#(legend_adressat)</legend>
-                    <label for="an">#(an)</label>
-                    !#element_an
                     <label for="betreff">#(betreff)</label>
                     !#element_betreff
                     <label for="mitteilung">#(mitteilung)</label>
@@ -42,10 +51,17 @@
                     !#element_e-mail
                     <label for="tel">#(tel)</label>
                     !#element_tel
-<!--                     !#element_send -->
-                    <label for="send" class="label_right">
-                        <input id="send" type="checkbox" value="-1" name="send"/>#(send)
-                    </label>
+                    <label for="last_viewed">g(last_viewed)</label>
+                    <input type="text" value="!#ausgaben_last_viewed" name="last_viewed" class="" maxlength="50" id="last_viewed"  readonly="true" />
+                </fieldset>
+
+                <fieldset class="kontakt">
+                    <!--##hide-captcha-->
+                    #(captcha)
+                    <label for="captcha"><img title="captcha" alt="captcha" src="!{url}" /></label>
+                    <input type="text" value="" name="captcha" class="" id="captcha" />
+                    <input name="captcha_proof" type="hidden" value="!{proof}" class="hidden" />
+                    <!--##show-->
                 </fieldset>
 
                 <fieldset class="button">
@@ -59,6 +75,7 @@
                 #(inhalt)
                 <div class="clearer">&nbsp;</div>
                 <p>!#ausgaben_inaccessible</p>
+                <p>!#ausgaben_output</p>
             </form>
         </div>
         #{margin}
