@@ -247,7 +247,7 @@
     }
 
     // was anzeigen
-    $mapping["main"] = "-1721433623.termine";
+    $mapping["main"] = eCRC($environment["ebene"]).".termine";
     #$mapping["navi"] = "leer";
 
 if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
