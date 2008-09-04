@@ -190,9 +190,9 @@
 
             if ( $work[0]["titel"] != "" ) {
                 if ( $environment["parameter"][3] == "all" ) {
-                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schlieﬂen</a>";
+                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schlie&szlig;en</a>";
                 } else {
-                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">÷ffnen</a>";
+                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">&Ouml;ffnen</a>";
                 }
                 $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
             }
@@ -247,7 +247,7 @@
     }
 
     // was anzeigen
-    $mapping["main"] = eCRC($environment["ebene"]).".termine";
+    $mapping["main"] = "-1721433623.termine";
     #$mapping["navi"] = "leer";
 
 if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
