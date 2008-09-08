@@ -69,7 +69,7 @@
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" class="button">g(preview)</button>
-                <button type="submit" name="save[]" value="save" class="button">g(save)</button>
+<!--                 <button type="submit" name="save[]" value="save" class="button">g(save)</button> -->
                 <button type="submit" name="version[]" value="version" class="button">g(version)</button>
                 <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button>
                 <div class="clearer"></div>
@@ -93,7 +93,7 @@
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" class="button" style="display:block;margin:3px;width:126px;">g(preview)</button>
-                <button type="submit" name="save[]" value="save" class="button" style="display:block;margin:3px;width:126px">g(save)</button>
+<!--                 <button type="submit" name="save[]" value="save" class="button" style="display:block;margin:3px;width:126px">g(save)</button> -->
                 <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:126px">g(version)</button>
                 <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:126px">g(abort)</button>
                 <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(release)</label>
@@ -143,7 +143,7 @@
                                         '!#ausgaben_form_aktion',
                                         {
                                             asynchronous:true,
-                                            parameters: 'ajax=on&send[]=save',
+                                            parameters: 'ajax=on&save=on',
                                             onSuccess:function(){
                                                 new Effect.Parallel(
                                                     [
