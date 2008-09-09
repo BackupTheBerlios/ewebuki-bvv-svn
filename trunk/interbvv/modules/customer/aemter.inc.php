@@ -485,16 +485,6 @@
         // wohin schicken
         #n/a
 
-        // unzugaengliche #/g(marken) sichtbar machen
-        if ( isset($_GET["edit"]) ) {
-            $ausgaben["inaccessible"] = "inaccessible values:<br />";
-            $ausgaben["inaccessible"] .= "g (open) g(open)<br />";
-            $ausgaben["inaccessible"] .= "g (close) g(close)<br />";
-            $ausgaben["inaccessible"] .= "# (error_dupe) #(error_dupe)<br />";
-        } else {
-            $ausgaben["inaccessible"] = "";
-        }
-
         // +++
         // page basics
 
