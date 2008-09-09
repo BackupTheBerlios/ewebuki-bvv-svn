@@ -103,11 +103,9 @@
             </div>
             <div class="clear"></div>
             #(aktuell_heading)
-<!--             #(aktuell) -->
             <!--##show-->
 
             <!--##hide-artikel-->
-<!--             #(aktuell) -->
             <!--##show-->
 
             <!--##hide-gallery-->
@@ -209,44 +207,44 @@
 
             #(inhalt)
 
-        !#ausgaben_artikel
-        <!--##hide-artikel-->
+            !#ausgaben_artikel
+            <!--##hide-artikel-->
             <form action="/auth/admin/bloged/add.html" method="post">
-            <input type="submit" value="g(new)" name="blog"/>
-            <input type="hidden" name="link" value="!{link}"/>
-            <input type="hidden" name="kategorie" value="!{kategorie}"/>
+                <input type="submit" value="g(new)" name="blog"/>
+                <input type="hidden" name="link" value="!{link}"/>
+                <input type="hidden" name="kategorie" value="!{kategorie}"/>
             </form>
-        <!--##show-->
+            <!--##show-->
 
-        <!--##loop-artikel-->
-        !{datum} <a href="artikel,,!{id}.html">!{titel_org}</a>
-        <p>!{editlink} !{deletelink}</p>
-        <!--##cont-->
-        !#ausgaben_presse
-        <!--##hide-presse-->
+            <!--##loop-artikel-->
+            !{datum} <a href="artikel,,!{id}.html">!{titel_org}</a>
+            <p>!{editlink} !{deletelink}</p>
+            <!--##cont-->
+            !#ausgaben_presse
+            <!--##hide-presse-->
             <form action="/auth/admin/bloged/add.html" method="post">
-            <input type="submit" value="g(new)" name="blog"/>
-            <input type="hidden" name="link" value="!{link}"/>
-            <input type="hidden" name="kategorie" value="!{kategorie}"/>
+                <input type="submit" value="g(new)" name="blog"/>
+                <input type="hidden" name="link" value="!{link}"/>
+                <input type="hidden" name="kategorie" value="!{kategorie}"/>
             </form>
-        <!--##show-->
+            <!--##show-->
 
-        <!--##loop-presse-->
-        !{datum} <a href="presse,,!{id}.html">!{titel_org}</a>
-        <p>!{editlink} !{deletelink}</p>
-        <!--##cont-->
+            <!--##loop-presse-->
+            !{datum} <a href="presse,,!{id}.html">!{titel_org}</a>
+            <p>!{editlink} !{deletelink}</p>
+            <!--##cont-->
 
-        !#ausgaben_termine
-        <!--##hide-termine-->
+            !#ausgaben_termine
+            <!--##hide-termine-->
             <a href="termine,,,,add.html">NEU      </a><br />
-        <!--##show-->
+            <!--##show-->
 
-        <!--##loop-termine-->
-        !{datum} <a href="termine,,!{id}.html">!{titel_org}</a>
-        <p>!{deletelink}</p>
-        <!--##cont-->
+            <!--##loop-termine-->
+            !{datum} <a href="termine,,!{id}.html">!{titel_org}</a>
+            <p>!{deletelink}</p>
+            <!--##cont-->
 
-        <!--##hide-termine_add-->
+            <!--##hide-termine_add-->
             <form method="post" action="!#ausgaben_form_aktion">
                 <fieldset>
                     <label for="lang">g(termine_name)</label><input class="medium" type="text" name="NAME" value="!{name}"/><br /><br />
@@ -262,34 +260,36 @@
                     <input type="hidden" name="kategorie"  value="/aemter/74/index"/>
                 </fieldset>
             </form>
-        <!--##show-->
+            <!--##show-->
 
 
-        <!--##hide-termine_detail-->
-        <p style="float:right;text-align:right;font-size:85%">
-            <a href="/auth/aktuell/termine.html">&Uuml;bersicht</a>&nbsp;|&nbsp;<a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>
-        </p>
-        <table width="100%">
-        <!--##show-->
-            <!--##loop-termine_detail-->
-            <tr><td style="width:20%;">!{desc}</td><td>!{name}</td></tr>
-            <!--##cont-->
-        <!--##hide-termine_detail-->
-        </table>
-        <!--##show-->
+            <!--##hide-termine_detail-->
+            <p style="float:right;text-align:right;font-size:85%">
+                <a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="ansprech.html">Kontakt</a>
+            </p>
+            <table width="100%">
+            <!--##show-->
+                <!--##loop-termine_detail-->
+                <tr><td style="width:20%;">!{desc}</td><td>!{name}</td></tr>
+                <!--##cont-->
+            <!--##hide-termine_detail-->
+            </table>
+            <!--##show-->
 
-        <!--##hide-all-->
-        <p style="float:right;text-align:right;font-size:85%"><a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>&nbsp;|&nbsp;<a href="">Kontakt</a></p>
-        <p style="font-size:85%">!{changed}</p>
-        <div class="clearer"></div>
-        !{out}
-        <!--##show-->
+            <!--##hide-all-->
+            <p style="float:right;text-align:right;font-size:85%">
+                <a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="ansprech.html">Kontakt</a>
+            </p>
+            <p style="font-size:85%">!{changed}</p>
+            <div class="clearer"></div>
+            !{out}
+            <!--##show-->
 
-<!--             !#ausgaben_aktuell -->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
             !#ausgaben_output
+            !#ausgaben_inaccessible
 
         </div>
         #{margin}

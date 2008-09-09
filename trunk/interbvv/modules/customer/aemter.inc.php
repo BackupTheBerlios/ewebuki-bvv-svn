@@ -213,7 +213,7 @@
                     }
 
 
-                } 
+                }
 
 //                 if ( $environment["parameter"][2] != "" ) {
 //                     $hidedata["artikel"][0] = "enable";
@@ -230,7 +230,7 @@
                 $tags[] = "";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
-// 
+//
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
@@ -243,7 +243,7 @@
 //                     $result = $db -> query($sql);
 //                     $data = $db -> fetch_array($result);
 //                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
-// 
+//
 
                 break;
             case "presse":
@@ -253,7 +253,7 @@
                 $tags[] = "";
                 $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
-// 
+//
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
@@ -266,7 +266,7 @@
 //                     $result = $db -> query($sql);
 //                     $data = $db -> fetch_array($result);
 //                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
-// 
+//
 
                 break;
 
@@ -337,20 +337,21 @@
 
                 if ( $all[1]["titel"] != "" ) {
                     if ( $environment["parameter"][3] == "all" ) {
-                        $dataloop["termine_detail"]["weitere"]["name"] = "<a href=\"termine,,".$environment["parameter"][2].".html\">Schließen</a>";
+                        $dataloop["termine_detail"]["weitere"]["name"] = "<a href=\"termine,,".$environment["parameter"][2].".html\">g(close)</a>";
                     } else {
-                        $dataloop["termine_detail"]["weitere"]["name"] = "<a href=\"termine,,".$environment["parameter"][2].",all.html\">Öffnen</a>";
+                        $dataloop["termine_detail"]["weitere"]["name"] = "<a href=\"termine,,".$environment["parameter"][2].",all.html\">g(open)</a>";
                     }
-                    $dataloop["termine_detail"]["weitere"]["desc"] = "Weitere Informationen";
+                    $dataloop["termine_detail"]["weitere"]["desc"] = "#(more_infos)";
                 }
 
                 if ( $cfg["bloged"]["blogs"]["/aktuell/termine"]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"]["/aktuell/termine"]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                    $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> |Weitere Infos hinzufügen|"."</a>";
+                    $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html\">#(meta)"."</a>
+                                                                  <a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> #(add_infos)"."</a>";
                     $dataloop["termine_detail"]["edit"]["desc"] = "Aktionen:";
                 }
 
                 #$hidedata["all"]["inhalt"] = $all[1]["all"];
-// 
+//
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
 //                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
@@ -363,7 +364,7 @@
 //                     $result = $db -> query($sql);
 //                     $data = $db -> fetch_array($result);
 //                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
-// 
+//
 
                 break;
 
@@ -483,6 +484,16 @@
 
         // wohin schicken
         #n/a
+
+        // unzugaengliche #/g(marken) sichtbar machen
+        if ( isset($_GET["edit"]) ) {
+            $ausgaben["inaccessible"] = "inaccessible values:<br />";
+            $ausgaben["inaccessible"] .= "g (open) g(open)<br />";
+            $ausgaben["inaccessible"] .= "g (close) g(close)<br />";
+            $ausgaben["inaccessible"] .= "# (error_dupe) #(error_dupe)<br />";
+        } else {
+            $ausgaben["inaccessible"] = "";
+        }
 
         // +++
         // page basics
