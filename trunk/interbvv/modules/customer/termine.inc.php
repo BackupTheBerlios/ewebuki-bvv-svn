@@ -129,7 +129,7 @@
         $hidedata["add"]["wizard"] = "artikel";
 
         $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
-        $sql = "SELECT content FROM site_text WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
+        $sql = "SELECT content FROM site_text WHERE status=1 AND tname='".eCRC($url).".".$work[0]["id"]."'";
         $result = $db -> query($sql);
         $data = $db -> fetch_array($result,1);
         if ( $environment["parameter"][4] == "edit" ) {
@@ -149,7 +149,7 @@
                  if ( $key == "TERMIN" && $value == "" ) $value = "1970-01-01";
                 $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
             }
-            $sql = "UPDATE site_text SET content ='".$data["content"]."[!]wizard:artikel[/!]' WHERE tname='".eCRC($url).".".$work[0]["id"]."'";
+            $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE status=1 AND tname='".eCRC($url).".".$work[0]["id"]."'";
             $result = $db -> query($sql);
             header("Location: ".$pathvars["virtual"].$url.",,".$work[0]["id"].".html");
         }
@@ -198,7 +198,7 @@
             }
 
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$work[0]["id"].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Weitere Infos hinzufügen|"."</a>";
+                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$work[0]["id"].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Weitere Infos hinzuf&uuml;gen|"."</a>";
                 $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
             }
 
