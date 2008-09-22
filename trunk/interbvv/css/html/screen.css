@@ -389,7 +389,7 @@ ins {
             }
     /* liste ohne punkte */
     ul.no-style {
-        list-style:none;
+        list-style:none !important;
         margin-left:0;
         padding-left:0;
     }
@@ -469,11 +469,15 @@ ins {
     /* * * * */
     #substance .aktuell {
         background:#FAFAFA;
-        border-top:5px solid #CCCCCC;
+        border:solid #CCCCCC;
+        border-width:5px 1px 1px;
+        clear:both;
         margin-top:35px;
+        padding:3px;
     }
 
         #substance .aktuell h3 {
+            margin-top:0;
 /*             display:none; */
         }
 
@@ -892,11 +896,15 @@ div.autocomplete {
 }
 
 /* Kontakt-Formular */
-.kontakt input {
+.kontakt input, .kontakt select {
     float:left;
     margin-top: 1px;
     margin-bottom: 1px;
     width: 300px;
+}
+
+.kontakt input:focus, .kontakt select:focus {
+    background:#FEF6DE;
 }
 
     .kontakt textarea{
@@ -922,13 +930,70 @@ div.autocomplete {
                 width:auto;
             }
 
-input.small {
+input.small, select.small {
     width: 50px;
 }
 
-input.medium {
+input.medium, select.medium {
     width: 248px;
 }
+
+/* neuer formular-versuch
+------------------------- */
+.formular .cbra {
+    border:0;
+    width:auto !important;
+}
+
+.formular .ganz, .formular .halb, .formular .viertel, .formular .dreiviertel {
+    clear:none;
+    float:left;
+    margin:5px 10px 0 0;
+}
+
+    fieldset.formular label {
+        clear:none;
+        display:inline;
+        float:left;
+        margin:0;
+        width:auto;
+    }
+
+    .formular input:focus, .formular select:focus, .formular textarea:focus {
+        background:#FEF6DE;
+    }
+
+    .formular .ganz {
+        width:510px;
+    }
+
+        .formular .ganz input, .formular .ganz select, .formular .ganz textarea {
+            width:510px;
+        }
+
+    .formular .halb {
+        width:250px;
+    }
+
+        .formular .halb input, .formular .halb select, .formular .halb textarea {
+            width:250px;
+        }
+
+    .formular .viertel {
+        width:120px;
+    }
+
+        .formular .viertel input, .formular .viertel select, .formular .viertel textarea {
+            width:120px;
+        }
+
+    .formular .dreiviertel {
+        width:380px;
+    }
+
+        .formular .dreiviertel input, .formular .dreiviertel select, .formular .dreiviertel textarea {
+            width:380px;
+        }
 
 /* brotkrumen */
 .last_bread_crumb {

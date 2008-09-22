@@ -30,8 +30,8 @@ a img{
 
 #wizard {
     background:#FFFFFF;
-    padding:5px 0;
-    width:880px;
+    padding:5px 0 5px 5px;
+    width:875px;
 }
 
     #wizard form label {
