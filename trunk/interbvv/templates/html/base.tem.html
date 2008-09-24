@@ -28,6 +28,15 @@
         <div id="site">
 
             <div id="head">
+                <div id="headnavi" style="float:left;background:#FFFFFF;padding-bottom:10px;width:990px;">
+                    <ul style="margin-left:0;float:left;width:auto;background:#2C5A93;">
+                        <!--##loop-headnavi-->
+                        <li><a href="!#pathvars_virtual/!{url}" title="!{title}">!{desc}</a></li>
+                        <!--##cont-->
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
                 <div id="banner">
                     <a href="!#pathvars_menuroot/index.html" name="top">
                         <img src="../../images/html/wappen.png" class="wappen" alt="Bayerische Vermessungsverwaltung" style="float:right;" />
@@ -40,7 +49,7 @@
                     <a href="#content">Inhalt</a>,
                     <a href="#navigation">Hauptnavigationsmen&uuml;</a>
                 </div>
-                <div id="headnavi">
+                <div id="headnavi" style="display:none;">
                     <ul>
                         <!--##loop-headnavi-->
                         <li><a href="!#pathvars_virtual/!{url}" title="!{title}">!{desc}</a></li>
