@@ -29,18 +29,27 @@
             document.getElementById('size1').style.background="#C2D9EF";
             document.getElementById('size2').style.background="none";
             document.getElementById('size3').style.background="none";
+            document.getElementById('size1').style.color="#2C5A93";
+            document.getElementById('size2').style.color="#EEF3FB";
+            document.getElementById('size3').style.color="#EEF3FB";
         }
         else if (value == 1) {
             document.body.style.fontSize = large;
             document.getElementById('size1').style.background="none";
             document.getElementById('size2').style.background="#C2D9EF";
             document.getElementById('size3').style.background="none";
+            document.getElementById('size1').style.color="#EEF3FB";
+            document.getElementById('size2').style.color="#2C5A93";
+            document.getElementById('size3').style.color="#EEF3FB";
         }
         else if (value == 2) {
             document.body.style.fontSize = largest;
             document.getElementById('size1').style.background="none";
             document.getElementById('size2').style.background="none";
             document.getElementById('size3').style.background="#C2D9EF";
+            document.getElementById('size1').style.color="#EEF3FB";
+            document.getElementById('size2').style.color="#EEF3FB";
+            document.getElementById('size3').style.color="#2C5A93";
         }
     }
 

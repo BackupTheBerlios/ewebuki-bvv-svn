@@ -169,20 +169,24 @@ ins {
 
     /* feld mit der kopfnavigation und dem suchfeld */
     #headnavi{
-        background:#2C5A93;
-        width:880px;
+        background:#FFFFFF;
+        padding-bottom:10px;
+        width:990px;
     }
 
     /* head-navigation */
     #headnavi ul {
+        background:#2C5A93;
+        color:#FFFFFF;
+        float:left;
         height:2em;
         line-height:2em;
-        margin:0 0 0 160px;
-        padding:0;
-        width:540px;
+        margin:0;
+        padding:0 15px;
     }
 
         #headnavi li{
+            border-left:1px dotted #FFFFFF;
             float:left;
             list-style-type:none;
             white-space:nowrap;
@@ -355,15 +359,6 @@ ins {
             width:100%;
         }
 
-    #substance .single_news img {
-        float:left !important;
-        margin:0 10px 5px 0 !important;
-    }
-
-    #substance .single_news p {
-        width:100%;
-    }
-
     #substance div.wide p,
     #substance div.present p,
     #substance div.wide ul,
@@ -491,6 +486,24 @@ ins {
             }
     /* + + + */
     /* aktuell-box */
+
+    /* artikeluebersicht (startseite) */
+    /* * * * */
+    #substance .single_news img {
+        float:left;
+        margin:0 10px 5px 0;
+    }
+
+    #substance .single_news p {
+        width:100%;
+    }
+
+    #substance .single_news div {
+        margin-left:160px;
+        width:380px;
+    }
+    /* + + + */
+    /* artikeluebersicht (startseite) */
 
     /* 3-er Kombination (bild,ueberschrift,absatz) */
     /* * * * */
@@ -621,6 +634,27 @@ fieldset.button {
         padding:0;
     }
 /* + + + */
+
+/* schrift-groessen-aenderung */
+/* * * * */
+.fontsize {
+    border-left:1px dotted #FFFFFF;
+}
+
+    .fontsize span {
+        float:left;
+        padding:0 10px;
+    }
+
+    .fontsize a {
+        display:block;
+        float:left;
+        font-size:large;
+        font-weight:bold;
+        text-decoration:none !important;
+    }
+/* + + + */
+/* schrift-groessen-aenderung */
 
 /* terminkalender */
 /* * * * */

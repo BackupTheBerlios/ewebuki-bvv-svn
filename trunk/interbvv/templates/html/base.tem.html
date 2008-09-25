@@ -28,15 +28,26 @@
         <div id="site">
 
             <div id="head">
-                <div id="headnavi" style="float:left;background:#FFFFFF;padding-bottom:10px;width:990px;">
-                    <ul style="margin-left:0;float:left;width:auto;background:#2C5A93;">
+                <div id="headnavi">
+                    <ul>
                         <!--##loop-headnavi-->
                         <li><a href="!#pathvars_virtual/!{url}" title="!{title}">!{desc}</a></li>
                         <!--##cont-->
+                        <li class="fontsize">
+                            <span>Textgr&ouml;&szlig;e</span>
+                            <a title="Schriftgr&ouml;&szlig;e normal" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:0.8em;color:#2C5A93;background-color:#C2D9EF;">
+                                A
+                            </a>
+                            <a title="Schriftgr&ouml;&szlig;e mittel" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:1em;">
+                                A
+                            </a>
+                            <a title="Schriftgr&ouml;&szlig;e gro&szlig;" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:1.5em;">
+                                A
+                            </a>
+                        </li>
                     </ul>
                     <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
                 <div id="banner">
                     <a href="!#pathvars_menuroot/index.html" name="top">
                         <img src="../../images/html/wappen.png" class="wappen" alt="Bayerische Vermessungsverwaltung" style="float:right;" />
@@ -48,14 +59,6 @@
                     <a href="#search">Suche</a>,
                     <a href="#content">Inhalt</a>,
                     <a href="#navigation">Hauptnavigationsmen&uuml;</a>
-                </div>
-                <div id="headnavi" style="display:none;">
-                    <ul>
-                        <!--##loop-headnavi-->
-                        <li><a href="!#pathvars_virtual/!{url}" title="!{title}">!{desc}</a></li>
-                        <!--##cont-->
-                    </ul>
-                    <div class="clear"></div>
                 </div>
 
                 <p class="metanavi">
