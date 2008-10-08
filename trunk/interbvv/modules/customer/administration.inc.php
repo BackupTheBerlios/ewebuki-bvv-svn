@@ -86,7 +86,7 @@
         }
 
         // normalen content ausschliesslich spezielle bereiche durchgehen
-        $buffer = find_marked_content( "/", $cfg["admin"], "inhalt", array("/aktuell"));
+        $buffer = find_marked_content( "", $cfg["admin"], "inhalt", array("/aktuell","/service/fragen"));
         $bereich = "content";
         if ( count($buffer) > 0 ) {
             $hidedata[$bereich."_section"] = array(
