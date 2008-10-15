@@ -210,6 +210,20 @@
                 <input type="text" name="description" value="!#ausgaben_description" /><br />
                 <label>#(link)</label>
                 <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
+                <label></label>
+                <input type="submit" id="eb_submit" name="add[]" value="#(get_link)" title="#(get_file)" class="button" /><br />
+            <!--##show-->
+            <!--##hide-fileed-->
+                <label></label>
+                <ul style="float:left;">
+                    <!--##loop-fileed-->
+                    <li style="clear:both;">
+                        <input type="radio" value="!{link}" name="tagwerte_memo"!{sel} /> &nbsp;!{label}
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-link-->
                 <label>#(title)</label>
                 <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
             </fieldset>
