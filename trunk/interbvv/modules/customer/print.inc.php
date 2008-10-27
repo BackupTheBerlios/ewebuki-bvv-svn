@@ -80,7 +80,7 @@
 
         $count = 0;
         $i = 0;
-        foreach ( $alternate as $key => $value ) {
+        foreach ( $tag_sort as $key => $value ) {
             if ( array_key_exists($value["para"][0],$mutate) ) {
                 if ( $value["start"] > $count ) {
                     $out[$i] = substr($data["content"],$value["start"],$value["end"]-$value["start"]);
