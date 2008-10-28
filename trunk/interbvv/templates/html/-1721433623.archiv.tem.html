@@ -22,13 +22,6 @@
             <div class="clearer"></div>
             <!--##show-->
             #(inhalt)
-            <!--##hide-new-->
-            <form action="/auth/admin/bloged/add.html" method="post">
-                <input type="submit" value="g(new)" name="blog"/>
-                <input type="hidden" name="link" value="!{link}"/>
-                <input type="hidden" name="kategorie" value="!{kategorie}"/>
-            </form>
-            <!--##show-->
             <!--##hide-all-->
             <p style="float:right;text-align:right;font-size:85%">
                 <a href="archiv.html">&Uuml;bersicht</a>&nbsp;|&nbsp;<a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="!#pathvars_virtual/service/kontakt.html">Kontakt</a>
@@ -38,8 +31,7 @@
             !{inhalt}
             <!--##show-->
             <!--##loop-list-->
-            !{datum} <a href="!{detaillink}">!{titel_org}</a>
-            <p>!{editlink} !{deletelink}</p>
+            <p>!{datum} <a href="!{detaillink}">!{titel_org}</a></p>
             <!--##cont-->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
