@@ -166,10 +166,18 @@
         $wms_background = $cfg["aemter"]["wms"]["url"];
 
         $hidedata["sub_menu"][0] = "enable";
+        foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
+            $dataloop["sub_menu"][$key] = array(
+                 "link" => $value[0],
+                "label" => $value[1],
+                "class" => "",
+            );
+        }
+
         $ausgaben["artikel"] = "";
         $ausgaben["presse"] = "";
         $ausgaben["termine"] = "";
-        switch ($environment["parameter"][0]){
+        switch ($environment["parameter"][0]) {
             // startseite
             case "index":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
@@ -373,6 +381,7 @@
             case "standort":
 
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/standort.html\">Standort</a>";
+                $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
                 for ($i=1;$i<4;$i++){
                     $dataloop["gallery"][] = array(
@@ -402,6 +411,8 @@
 
             case "amtsbezirk":
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/amtsbezirk.html\">Amtsbezirk</a>";
+                $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
+
                 $hidedata["bezirk"]["amtakz"] = $amtid;
                 $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde".
                         " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
@@ -441,6 +452,8 @@
 
             case "info":
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/info.html\">Informationen f&uuml;r behinderte Menschen</a>";
+                $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
+
                 $hidedata["info"]["inhalt"] = "#(handicap_".$amtid.")";
                 if ( priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["info"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,handicap_".$amtid.".html\" class=\"button\">VA".$amtid.": Informationen bearbeiten</a>";
@@ -449,6 +462,8 @@
 
             case "ansprech":
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/ansprech.html\">Ansprechpartner</a>";
+                $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
+
                 $hidedata["ansprech"]["inhalt"] = "#(ansprech_".$amtid.")";
                 if (priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["ansprech"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,ansprech_".$amtid.".html\" class=\"button\">VA".$amtid.": Ansprechpartner</a>";
@@ -457,6 +472,8 @@
 
             case "amtschronik":
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/amtschronik.html\">Amtschronik</a>";
+                $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
+
                 $hidedata["amtschronik"]["inhalt"] = "#(amtschronik_".$amtid.")";
                 if ( priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["amtschronik"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,amtschronik_".$amtid.".html\" class=\"button\">VA".$amtid.": Amtschronik</a>";
@@ -481,6 +498,13 @@
         // was anzeigen
         $mapping["main"] = "amt-allg";
         #$mapping["navi"] = "leer";
+
+        // unzugaengliche #(marken) sichtbar machen
+        if ( isset($_GET["edit"]) ) {
+            $ausgaben["inaccessible"] = "inaccessible values:<br />";
+        } else {
+            $ausgaben["inaccessible"] = "";
+        }
 
         // wohin schicken
         #n/a

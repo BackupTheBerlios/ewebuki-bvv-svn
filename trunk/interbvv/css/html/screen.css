@@ -2,23 +2,18 @@
   globale definitionen
 ----------------------*/
 
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,pre,form,fieldset,input,p,blockquote,th,td,img{
-/*     margin:0;padding:0; */
-}
-
 body{
     color:#303030;
     font:76% Verdana,Tahoma,Arial,sans-serif;
     line-height:1.3em;
     margin:0;
-/*    padding:8px;*/
 }
 
 /* ueberschriften */
 h1{
     border-bottom:1px solid #CCCCCC;
     font-size:1.15em;
-    margin:0;
+    margin:0 0 10px 0;
     padding-bottom:3px;
 }
 
@@ -83,28 +78,32 @@ fieldset label {
 legend {
     font-weight:bold;
 }
-select, input, textarea, button {
+select, input, textarea, button, .button {
     border:1px solid #8F8F8F;
+    font-size:inherit;
+/*     padding:4px 0; */
 }
-select, input, button {
+select, input, button, .button {
     line-height:1.4em;
 }
 textarea{
     font-family:inherit;
     width:90%;
 }
-    button, input[type=button], input[type=submit]{
+    button, input[type=button], input[type=submit], input[type=reset], .button{
         cursor:pointer;
+/*         padding:3px 6px; */
     }
     input[type=checkbox] {
         margin:0.3em 0;
         width:auto;
     }
 
-/* block-elemente */
+/* weitere block-elemente */
 hr {
     background:#CCCCCC;
-    border:none;
+    border:#CCCCCC;
+    color:#CCCCCC;
     clear:both;
     height:1px;
 }
@@ -131,100 +130,88 @@ ins {
   id-definitionen (bereiche)
 ----------------------------*/
 
+
+/* kopfbereich mit banner, logo, kopfnavigation
+------------------------------------------------------*/
+#head {
+    background:url('/images/html/banner.jpg') bottom left no-repeat;
+    width:990px;
+}
+
+    #head a.wappen {
+        display:block;
+        float:right;
+        padding-top:40px;  /* -> #headnavi height */
+        width:335px;
+    }
+
+    #head .clear {
+        height:0;
+        margin:0;
+        padding:0;
+    }
+
+        #head a.wappen img {
+            float:right;
+        }
+
+    /* head-navigation */
+    #headnavi {
+        height:40px;  /* -> #head a.wappen padding-top */
+        width:650px;
+    }
+
+        #headnavi ul {
+            background:#2C5A93;
+            color:#FFFFFF;
+            float:left;
+            height:2em;
+            line-height:2em;
+            margin:0;
+            padding:0 15px;
+        }
+
+            #headnavi li{
+                background:#2C5A93;
+                border-left:1px dotted #FFFFFF;
+                float:left;
+                list-style-type:none;
+                white-space:nowrap;
+            }
+
+                #headnavi li a{
+                    color:#EEF3FB;
+                    display:block;
+                    padding:0 10px;
+                }
+
 /* kompletter seiteninhalt,
       noetig, damit die mit float angeordenten
       elemente nicht umbrechen koennen
 ------------------------------------------------------*/
 #site{
-    background:url('/images/html/background.png') repeat-y;
+    background-image:url('/images/html/background.png');
+    background-repeat: repeat-y;
     width:1000px;
     z-index:1;
 }
 
-/* kopfbereich mit banner, logo, kopfnavigation, kekse
-------------------------------------------------------*/
-#head{
-    width:990px;
-}
-
-    #banner {
-        background-image: url('/images/html/banner.jpg');
-        background-repeat: no-repeat;
-        width:990px;
-        z-index:10;
-    }
-
-        #banner h1 {
-            border:none;
-            bottom:3px;
-            font-size:1.3em;
-            position:absolute;
-            right:95px;
-            text-align:right;
-        }
-
-            #banner h1:hover {
-                text-decoration:none !important;
-            }
-
-    /* feld mit der kopfnavigation und dem suchfeld */
-    #headnavi{
-        background:#FFFFFF;
-        padding-bottom:10px;
-        width:990px;
-    }
-
-    /* head-navigation */
-    #headnavi ul {
-        background:#2C5A93;
-        color:#FFFFFF;
-        float:left;
-        height:2em;
-        line-height:2em;
-        margin:0;
-        padding:0 15px;
-    }
-
-        #headnavi li{
-            border-left:1px dotted #FFFFFF;
-            float:left;
-            list-style-type:none;
-            white-space:nowrap;
-        }
-
-            #headnavi li a{
-                color:#EEF3FB;
-                display:block;
-                padding:0 10px;
-            }
-
-    /* kekse-bereich */
-    #head p {
+    /* kekse und sprachenwechsler */
+    p.metanavi, p.kekse {
         float:left;
         line-height:2em;
         margin:0.3em 0;
     }
 
-    #head p.metanavi{
-        background:#EEF3FB;
-        margin:0;
+    p.metanavi {
         text-align:right;
         width:160px;
     }
 
-    #head p.kekse{
-        margin:0;
+    p.kekse {
         padding-left:10px;
         width:550px;
         white-space:nowrap;
-    }
-
-    #head .schnellsuche{
-        width:150px;
-    }
-
-    #hidden_navi, .hidden {
-        display:none;
     }
 
 /* globale menue spalte
@@ -237,11 +224,11 @@ ins {
     width:160px;
 }
 
-    #navi h1 {
+/*    #navi h1 {
         border:none;
         color:#EEF3FB;
         padding-left:15px;
-    }
+    }*/
 
     #navi ul {
         padding:0;
@@ -261,9 +248,10 @@ ins {
         }
 
         #navi .menu ul a {
-            color:#fff;
+            color:#FFFFFF;
         }
 
+/* Test mit css-hover-effekt
             #navi .menu ul a span {
                 display:none;
             }
@@ -272,16 +260,15 @@ ins {
                 background:#EEEEEE;
                 border:1px solid #CCCCCC;
                 color:#303030;
-/*                 display:block; */
                 left:25px;
                 font-style:italic;
                 padding:0.3em;
                 position:absolute;
                 z-index:100;
             }
+*/
 
     #navi ul.navigation {
-/*         border-bottom:1px solid #FFFFFF; */
         margin:0 0 0 15px;
     }
 
@@ -290,7 +277,6 @@ ins {
         }
 
         #navi ul.navigation li {
-/*             border-top:2px solid #FFFFFF; */
             padding:5px 5px 5px 0;
             list-style:none;
             position:relative;
@@ -301,6 +287,7 @@ ins {
                 color:#EEF3FB;
             }
 
+                /* nur der aktive menuepunkt soll leuchten */
                 #navi ul.navigation li.Level1Active a {
                     color:#FEEAAD;
                 }
@@ -316,21 +303,16 @@ ins {
 
                 #navi ul.navigation li a:hover {
                     text-decoration:none;
-/*                     color:#FFFFFF; */
                 }
 
+            /* sonderformatierungen level 2 punkte  */
             #navi ul.navigation ul li {
-                border-top:none;
                 padding:2px 0;
             }
 
                 #navi .menu ul.navigation ul li a {
                     font-weight:normal;
                 }
-
-    #navi .schnellsuche{
-        width:125px;
-    }
 
 /* eigentlicher inhalt
 ----------------------*/
@@ -341,23 +323,10 @@ ins {
     overflow:hidden;
 }
 
-    /* ueberschriften */
-    #substance h1 {
-        margin-bottom:10px;
-    }
-    #substance h2 {
-    }
-
     /* block-elemente */
     #substance p {
         width:380px;
     }
-        #substance p.teaser {
-            margin-bottom:1.5em;
-        }
-        #substance.artikel p.teaser {
-            width:100%;
-        }
 
     #substance div.wide p,
     #substance div.present p,
@@ -366,22 +335,35 @@ ins {
     #substance.wide ul {
         width:auto;
     }
+        #substance p.teaser {
+            margin-bottom:1.5em;
+        }
+        #substance.artikel p.teaser {
+            width:100%;
+        }
 
     #substance ul, #substance ol {
         list-style-image:url('/images/html/li-dash.png');
         width:380px;
     }
+
+        #substance ul ul, #substance ol ul {
+            width:auto;
+        }
+
         #substance .selection_teaser ul, #substance .selection_teaser ol {
             width:auto;
         }
-        #substance ul li {
+
+        #substance ul li, #substance ol li {
             margin-left:25px;
         }
+
             #substance ul li blockquote {
                 margin:0.3em 1em;
-/*                 width:100%; */
                 background-color:#EEF3FB;
             }
+
     /* liste ohne punkte */
     ul.no-style {
         list-style:none !important;
@@ -389,6 +371,7 @@ ins {
         padding-left:0;
     }
 
+    /* tabellen */
     #substance table {
         font-size:inherit;
     }
@@ -409,18 +392,12 @@ ins {
             margin:0 !important;
         }
 
-    /* klassen */
-    #substance .left {
-        float:left;
-        width:380px;
-    }
-
     /* sub-menu */
     /* * * * */
     #substance .sub_menu {
         background:#FFFFFF;
-        border:1px solid #CCCCCC;
-        border-top:5px solid #CCCCCC;
+        border:solid #CCCCCC;
+        border-width:5px 1px 1px 1px;
         float:right;
         margin:0.7em 0;
         overflow:hidden;
@@ -446,16 +423,10 @@ ins {
             width:auto;
         }
 
-        #substance .sub_menu li, #substance .aktuell a {
-            list-style-image:none;
-            padding-right:0.3em;
-        }
-        #substance .aktuell a {
-            font-weight:bold;
-        }
         #substance .sub_menu li {
-/*             background:#eeeeee; */
+            list-style-image:none;
             margin:2px 0;
+            padding-right:0.3em;
         }
     /* + + + */
     /* sub-menu */
@@ -473,7 +444,12 @@ ins {
 
         #substance .aktuell h3 {
             margin-top:0;
-/*             display:none; */
+        }
+
+        #substance .aktuell a {
+            font-weight:bold;
+            list-style-image:none;
+            padding-right:0.3em;
         }
 
         #substance .aktuell p {
@@ -487,30 +463,12 @@ ins {
     /* + + + */
     /* aktuell-box */
 
-    /* artikeluebersicht (startseite) */
-    /* * * * */
-    #substance .single_news img {
-        float:left;
-        margin:0 10px 5px 0;
-    }
-
-    #substance .single_news p {
-        width:100%;
-    }
-
-    #substance .single_news div {
-        margin-left:160px;
-        width:380px;
-    }
-    /* + + + */
-    /* artikeluebersicht (startseite) */
-
     /* 3-er Kombination (bild,ueberschrift,absatz) */
     /* * * * */
-    #substance .present {
+    #substance .present, #substance .single_news {
         clear:both;
         float:left;
-        margin:0.5em 0 1.5em;
+        margin:0.5em 0 0.5em;
         padding:0;
         width:100%;
     }
@@ -520,19 +478,26 @@ ins {
             margin-top:0;
         }
 
-        #substance .present p {
+        #substance .single_news h2 {
+            margin-top:0;
+        }
+
+        #substance .present p, #substance .single_news p {
             margin-left:160px;
         }
 
-            #substance .present p a {
+        #substance .present img, #substance .single_news img {
+            float:left !important;
+            margin:0 0 10px 0 !important;
+        }
+
+            #substance .present p a, #substance .single_news p a {
                 font-weight:bold;
             }
     /* + + + */
     /* 3-er Kombination */
 
-    #substance.news h2 {
-        font-size:1.15em;
-    }
+
 
 /* marginal-spalte
 -----------------------*/
@@ -575,13 +540,20 @@ ins {
         font-weight:bold;
     }
 
+
+
 /*----------------------
   klassen definitionen
 ----------------------*/
 
 /* keine float-effekte mehr */
-.clear{
+.clear {
     clear:both;
+    height:0;
+}
+
+.hidden {
+    display:none;
 }
 
 /* linke und rechte ausrichtung */
@@ -601,10 +573,44 @@ ins {
     width:100% !important;
 }
 
-fieldset.button {
-    text-align:right;
-    padding-right:81px;
+/* artikel-teaser */
+p.teaser{
+    font-style:italic;
 }
+
+/* brotkrumen */
+.last_bread_crumb {
+    font-weight:bold;
+}
+
+.old {
+    background: #FF9148;
+}
+.new {
+    background: #A9C0CE;
+}
+
+
+/* schrift-groessen-aenderung */
+/* * * * */
+.fontsize {
+    border-left:1px dotted #FFFFFF;
+}
+
+    .fontsize span {
+        float:left;
+        padding:0 10px;
+    }
+
+    .fontsize a {
+        display:block;
+        float:left;
+        font-size:large;
+        font-weight:bold;
+        text-decoration:none !important;
+    }
+/* + + + */
+/* schrift-groessen-aenderung */
 
 /* suchfeld */
 /* * * * */
@@ -635,26 +641,112 @@ fieldset.button {
     }
 /* + + + */
 
-/* schrift-groessen-aenderung */
+/* imgb-tag */
 /* * * * */
-.fontsize {
-    border-left:1px dotted #FFFFFF;
+.imgb {
+/*     border:1px solid #CCCCCC; */
 }
 
-    .fontsize span {
-        float:left;
-        padding:0 10px;
+    .imgb div {
+        margin:0 !important;
     }
 
-    .fontsize a {
-        display:block;
+        .imgb div img {
+            border:0;
+            float:left;
+        }
+
+    .imgb p {
+        margin:0 !important;
+        clear:left;
+        padding-left:2px;
+    }
+
+        .imgb p a {
+            background: url('/images/default/filefind.png') no-repeat right 1px;
+            display:block;
+            padding:2px 16px 0 0;
+        }
+
+        #substance .imgb p {
+            width:auto;
+        }
+/* + + + */
+
+/* viewer-design */
+/* * * * */
+.viewer {
+    border:1px solid #CCCCCC;
+}
+
+    .viewer .pic {
+        background:#EFEFEF;
         float:left;
-        font-size:large;
-        font-weight:bold;
-        text-decoration:none !important;
+        padding:5px 10px 20px;
+        width:250px;
+    }
+
+    .viewer .pic_wide {
+        background:#EFEFEF;
+        padding:0.5em 0;
+    }
+
+        #substance .viewer p {
+            width:auto;
+/*             background:silver; */
+        }
+
+        #substance .viewer .pic p, #substance .viewer .pic_wide p {
+            text-align:center;
+            margin:0;
+        }
+
+        #substance .viewer .pic img, #substance .viewer .pic_wide img {
+            margin:0.2em 0;
+        }
+
+            #substance .viewer .pic p img. #substance .viewer .pic_wide p img {
+                vertical-align:middle;
+            }
+
+    .viewer .desc {
+        float:right;
+        margin-right:5px;
+        width:255px;
+    }
+
+    .viewer .desc_wide {
+        margin:0 5px;
     }
 /* + + + */
-/* schrift-groessen-aenderung */
+
+/* Auto-Completer */
+/* * * * */
+div.autocomplete {
+    position:absolute;
+    width:500px;
+    background-color:#E2EAF4;
+    border:1px solid #888888;
+    margin:0px;
+    padding:0px;
+}
+
+    div.autocomplete ul, #content div.autocomplete ul {
+        list-style-type:none;
+        margin:0px;
+        padding:0px;
+    }
+
+        div.autocomplete ul li.selected { background-color: #C2DAEF;}
+
+        div.autocomplete ul li {
+            list-style-type:none;
+            display:block;
+            margin:0;
+            padding:0;
+            cursor:pointer;
+        }
+/* + + + */
 
 /* terminkalender */
 /* * * * */
@@ -706,7 +798,100 @@ fieldset.button {
         }
 /* + + + */
 
+/* infobox fuer die startseite der aemter */
+/* * * * */
+.amt_info_box {
+    background:#FAFAFA;
+    border:1px solid #CCCCCC;
+    float:left;
+    padding:5px;
+    width:528px;
+}
+
+    .amt_info_box p, .amt_info_box div {
+        margin:/*0.5em*/ 0;
+        display:block;
+        float:left;
+        text-align:left;
+        width:264px;
+    }
+
+    .amt_info_box div {
+        margin-bottom:5px;
+    }
+
+    a.selected {
+        font-weight:bold;
+    }
+
+        .amt_info_box div.clear {
+            width:100%;
+        }
+
+        .amt_info_box p img, .amt_info_box div img {
+            float:left;
+            vertical-align:middle;
+        }
+
+        .amt_info_box span {
+            display:block;
+            margin-left:40px;
+        }
+
+/* banner fuer die amtsseite */
+#substance p.amt_banner {
+    height:120px;
+    width:540px;
+}
+/* + + + */
+
+/* Kontakt-Formular */
+/* * * * */
+.kontakt input, .kontakt select {
+    float:left;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    width: 300px;
+}
+
+.kontakt input:focus, .kontakt select:focus {
+    background:#FEF6DE;
+}
+
+    .kontakt textarea{
+        width:450px;
+    }
+
+    .kontakt label {
+        float: left;
+        display: block;
+        clear: both;
+        width: 150px;
+        margin:3px 0;
+    }
+
+        .kontakt label.label_right {
+            clear:none;
+            margin-left:5px;
+            width:450px;
+        }
+
+            .kontakt label.label_right input {
+                margin-right:5px;
+                width:auto;
+            }
+
+input.small, select.small {
+    width: 50px;
+}
+
+input.medium, select.medium {
+    width: 248px;
+}
+/* + + + */
+
 /* kasten fuer zusatz-informationen */
+/* * * * */
 .box{
     background:#fff;
     border:1px solid #CCCCCC;
@@ -764,421 +949,31 @@ fieldset.button {
 .search {
     background:#FEF6DE;
 }
+/* + + + */
 
-/* viewer-design */
-.viewer {
-    border:1px solid #CCCCCC;
-}
-
-    .viewer .pic {
-        background:#EFEFEF;
-        float:left;
-        padding:5px 10px 20px;
-        width:250px;
-    }
-
-    .viewer .pic_wide {
-        background:#EFEFEF;
-        padding:0.5em 0;
-    }
-
-        #substance .viewer p {
-            width:auto;
-/*             background:silver; */
-        }
-
-        #substance .viewer .pic p, #substance .viewer .pic_wide p {
-            text-align:center;
-            margin:0;
-        }
-
-        #substance .viewer .pic img, #substance .viewer .pic_wide img {
-            margin:0.2em 0;
-        }
-
-            #substance .viewer .pic p img. #substance .viewer .pic_wide p img {
-                vertical-align:middle;
-            }
-
-    .viewer .desc {
-        float:right;
-        margin-right:5px;
-        width:255px;
-    }
-
-    .viewer .desc_wide {
-        margin:0 5px;
-    }
-
-/* artikel-teaser */
-p.teaser{
-    font-style:italic;
-}
-
-.teaser-margin{
-    margin-left:100px;
-}
-
-/* imgb-tag */
-.imgb {
-/*     border:1px solid #CCCCCC; */
-}
-
-    .imgb div {
-        margin:0 !important;
-    }
-
-        .imgb div img {
-            border:0;
-            float:left;
-        }
-
-    .imgb p {
-        margin:0 !important;
-        clear:left;
-        padding-left:2px;
-    }
-
-        .imgb p a {
-            background: url('/images/default/filefind.png') no-repeat right 1px;
-            display:block;
-            padding:2px 16px 0 0;
-        }
-
-        #substance .imgb p {
-            width:auto;
-        }
-
-/* Auto-Completer */
-div.autocomplete {
-    position:absolute;
-    width:500px;
-    background-color:#E2EAF4;
-    border:1px solid #888888;
-    margin:0px;
-    padding:0px;
-}
-
-    div.autocomplete ul, #content div.autocomplete ul {
-        list-style-type:none;
-        margin:0px;
-        padding:0px;
-    }
-
-        div.autocomplete ul li.selected { background-color: #C2DAEF;}
-
-        div.autocomplete ul li {
-            list-style-type:none;
-            display:block;
-            margin:0;
-            padding:0;
-            cursor:pointer;
-        }
-
-/* infobox fuer die startseite der aemter */
-.amt_info_box {
-/*     border:1px solid silver; */
-}
-
-    .amt_info_box p, .amt_info_box div {
-        margin:/*0.5em*/ 0;
-        display:block;
-        float:left;
-        text-align:left;
-        width:45%;
-    }
-
-    .amt_info_box div {
-        margin-bottom:5px;
-    }
-
-        .amt_info_box div.clear {
-            width:100%;
-        }
-
-        .amt_info_box p img, .amt_info_box div img {
-            float:left;
-/*             margin-bottom:0.5em; */
-            vertical-align:middle;
-        }
-
-        .amt_info_box span {
-            display:block;
-            margin-left:40px;
-        }
-
-/* banner fuer die amtsseite */
-#substance p.amt_banner {
-    height:120px;
-    width:540px;
-}
-
-    #substance p.amt_banner img {
-/*         height:120px; */
-/*         background:#EEEEEE; */
-/*         border:1px solid #CCCCCC; */
-/*         margin:13px; */
-/*         padding:3px; */
-    }
-
-
-.old {
-    background: #FF9148;
-}
-.new {
-    background: #A9C0CE;
-}
-
-/* Kontakt-Formular */
-.kontakt input, .kontakt select {
-    float:left;
-    margin-top: 1px;
-    margin-bottom: 1px;
-    width: 300px;
-}
-
-.kontakt input:focus, .kontakt select:focus {
-    background:#FEF6DE;
-}
-
-    .kontakt textarea{
-        width:450px;
-    }
-
-    .kontakt label {
-        float: left;
-        display: block;
-        clear: both;
-        width: 150px;
-        margin:3px 0;
-    }
-
-        .kontakt label.label_right {
-            clear:none;
-            margin-left:5px;
-            width:450px;
-        }
-
-            .kontakt label.label_right input {
-                margin-right:5px;
-                width:auto;
-            }
-
-input.small, select.small {
-    width: 50px;
-}
-
-input.medium, select.medium {
-    width: 248px;
-}
-
-/* neuer formular-versuch
-------------------------- */
-.formular .cbra {
-    border:0;
-    width:auto !important;
-}
-
-.formular .ganz, .formular .halb, .formular .viertel, .formular .dreiviertel {
-    clear:none;
-    float:left;
-    margin:5px 10px 0 0;
-}
-
-    fieldset.formular label {
-        clear:none;
-        display:inline;
-        float:left;
-        margin:0;
-        width:auto;
-    }
-
-    .formular input:focus, .formular select:focus, .formular textarea:focus {
-        background:#FEF6DE;
-    }
-
-    .formular .ganz {
-        width:510px;
-    }
-
-        .formular .ganz input, .formular .ganz select, .formular .ganz textarea {
-            width:510px;
-        }
-
-    .formular .halb {
-        width:250px;
-    }
-
-        .formular .halb input, .formular .halb select, .formular .halb textarea {
-            width:250px;
-        }
-
-    .formular .viertel {
-        width:120px;
-    }
-
-        .formular .viertel input, .formular .viertel select, .formular .viertel textarea {
-            width:120px;
-        }
-
-    .formular .dreiviertel {
-        width:380px;
-    }
-
-        .formular .dreiviertel input, .formular .dreiviertel select, .formular .dreiviertel textarea {
-            width:380px;
-        }
-
-/* brotkrumen */
-.last_bread_crumb {
-    font-weight:bold;
-}
-
-
-/* wizard gestaltung
-------------------------*/
-#substance.wizard {
+/* administrationsbereich */
+/* * * * */
+#substance.admin {
     background:#FFFFFF;
     padding:15px 0 0 10px;
     width:870px;
 }
 
-    .wizard .button {
-        background-color:#EEEEEE;
-        border:1px solid #CCCCCC;
-        cursor:pointer;
-        margin-right:5px;
-        padding:0.5ex 1ex;
-        text-decoration:none;
-        width:auto;
+    #substance.admin .box {
+        text-align:left;
+        width:600px;
     }
 
-    .wizard #sort_content {
-        padding:0;
-        width:100%;
-    }
-
-        .wizard #sort_content li {
-            background:no-repeat right top;
-            border:1px solid #CCCCCC;
-            list-style:none;
-            margin:0 0 3px;
-            padding:20px 4px 0;
-        }
-
-            .wizard #sort_content li.ajax_move {
-                border-color:#FFC71F;
-            }
-
-                .wizard #sort_content li .clear {
-                    padding:0;
-                    text-align:right;
-                    width:100%;
-                }
-
-            .wizard #sort_content li div.wiz_edit {
-                border:1px solid #CCCCCC;
-                float:left;
-                margin:3px;
-            }
-
-                .wizard #sort_content li div.wiz_edit div.buttons a {
-                    background:#EEEEEE;
-                    font-weight:normal;
-                    float:left;
-                    margin-right:2px;
-                    padding:0.5ex 1ex;
-                }
-
-            .wizard #sort_content li span.wiz_edit {
-                border:1px solid #CCCCCC;
-            }
-
-                .wizard #sort_content li span.wiz_edit span.buttons {
-                    display:none;
-                    font-weight:normal;
-                }
-
-                .wizard #sort_content li span.wiz_edit:hover span.buttons {
-                    display:inline;
-                }
-
-    .wizard form label {
-        display:block;
-        float:left;
-        margin:2px 0;
-        padding:1px;
-        width:120px;
-    }
-
-        .wizard form label.cbra {
-            text-align:left;
-            width:170px;
-        }
-
-        .wizard form input, .wizard form button {
-            float:left;
-            font-size:0.95em;
-            margin:2px 0;
-            padding:1px;
-            width:250px;
-        }
-
-            .wizard form .cbra {
-                clear:both;
-            }
-
-            .wizard form .cbra input, .wizard form .thumbs input {
-                margin:2px 5px;
-                width:auto;
-            }
-
-            .wizard form table input {
-                border:none;
-                margin:0;
-                padding:0;
-                width:100%;
-            }
-
-    .wizard form input.big {
-        width:250px;
-    }
-
-    .wizard form br {
-        clear:both;
-    }
-
-    .wizard fieldset.buttons {
-        text-align:right;
-    }
-
-        .wizard .box fieldset.buttons {
-            text-align:left;
-        }
-
-        .wizard fieldset.buttons button, .wizard fieldset.buttons input {
-            float:none;
-            width:auto;
-        }
-
-        .wizard fieldset.buttons form {
-            float:right;
-        }
-
-        .wizard fieldset fieldset {
-            float:left;
-            margin-right:15px;
-        }
-
-    .wizard #preview {
-        border-bottom:1px solid #CCCCCC;
-        margin-bottom:10px;
-        padding-bottom:10px;
-    }
-
-    .wizard #grid_list {
-        list-style:none;
+    .schnellsuche button{
+        border:none;
+        float:right;
+        height:1.2em;
         margin:0;
         padding:0;
-        width:680px;
     }
+
+    .schnellsuche img{
+        margin:0 !important;
+        padding:0;
+    }
+/* + + + */

@@ -18,7 +18,7 @@
             <!--##hide-amtpic-->
 <!--             <p class="amt_banner" style="background:url('!{scr_bg}') no-repeat bottom;"> -->
             <p class="amt_banner" style="background:url('../../images/html/dienststellen.jpg') no-repeat bottom;">
-                <img src="!{src}" alt="!#ausgaben_amt (Hintergrund ist Digitales Orthophoto)" title="!#ausgaben_amt (Hintergrund ist Digitales Orthophoto)" style="" />
+                <img src="!{src}" alt="!#ausgaben_amt" title="!#ausgaben_amt" style="" />
             </p>
             <!--##show-->
 
@@ -38,13 +38,9 @@
 
             <!--##hide-sub_menu-->
             <p>
-                <b><a href="index.html">&Uuml;bersicht</a></b> -
-                <a href="standort.html">Standort</a> -
-                <a href="ansprech.html">Ansprechpartner</a> -
-<!--                 #(connection) - -->
-                <a href="amtsbezirk.html">Amtsbezirk</a> -
-                <a href="amtschronik.html">Historisches</a>
-<!--                 <a href="info.html">Informationen f&uuml;r behinderte Menschen</a> -->
+                <!--##loop-sub_menu-->
+                <a href="!{link}" class="!{class}">!{label}</a> -
+                <!--##cont-->
             </p>
             <!--##show-->
 
