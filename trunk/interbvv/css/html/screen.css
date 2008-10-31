@@ -585,9 +585,17 @@ p.teaser{
 
 .old {
     background: #FF9148;
+    clear:both;
+    display:block;
+    float:left;
+    width:100%;
 }
 .new {
     background: #A9C0CE;
+    clear:both;
+    display:block;
+    float:left;
+    width:100%;
 }
 
 
