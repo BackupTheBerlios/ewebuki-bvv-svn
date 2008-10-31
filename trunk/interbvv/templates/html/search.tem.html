@@ -13,10 +13,9 @@
 <!--##begin-->
 <div class="box search">
     <h3>Suche</h3>
-    <form action="!#pathvars_virtual/search.html" id="qsearch" method="post">
+    <form action="!#pathvars_virtual/suche.html" id="qsearch" method="post">
         <div class="schnellsuche">
-            <input type="hidden" value="!#pathvars_requested" name="requested"/>
-            <input value="Suchbegriff" type="text" name="search" onfocus="this.value=''"/>
+            <input value="Suchbegriff" type="text" name="words" onfocus="this.value=''"/>
             <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
                 <img src="../../images/html/start-suche.png" alt="" />
             </button>
