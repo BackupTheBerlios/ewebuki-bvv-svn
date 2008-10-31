@@ -48,7 +48,7 @@
     $ausgaben["suchbegriff"] = "";
 
     if ( $environment["fqdn"][1] != "" ) {
-        $fqdn = "http://".$environment["fqdn"][0].".".$environment["fqdn"][0];
+        $fqdn = "http://".$environment["fqdn"][0].".".$environment["fqdn"][1];
     } else {
         $fqdn = "http://".$environment["fqdn"][0];
     }
