@@ -47,9 +47,17 @@
 
     $ausgaben["suchbegriff"] = "";
 
-    if ( $_POST["words"] != "" )   $ausgaben["suchbegriff"] = $_POST["words"];
-// $se =  htmlentities("höll");
-    $fp=fopen("http://devel2/cgi-bin/htsearch?words=".$_POST["words"]."&config=htdig","r");
+    if ( $environment["fqdn"][1] != "" ) {
+        $fqdn = "http://".$environment["fqdn"][0].".".$environment["fqdn"][0];
+    } else {
+        $fqdn = "http://".$environment["fqdn"][0];
+    }
+
+    $suchanfrage = urlencode(utf8_decode($_POST["words"]));
+    if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
+
+    $fp=fopen($fqdn."/cgi-bin/htsearch?words=".$suchanfrage."&config=interbvv","r");
+
     while ( $line = fgets($fp,1000) ){
 
         $line = preg_replace("/<a href=\"[A-Za-z0-9#:\/\"\.]*>/U","",$line);
