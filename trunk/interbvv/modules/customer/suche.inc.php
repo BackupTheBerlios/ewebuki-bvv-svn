@@ -54,8 +54,8 @@
     }
 
     $network_adress = $fqdn;
-    if ( $cfg["suche"]["alien_index"][$fqdn] != "" ) {
-        $network_adress = $cfg["suche"]["alien_index"][$fqdn];
+    if ( is_array($cfg["suche"]["alien_index"][$fqdn]) ) {
+        $network_adress = $cfg["suche"]["alien_index"][$fqdn][1];
     }
 
     $suchanfrage = urlencode(utf8_decode($_POST["words"]));
@@ -67,12 +67,10 @@
         $line = preg_replace("/<a href=\"[A-Za-z0-9#:\/\"\.]*>/U","",$line);
         $line = str_replace("</a>","",$line);
         if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
-            if ( array_key_exists($fqdn,$cfg["suche"]["alien_index"])  ) {
-                if ( $cfg["suche"]["alien_index"][$fqdn] != "" ) {
-                    $fqdn = $cfg["suche"]["alien_index"][$fqdn];
-                }
-                $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
+            if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
+                $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
             }
+            $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
             $dataloop["treffer"][] = explode("##",$line);
         }
     }

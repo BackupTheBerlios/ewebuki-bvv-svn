@@ -68,7 +68,9 @@
                      ),
               ),
             "config" => "htdig",
-       "alien_index" => array("" => "")
+//       "alien_index" => array("set_it" => 
+//                                 array("set_it","set_it"),
+                            ),
     );
 
     // * tipp: fuer das einfache modul muss der wert $cfg["basis"] natuerlich
