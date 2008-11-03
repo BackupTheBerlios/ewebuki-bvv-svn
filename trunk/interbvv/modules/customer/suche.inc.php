@@ -42,28 +42,37 @@
     URL: http://www.chaos.de
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// strong,code,a
+    // strong,code,a
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ** ".$script["name"]." ** ]".$debugging["char"];
 
     $ausgaben["suchbegriff"] = "";
 
     if ( $environment["fqdn"][1] != "" ) {
-        $fqdn = "http://".$environment["fqdn"][0].".".$environment["fqdn"][1];
+        $fqdn = $environment["fqdn"][0].".".$environment["fqdn"][1];
     } else {
-        $fqdn = "http://".$environment["fqdn"][0];
+        $fqdn = $environment["fqdn"][0];
+    }
+
+    $network_adress = $fqdn;
+    if ( $cfg["suche"]["alien_index"][$fqdn] != "" ) {
+        $network_adress = $cfg["suche"]["alien_index"][$fqdn];
     }
 
     $suchanfrage = urlencode(utf8_decode($_POST["words"]));
     if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
 
-    $fp=fopen($fqdn."/cgi-bin/htsearch?words=".$suchanfrage."&config=interbvv","r");
+    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&config=".$cfg["suche"]["config"],"r");
 
     while ( $line = fgets($fp,1000) ){
-
         $line = preg_replace("/<a href=\"[A-Za-z0-9#:\/\"\.]*>/U","",$line);
         $line = str_replace("</a>","",$line);
-
-        if ( preg_match("/^http/",$line,$match) ) {
+        if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
+            if ( is_array($cfg["suche"]["alien_index"][$fqdn]) ) {
+                if ( $cfg["suche"]["alien_index"][$fqdn] != "" ) {
+                    $fqdn = $cfg["suche"]["alien_index"][$fqdn];
+                }
+                $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/",$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
+            }
             $dataloop["treffer"][] = explode("##",$line);
         }
     }
@@ -77,13 +86,6 @@
     } else {
         $specialvars["editlock"] = -1;
     }
-
-    // navigation erstellen
-    $ausgaben["add"] = $cfg["leer"]["basis"]."/add,".$environment["parameter"][1].",verify.html";
-    #$mapping["navi"] = "leer";
-
-    // hidden values
-    #$ausgaben["form_hidden"] .= "";
 
     // was anzeigen
     $mapping["main"] = "htdig";
