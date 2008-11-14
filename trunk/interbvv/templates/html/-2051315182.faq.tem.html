@@ -13,33 +13,25 @@
     <body>
 <!--##begin-->
         <script type="text/javascript">
-        function resetForm(){
-        document.forms['modify'].reset();
-        }
-        function anzeigen(id) {
-        show = document.getElementById(id).style.display;
-        if ( show == 'none' ) {
-        new Effect.BlindDown(id, {duration: 0.1});
-        } else {
-        new Effect.BlindUp(id, {duration: 0.1})
-        }
-        return false;
-        }
+            function anzeigen(id) {
+                show = document.getElementById(id).style.display;
+                f="ls_"+id;
+                if ( show == 'none' ) {
+                    document.getElementById(f).style.listStyleImage='url(/images/html/nach_oben.png)';
+                    new Effect.BlindDown(id, {duration: 0.1});
+                } else {
+                    new Effect.BlindUp(id, {duration: 0.1})
+                    document.getElementById(f).style.listStyleImage='url(/images/html/li-dash.png)';
+                }
+                return false;
+            }
         </script>
-        <!--##hide-new-->
-        <form action="/auth/admin/bloged/add.html" method="post">
-        <input type="submit" value="g(new)" name="blog"/>
-        <input type="hidden" name="link" value="!{link}"/>
-        <input type="hidden" name="kategorie" value="!{kategorie}"/>
-        </form>
-        <!--##show-->
         <ul>
         <!--##loop-list-->
-            <li>
+            <li id="ls_faq_!{id}" >
                 !{rubric}
                 <div><b><a style="cursor: pointer" onclick="anzeigen('faq_!{id}');">!{titel_org}</a></b></div>
                 <div id="faq_!{id}" style="display:none">!{faq}</div>
-                !{editlink} !{deletelink} !{sort}
             </li>
         <!--##cont-->
         </ul>
