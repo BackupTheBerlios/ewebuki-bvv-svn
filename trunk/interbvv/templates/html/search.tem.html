@@ -12,7 +12,7 @@
 
 <!--##begin-->
 <div class="box search">
-    <h3>Suche</h3>
+    <h3>Finden</h3>
     <form action="!#pathvars_virtual/suche.html" id="qsearch" method="post">
         <div class="schnellsuche">
             <input value="Suchbegriff" type="text" name="words" onfocus="this.value=''"/>
@@ -22,10 +22,11 @@
             <div class="clear"></div>
         </div>
     </form>
+    <h3>Lokalisieren</h3>
     <form action="!#pathvars_virtual/amtsuche.html" method="get" id="suche">
         <div class="schnellsuche">
-            <input value="Dienststellensuche" type="text" name="search" onfocus="this.value=''" />
-            <button type="submit" title="Dienststellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Dienstellensuche'){window.document.suche.suche_feld.value='';}">
+            <input value="Ort/PLZ" type="text" name="search" onfocus="this.value=''" />
+            <button type="submit" title="Dienststellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Ort/PLZ'){window.document.suche.suche_feld.value='';}">
                 <img src="../../images/html/start-suche.png" alt="" />
             </button>
             <div class="clear"></div>

@@ -362,6 +362,7 @@ ins {
             #substance ul li blockquote {
                 margin:0.3em 1em;
                 background-color:#EEF3FB;
+                border:1px solid #CCCCCC;
             }
 
     /* liste ohne punkte */
@@ -955,8 +956,12 @@ input.medium, select.medium {
     }
 
 .search {
-    background:#FEF6DE;
+    background:#2C5A93;
 }
+
+    .search h3 {
+        color:#EEF3FB;
+    }
 /* + + + */
 
 /* administrationsbereich */
