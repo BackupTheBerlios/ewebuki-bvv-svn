@@ -18,6 +18,26 @@
 <div class="box">
     <h3>#(ueberschrift)</h3>
     <ul>
+        <!--##loop-authblog_artikel-->
+            <form method="post" name="archiv" action="/auth/admin/bloged/add.html">
+                <a href="javascript: document.archiv.submit()">Neuer Artikel</a><br>
+                <input type="hidden" value="/aktuell/archiv" name="link"/>
+                <input type="hidden" value="/aktuell/archiv" name="kategorie"/>
+            </form>
+        <!--##cont-->
+
+        <!--##loop-authblog_presse-->
+        <li>
+            <form method="post" name="presse" action="/auth/admin/bloged/add.html">
+                <a href="javascript: document.presse.submit()">Neue Pressemitteilung</a><br>
+                <input type="hidden" value="/aktuell/presse" name="link"/>
+                <input type="hidden" value="/aktuell/presse" name="kategorie"/>
+            </form>
+        </li>
+        <!--##cont-->
+        <!--##loop-authblog_termine-->
+        <li><a href="/auth/aktuell/termine,,,,add.html" name="termin" value="Neuen Termin erfassen">Neuen Termin erfassen</a></li>
+        <!--##cont-->
         <!--##loop-authInPlace-->
         <li><a href="!{link}">!{desc}</a></li>
         <!--##cont-->
