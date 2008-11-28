@@ -34,11 +34,11 @@
                         {
                             onUpdate:function(){
                                 new Ajax.Request(
-                                    '!#ausgaben_ajax_request?' + Sortable.serialize('img_map'),
+                                    '/index.html',
                                     {
                                         onComplete:function(element){
-//                                             new Effect.Pulsate('img_map',{duration:3.0});
-                                            location.href  = '!#ausgaben_empty_show_url';
+                                            window.location.href = '!#ausgaben_ajax_request?' + Sortable.serialize("img_map");
+                                            new Effect.Pulsate('img_map',{duration:3.0});
                                         }
                                     }
                                 );
