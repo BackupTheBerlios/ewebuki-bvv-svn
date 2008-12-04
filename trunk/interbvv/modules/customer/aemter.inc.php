@@ -291,6 +291,7 @@
                     $hidedata["termine_add"]["termin"] = "";
                     $hidedata["termine_add"]["termin_en"] = "";
                     $hidedata["termine_add"]["wizard"] = "artikel";
+                    $hidedata["termine_add"]["kategorie"] = $environment["ebene"]."/index";
 
                     $id = make_id("/aktuell/termine");
                     $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
