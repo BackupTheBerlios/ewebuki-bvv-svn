@@ -204,40 +204,18 @@
             #(inhalt)
 
             !#ausgaben_artikel
-            <!--##hide-artikel-->
-            <form action="/auth/admin/bloged/add.html" method="post">
-                <input type="submit" value="g(new)" name="blog"/>
-                <input type="hidden" name="link" value="!{link}"/>
-                <input type="hidden" name="kategorie" value="!{kategorie}"/>
-            </form>
-            <!--##show-->
 
             <!--##loop-artikel-->
-            !{datum} <a href="artikel,,!{id}.html">!{titel_org}</a>
-            <p>!{editlink} !{deletelink}</p>
+            <p>!{datum} <a href="artikel,,!{id}.html">!{titel_org}</a></p>
             <!--##cont-->
             !#ausgaben_presse
-            <!--##hide-presse-->
-            <form action="/auth/admin/bloged/add.html" method="post">
-                <input type="submit" value="g(new)" name="blog"/>
-                <input type="hidden" name="link" value="!{link}"/>
-                <input type="hidden" name="kategorie" value="!{kategorie}"/>
-            </form>
-            <!--##show-->
-
             <!--##loop-presse-->
-            !{datum} <a href="presse,,!{id}.html">!{titel_org}</a>
-            <p>!{editlink} !{deletelink}</p>
+            <p>!{datum} <a href="presse,,!{id}.html">!{titel_org}</a></p>
             <!--##cont-->
 
             !#ausgaben_termine
-            <!--##hide-termine-->
-            <a href="termine,,,,add.html">NEU      </a><br />
-            <!--##show-->
-
             <!--##loop-termine-->
-            !{datum} <a href="termine,,!{id}.html">!{titel_org}</a>
-            <p>!{deletelink}</p>
+            <p>!{datum} <a href="termine,,!{id}.html">!{titel_org}</a></p>
             <!--##cont-->
 
             <!--##hide-termine_add-->
