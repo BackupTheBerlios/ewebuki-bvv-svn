@@ -353,10 +353,12 @@
                     $dataloop["termine_detail"]["weitere"]["desc"] = "#(more_infos)";
                 }
 
-                if ( $cfg["bloged"]["blogs"]["/aktuell/termine"]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"]["/aktuell/termine"]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                    $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html\">#(meta)"."</a>
-                                                                  <a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> #(add_infos)"."</a>";
-                    $dataloop["termine_detail"]["edit"]["desc"] = "Aktionen:";
+                if ( $environment["parameter"][2] != "" ) { 
+                    if ( $cfg["bloged"]["blogs"]["/aktuell/termine"]["right"] == "" || priv_check($url,$cfg["bloged"]["blogs"]["/aktuell/termine"]["right"])  ) {
+                        $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html\">#(meta)"."</a>
+                                                                    <a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> #(add_infos)"."</a>";
+                        $dataloop["termine_detail"]["edit"]["desc"] = "Aktionen:";
+                    }
                 }
 
                 #$hidedata["all"]["inhalt"] = $all[1]["all"];
