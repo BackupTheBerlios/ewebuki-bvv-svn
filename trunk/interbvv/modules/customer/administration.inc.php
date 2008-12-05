@@ -55,6 +55,8 @@
         // page basics
         // ***
 
+        include $pathvars["moduleroot"]."wizard/wizard.cfg.php";
+        unset($cfg["wizard"]["function"]);
         include $pathvars["moduleroot"]."wizard/wizard-functions.inc.php";
 
         // +++
@@ -66,23 +68,35 @@
 
         // einzelne bereiche durchgehen (artikel, termine, ...)
         foreach ( $cfg["admin"]["specials"] as $url=>$bereich ) {
+            // dataloop holen
+            $buffer = find_marked_content( $url, $cfg, "inhalt" );
+            $dataloop[$bereich."_edit"] = $buffer[-1];
+            $dataloop[$bereich."_release"] = $buffer[-2];
+            if ( $dataloop[$bereich."_edit"][0]["kategorie"] && $dataloop[$bereich."_edit"][0]["kategorie"]!= "---" ) {
+                foreach ( $dataloop[$bereich."_edit"] as $key => $value ) {
+                    if ( count($dataloop[$bereich."_edit"]) > 0 && priv_check($value["kategorie"],"admin;publish;edit") ) {
+                        $hidedata["lokal_".$bereich."_edit"] = array();
+                     } else {
+                        unset($dataloop[$bereich."_edit"][$key]);
+                    }
+                }
+                $dataloop["lokal_".$bereich."_edit"] = $dataloop[$bereich."_edit"];
+            } else {
+                // bereiche sichtbar machen
+                if ( count($dataloop[$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
+                    $hidedata[$bereich."_edit"] = array();
+                }
+                if ( count($dataloop[$bereich."_release"]) > 0 && priv_check($url,"admin;publish") ) {
+                    $hidedata[$bereich."_release"] = array();
+                }
+            }
             // berechtigung checken
             if ( !priv_check($url,"admin;edit") ) continue;
             $hidedata[$bereich."_section"] = array(
                 "heading" => "#(".$bereich."_heading)",
                 "new" => "#(".$bereich."_new)",
             );
-            // dataloop holen
-            $buffer = find_marked_content( $url, $cfg["admin"], "inhalt" );
-            $dataloop[$bereich."_edit"] = $buffer[-1];
-            $dataloop[$bereich."_release"] = $buffer[-2];
-            // bereiche sichtbar machen
-            if ( count($dataloop[$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
-                $hidedata[$bereich."_edit"] = array();
-            }
-            if ( count($dataloop[$bereich."_release"]) > 0 && priv_check($url,"admin;publish") ) {
-                $hidedata[$bereich."_release"] = array();
-            }
+
         }
 
         // normalen content ausschliesslich spezielle bereiche durchgehen

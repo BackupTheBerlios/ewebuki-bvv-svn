@@ -81,6 +81,23 @@
                     <!--##cont-->
                 </ul>
 <!--##show-->
+
+<!--##hide-lokal_artikel_edit-->
+                <div class="box">
+                <h2>Lokale Artikel</h2>
+                <h3>#(edit)</h3>
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                    <!--##loop-lokal_artikel_edit-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
+                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
+                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
+                    </li>
+                    <!--##cont-->
+                </ul>
+                </div>
+<!--##show-->
+
 <!--##hide-artikel_release-->
                 <h3>#(release)</h3>
                 <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
@@ -132,6 +149,21 @@
                     <!--##cont-->
                 </ul>
 <!--##show-->
+<!--##hide-lokal_termine_edit-->
+                <div class="box">
+                <h2>Lokale Termine</h2>
+                <h3>#(edit)</h3>
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                    <!--##loop-lokal_termine_edit-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
+                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
+                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
+                    </li>
+                    <!--##cont-->
+                </ul>
+                </div>
+<!--##show-->
 <!--##hide-termine_section-->
             </div>
 <!--##show-->
@@ -159,6 +191,21 @@
                     </li>
                     <!--##cont-->
                 </ul>
+<!--##show-->
+<!--##hide-lokal_presse_edit-->
+                <div class="box">
+                <h2>Lokale Pressemitteilungen</h2>
+                <h3>#(edit)</h3>
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                    <!--##loop-lokal_presse_edit-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
+                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
+                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
+                    </li>
+                    <!--##cont-->
+                </ul>
+                </div>
 <!--##show-->
 <!--##hide-presse_release-->
                 <h3>#(release)</h3>
