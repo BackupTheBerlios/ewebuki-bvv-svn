@@ -34,12 +34,20 @@
             </form>
         <!--##cont-->
 
+        <!--##loop-edit_lokale_artikel-->
+                <a href="!{lokal_edit}" title="Seite bearbeiten">Seite bearbeiten</a><br>
+        <!--##cont-->
+
         <!--##loop-lokale_presse-->
             <form method="post" name="presse" action="/auth/admin/bloged/add.html">
                 <a href="javascript: document.presse.submit()" title="nur auf der Seite des Vermessungsamt sichtbar">Neue Pressemitteilung</a><br>
                 <input type="hidden" value="/aktuell/presse" name="link"/>
                 <input type="hidden" value="!{kategorie}" name="kategorie"/>
             </form>
+        <!--##cont-->
+
+        <!--##loop-edit_lokale_presse-->
+                <a href="!{lokal_edit}" title="Seite bearbeiten">Seite bearbeiten</a><br>
         <!--##cont-->
 
         <!--##loop-lokale_termine-->
