@@ -10,13 +10,16 @@
 <!--##begin-->
 <!--$Id: auth.tem.html 1231 2008-02-04 10:40:22Z buffy1860 $-->
 
-<!--##hide-authArea-->
-<!--##show-->
 
 
 <!--##hide-authInPlace-->
 <div class="box">
     <h3>#(ueberschrift)</h3>
+<!--##show-->
+<!--##hide-authArea-->
+    <p>!{message}</p>
+<!--##show-->
+<!--##hide-authInPlace-->
     <ul>
         <!--##loop-authblog_artikel-->
             <form method="post" name="archiv" action="/auth/admin/bloged/add.html">
