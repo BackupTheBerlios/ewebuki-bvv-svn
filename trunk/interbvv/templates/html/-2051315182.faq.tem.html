@@ -17,21 +17,21 @@
                 show = document.getElementById(id).style.display;
                 f="ls_"+id;
                 if ( show == 'none' ) {
-                    document.getElementById(f).style.listStyleImage='url(/images/html/nach_oben.png)';
+                    document.getElementById(f).style.listStyleImage='url(/images/html/minuszeichen.jpg)';
                     new Effect.BlindDown(id, {duration: 0.1});
                 } else {
                     new Effect.BlindUp(id, {duration: 0.1})
-                    document.getElementById(f).style.listStyleImage='url(/images/html/li-dash.png)';
+                    document.getElementById(f).style.listStyleImage='url(/images/html/pluszeichen.jpg)';
                 }
                 return false;
             }
         </script>
         <ul>
         <!--##loop-list-->
-            <li id="ls_faq_!{id}" >
+            <li id="ls_faq_!{id}" style="list-style:none;margin:0">
                 !{rubric}
-                <div><b><a style="cursor: pointer" onclick="anzeigen('faq_!{id}');">!{titel_org}</a></b></div>
-                <div id="faq_!{id}" style="display:none">!{faq}</div>
+                <div><b><a style="cursor: pointer; background: url(/images/html/pluszeichen.jpg) left -5px no-repeat; padding-left:25px" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('faq_!{id}')">!{titel_org}</a></b></div>
+                <div id="faq_!{id}" style="display:none; padding-left:25px">!{faq}</div>
             </li>
         <!--##cont-->
         </ul>
