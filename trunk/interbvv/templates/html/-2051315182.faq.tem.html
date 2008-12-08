@@ -17,20 +17,20 @@
                 show = document.getElementById(id).style.display;
                 f="ls_"+id;
                 if ( show == 'none' ) {
-                    document.getElementById(f).style.listStyleImage='url(/images/html/minuszeichen.jpg)';
+                    document.getElementById(f).style.background='url(/images/html/minuszeichen.jpg) left -5px no-repeat';
                     new Effect.BlindDown(id, {duration: 0.1});
                 } else {
                     new Effect.BlindUp(id, {duration: 0.1})
-                    document.getElementById(f).style.listStyleImage='url(/images/html/pluszeichen.jpg)';
+                    document.getElementById(f).style.background='url(/images/html/pluszeichen.jpg) left -5px no-repeat';
                 }
                 return false;
             }
         </script>
         <ul>
         <!--##loop-list-->
-            <li id="ls_faq_!{id}" style="list-style:none;margin:0">
+            <li  style="list-style:none;margin:0">
                 !{rubric}
-                <div><b><a style="cursor: pointer; background: url(/images/html/pluszeichen.jpg) left -5px no-repeat; padding-left:25px" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('faq_!{id}')">!{titel_org}</a></b></div>
+                <div><b><a id="ls_faq_!{id}" style="cursor: pointer; background: url(/images/html/pluszeichen.jpg) left -5px no-repeat; padding-left:25px" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('faq_!{id}')">!{titel_org}</a></b></div>
                 <div id="faq_!{id}" style="display:none; padding-left:25px">!{faq}</div>
             </li>
         <!--##cont-->
