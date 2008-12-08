@@ -17,9 +17,10 @@
     <h3>#(ueberschrift)</h3>
 <!--##show-->
 <!--##hide-authArea-->
-    <p>!{message}</p>
+    <p style="text-align:left">!{message}</p>
 <!--##show-->
 <!--##hide-authInPlace-->
+    <h3>Ihre Werkzeuge:</h3>
     <ul>
         <!--##loop-authblog_artikel-->
             <form method="post" name="archiv" action="/auth/admin/bloged/add.html">
@@ -38,7 +39,7 @@
         <!--##cont-->
 
         <!--##loop-edit_lokale_artikel-->
-                <a href="!{lokal_edit}" title="Seite bearbeiten">Seite bearbeiten</a><br>
+                <a href="!{lokal_edit}" title="Seite bearbeiten">Artikel bearbeiten</a><br>
         <!--##cont-->
 
         <!--##loop-lokale_presse-->
