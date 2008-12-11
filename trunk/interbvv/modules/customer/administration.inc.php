@@ -59,6 +59,11 @@
         unset($cfg["wizard"]["function"]);
         include $pathvars["moduleroot"]."wizard/wizard-functions.inc.php";
 
+        if ( $pathvars["virtual"] == "" || $_GET["edit"] ) {
+            $ausgaben["adminbild"] = "<div class=\"box\">#(adminbild)</div>";
+        } else {
+            $ausgaben["adminbild"] = "";
+        }
         // +++
         // page basics
 
