@@ -83,6 +83,7 @@
                         if ( $value["kategorie"] != "/aktuell/archiv" ) {
                             $dataloop["lokal_".$bereich."_edit"][] = $value;
                             unset($dataloop[$bereich."_edit"][$key]);
+                            $hidedata["lokal_".$bereich."_edit"] = array();
                         }
                     } else {
                         unset($dataloop[$bereich."_edit"][$key]);
