@@ -29,35 +29,36 @@
 
     #{image_map}
 
+    <div style="float:left;">
+        <div id="vorschau" style="display:none;">
+            <div id="substance"></div>
+        </div>
 
-    <div id="vorschau" style="display:none;">
-        <div id="substance"></div>
+        <!--##hide-no_sort_content-->
+        <div style="float:left;display:block;margin-left:10px;width:550px;" id="no_sort_content">#(show_none)</div>
+        <!--##show-->
+
+        <!--##hide-sort_content-->
+        <ul id="content_blocks" style="float:left;display:block;margin-left:10px;width:550px;">
+            <!--##loop-sort_content-->
+            <li id="item_!{key}" class="!{class}" style="!{style}">
+<!--                 <a name="item_!{key}" href="#" style="float:right;">nach oben</a> -->
+                <div class="clearer"></div>
+                !{value_html}
+                <div class="clearer"></div>
+                <p class="block_edit" !{modify}>
+                    <a href="!{link_up}" class="button" title="#(wiz_moveup_desc)">#(wiz_moveup)</a>
+                    <a href="!{link_down}" class="button" title="#(wiz_movedown_desc)">#(wiz_movedown)</a>
+                    <a href="!{delete}" class="button" title="#(wiz_delete_desc)">#(wiz_delete)</a>
+                </p>
+                <div class="clearer"></div>
+            </li>
+            <!--##cont-->
+        </ul>
+        <!--##show-->
     </div>
 
-    <!--##hide-no_sort_content-->
-    <div style="float:left;display:block;margin-left:10px;width:550px;" id="no_sort_content">#(show_none)</div>
-    <!--##show-->
-
-    <!--##hide-sort_content-->
-    <ul id="content_blocks" style="float:left;display:block;margin-left:10px;width:550px;">
-        <!--##loop-sort_content-->
-        <li id="item_!{key}" class="!{class}" style="!{style}">
-<!--             <a name="item_!{key}" href="#" style="float:right;">nach oben</a> -->
-            <div class="clearer"></div>
-            !{value_html}
-            <div class="clearer"></div>
-            <p class="block_edit" !{modify}>
-                <a href="!{link_up}" class="button" title="#(wiz_moveup_desc)">#(wiz_moveup)</a>
-                <a href="!{link_down}" class="button" title="#(wiz_movedown_desc)">#(wiz_movedown)</a>
-                <a href="!{delete}" class="button" title="#(wiz_delete_desc)">#(wiz_delete)</a>
-            </p>
-            <div class="clearer"></div>
-        </li>
-        <!--##cont-->
-    </ul>
-    <!--##show-->
-
-    <div id="margin" style="padding:0;width:140px">
+    <div id="margin" style="padding:0;width:140px;float:right;">
         <div class="box">
             <h3>#(add_block)</h3>
             <!--##loop-add_buttons-->
@@ -68,7 +69,7 @@
         <!--##hide-default-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" class="button">g(preview)</button>
+                <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
 <!--                 <button type="submit" name="save[]" value="save" class="button">g(save)</button> -->
                 <button type="submit" name="version[]" value="version" class="button">g(version)</button>
                 <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button>
@@ -80,7 +81,7 @@
         <!--##hide-edit-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" class="button">g(preview)</button>
+                <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="version[]" value="version" class="button">g(save)</button>
                 <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button><br />
                 <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(ask_release)</label>
@@ -92,7 +93,7 @@
         <!--##hide-publish-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" class="button" style="display:block;margin:3px;width:126px;">g(preview)</button>
+                <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:126px;">g(preview)</button>
 <!--                 <button type="submit" name="save[]" value="save" class="button" style="display:block;margin:3px;width:126px">g(save)</button> -->
                 <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:126px">g(version)</button>
                 <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:126px">g(abort)</button>
@@ -145,6 +146,7 @@
                                             asynchronous:true,
                                             parameters: 'ajax=on&save=on',
                                             onSuccess:function(){
+                                                $('button_preview').style.background = '#FF9148';
                                                 new Effect.Parallel(
                                                     [
                                                         new Effect.BlindDown('vorschau'),
@@ -154,12 +156,12 @@
                                                         new Effect.BlindUp('content_blocks')
                                                     ]
                                                 );
-                                                self.location.href = '#preview';
                                             }
                                         }
             );
             return false;
         } else {
+            $('button_preview').style.background = '#EEEEEE';
             new Effect.Parallel(
                 [
                     new Effect.BlindUp('vorschau'),

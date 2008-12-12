@@ -310,7 +310,7 @@
 
 
         <fieldset class="buttons">
-            <button type="button" onclick="preview();" class="button">g(preview)</button>
+            <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
             <button type="submit" name="send[]" value="g(send)" accesskey="s" class="button">g(send)</button>
             <button type="reset" name="reset" value="g(reset)" accesskey="r" class="button">g(reset)</button>
             <button type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button">g(abort)</button>
@@ -328,6 +328,7 @@
                                             asynchronous:true,
                                             parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
                                             onSuccess:function(){
+                                                $('button_preview').style.background = '#FF9148';
                                                 new Effect.Parallel(
                                                     [
                                                         new Effect.BlindDown('vorschau'),
@@ -339,6 +340,8 @@
             );
             return false;
         } else {
+            $('button_preview').style.background = '#EEEEEE';
+            new Effect.ScrollTo('head');
             new Effect.Parallel(
                 [
                     new Effect.BlindUp('vorschau'),
@@ -398,6 +401,7 @@
 //                                                     }
 //             );
             function preview() {
+alert('hallo');
                 if ( $('vorschau').style.display == 'none' ) {
                     var update = new Ajax.Updater('vorschau',
                                                 '!#ausgaben_form_aktion',
@@ -418,6 +422,7 @@
 //                     new Effect.BlindDown('vorschau');
 //                     new Effect.BlindUp('wiz_ed');
                 } else {
+                                                self.location.href = '#top';
                     new Effect.Parallel(
                         [
                             new Effect.BlindUp('vorschau'),
