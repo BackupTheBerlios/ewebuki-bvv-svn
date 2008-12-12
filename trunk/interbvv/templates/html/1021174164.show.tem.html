@@ -17,15 +17,19 @@
             <input type="submit" value="g(new)" name="blog"/>
             <input type="hidden" name="link" value="!{link}"/>
             <input type="hidden" name="kategorie" value="!{kategorie}"/>
+            <input type="hidden" name="special" value="!{kategorie}"/>
         </form><br /><br />
         <!--##show-->
         <ul>
         <!--##loop-list-->
-            <li id="ls_faq_!{id}" >
-                !{rubric}
-                <div><b>!{titel_org}</b></div>
-                |!{editlink}| |!{deletelink}| |!{sort}|
-                <div>!{faq}</div>
+            <li id="ls_faq_!{id}" style="background-image: url(/images/html/wizard-icon-frage.png); position: relative;" >
+                <b>!{titel_org}</b>!{titel_wizard_edit_link}
+            </li>
+            <li id="ls_faq_!{id}" style="background-image: url(/images/html/wizard-icon-antwort.png); position: relative;" >
+                !{div_before}!{div_before_wizard_edit_link}
+                !{faq}!{faq_wizard_edit_link}
+                !{div_after}!{div_after_wizard_edit_link}
+                !{sort} !{deletelink}
             </li>
         <!--##cont-->
         </ul>

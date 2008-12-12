@@ -29,11 +29,10 @@
         <ul>
         <!--##loop-list-->
             <li  style="list-style:none;margin:0">
-                <div><b><a id="ls_faq_!{id}" style="cursor: pointer; background: url(/images/html/pluszeichen.jpg) left -5px no-repeat; padding-left:25px" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('faq_!{id}')">!{titel_org}</a></b></div>
-                <div id="faq_!{id}" style="display:none; padding-left:25px">!{faq}</div>
+                <div><b><a id="ls_!{id}" style="display: block; cursor: pointer; background: url(/images/html/pluszeichen.jpg) left -5px no-repeat; padding-left:25px" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('!{id}')">!{titel_org}</a></b></div>
+                <div id="!{id}" style="display:none; padding-left:25px">!{div_before}!{faq}!{div_after}</div>
             </li>
         <!--##cont-->
-        </ul>
 <!--##end-->
     </body>
 </html>
