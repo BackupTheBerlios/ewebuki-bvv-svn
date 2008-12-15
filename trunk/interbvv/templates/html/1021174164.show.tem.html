@@ -14,7 +14,7 @@
 <!--##begin-->
         <!--##hide-new-->
         <form action="/auth/admin/bloged/add.html" method="post">
-            <input type="submit" value="g(new)" name="blog"/>
+            <input class ="button" type="submit" value="Neuer FAQ - Eintrag" name="blog"/>
             <input type="hidden" name="link" value="!{link}"/>
             <input type="hidden" name="kategorie" value="!{kategorie}"/>
             <input type="hidden" name="special" value="!{kategorie}"/>
@@ -22,14 +22,14 @@
         <!--##show-->
         <ul>
         <!--##loop-list-->
-            <li id="ls_faq_!{id}" style="background-image: url(/images/html/wizard-icon-frage.png); position: relative;" >
-                <b>!{titel_org}</b>!{titel_wizard_edit_link}
+            <li id="ls_faq_!{id}" style="background-color:rgb(254, 234, 173);background-image: url(/images/html/wizard-icon-frage.png); position: relative;" >
+                <b>!{titel_org}</b><p class=block_edit><a class="button" href="!{titel_wizard_edit_link}">Frage bearbeiten</a></p>
             </li>
-            <li id="ls_faq_!{id}" style="background-image: url(/images/html/wizard-icon-antwort.png); position: relative;" >
-                !{div_before}!{div_before_wizard_edit_link}
-                !{faq}!{faq_wizard_edit_link}
-                !{div_after}!{div_after_wizard_edit_link}
-                !{sort} !{deletelink}
+            <li id="ls_faq_!{id}" style="background-color:rgb(255, 243, 207);background-image: url(/images/html/wizard-icon-antwort.png); position: relative;" >
+                <ul><p style="background-color:rgb(255, 243, 207)">!{div_before_org}<p class=block_edit><a class="button" href="!{div_before_wizard_edit_link}">Antwort bearbeiten</a></p></li></ul>
+                !{faq}<p class=block_edit><a class="button" href="!{faq_wizard_edit_link}">Liste bearbeiten</a></p>
+                <ul><p style="background-color:rgb(255, 243, 207);">!{div_after_org}<p class=block_edit><a class="button" href="!{div_after_wizard_edit_link}">Antwort bearbeiten</a></p></li></ul>
+                <a class="button" href="!{sort_up}">nach oben</a><a class="button" href="!{sort_down}">nach unten</a> !{deletelink}
             </li>
         <!--##cont-->
         </ul>

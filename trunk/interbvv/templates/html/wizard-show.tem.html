@@ -173,6 +173,18 @@
             );
         }
     }
+    function anzeigen(id) {
+        show = document.getElementById(id).style.display;
+        f="ls_"+id;
+        if ( show == 'none' ) {
+            document.getElementById(f).style.background='url(/images/html/minuszeichen.jpg) left -5px no-repeat';
+            new Effect.BlindDown(id, {duration: 0.1});
+        } else {
+            new Effect.BlindUp(id, {duration: 0.1})
+            document.getElementById(f).style.background='url(/images/html/pluszeichen.jpg) left -5px no-repeat';
+        }
+        return false;
+    }
 </script>
 <!--##end-->
 
