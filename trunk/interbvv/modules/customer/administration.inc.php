@@ -115,7 +115,6 @@
 
         // normalen content ausschliesslich spezielle bereiche durchgehen
         $buffer = find_marked_content( "", $cfg, "inhalt", array("/aktuell","/service/fragen"));
-// echo "<pre>".print_r($buffer,true)."</pre>";
         $bereich = "content";
         if ( count($buffer) > 0 ) {
             $hidedata[$bereich."_section"] = array(
@@ -160,7 +159,8 @@
 
         // wohin schicken
         if ( !strstr($_SERVER["HTTP_REFERER"],"/login.html" )
-          && !strstr($_SERVER["HTTP_REFERER"],"/wizard/") ) {
+          && !strstr($_SERVER["HTTP_REFERER"],"/wizard/")
+          && !strstr($_SERVER["HTTP_REFERER"],"/admin/") ) {
             session_start();
             if ( $_SERVER["HTTP_REFERER"] == "" ) {
                 $_SESSION["admin_back_link"] = $pathvars["virtual"]."/index.html";
