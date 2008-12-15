@@ -64,6 +64,8 @@
         } else {
             $ausgaben["adminbild"] = "";
         }
+
+        $ausgaben["user"] = $_SESSION["username"];
         // +++
         // page basics
 
@@ -112,7 +114,8 @@
         }
 
         // normalen content ausschliesslich spezielle bereiche durchgehen
-        $buffer = find_marked_content( "", $cfg["admin"], "inhalt", array("/aktuell","/service/fragen"));
+        $buffer = find_marked_content( "", $cfg, "inhalt", array("/aktuell","/service/fragen"));
+// echo "<pre>".print_r($buffer,true)."</pre>";
         $bereich = "content";
         if ( count($buffer) > 0 ) {
             $hidedata[$bereich."_section"] = array(
@@ -128,6 +131,8 @@
                 $hidedata[$bereich."_release"] = array();
             }
         }
+
+        $ausgaben["user"] = $_SESSION["username"];
         // +++
         // funktions bereich
 
@@ -157,7 +162,11 @@
         if ( !strstr($_SERVER["HTTP_REFERER"],"/login.html" )
           && !strstr($_SERVER["HTTP_REFERER"],"/wizard/") ) {
             session_start();
-            $_SESSION["admin_back_link"] = $_SERVER["HTTP_REFERER"];
+            if ( $_SERVER["HTTP_REFERER"] == "" ) {
+                $_SESSION["admin_back_link"] = $pathvars["virtual"]."/index.html";
+            } else {
+                $_SESSION["admin_back_link"] = $_SERVER["HTTP_REFERER"];
+            }
         }
         if ( is_array($hidedata["authArea"]) ) {
             if ( preg_match("/^".str_replace("/","\/",$pathvars["webroot"].$pathvars["subdir"]."/auth/")."/",$_SESSION["admin_back_link"]) ) {

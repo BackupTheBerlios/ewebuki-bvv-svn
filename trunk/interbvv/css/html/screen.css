@@ -54,50 +54,10 @@ fieldset{
     margin:5px 0;
     padding:5px;
 }
-
-fieldset select, fieldset input{
-    width:150px;
-}
-
-fieldset .small{
-    width:50px;
-}
-
-fieldset .medium{
-    width:248px;
-}
-
-fieldset label {
-    float: left;
-    display: block;
-    clear: both;
-    width: 150px;
-    margin:3px 0;
-}
-
-legend {
-    font-weight:bold;
-}
-select, input, textarea, button, .button {
-    border:1px solid #8F8F8F;
+input, button {
     font-size:inherit;
-/*     padding:4px 0; */
 }
-select, input, button, .button {
-    line-height:1.4em;
-}
-textarea{
-    font-family:inherit;
-    width:90%;
-}
-    button, input[type=button], input[type=submit], input[type=reset], .button{
-        cursor:pointer;
-/*         padding:3px 6px; */
-    }
-    input[type=checkbox] {
-        margin:0.3em 0;
-        width:auto;
-    }
+
 
 /* weitere block-elemente */
 hr {
@@ -630,21 +590,23 @@ p.teaser{
 }
 
     .schnellsuche input{
-        border:none;
+        border:0px solid #FFFFFF;
         float:left;
-        font-size:0.9em;
+/*         font-size:0.9em; */
         width:120px;
     }
 
-    .schnellsuche button{
-        border:none;
+    .schnellsuche button {
+        border:0px solid #FFFFFF;
+        cursor:pointer;
         float:right;
-        height:1.2em;
+/*         height:1.2em; */
         margin:0;
         padding:0;
     }
 
     .schnellsuche img{
+        float:left;
         margin:0 !important;
         padding:0;
     }
@@ -964,20 +926,96 @@ input.medium, select.medium {
     }
 /* + + + */
 
+.cloud, .cloud_pages {
+    border:1px solid #CCCCCC;
+    margin:4px 0 6px;
+    padding:3px;
+}
+
+    .cloud ul, ul.cloud {
+        list-style:none !important;
+        width:auto !important;
+    }
+
+    .cloud legend, .cloud_pages legend {
+        background:#FFFFFF;
+        padding:0 10px;
+        -moz-border-radius:5px;
+    }
+
+    .cloud li {
+        border:2px solid #CCCCCC !important;
+        float:left;
+        margin:2px 4px !important;
+    }
+
+        .cloud li a {
+            cursor:pointer;
+            line-height:1.5em;
+            padding:0 4px;
+            text-decoration:none;
+        }
+
+        .cloud li.selected {
+            background:#EEEEEE;
+            border:2px solid #2C5A93 !important;
+        }
+
+        .cloud li.tag0 a {
+            color:#BBBBBB !important;
+        }
+
+        .cloud li.tag1 a {
+            color:#888888 !important;
+        }
+
+        .cloud li.tag2 a {
+            color:#444444 !important;
+        }
+
+        .cloud li.tag3 a {
+            color:#333333 !important;
+            font-weight:bold;
+        }
+
+.cloud_pages {
+}
+
+    .cloud_pages li {
+        background:#EEEEEE;
+        margin-bottom:5px;
+        padding:0 5px;
+    }
+
+    .cloud_pages a {
+        text-decoration:none;
+    }
+
+    .cloud_pages li p {
+        font-size:0.8em;
+        clear:both;
+        margin:0 !important;
+    }
+
 /* administrationsbereich */
 /* * * * */
 #substance.admin {
-    background:#FFFFFF;
-    padding:15px 0 0 10px;
-    width:870px;
+    background:#FEEAAD;
+    background:#FFF3CF;
+/*     padding:15px 0 0 10px; */
+    padding:0 10px 10px 10px;
+    width:860px;
 }
 
     #substance.admin .box {
+        background:#FEEAAD;
+        border-color:#FFCF3F;
+        border-width:1px 3px 3px 1px;
         text-align:left;
         width:600px;
     }
 
-    .schnellsuche button{
+/*    .schnellsuche button{
         border:none;
         float:right;
         height:1.2em;
@@ -988,5 +1026,33 @@ input.medium, select.medium {
     .schnellsuche img{
         margin:0 !important;
         padding:0;
+    }*/
+
+    #substance.admin ul {
+        width:auto !important;
     }
+
+    #substance.admin .admin_head {
+        background:#2C5A93;
+        color:#FFFFFF;
+        margin:0 0 15px -15px;
+        padding:5px 18px;
+        width:860px;
+    }
+
+        #substance.admin .admin_head a {
+            color:#FFFFFF;
+        }
+
+        #substance.admin .admin_head h1 {
+            border:none;
+            font-size:1.5em;
+            margin:0 0 5px 0;
+            padding:0;
+        }
+
+        #substance.admin .admin_head p {
+            float:right;
+            width:auto;
+        }
 /* + + + */

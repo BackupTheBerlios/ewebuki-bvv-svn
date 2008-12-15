@@ -13,12 +13,21 @@
 <!--##begin-->
         <div id="substance" class="admin">
 
-            #(inhalt)
+            <div class="admin_head" style="">
+                <!--##hide-authTools-->
+                <p style="">#(vorher) <b>!#ausgaben_user</b></p>
+                <!--##show-->
+                <h1>Administrations-Bereich</h1>
+                &nbsp;
+                <div class="clearer"></div>
+            </div>
 
-            <div class="box" style="float:right;width:250px;overflow:hidden;">
+<!--             #(inhalt) -->
+
+            <div class="box" style="float:right;width:240px;overflow:hidden;">
                 <!--##hide-authArea-->
                 <h3>#(ueberschrift)</h3>
-                <p>!{message}</p>
+<!--                 <p>!{message}</p> -->
                 <p><a href="!{back}">#(back)</a></p>
                 <!--##show-->
 
@@ -38,11 +47,11 @@
                     <!--##hide-authLogin-->
                     <fieldset class="buttons">
                         <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" />
-                        <label>Benutzer
-                        <input type="text" name="user" /></label>
-                        <label>Passwort
-                        <input type="password" name="pass" /></label><br />
-                        <input type="submit" name="login" value="login" />
+                        <label style="clear:both;float:left;padding:3px 0;">Benutzer</label>
+                        <input type="text" name="user" style="float:right;width:130px;font-size:inherit;" />
+                        <label style="clear:both;float:left;padding:3px 0;">Passwort</label>
+                        <input type="password" name="pass" style="float:right;width:130px;" /><br />
+                        <input style="clear:both;float:right;width:134px;" type="submit" name="login" value="login" />
                     </fieldset>
                     <!--##show-->
 
@@ -57,7 +66,6 @@
                 <!--##show-->
             </div>
 
-            !#ausgaben_adminbild
 <!--##hide-artikel_section-->
             <div class="box">
                 <h2>!{heading}</h2>
@@ -72,22 +80,8 @@
 <!--##show-->
 <!--##hide-artikel_edit-->
                 <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-artikel_edit-->
-                    <li style="background-color:!{color};margin:0;padding:0.2em;">
-                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
-                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
-                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
-                    </li>
-                    <!--##cont-->
-                </ul>
-<!--##show-->
-
-<!--##hide-lokal_artikel_edit-->
-                <h2>Lokale Artikel</h2>
-                <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
-                    <!--##loop-lokal_artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
                         <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
@@ -99,7 +93,7 @@
 
 <!--##hide-artikel_release-->
                 <h3>#(release)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-artikel_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{unlock}" style="float:right;" title="Seite entsperren">[unlock]</a>
@@ -115,6 +109,22 @@
             </div>
 <!--##show-->
 
+<!--##hide-lokal_artikel_edit-->
+            <div class="box">
+                <h2>Lokale Artikel</h2>
+                <h3>#(edit)</h3>
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_artikel_edit-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
+                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
+                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
+                    </li>
+                    <!--##cont-->
+                </ul>
+            </div>
+<!--##show-->
+
 <!--##hide-termine_section-->
             <div class="box">
                 <h2>!{heading}</h2>
@@ -124,7 +134,7 @@
 <!--##show-->
 <!--##hide-termine_edit-->
                 <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
@@ -136,7 +146,7 @@
 <!--##show-->
 <!--##hide-termine_release-->
                 <h3>#(release)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-termine_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{unlock}" style="float:right;" title="Seite entsperren">[unlock]</a>
@@ -148,11 +158,14 @@
                     <!--##cont-->
                 </ul>
 <!--##show-->
+<!--##hide-termine_section-->
+            </div>
+<!--##show-->
 <!--##hide-lokal_termine_edit-->
-                <div class="box">
+            <div class="box">
                 <h2>Lokale Termine</h2>
                 <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
@@ -161,9 +174,6 @@
                     </li>
                     <!--##cont-->
                 </ul>
-                </div>
-<!--##show-->
-<!--##hide-termine_section-->
             </div>
 <!--##show-->
 
@@ -181,7 +191,8 @@
 <!--##show-->
 <!--##hide-presse_edit-->
                 <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+<!--                 <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:auto;"> -->
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
@@ -191,24 +202,10 @@
                     <!--##cont-->
                 </ul>
 <!--##show-->
-<!--##hide-lokal_presse_edit-->
-                <div class="box">
-                <h2>Lokale Pressemitteilungen</h2>
-                <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
-                    <!--##loop-lokal_presse_edit-->
-                    <li style="background-color:!{color};margin:0;padding:0.2em;">
-                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
-                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
-                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
-                    </li>
-                    <!--##cont-->
-                </ul>
-                </div>
-<!--##show-->
 <!--##hide-presse_release-->
                 <h3>#(release)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+<!--                 <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:auto;"> -->
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-presse_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{unlock}" style="float:right;" title="Seite entsperren">[unlock]</a>
@@ -223,6 +220,22 @@
 <!--##hide-presse_section-->
             </div>
 <!--##show-->
+<!--##hide-lokal_presse_edit-->
+            <div class="box">
+                <h2>Lokale Pressemitteilungen</h2>
+                <h3>#(edit)</h3>
+<!--                 <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;"> -->
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_presse_edit-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
+                        <a href="!{edit}" style="float:right;" title="Seite bearbeiten">[edit]</a>
+                        <b>!{titel}</b><br />(Autor: !{author})<br />(letzte Version von: !{last_author})
+                    </li>
+                    <!--##cont-->
+                </ul>
+            </div>
+<!--##show-->
 
 <!--##hide-content_section-->
             <div class="box">
@@ -233,7 +246,7 @@
 <!--##show-->
 <!--##hide-content_edit-->
                 <h3>#(edit)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-content_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{view}" style="float:right;" title="Pfad: !{path}">[view]</a>
@@ -245,7 +258,7 @@
 <!--##show-->
 <!--##hide-content_release-->
                 <h3>#(release)</h3>
-                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #eeeeee;width:90%;">
+                <ul style="list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-content_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <a href="!{unlock}" style="float:right;" title="Seite entsperren">[unlock]</a>

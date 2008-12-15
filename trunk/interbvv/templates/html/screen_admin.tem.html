@@ -13,8 +13,19 @@
     <body>
 <!--##begin-->
         <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
-        <div style="float:left;width:870px;background:#fff;padding:15px 0 0 10px;">
-            <p><a href="/auth/login.html">zur&uuml;ck zum Administrationsbereich</a></p>
+<!--         <div style="float:left;width:870px;background:#fff;padding:15px 0 0 10px;"> -->
+        <div id="substance" class="admin">
+
+            <div class="admin_head" style="">
+                <!--##hide-authArea-->
+                <p style="">g(user) <b>!#ausgaben_user</b></p>
+                <!--##show-->
+                <h1>&nbsp;</h1>
+                <a href="/auth/login.html"><b>&lt;&lt;&lt; zur&uuml;ck zum Administrationsbereich</b></a>
+                <div class="clearer"></div>
+            </div>
+
+<!--             <p><a href="/auth/login.html">zur&uuml;ck zum Administrationsbereich</a></p> -->
             #{main}
         </div>
 <!--##end-->
