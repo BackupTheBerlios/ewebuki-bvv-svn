@@ -29,10 +29,18 @@ a img{
   ----------------------*/
 
 #wizard {
-    background:#FFFFFF;
-    padding:5px 0 5px 5px;
-    width:875px;
+    background:#FFF3CF;
+    padding:0 5px 5px 5px;
+    width:870px;
 }
+
+    #wizard h2 {
+        margin:0.5em 0;
+    }
+
+    #wizard #substance {
+        background:#FFFFFF;
+    }
 
     #wizard form label {
         display:block;
@@ -72,6 +80,10 @@ a img{
         margin:2px 0;
         padding:1px;
         width:250px;
+    }
+
+    #wizard form textarea {
+/*         font-size:1.15em; */
     }
 
         #wizard form input.small {

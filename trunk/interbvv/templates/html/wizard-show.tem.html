@@ -10,7 +10,12 @@
 <!--##begin-->
 <div id="wizard">
 
-    #(inhalt)
+    <div class="admin_head" style="">
+        #(inhalt)
+        <div class="clearer"></div>
+    </div>
+
+<!--     #(inhalt) -->
 
     <!--versions-umschalter-->
     <span style="float:right;">
@@ -29,8 +34,8 @@
 
     #{image_map}
 
-    <div style="float:left;">
-        <div id="vorschau" style="display:none;">
+    <div style="float:left;background:#FFFFFF;margin:0 7px;">
+        <div id="vorschau" style="display:none;padding-right:10px;">
             <div id="substance"></div>
         </div>
 
@@ -39,7 +44,7 @@
         <!--##show-->
 
         <!--##hide-sort_content-->
-        <ul id="content_blocks" style="float:left;display:block;margin-left:10px;width:550px;">
+        <ul id="content_blocks" style="float:left;display:block;margin:5px;width:550px;">
             <!--##loop-sort_content-->
             <li id="item_!{key}" class="!{class}" style="!{style}">
 <!--                 <a name="item_!{key}" href="#" style="float:right;">nach oben</a> -->
@@ -58,7 +63,7 @@
         <!--##show-->
     </div>
 
-    <div id="margin" style="padding:0;width:140px;float:right;">
+    <div id="margin" style="padding:0;width:135px;float:right;background:none;margin:0;">
         <div class="box">
             <h3>#(add_block)</h3>
             <!--##loop-add_buttons-->
@@ -93,10 +98,10 @@
         <!--##hide-publish-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:126px;">g(preview)</button>
-<!--                 <button type="submit" name="save[]" value="save" class="button" style="display:block;margin:3px;width:126px">g(save)</button> -->
-                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:126px">g(version)</button>
-                <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:126px">g(abort)</button>
+                <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:119px;">g(preview)</button>
+<!--                 <button type="submit" name="save[]" value="save" class="button" style="display:block;margin:3px;width:121px">g(save)</button> -->
+                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(version)</button>
+                <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button>
                 <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(release)</label>
                 <div class="clearer"></div>
             </form>

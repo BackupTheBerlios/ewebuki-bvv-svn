@@ -12,27 +12,32 @@
 
 <!--##begin-->
         <div id="substance" class="admin">
+        <div style="padding:0 5px;">
 
             <div class="admin_head" style="">
                 <!--##hide-authTools-->
                 <p style="">#(vorher) <b>!#ausgaben_user</b></p>
                 <!--##show-->
-                <h1>Administrations-Bereich</h1>
+                <h1>#(ueberschrift)</h1>
+                <div class="clearer"></div>
+<!--                <h1>#(ueberschrift)</h1>
                 <div class="clearer"></div>
                 &nbsp;
-                <div class="clearer"></div>
+                <div class="clearer"></div>-->
             </div>
 
             #(inhalt)
 
             <div class="box" style="float:right;width:240px;overflow:hidden;">
-                <!--##hide-authArea-->
-                <h3>#(ueberschrift)</h3>
-<!--                 <p>!{message}</p> -->
-                <p><a href="!{back}">#(back)</a></p>
-                <!--##show-->
 
                 <!--##hide-authTools-->
+                <p><b><a href="!#ausgaben_back_link">#(back)</a></b></p>
+                <h3>#(groups)</h3>
+                <ul>
+                <!--##loop-groups-->
+                    <li>!{groups}</li>
+                <!--##cont-->
+                </ul>
                 <h3>#(desc)</h3>
                 <ul>
                 <!--##loop-authTools-->
@@ -46,12 +51,14 @@
                 <!--##show-->
 
                     <!--##hide-authLogin-->
+                    <h3>#(login)</h3>
+                    <p><b><a href="!#ausgaben_back_link">#(back)</a></b></p>
                     <fieldset class="buttons">
                         <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" />
                         <label style="clear:both;float:left;padding:3px 0;">Benutzer</label>
                         <input type="text" name="user" style="float:right;width:130px;font-size:inherit;" />
                         <label style="clear:both;float:left;padding:3px 0;">Passwort</label>
-                        <input type="password" name="pass" style="float:right;width:130px;" /><br />
+                        <input type="password" name="pass" style="float:right;width:130px;font-size:inherit;" /><br />
                         <input style="clear:both;float:right;width:134px;" type="submit" name="login" value="login" />
                     </fieldset>
                     <!--##show-->
@@ -66,6 +73,11 @@
                 </form>
                 <!--##show-->
             </div>
+<!--             !#ausgaben_adminbild -->
+
+<!--##hide-adminbild-->
+            <div class="box">#(adminbild)</div>
+                <!--##show-->
 
 <!--##hide-artikel_section-->
             <div class="box">
@@ -301,7 +313,9 @@
 
             <div class="clearer"></div>
             !#ausgaben_output
+            !#ausgaben_inaccessible
 
+        </div>
         </div>
 <!--##end-->
 

@@ -8,15 +8,22 @@
 </head>
 <body>
 <!--##begin-->
-
-<div id="vorschau" style="display:none;margin-left:160px;padding:10px 0 10px 10px;width:540px;"></div>
-<div class="clearer"></div>
+!#ausgaben_ce_script
 <div id="wizard">
-    !#ausgaben_ce_script
+
+    <div class="admin_head" style="">
+        #(inhalt)
+        <p>&nbsp;</p>
+        <div class="clearer"></div>
+    </div>
+
+    <div id="vorschau" style="display:none;margin-left:155px;padding:10px;width:540px;background:#FFFFFF;float:left;"></div>
+    <div class="clearer"></div>
+
     <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
 
         <div id="wiz_ed">
-            #(inhalt)
+<!--             #(inhalt) -->
             <p>!#ausgaben_form_error</p>
 
 <!--  IMG-Tag bearbeiten  -->
@@ -329,6 +336,7 @@
                                             parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
                                             onSuccess:function(){
                                                 $('button_preview').style.background = '#FF9148';
+                                                new Effect.ScrollTo('head');
                                                 new Effect.Parallel(
                                                     [
                                                         new Effect.BlindDown('vorschau'),

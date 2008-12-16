@@ -89,10 +89,17 @@
   #}
 
     if ( strstr($environment["ebene"],"/admin")
+      || ($environment["ebene"] == "/keywords" && strstr($environment["kategorie"],"edit") )
       /*|| $environment["kategorie"] == "sitemap"*/){
         $mapping["screen"] = "screen_admin";
         $mapping["navi"] = "leer";
         $mapping["foot"] = "leer";
+        $ausgaben["user"] = $_SESSION["username"];
+        if ( strstr($environment["ebene"],"/admin/fileed") ) {
+            $ausgaben["admin_back_link"] = $hidedata["cms"]["link"];
+        } else {
+            $ausgaben["admin_back_link"] = "/auth/login.html";
+        }
     }
 
     if ( preg_match("/^\/m_/",$environment["ebene"]."/".$environment["kategorie"]) ) {

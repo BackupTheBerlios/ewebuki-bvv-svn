@@ -54,8 +54,9 @@ fieldset{
     margin:5px 0;
     padding:5px;
 }
-input, button {
+input, button, textarea {
     font-size:inherit;
+    font-family:Verdana,Tahoma,Arial,sans-serif;
 }
 
 
@@ -1002,16 +1003,19 @@ input.medium, select.medium {
 #substance.admin {
     background:#FEEAAD;
     background:#FFF3CF;
-/*     padding:15px 0 0 10px; */
-    padding:0 10px 10px 10px;
-    width:860px;
+/*     padding:0 5px 10px 5px; */
+    padding:0;
+    width:880px;
 }
 
-    #substance.admin .box {
+    #substance.admin .box, #wizard .box {
         background:#FEEAAD;
         border-color:#FFCF3F;
         border-width:1px 3px 3px 1px;
         text-align:left;
+    }
+
+    #substance.admin .box {
         width:600px;
     }
 
@@ -1032,26 +1036,27 @@ input.medium, select.medium {
         width:auto !important;
     }
 
-    #substance.admin .admin_head {
+    #substance.admin .admin_head, #wizard .admin_head {
         background:#2C5A93;
         color:#FFFFFF;
-        margin:0 0 15px -15px;
-        padding:5px 18px;
+        margin:0 0 15px -5px;
+        padding:5px 10px;
         width:860px;
     }
 
-        #substance.admin .admin_head a {
+        #substance.admin .admin_head a, #wizard .admin_head a {
             color:#FFFFFF;
         }
 
-        #substance.admin .admin_head h1 {
+        #substance.admin .admin_head h1, #wizard .admin_head h1 {
             border:none;
-            font-size:1.5em;
+            float:left;
+/*             font-size:1.5em; */
             margin:0 0 5px 0;
             padding:0;
         }
 
-        #substance.admin .admin_head p {
+        #substance.admin .admin_head p, #wizard .admin_head p {
             float:right;
             width:auto;
         }

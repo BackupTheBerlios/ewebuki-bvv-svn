@@ -58,20 +58,31 @@
         include $pathvars["moduleroot"]."wizard/wizard.cfg.php";
         unset($cfg["wizard"]["function"]);
         include $pathvars["moduleroot"]."wizard/wizard-functions.inc.php";
-
-        if ( $pathvars["virtual"] == "" || $_GET["edit"] ) {
-            $ausgaben["adminbild"] = "<div class=\"box\">#(adminbild)</div>";
-        } else {
-            $ausgaben["adminbild"] = "";
-        }
-
-        $ausgaben["user"] = $_SESSION["username"];
         // +++
         // page basics
 
 
         // funktions bereich
         // ***
+
+        // banner einbinden
+        if ( $pathvars["virtual"] == "" || $_GET["edit"] ) {
+            $hidedata["adminbild"] = array();
+        }
+
+        // benutzer und gruppen
+        $ausgaben["user"] = $_SESSION["username"];
+        if ( $_SESSION["username"] != "" ) {
+            $sql = "SELECT *
+                      FROM auth_member
+                      JOIN auth_group
+                        ON (auth_member.gid=auth_group.gid)
+                     WHERE uid=".$_SESSION["uid"];
+            $result = $db -> query($sql);
+            while ( $data = $db -> fetch_array($result,1) ) {
+                $dataloop["groups"][]["groups"] = $data["beschreibung"];
+            }
+        }
 
         // einzelne bereiche durchgehen (artikel, termine, ...)
         foreach ( $cfg["admin"]["specials"] as $url=>$bereich ) {
@@ -108,7 +119,7 @@
             if ( !priv_check($url,"admin;edit") ) continue;
             $hidedata[$bereich."_section"] = array(
                 "heading" => "#(".$bereich."_heading)",
-                "new" => "#(".$bereich."_new)",
+                    "new" => "#(".$bereich."_new)",
             );
 
         }
@@ -119,7 +130,7 @@
         if ( count($buffer) > 0 ) {
             $hidedata[$bereich."_section"] = array(
                 "heading" => "#(".$bereich."_heading)",
-                "new" => "#(".$bereich."_new)",
+                    "new" => "#(".$bereich."_new)",
             );
             $dataloop[$bereich."_edit"] = $buffer[-1];
             $dataloop[$bereich."_release"] = $buffer[-2];
@@ -149,6 +160,8 @@
         // unzugaengliche #(marken) sichtbar machen
         if ( isset($_GET["edit"]) ) {
             $ausgaben["inaccessible"] = "inaccessible values:<br />";
+            $ausgaben["inaccessible"] .= "# (login) #(login)<br />";
+            $ausgaben["inaccessible"] .= "# (adminbild) #(adminbild)<br />";
             $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
         } else {
             $ausgaben["inaccessible"] = "";
@@ -158,23 +171,37 @@
         $mapping["main"] = "administration";
 
         // wohin schicken
-        if ( !strstr($_SERVER["HTTP_REFERER"],"/login.html" )
-          && !strstr($_SERVER["HTTP_REFERER"],"/wizard/")
-          && !strstr($_SERVER["HTTP_REFERER"],"/admin/") ) {
-            session_start();
-            if ( $_SERVER["HTTP_REFERER"] == "" ) {
-                $_SESSION["admin_back_link"] = $pathvars["virtual"]."/index.html";
+        $backlink = "";
+        if ( $_SERVER["HTTP_REFERER"] != "" ) {
+            if ( strstr($_SERVER["HTTP_REFERER"],"/login.html" )
+              || strstr($_SERVER["HTTP_REFERER"],"/wizard/")
+              || strstr($_SERVER["HTTP_REFERER"],"/admin/") ) {
+                if ( $_SESSION["admin_back_link"] != "" ) {
+                    $backlink = $_SESSION["admin_back_link"];
+                } else {
+                    $backlink = "/index.html";
+                }
             } else {
-                $_SESSION["admin_back_link"] = $_SERVER["HTTP_REFERER"];
+                $backlink = $_SERVER["HTTP_REFERER"];
+            }
+        } else {
+            if ( $_SESSION["admin_back_link"] != "" ) {
+                $backlink = $_SESSION["admin_back_link"];
+            } else {
+                $backlink = "/index.html";
             }
         }
-        if ( is_array($hidedata["authArea"]) ) {
-            if ( preg_match("/^".str_replace("/","\/",$pathvars["webroot"].$pathvars["subdir"]."/auth/")."/",$_SESSION["admin_back_link"]) ) {
-                $hidedata["authArea"]["back"] = $_SESSION["admin_back_link"];
-            } else {
-                $hidedata["authArea"]["back"] = str_replace($pathvars["webroot"].$pathvars["subdir"],$pathvars["webroot"].$pathvars["subdir"]."/auth",$_SESSION["admin_back_link"]);
-            }
+        $backlink = preg_replace(
+                        array("/^(".str_replace("/","\/",$pathvars["webroot"]).")/","/^\/auth/"),
+                        "",
+                        $backlink
+                    );
+        if ( $_SESSION["uid"] != "" ) {
+            $backlink = "/auth".$backlink;
         }
+        session_start();
+        $_SESSION["admin_back_link"] = $backlink;
+        $ausgaben["back_link"] = $backlink;
 
         // +++
         // page basics
