@@ -13,20 +13,20 @@
 <!--##begin-->
 <div class="box search">
     <h3>Finden</h3>
-    <form action="!#pathvars_virtual/suche.html" id="qsearch" method="post">
+    <form action="!#pathvars_virtual/suche.html" name="qsearch" id="qsearch" method="post">
         <div class="schnellsuche">
             <input value="Suchbegriff" type="text" name="words" onfocus="this.value=''"/>
-            <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.search.value=='Suchbegriff'){window.document.qsearch.search.value='';}">
+            <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.words.value=='Suchbegriff'){window.document.qsearch.words.value='';}">
                 <img src="../../images/html/start-suche.png" alt="" />
             </button>
             <div class="clear"></div>
         </div>
     </form>
     <h3>Lokalisieren</h3>
-    <form action="!#pathvars_virtual/amtsuche.html" method="get" id="suche">
+    <form action="!#pathvars_virtual/amtsuche.html" method="get" name="search" id="suche">
         <div class="schnellsuche">
             <input value="Ort/PLZ" type="text" name="search" onfocus="this.value=''" />
-            <button type="submit" title="Dienststellensuche nach PLZ oder Ort" onclick="if (window.document.suche.suche_feld.value=='Ort/PLZ'){window.document.suche.suche_feld.value='';}">
+            <button type="submit" title="Dienststellensuche nach PLZ oder Ort" onclick="if (window.document.search.search.value=='Ort/PLZ'){window.document.search.search.value='';}">
                 <img src="../../images/html/start-suche.png" alt="" />
             </button>
             <div class="clear"></div>
