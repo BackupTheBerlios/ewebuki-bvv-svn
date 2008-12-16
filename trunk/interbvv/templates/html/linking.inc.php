@@ -95,11 +95,6 @@
         $mapping["navi"] = "leer";
         $mapping["foot"] = "leer";
         $ausgaben["user"] = $_SESSION["username"];
-        if ( strstr($environment["ebene"],"/admin/fileed") && $hidedata["cms"]["link"] != "" ) {
-            $ausgaben["admin_back_link"] = $hidedata["cms"]["link"];
-        } else {
-            $ausgaben["admin_back_link"] = "/auth/login.html";
-        }
     }
 
     if ( preg_match("/^\/m_/",$environment["ebene"]."/".$environment["kategorie"]) ) {
