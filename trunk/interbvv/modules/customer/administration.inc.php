@@ -92,6 +92,10 @@
             $dataloop[$bereich."_release"] = $buffer[-2];
             if ( is_array ( $dataloop[$bereich."_edit"] )  ) {
                 foreach ( $dataloop[$bereich."_edit"] as $key => $value ) {
+                    if ( $value["author"] != $_SESSION["forename"]." ".$_SESSION["surname"] ) {
+                        unset($dataloop[$bereich."_edit"][$key]);
+                        continue;
+                    }
                     if ( priv_check($value["kategorie"],"admin;publish;edit") ) {
                         if ( $value["kategorie"] != "/aktuell/archiv" ) {
                             $dataloop["lokal_".$bereich."_edit"][] = $value;
@@ -106,13 +110,13 @@
 
             // bereiche sichtbar machen
             if ( count($dataloop["lokal_".$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
-                $hidedata["lokal_".$bereich."_edit"] = array();
+                $hidedata["lokal_".$bereich."_edit"]["num"] = count($dataloop["lokal_".$bereich."_edit"]);
             }
             if ( count($dataloop[$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
-                $hidedata[$bereich."_edit"] = array();
+                $hidedata[$bereich."_edit"]["num"] = count($dataloop[$bereich."_edit"]);
             }
             if ( count($dataloop[$bereich."_release"]) > 0 && priv_check($url,"admin;publish") ) {
-                $hidedata[$bereich."_release"] = array();
+                $hidedata[$bereich."_release"]["num"] = count($dataloop[$bereich."_release"]);
             }
 
             // berechtigung checken

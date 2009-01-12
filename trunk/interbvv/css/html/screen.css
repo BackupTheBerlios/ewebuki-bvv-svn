@@ -1012,11 +1012,20 @@ input.medium, select.medium {
         background:#FEEAAD;
         border-color:#FFCF3F;
         border-width:1px 3px 3px 1px;
+        float:left;
         text-align:left;
+/*         position:absolute; */
     }
 
     #substance.admin .box {
         width:600px;
+    }
+
+    #substance.admin .trigger {
+        background-position:left -3px;
+        background-repeat: no-repeat;
+        cursor:pointer;
+        padding-left:20px;
     }
 
 /*    .schnellsuche button{
@@ -1052,12 +1061,13 @@ input.medium, select.medium {
             border:none;
             float:left;
 /*             font-size:1.5em; */
-            margin:0 0 5px 0;
+            margin:5px 0 5px 0;
             padding:0;
         }
 
         #substance.admin .admin_head p, #wizard .admin_head p {
             float:right;
+            margin:5px 0 5px 0;
             width:auto;
         }
 /* + + + */

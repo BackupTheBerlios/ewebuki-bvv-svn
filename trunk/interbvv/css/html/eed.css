@@ -322,7 +322,9 @@ li.thumbs p {
     }
 
 li.thumbs input {
+    border:none !important;
     display:inline !important;
+    width:auto !important;
 /*     float:none !important; */
 }
 
