@@ -174,19 +174,19 @@
 
                 // amt finden
                 $sql_amt = "SELECT *
-                            FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
-                            JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
-                                ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
-                            WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."'";
+                              FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
+                              JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
+                                ON ( CAST (".$cfg["amtsuche"]["db"]["amt"]["kat"]." AS SIGNED ) =".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                             WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."'";
                 $result_amt = $db -> query($sql_amt);
                 $data_amt   = $db -> fetch_array($result_amt,1);
                 // auf aussen-, service-stelle testen
                 if ( $data_amt["adkate"] == 5 || $data_amt["adkate"] == 8 ) {
                     $neben = "<br />".$data_amt[$cfg["amtsuche"]["db"]["kategorie"]["lang"]]." ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
                     $sql_ha = "SELECT *
-                                FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
-                                JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
-                                ON (".$cfg["amtsuche"]["db"]["amt"]["kat"]."=".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
+                                 FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
+                                 JOIN ".$cfg["amtsuche"]["db"]["kategorie"]["entries"]."
+                                   ON ( CAST (".$cfg["amtsuche"]["db"]["amt"]["kat"]." AS SIGNED ) =".$cfg["amtsuche"]["db"]["kategorie"]["key"].")
                                 WHERE ".$cfg["amtsuche"]["db"]["amt"]["key"]."='".$data_amt[$cfg["amtsuche"]["db"]["amt"]["parent"]]."'";
                     $result_ha = $db -> query($sql_ha);
                     $data_ha   = $db -> fetch_array($result_ha,1);
