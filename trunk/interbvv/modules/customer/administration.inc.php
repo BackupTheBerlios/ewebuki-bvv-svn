@@ -126,6 +126,10 @@
                     }
                     if ( priv_check($value["kategorie"],"admin;publish;edit") ) {
                         if ( $value["kategorie"] != "/aktuell/archiv" ) {
+                            $sql_amt = "SELECT * FROM db_adrd INNER JOIN db_adrd_kate ON ( cast (adkate as INTEGER )=katid)WHERE adakz='".substr($value["kategorie"],8,2)."'";
+                            $result_amt = $db -> query($sql_amt);
+                            $data_amt = $db -> fetch_array($result_amt,1);
+                            $value["amt"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];
                             $dataloop["lokal_".$bereich."_edit"][] = $value;
                             unset($dataloop[$bereich."_edit"][$key]);
                             $hidedata["lokal_".$bereich."_edit"] = array();
