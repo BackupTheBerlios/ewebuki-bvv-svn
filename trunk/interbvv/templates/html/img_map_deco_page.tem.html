@@ -11,19 +11,30 @@
     <body>
 
 <!--##begin-->
-            <div style="background:#FFFFFF;float:left;">
+            <div style="background:#FFFFFF;float:left;" onmouseout="hover_prev(1,'hide')">
 <!--                 <h3>Schema</h3> -->
                 <img src="../../images/html/img_map_deco_page_start.png" style="float:left;border:0;" usemap="#map_start" />
 
                 <ul id="img_map">
                     <!--##loop-img_map-->
-                    <li style="float:left;" id="item_hm_!{key}">
+                    <li style="float:left;" id="item_hm_!{key}" onmouseout="hover_prev(!{key},'hide')" onmouseover="hover_prev(!{key},'show')">
                         <a href="!{link}">
                             <img src="!{src}" border="0" />
                         </a>
                     </li>
                     <!--##cont-->
                 </ul>
+
+                <div id="hover_preview_frame" style="display:none;">
+                    <div class="preview_title">
+                        <a onclick="hover_prev(1,'hide')">schliessen</a>
+                        g(preview)
+                    </div>
+                    <div id="hover_preview">
+                    </div>
+                </div>
+
+                <div id="indicator" style="display:none;">hallo</div>
 
                 <script type="text/javascript">
                     Sortable.create(
@@ -46,12 +57,43 @@
                         window.location.href = '!#ausgaben_ajax_request?' + para;
                         new Effect.Pulsate('img_map',{duration:3.0});
                     }
+                    function hover_prev(id,meth) {
+                        if ( meth == 'show' ) {
+                            new Ajax.Updater(
+                                    'hover_preview',
+                                    '!#pathvars_requested',
+                                    {
+                                        parameters:'ajax_preview=on&block=' + id,
+                                        onLoading:function(){
+                                            new Effect.Appear('indicator',{duration:0.3});
+                                        },
+                                        onSuccess:function(){
+                                            new Effect.Appear('hover_preview_frame',{duration:0.3});
+                                            new Effect.Fade(
+                                                'content_blocks',
+                                                {
+                                                    duration:0.3,from: 1, to: 0.3
+                                                }
+                                            );
+                                        }
+                                    }
+                            );
+                        } else {
+                            $('hover_preview_frame').style.display = 'none';
+                            new Effect.Fade(
+                                'content_blocks',
+                                {
+                                    duration:0.3,to: 1
+                                }
+                            );
+                        }
+                    }
                 </script>
 
                 <map name="map_start">
-                    <area shape="rect" coords="0,0,160,21" href="!#ausgaben_item_1_link" />
-                    <area shape="rect" coords="0,21,160,70" href="!#ausgaben_item_2_link" />
-                    <area shape="rect" coords="0,70,160,105" href="!#ausgaben_item_3_link" />
+                    <area shape="rect" coords="0,0,160,21" href="!#ausgaben_item_1_link" onmouseout="hover_prev(1,'hide')" onmouseover="hover_prev(1,'show')" />
+                    <area shape="rect" coords="0,21,160,70" href="!#ausgaben_item_2_link" onmouseout="hover_prev(2,'hide')" onmouseover="hover_prev(2,'show')" />
+                    <area shape="rect" coords="0,70,160,105" href="!#ausgaben_item_3_link" onmouseout="hover_prev(3,'hide')" onmouseover="hover_prev(3,'show')" />
                 </map>
             </div>
 <!--##end-->
