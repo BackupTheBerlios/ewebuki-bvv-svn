@@ -135,10 +135,26 @@
 <!--##hide-artikel_section-->
             </div>
 <!--##show-->
-
-<!--##hide-lokal_artikel_edit-->
+<!--##hide-lokal_artikel_section-->
             <div class="box">
-                <h2>Lokale Artikel</h2>
+                <form action="/auth/admin/bloged/add.html" method="post" style=""> 
+                    <h2 style="float:left;">Lokale Artikel</h2>
+                    <div style="float:right;margin:1.5em 5px 0 0;">
+                        <select name="kategorie">
+<!--##show-->
+<!--##loop-artikel_aemter-->
+                            <option value="!{url}/index">!{name}</option>
+<!--##cont-->
+<!--##hide-lokal_artikel_section-->
+                        </select>
+                        <input type="hidden" name="link" value="/aktuell/archiv"/>
+                        <input type="submit" value="Neueintrag" name="termin"></input>
+                    </div>
+                </form>
+                <div class="clearer" style="clear:left;"></div>
+<!--##show-->
+<!--##hide-lokal_artikel_edit-->
+
                 <h3 onclick="anzeigen('lokal_artikel');" id="trigger_lokal_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
                 <ul id="lokal_artikel" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_artikel_edit-->
@@ -154,8 +170,12 @@
                     </li>
                     <!--##cont-->
                 </ul>
+
+<!--##show-->
+<!--##hide-lokal_artikel_section-->
             </div>
 <!--##show-->
+
 
 <!--##hide-termine_section-->
             <div class="box">
@@ -207,9 +227,27 @@
 <!--##hide-termine_section-->
             </div>
 <!--##show-->
-<!--##hide-lokal_termine_edit-->
+
+
+<!--##hide-lokal_termine_section-->
             <div class="box">
-                <h2>Lokale Termine</h2>
+                <form action="/auth/aktuell/termine,,,,add.html" method="post" style=""> 
+                    <h2 style="float:left;">Lokale Termine</h2>
+                    <div style="float:right;margin:1.5em 5px 0 0;">
+                        <select name="kategorie">
+<!--##show-->
+<!--##loop-artikel_aemter-->
+                            <option value="!{url}">!{name}</option>
+<!--##cont-->
+<!--##hide-lokal_artikel_section-->
+                        </select>
+<!--                         <input type="hidden" name="link" value="/aktuell/archiv"/> -->
+                        <input type="submit" value="Neueintrag" name="termin"></input>
+                    </div>
+                </form>
+                <div class="clearer" style="clear:left;"></div>
+<!--##show-->
+<!--##hide-lokal_termine_edit-->
                 <h3 onclick="anzeigen('lokal_termine');" id="trigger_lokal_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
                 <ul id="lokal_termine" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_termine_edit-->
@@ -225,9 +263,11 @@
                     </li>
                     <!--##cont-->
                 </ul>
+
+<!--##show-->
+<!--##hide-lokal_termine_section-->
             </div>
 <!--##show-->
-
 <!--##hide-presse_section-->
             <div class="box">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
@@ -280,9 +320,27 @@
 <!--##hide-presse_section-->
             </div>
 <!--##show-->
-<!--##hide-lokal_presse_edit-->
+
+<!--##hide-lokal_presse_section-->
             <div class="box">
-                <h2>Lokale Pressemitteilungen</h2>
+                <form action="/auth/admin/bloged/add.html" method="post" style=""> 
+                    <h2 style="float:left;">Lokale Pressemitteilungen</h2>
+                    <div style="float:right;margin:1.5em 5px 0 0;">
+                        <select name="kategorie">
+<!--##show-->
+<!--##loop-artikel_aemter-->
+                            <option value="!{url}/index">!{name}</option>
+<!--##cont-->
+<!--##hide-lokal_presse_section-->
+                        </select>
+                        <input type="hidden" name="link" value="/aktuell/presse"/>
+                        <input type="submit" value="Neueintrag" name="termin"></input>
+                    </div>
+                </form>
+                <div class="clearer" style="clear:left;"></div>
+<!--##show-->
+<!--##hide-lokal_presse_edit-->
+
                 <h3 onclick="anzeigen('lokal_presse');" id="trigger_lokal_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
                 <ul id="lokal_presse" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_presse_edit-->
@@ -298,8 +356,13 @@
                     </li>
                     <!--##cont-->
                 </ul>
+
+<!--##show-->
+
+<!--##hide-lokal_presse_section-->
             </div>
 <!--##show-->
+
 
 <!--##hide-content_section-->
             <div class="box">

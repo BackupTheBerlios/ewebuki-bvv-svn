@@ -115,6 +115,12 @@
 
     // ADD und EDIT von Terminen
     if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
+
+        if ( $_POST["kategorie"] ) {
+            header("Location: ".$pathvars["virtual"].$_POST["kategorie"]."/termine,,,,add.html");
+            exit;
+        }
+
         if ( $environment["parameter"][5] != "" ) {
             $hidedata["add"]["link"] = "/aemter/".$environment["parameter"][5]."/index";
         } else {
