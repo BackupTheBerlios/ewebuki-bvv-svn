@@ -87,18 +87,20 @@
 
         $halt = "";
         // lokale redakteure erkennen
-        foreach ( $dataloop["group_id"] as $gruppe ) {
-            if ( $halt == -1 ) break;
-            $sql = "SELECT * FROM auth_content WHERE gid='".$gruppe."' AND pid='3'";
-            $result = $db -> query($sql);
-            while ( $data = $db -> fetch_array($result,1) ) {
-                if ( substr($data["tname"],0,8) == "/aemter/" ) {
-                    $sql_amt = "SELECT * FROM db_adrd INNER JOIN db_adrd_kate ON ( cast (adkate as INTEGER )=katid)WHERE adakz='".substr($data["tname"],8,2)."'";
-                    $result_amt = $db -> query($sql_amt);
-                    $data_amt = $db -> fetch_array($result_amt,1);
-                    $halt = -1;
-                    $dataloop["artikel_aemter"][substr($data["tname"],8,2)]["url"] = substr($data["tname"],0,10);
-                    $dataloop["artikel_aemter"][substr($data["tname"],8,2)]["name"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];
+        if ( is_array($dataloop["group_id"]) ) {
+            foreach ( $dataloop["group_id"] as $gruppe ) {
+                if ( $halt == -1 ) break;
+                $sql = "SELECT * FROM auth_content WHERE gid='".$gruppe."' AND pid='3'";
+                $result = $db -> query($sql);
+                while ( $data = $db -> fetch_array($result,1) ) {
+                    if ( substr($data["tname"],0,8) == "/aemter/" ) {
+                        $sql_amt = "SELECT * FROM db_adrd INNER JOIN db_adrd_kate ON ( cast (adkate as INTEGER )=katid)WHERE adakz='".substr($data["tname"],8,2)."'";
+                        $result_amt = $db -> query($sql_amt);
+                        $data_amt = $db -> fetch_array($result_amt,1);
+                        $halt = -1;
+                        $dataloop["artikel_aemter"][substr($data["tname"],8,2)]["url"] = substr($data["tname"],0,10);
+                        $dataloop["artikel_aemter"][substr($data["tname"],8,2)]["name"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];
+                    }
                 }
             }
         }
