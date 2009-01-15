@@ -233,4 +233,33 @@ a img{
         padding:0;
     }
 
+    /* ajax-vorschau fuer einzelne bereiche*/
+    #hover_preview_frame {
+        background:#FFFFFF;
+        border:solid silver;
+        border-width:2px 4px 4px 2px;
+        position:fixed;
+        left:175px;
+        top:215px;
+        z-index:1000;
+    }
+
+        #hover_preview_frame .preview_title {
+            background:#2C5A93;
+            color:#FFFFFF;
+            font-weight:bold;
+            padding:0 5px;
+        }
+
+            #hover_preview_frame .preview_title a {
+                color:#FFFFFF;
+                cursor:pointer;
+                float:right;
+            }
+
+        #hover_preview_frame #hover_preview {
+            margin:5px;
+            width:540px;
+        }
+
 /* ---------------------*/
