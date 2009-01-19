@@ -125,7 +125,7 @@
                         continue;
                     }
                     if ( priv_check($value["kategorie"],"admin;publish;edit") ) {
-                        if ( $value["kategorie"] != "/aktuell/archiv" ) {
+                        if ( $value["kategorie"] != "/aktuell/archiv" && $value["kategorie"] != "/aktuell/presse" && $value["kategorie"] != "/aktuell/termine") {
                             $sql_amt = "SELECT * FROM db_adrd INNER JOIN db_adrd_kate ON ( cast (adkate as INTEGER )=katid)WHERE adakz='".substr($value["kategorie"],8,2)."'";
                             $result_amt = $db -> query($sql_amt);
                             $data_amt = $db -> fetch_array($result_amt,1);

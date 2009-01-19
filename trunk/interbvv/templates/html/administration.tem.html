@@ -87,7 +87,7 @@
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
-                        <input type="submit" value="Neuen Artikel erfassen" name="blog"/>
+                        <input type="submit" value="Neueintrag" name="blog"/>
                         <input type="hidden" name="link" value="/aktuell/archiv"/>
                         <input type="hidden" name="kategorie" value="/aktuell/archiv"/>
                     </div>
@@ -102,6 +102,7 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
                         <b>!{titel}</b><br />
                         (Autor: !{author})<br />
@@ -162,6 +163,7 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
                         <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
@@ -182,7 +184,7 @@
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
-                        <button type="button" value="Neuen Termin erfassen" name="termin" onclick="location='/auth/aktuell/termine,,,,add.html'">Neuen Termin erfassen</button>
+                        <button type="button" value="Neuen Termin erfassen" name="termin" onclick="location='/auth/aktuell/termine,,,,add.html'">Neueintrag</button>
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
@@ -195,6 +197,7 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
                         <b>!{titel}</b><br />
                         (Autor: !{author})<br />
@@ -255,8 +258,9 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
-                        <b>!{titel}</b><br />
+                        <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
                         (letzte Version von: !{last_author})
                         <div class="clearer"></div>
@@ -273,7 +277,7 @@
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
-                        <input type="submit" value="Neue Pressemitteilung erfassen" name="blog"/>
+                        <input type="submit" value="Neueintrag" name="blog"/>
                         <input type="hidden" name="link" value="/aktuell/presse"/>
                         <input type="hidden" name="kategorie" value="/aktuell/presse"/>
                     </div>
@@ -288,6 +292,7 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
                         <b>!{titel}</b><br />
                         (Autor: !{author})<br />
@@ -348,8 +353,9 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
-                        <b>!{titel}</b><br />
+                        <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
                         (letzte Version von: !{last_author})
                         <div class="clearer"></div>
@@ -379,6 +385,7 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
                         <b>!{titel}</b><br />
                         (Autor: !{author})<br />
