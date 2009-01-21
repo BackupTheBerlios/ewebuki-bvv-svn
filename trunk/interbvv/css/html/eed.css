@@ -199,6 +199,11 @@ div.clearer {
         width: 200px;
     }
 
+    #eEd fieldset.float p {
+        clear: none;
+        padding-left: 10px;
+    }
+
     #eEd fieldset.float input, #eEd fieldset.float textarea, #eEd fieldset.float select {
         margin-top: 0;
         width: 200px;
