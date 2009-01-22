@@ -42,23 +42,28 @@
         <p>!#ausgaben_form_error</p>
         <fieldset class="float">
             <img src="!#ausgaben_thumbnail" alt="" style="float:right;" />
-            <label style="clear:left;">#(ffname)
-                !#element_ffname
-            </label>
-            <label style="clear:left;">#(funder)
-                !#element_funder
-            </label>
-            <label style="clear:left;">#(fdesc)
-                !#element_fdesc
-            </label>
-            <label style="clear:left;">#(fhit)
-                !#element_fhit
-            </label>
-            <!--##hide-upload-->
-            <label style="clear:left;">#(replace)
-                #(upa)<br><input type="file" name="upload"><br>#(upb)
-            </label>
-            <!--##show-->
+            <div style="float:left;">
+                <label style="clear:left;">#(ffname)
+                    !#element_ffname
+                </label>
+                <label style="clear:left;">#(funder)
+                    !#element_funder
+                </label>
+                <label style="clear:left;">#(fdesc)
+                    !#element_fdesc
+                </label>
+                <label style="clear:left;">#(fhit)
+                    !#element_fhit
+                </label>
+                <!--##hide-upload-->
+                <label style="clear:left;">#(replace)
+                    #(upa)<br><input type="file" name="upload"><br>#(upb)
+                </label>
+                <!--##show-->
+            </div>
+            <div style="float:left;margin:20px 0 0 25px;width:200px;padding:3px;background:#FFF3CF;">
+                #(zip_annotation)
+            </div>
         </fieldset>
         <fieldset class="float">
         <!--##hide-owner-->
@@ -77,7 +82,7 @@
             <input type="submit" name="continue[]" value="#(continue)" class="next" />
             <!--##show-->
             <input type="reset" name="reset" value="g(reset)" onclick="resetForm()" class="next" />
-            <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />
+            <input type="submit" name="abort[]" value="g(abort)" class="next" />
             <div class="clearer">&nbsp;</div>
         </fieldset>
     </div>
@@ -112,7 +117,7 @@
         <fieldset>
             <input type="submit" name="extract[]" value="g(send)" class="first" />
             <input type="button" name="abort" value="#(toggle_zip)" onclick="anzeigen(['extract_edit','file_edit']);" class="next" style="width:auto;" />
-            <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" />
+            <input type="submit" name="abort[]" value="g(abort)" class="next" />
             <div class="clearer">&nbsp;</div>
         </fieldset>
         <p>#(hinweis)</p>
