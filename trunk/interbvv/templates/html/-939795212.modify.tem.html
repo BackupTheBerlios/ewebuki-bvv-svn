@@ -41,7 +41,23 @@
         <p>#(inhalt)</p>
         <p>!#ausgaben_form_error</p>
         <fieldset class="float">
-            <img src="!#ausgaben_thumbnail" alt="" style="float:right;" />
+            <!--##hide-preview_img-->
+            <a title="Vorschau klein (small)" href="!{path}!{id}/s/" rel="lightbox[]" style="float:right;margin:5px 10px 10px 0;padding:5px 5px 20px 5px;border:1px solid #A9C0CE;background:#FFFFFF url('/images/default/filefind.png') no-repeat right bottom;">
+                <img src="!{path}!{id}/s/" alt="" style="float:right;" />
+            </a>
+            <a title="Vorschau mittel (middle)" href="!{path}!{id}/m/" rel="lightbox[]" style="display:none;float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;">
+                <img src="!{path}!{id}/m/" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
+            </a>
+            <a title="Vorschau gro&szlig; (big)" href="!{path}!{id}/b/" rel="lightbox[]" style="display:none;float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;">
+                <img src="!{path}!{id}/b/" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
+            </a>
+            <a title="Vorschau Original (original)" href="!{path}!{id}/o/" rel="lightbox[]" style="display:none;float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;">
+                <img src="!{path}!{id}/o/" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
+            </a>
+            <!--##show-->
+            <!--##hide-preview_def-->
+            <img src="!{file}" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
+            <!--##show-->
             <div style="float:left;">
                 <label style="clear:left;">#(ffname)
                     !#element_ffname
@@ -65,12 +81,12 @@
                 #(zip_annotation)
             </div>
         </fieldset>
-        <fieldset class="float">
         <!--##hide-owner-->
+        <fieldset class="float">
             <p>#(fowner)<br /><a href="mailto:!{email}">!{name}</a><br />!{error}</p>
-        <!--##show-->
             <p>#(references)<br />!#ausgaben_reference</p>
         </fieldset>
+        <!--##show-->
         <fieldset>
             <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
             <div class="clearer">&nbsp;</div>
