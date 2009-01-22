@@ -376,7 +376,7 @@ li.thumbs input {
 }
 
 .toolbox span {
-    float:right;
+    float:left;
 }
     .toolbox span a {
         background:#EFEFEF;
