@@ -14,14 +14,18 @@
 <!--##begin-->
         <script type="text/javascript">
             function anzeigen(id) {
-                show = document.getElementById(id).style.display;
                 f="ls_"+id;
-                if ( show == 'none' ) {
-                    document.getElementById(f).style.background='url(/images/html/minuszeichen.jpg) left -5px no-repeat';
-                    new Effect.BlindDown(id, {duration: 0.1});
+                buffer = document.getElementsByClassName('open');
+                if ( buffer[0] ) {
+                    if ( buffer[0].id != id ) {
+                        new Effect.BlindUp(buffer[0].id, {duration: 0.2});
+                        new Effect.BlindDown(id, {duration: 0.2});
+                        $(buffer[0].id).removeClassName('open');
+                        $(id).addClassName('open');
+                    }
                 } else {
-                    new Effect.BlindUp(id, {duration: 0.1})
-                    document.getElementById(f).style.background='url(/images/html/pluszeichen.jpg) left -5px no-repeat';
+                    new Effect.BlindDown(id, {duration: 0.2})
+                    $(id).addClassName('open');
                 }
                 return false;
             }
@@ -29,10 +33,11 @@
         <ul>
         <!--##loop-list-->
             <li  style="list-style:none;margin:0">
-                <div><b><a id="ls_!{id}" style="display: block; cursor: pointer; background: url(/images/html/pluszeichen.jpg) left -5px no-repeat; padding-left:25px" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('!{id}')">!{titel_org}</a></b></div>
+                <div><b><a id="ls_!{id}" style="display: block; cursor: pointer" title="Klicken zum &Ouml;ffnen und Schlie&szlig;en" onclick="anzeigen('!{id}')">!{titel_org}</a></b></div>
                 <div id="!{id}" style="display:none; padding-left:25px">!{div_before}!{faq}<div>!{div_after_org}</div></div>
             </li>
         <!--##cont-->
+        </ul>
 <!--##end-->
     </body>
 </html>
