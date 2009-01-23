@@ -21,13 +21,13 @@
 </div>
 <div id="eEd">
 
-    <p style="margin:10px;">
+    <p style="margin:5px 10px 5px 0;float:right;;text-align:right;">
         <b>Ansicht: </b>
         <!--##loop-view-->
         <a href="!{link}" title="!{title}"><img src="!{icon}" alt="!{title}" /></a>
         <!--##cont-->
     </p>
-    <form method="get" action="!#ausgaben_form1_aktion" id="">
+    <form method="get" action="!#ausgaben_form1_aktion" id="" style="clear:both">
         <fieldset id="qsearch" class="float" style="">
             <label class="small">
                 #(search)&nbsp;
@@ -71,10 +71,17 @@
             </label>
         </fieldset>
     </form>
-    <div style="clear:both"></div>
-    <div style="margin:10px;">
-        <p>!#ausgaben_result</p>
-        <!-- <p>!#ausgaben_form_error</p> -->
+    <div style="margin:0 10px 5px;clear:both;">
+        <p style="text-align:right;border-bottom:1px dashed #A9C0CE;">
+        <!--##hide-search_result-->
+            Ergebnisse <b>!#ausgaben_inhalt_selected</b> von <b>!#ausgaben_anzahl</b> !#ausgaben_result
+        <!--##show-->
+        </p>
+
+        <!--##hide-empty_search-->
+        #(empty_search)
+        <!--##show-->
+
         <p class="toolbox">
 
             <!--##hide-cms-->
@@ -249,7 +256,6 @@
         <!--##show-->
         <div style="clear:both;"></div>
         <p style="border-top:1px dashed #A9C0CE;margin-top:10px;padding-top:10px;">
-            <span style="float:left;">g(anzahl)!#ausgaben_anzahl</span>
             <span style="float:right;">!#ausgaben_inhalt_selector</span>
         </p>
         <div style="clear:both"></div>
