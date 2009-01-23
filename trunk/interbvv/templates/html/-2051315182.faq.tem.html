@@ -18,13 +18,13 @@
                 buffer = document.getElementsByClassName('open');
                 if ( buffer[0] ) {
                     if ( buffer[0].id != id ) {
-                        new Effect.BlindUp(buffer[0].id, {duration: 1});
-                        new Effect.BlindDown(id, {duration: 1});
+                        new Effect.BlindUp(buffer[0].id, {duration: 0.5});
+                        new Effect.BlindDown(id, {duration: 0.5});
                         $(buffer[0].id).removeClassName('open');
                         $(id).addClassName('open');
                     }
                 } else {
-                    new Effect.BlindDown(id, {duration: 1})
+                    new Effect.BlindDown(id, {duration: 0.5})
                     $(id).addClassName('open');
                 }
                 return false;
