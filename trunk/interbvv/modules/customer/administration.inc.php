@@ -182,6 +182,104 @@
         // +++
         // funktions bereich
 
+        // TEST MENUED
+        if ( $_SESSION["uid"] ) $hidedata["menu_edit"]["on"] = "on";
+        $design = "modern";
+        $stop["nop"] = "nop";
+        $positionArray["nop"] = "nop";
+        include $pathvars["moduleroot"]."admin/menued2.cfg.php";
+        $cfg["menued"]["function"]["login"] = array("locate","make_ebene");
+        include $pathvars["moduleroot"]."admin/menued2-functions.inc.php";
+        include $pathvars["moduleroot"]."libraries/function_menutree.inc.php";
+
+
+        if ( $environment["parameter"][1] == "" ) {
+            $_SESSION["menued_id"] = "";
+            $_SESSION["menued_opentree"] = "";
+            $_SESSION["menued_design"] = "";
+        } else {
+            $_SESSION["menued_id"] = $environment["parameter"][1];
+        }
+
+        if ( $_SESSION["menued_id"] != "" ) {
+            // explode des parameters
+            $opentree = explode("-",$_SESSION["menued_opentree"]);
+            // was muss geschlossen werden ?!?!?
+            foreach ( $opentree as $key => $value ) {
+                if ( $value != "" ) {
+                    delete($value,$value);
+                }
+                if ( $stop != "" ) {
+                    if ( in_array($value,$stop) ) {
+                        unset ($opentree[$key]);
+                    }
+                }
+            }
+
+            // punkt oeffnen
+            if ( !in_array($_SESSION["menued_id"],$stop) ) {
+                $opentree[] = $_SESSION["menued_id"];
+            }
+
+            // link bauen und positionArray bauen
+            foreach ( $opentree as $key => $value ) {
+                $treelink == "" ? $trenner = "" : $trenner = "-";
+                $treelink .= $trenner.$value;
+                if ( $value != "" ) {
+                    locate($value);
+                }
+            }
+
+            $_SESSION["menued_design"] = $design;
+        } else {
+            $positionArray[0] = 0;
+        }
+
+        // welche buttons sollen angezeigt werden
+        $mod = array("wizard"=> array("", "Seite editieren", "edit"));
+        $blacklist = "/aktuell";
+        $wizard_menu = sitemap(0, "admin", "wizard",$mod,"");
+
+        $preg = '/(<ul|<\/ul).*>/i';
+        $wizard_menu = preg_replace($preg,"",$wizard_menu);
+        $ausgaben["display"] = "none";
+        $ausgaben["zeichen"] = "pluszeichen.jpg";
+        if ( $environment["parameter"][1] >= "0" ) {
+            $ausgaben["zeichen"] = "minuszeichen.jpg";
+            $ausgaben["display"] = "";
+        }
+        $test = explode("<li>",$wizard_menu);
+        array_shift($test);
+        $preg = '/<img.*\/img>/i';
+        $preg_link = '/^<a (href)="\/auth\/wizard,([0-9]*),[0-9]*\.html"/ui';
+        $preg_edit = '/^<(a href="\/auth\/wizard,)([0-9]*)/u';
+        $preg_black = '/(href="\/auth\/login,)([0-9]*)\.html"/ui';
+        $color = "#FFFFFF";
+        preg_match($preg_black,$line,$black);
+
+        foreach ( $test as $line ) {
+            ( $color == "#FFFFFF" ) ? $color = "#EEEEEE" : $color = "#FFFFFF";
+            preg_match($preg_black,$line,$black);
+            preg_match($preg_link,$line,$regis);
+
+            if ( $black[2] == 263 ) continue;
+
+            if ( $regis[2] ) {
+                if ( eCrc(substr(make_ebene($regis[2]),0,strrpos(make_ebene($regis[2]),"/"))) == "0" ) {
+                    $make_crc = "";
+                } else {
+                    $make_crc = eCrc(substr(make_ebene($regis[2]),0,strrpos(make_ebene($regis[2]),"/"))).".";
+                }
+                $edit_crc = $make_crc.substr(make_ebene($regis[2]),strrpos(make_ebene($regis[2]),"/")+1);
+                $line = preg_replace($preg,"<span style=\"float: right; text-align: right; display: block;\">Bearbeiten</span>",$line);
+                $line = preg_replace($preg_link,"<a href=/auth/wizard/show,".DATABASE.",".$edit_crc.",inhalt,,,.html",$line);
+                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.2em;\">".$line."</li>";
+            } else {
+                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.2em;\">".$line."</li>";
+            }
+        }
+
+        // TEST MENUED
 
         // page basics
         // ***
