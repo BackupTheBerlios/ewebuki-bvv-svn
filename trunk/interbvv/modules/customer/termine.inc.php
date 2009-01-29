@@ -116,7 +116,7 @@
     // ADD und EDIT von Terminen
     if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
 
-        if ( $_POST["kategorie"] ) {
+        if ( $_POST["kategorie"] && !$_POST["send"]) {
             header("Location: ".$pathvars["virtual"].$_POST["kategorie"]."/termine,,,,add.html");
             exit;
         }
@@ -204,7 +204,7 @@
             }
 
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$work[0]["id"].",,edit.html\">|Metadaten editieren|"."</a><a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Weitere Infos hinzuf&uuml;gen|"."</a>";
+                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Termin bearbeiten|"."</a>";
                 $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
             }
 

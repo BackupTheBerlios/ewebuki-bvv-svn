@@ -283,66 +283,26 @@
                 $url = $environment["ebene"]."/".$environment["kategorie"];
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+    
+                $hidedata["termine_detail"]["in"] = "on";
+                $tags["name"] = "NAME";
+                $tags["veranstalter"] = "VERANSTALTER";
+                $tags["termin"] = "SORT";
+                $tags["termin_en"] = "TERMIN";
+                $tags["ort"] = "ORT";
+                $tags["beschreibung"] = "BESCHREIBUNG";
+                $tags["titel"] = "H1";
+                $all = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
 
-                if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
-                    $hidedata["termine_add"]["name"] = "";
-                    $hidedata["termine_add"]["ort"] = "";
-                    $hidedata["termine_add"]["beschreibung"] = "";
-                    $hidedata["termine_add"]["sort"] = "";
-                    $hidedata["termine_add"]["termin"] = "";
-                    $hidedata["termine_add"]["termin_en"] = "";
-                    $hidedata["termine_add"]["wizard"] = "artikel";
-                    $hidedata["termine_add"]["kategorie"] = $environment["ebene"]."/index";
+                if ( $environment["parameter"][3] == "all" ) {
+                    $hidedata["all"]["out"] = $all[1]["all"];
+                }
 
-                    $id = make_id("/aktuell/termine");
-                    $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
-                    $sql = "SELECT content FROM site_text WHERE tname='".eCRC("/aktuell/termine").".".$environment["parameter"][2]."'";
-                    $result = $db -> query($sql);
-                    $data = $db -> fetch_array($result,1);
-
-                    if ( $environment["parameter"][4] == "edit" ) {
-                        foreach ( $cfg["bloged"]["blogs"]["/aktuell/termine"]["addons"] as $key => $value ) {
-                            if ( is_array($value) ) {
-                                $value = $value["tag"];
-                            }
-                            preg_match("/\[$value\](.*)\[\/$value\]/",$data["content"],$regs);
-                            if ( $regs[1] == "1970-01-01" ) $regs[1] = "";
-                            $hidedata["termine_add"][$key] = $regs[1];
-                        }
-                        $ausgaben["form_aktion"] = $pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html";
-                        if ( $_POST ) {
-                            foreach ( $_POST as $key => $value ) {
-                                if ( $key == "TERMIN" && $value == "" ) $value = "1970-01-01";
-                                $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
-                            }
-                            $sql = "UPDATE site_text SET content ='".$data["content"]."[!]wizard:artikel[/!]' WHERE tname='".eCRC("/aktuell/termine").".".$environment["parameter"][2]."'";
-                            $result = $db -> query($sql);
-                            header("Location: termine,,".$environment["parameter"][2].".html");
-                        }
-                    }
-
-                } else {
-                    $hidedata["termine_detail"]["in"] = "on";
-                    $tags["name"] = "NAME";
-                    $tags["veranstalter"] = "VERANSTALTER";
-                    $tags["termin"] = "SORT";
-                    $tags["termin_en"] = "TERMIN";
-                    $tags["ort"] = "ORT";
-                    $tags["beschreibung"] = "BESCHREIBUNG";
-                    $tags["titel"] = "H1";
-                    $all = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
-
-                    if ( $environment["parameter"][3] == "all" ) {
-                        #$hidedata["out"]["i"] = $all[1]["all"];
-                        $hidedata["all"]["out"] = $all[1]["all"];
-                    }
-
-                    foreach ( $tags as $key => $value ) {
-                        if ( $key == "titel" ) continue;
-                        if ( $all[1][$key."_org"] == "1970-01-01" ) continue;
-                        $dataloop["termine_detail"][$key]["name"] = $all[1][$key."_org"];
-                        $dataloop["termine_detail"][$key]["desc"] = "g(termine_".$key.")";
-                    }
+                foreach ( $tags as $key => $value ) {
+                    if ( $key == "titel" ) continue;
+                    if ( $all[1][$key."_org"] == "1970-01-01" ) continue;
+                    $dataloop["termine_detail"][$key]["name"] = $all[1][$key."_org"];
+                    $dataloop["termine_detail"][$key]["desc"] = "g(termine_".$key.")";
                 }
 
                 if ( $all[1]["titel"] != "" ) {
@@ -356,31 +316,11 @@
 
                 if ( $environment["parameter"][2] != "" ) { 
                     if ( $cfg["bloged"]["blogs"]["/aktuell/termine"]["right"] == "" || priv_check($url,$cfg["bloged"]["blogs"]["/aktuell/termine"]["right"])  ) {
-                        $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html\">#(meta)"."</a>
-                                                                    <a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> #(add_infos)"."</a>";
+                        $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> #(add_infos)"."</a>";
                         $dataloop["termine_detail"]["edit"]["desc"] = "Aktionen:";
                     }
                 }
-
-                #$hidedata["all"]["inhalt"] = $all[1]["all"];
-//
-//                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
-//                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
-//                                 ".$cfg["changed"]["db"]["changed"]["surname"].",
-//                                 ".$cfg["changed"]["db"]["changed"]["forename"].",
-//                                 ".$cfg["changed"]["db"]["changed"]["email"].",
-//                                 ".$cfg["changed"]["db"]["changed"]["alias"]."
-//                             FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
-//                             WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
-//                         ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
-//                     $result = $db -> query($sql);
-//                     $data = $db -> fetch_array($result);
-//                     $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
-//
-
                 break;
-
-
 
             case "standort":
 

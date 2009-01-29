@@ -184,7 +184,9 @@
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
-                        <button type="button" value="Neuen Termin erfassen" name="termin" onclick="location='/auth/aktuell/termine,,,,add.html'">Neueintrag</button>
+                        <input type="submit" value="Neueintrag" name="blog"/>
+                        <input type="hidden" name="link" value="/aktuell/termine"/>
+                        <input type="hidden" name="kategorie" value="/aktuell/termine"/>
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
@@ -234,17 +236,17 @@
 
 <!--##hide-lokal_termine_section-->
             <div class="box">
-                <form action="/auth/aktuell/termine,,,,add.html" method="post" style=""> 
+                <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">Lokale Termine</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
                         <select name="kategorie">
 <!--##show-->
 <!--##loop-artikel_aemter-->
-                            <option value="!{url}">!{name}</option>
+                            <option value="!{url}/index">!{name}</option>
 <!--##cont-->
 <!--##hide-lokal_artikel_section-->
                         </select>
-<!--                         <input type="hidden" name="link" value="/aktuell/archiv"/> -->
+                        <input type="hidden" name="link" value="/aktuell/termine"/>
                         <input type="submit" value="Neueintrag" name="termin"></input>
                     </div>
                 </form>
