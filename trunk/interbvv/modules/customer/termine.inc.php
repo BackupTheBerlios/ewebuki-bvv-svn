@@ -152,7 +152,7 @@
         $ausgaben["calendar"] = "";
         if ( $_POST ) {
             foreach ( $_POST as $key => $value ) {
-                 if ( $key == "TERMIN" && $value == "" ) $value = "1970-01-01";
+                 if ( $key == "_TERMIN" && $value == "" ) $value = "1970-01-01";
                 $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
             }
             $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE status=1 AND tname='".eCRC($url).".".$work[0]["id"]."'";
