@@ -83,7 +83,7 @@
                 <!--##show-->
 
 <!--##hide-artikel_section-->
-            <div class="box">
+            <div class="box" style="position:relative;">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
@@ -96,7 +96,7 @@
 <!--##show-->
 <!--##hide-artikel_edit-->
                 <h3 onclick="anzeigen('edit_artikel');" id="trigger_edit_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_artikel" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="edit_artikel" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -113,9 +113,10 @@
                 </ul>
 <!--##show-->
 
+
 <!--##hide-artikel_release-->
                 <h3 onclick="anzeigen('release_artikel');" id="trigger_release_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_artikel" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="release_artikel" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-artikel_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -138,7 +139,7 @@
 <!--##show-->
 <!--##hide-lokal_artikel_section-->
             <div class="box">
-                <form action="/auth/admin/bloged/add.html" method="post" style=""> 
+                <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">Lokale Artikel</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
                         <select name="kategorie">
@@ -157,7 +158,7 @@
 <!--##hide-lokal_artikel_edit-->
 
                 <h3 onclick="anzeigen('lokal_artikel');" id="trigger_lokal_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="lokal_artikel" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="lokal_artikel" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -193,7 +194,7 @@
 <!--##show-->
 <!--##hide-termine_edit-->
                 <h3 onclick="anzeigen('edit_termine');" id="trigger_edit_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_termine" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="edit_termine" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -211,7 +212,7 @@
 <!--##show-->
 <!--##hide-termine_release-->
                 <h3 onclick="anzeigen('release_termine');" id="trigger_release_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_termine" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="release_termine" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-termine_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -254,7 +255,7 @@
 <!--##show-->
 <!--##hide-lokal_termine_edit-->
                 <h3 onclick="anzeigen('lokal_termine');" id="trigger_lokal_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="lokal_termine" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="lokal_termine" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -288,7 +289,7 @@
 <!--##show-->
 <!--##hide-presse_edit-->
                 <h3 onclick="anzeigen('edit_presse');" id="trigger_edit_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_presse" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="edit_presse" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -306,7 +307,7 @@
 <!--##show-->
 <!--##hide-presse_release-->
                 <h3 onclick="anzeigen('release_presse');" id="trigger_release_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_presse" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="release_presse" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-presse_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -330,7 +331,7 @@
 
 <!--##hide-lokal_presse_section-->
             <div class="box">
-                <form action="/auth/admin/bloged/add.html" method="post" style=""> 
+                <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">Lokale Pressemitteilungen</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
                         <select name="kategorie">
@@ -349,7 +350,7 @@
 <!--##hide-lokal_presse_edit-->
 
                 <h3 onclick="anzeigen('lokal_presse');" id="trigger_lokal_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="lokal_presse" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="lokal_presse" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -381,7 +382,7 @@
 <!--##show-->
 <!--##hide-content_edit-->
                 <h3 onclick="anzeigen('edit_content');" id="trigger_edit_content" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_content" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="edit_content" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-content_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -399,7 +400,7 @@
 <!--##show-->
 <!--##hide-content_release-->
                 <h3 onclick="anzeigen('release_content');" id="trigger_release_content" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_content" style="display:none;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="release_content" style="display:none;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-content_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
@@ -426,7 +427,7 @@
 <!--##hide-menu_edit-->
 <div class="box">
 <h2 onclick="anzeigen('content_edit');" id="trigger_content_edit" class="trigger" style="background-image:url(/images/html/!#ausgaben_zeichen);">Inhaltsbereiche</h2><a name="content_edit"></a>
-<ul id="content_edit" style="display:!#ausgaben_display;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+<ul id="content_edit" style="display:!#ausgaben_display;verflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
 <!--##show-->
 <!--##hide-back-->
 <li style="background-color:#FFFFFF;margin: 0pt; padding: 0.2em"><a href="!{link}">nach oben</a></li>
