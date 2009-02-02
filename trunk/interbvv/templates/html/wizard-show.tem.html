@@ -86,10 +86,16 @@
         <!--##hide-edit-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
-                <button type="submit" name="version[]" value="version" class="button">g(save)</button>
-                <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button><br />
-                <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(ask_release)</label>
+                <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:119px;">g(preview)</button>
+                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(save)</button>
+                <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button><br />
+                <div class="clearer"></div>
+            </form>
+        </div>
+        <div class="box">
+            <form method="post" action="!#ausgaben_form_aktion">
+                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">#(ask_release)</button>
+                <input type="hidden" name="release_mark" value="-1" class="button" />
                 <div class="clearer"></div>
             </form>
         </div>
@@ -99,10 +105,15 @@
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:119px;">g(preview)</button>
-<!--                 <button type="submit" name="save[]" value="save" class="button" style="display:block;margin:3px;width:121px">g(save)</button> -->
-                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(version)</button>
+                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(save)</button>
                 <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button>
-                <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(release)</label>
+                <div class="clearer"></div>
+            </form>
+        </div>
+        <div class="box">
+            <form method="post" action="!#ausgaben_form_aktion">
+                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">#(release)</button>
+                <input type="hidden" name="release_mark" value="-1" class="button" />
                 <div class="clearer"></div>
             </form>
         </div>

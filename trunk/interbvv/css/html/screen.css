@@ -1012,9 +1012,7 @@ input.medium, select.medium {
         background:#FEEAAD;
         border-color:#FFCF3F;
         border-width:1px 3px 3px 1px;
-        float:left;
         text-align:left;
-/*         position:absolute; */
     }
 
     #substance.admin .box {

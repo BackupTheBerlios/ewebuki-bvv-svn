@@ -326,12 +326,19 @@ li.thumbs p {
             margin:0 !important;
     }
 
-li.thumbs input {
-    border:none !important;
-    display:inline !important;
-    width:auto !important;
-/*     float:none !important; */
+#eEd .sortable, #substance.admin .sortable {
+/*     background:yellow; */
+    float:left;
+    list-style:none;
+    margin:0;
+    min-height:50px;
+    padding:0;
+    width:100% !important;
 }
+
+    #eEd .sortable li.thumbs {
+        margin:15px 0 15px 15px !important;
+    }
 
 /* compilation */
 .selection_teaser {
@@ -484,14 +491,14 @@ li.thumbs input {
 
 #cEd a.infobox {
     float: right;
-    border-bottom: 1px dashed #c30;
+/*     border-bottom: 1px dashed #c30; */
     text-decoration:none;
 }
 
     #cEd a.infobox:hover {
         cursor:help;
-        color:#c30;
-        background:white;
+/*         color:#c30; */
+/*         background:white; */
     }
 
     #cEd a.infobox span {
@@ -499,15 +506,16 @@ li.thumbs input {
         position:absolute;
         left:-99em;
         margin-top:1.5em;
-        padding:1em;
+        padding:0.5em;
         text-decoration:none;
     }
 
     #cEd a.infobox:hover span {
         visibility:visible;
         left:38em;
-        border:1px solid #c30;
-        color:blue; background:white;
+        border:1px solid #A9C0CE;
+        color:#2C5A93;
+        background:white;
     }
 
 /* ---------------------*/

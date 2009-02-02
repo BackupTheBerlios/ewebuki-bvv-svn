@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>fileed.modify</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: -939795212.collect.tem.html 1194 2008-01-17 13:09:43Z chaot $-->
+
+
+<div id="eEd">
+
+
+    <fieldset style="padding:0;">
+        <legend><b>in der Galerie enthaltenen Bilder</b></legend>
+        <ul id="comp_list" class="sortable" style="">
+            <!--##loop-list-->
+            <li class="thumbs" id="item_!{id}"><img src="!{src}" alt="!{title}" title="!{title}" />!{id}</li>
+            <!--##cont-->
+        </ul>
+    </fieldset>
+    <div class="clearer">&nbsp;</div>
+
+    <fieldset style="padding:0;">
+        <legend><b>nicht ber&uuml;cksichtige Bilder</b></legend>
+        <ul class="sortable" id="ignore">
+            <li style=""></li>
+            <!--##loop-file_memo-->
+            <li class="thumbs" id="item_!{id}"><img src="!{src}" alt="!{title}" title="!{title}" />!{id}</li>
+            <!--##cont-->
+        </ul>
+    </fieldset>
+    <div class="clearer">&nbsp;</div>
+
+    <form method="post" action="!#ausgaben_form_aktion">
+        <fieldset>
+            <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+            <div class="clearer">&nbsp;</div>
+            <input type="submit" name="abort[]" value="g(back)" class="first" />
+            <input type="button" name="abort[]" value="g(back)" class="first" onclick="update_compilation();location='!#ausgaben_form_break'" />
+            <input type="submit" name="fileed[]" value="#(fileed)" class="next" />
+            <div class="clearer">&nbsp;</div>
+        </fieldset>
+    </form>
+
+    <div id="output" style="border:1px solid silver;padding:5px;">hallo welt</div>
+
+</div>
+
+<div class="clearer">&nbsp;</div>
+<p>!#ausgaben_output</p>
+<p>!#ausgaben_inaccessible</p>
+
+<script type="text/javascript">
+
+    sections = ['comp_list','ignore'];
+
+    function update_compilation() {
+        new Ajax.Updater(
+            'output',
+            '!#ausgaben_ajax_form_aktion',
+            {
+                asynchronous:true,
+                evalScripts:true,
+                parameters:'ajax=on&' + Sortable.serialize('comp_list') + '&' + Sortable.serialize('ignore')
+            }
+        )
+    }
+
+    Sortable.create(
+        'comp_list',
+        {
+            constraint:false,
+            dropOnEmpty: true,
+            containment: sections,
+            only:'thumbs',
+            onUpdate: update_compilation
+            //             onUpdate: function() {
+            //                 new Ajax.Updater(
+            //                     'output',
+            //                     '/auth/admin/fileed/collect,,verify.html',
+            //                     {
+            //                         asynchronous:true,
+            //                         evalScripts:true,
+            //                         parameters:'ajax=move&' + Sortable.serialize('comp_list') + '&' + Sortable.serialize('ignore')
+            //                     }
+            //                 )
+            //             }
+        }
+    );
+
+    Sortable.create(
+        'ignore',
+        {
+            constraint:false,
+            dropOnEmpty: true,
+            containment: sections,
+            only:'thumbs',
+            onUpdate: update_compilation
+        }
+    );
+</script>
+
+<!--##end-->
+
+
+
+
+
+
+<div class="clearer">&nbsp;</div>
+<hr />
+
+
+<script type="text/javascript">
+<!--
+  function resetForm(){
+     document.forms[0].reset();
+  }
+//-->
+</script>
+<form method="post" action="!#ausgaben_form_aktion" id="eEd">
+    <h1>#(ueberschrift)</h1>
+    <div class="tabbed" style="">
+        <ul style="">
+            <!--##loop-tabs-->
+            <li style="!{style}">
+                <a href="!{link}" class="!{class}" style="">!{label}</a>
+            </li>
+            <!--##cont-->
+        </ul>
+    </div>
+    <div style="clear:both;border-top:1px solid #666666;"></div>
+    <p>#(inhalt)</p>
+    <p>!#ausgaben_form_error</p>
+    <div class="clearer">&nbsp;</div>
+    <fieldset>
+        <label style="clear:left;">#(ffhit)</label>
+        <select name="all_groups">
+            <option value="!#ausgaben_new_comp">#(new_comp) (ID: !#ausgaben_new_comp)</option>
+            <optgroup label="#(saved_groups)">
+                <!--##loop-group_dropdown-->
+                <option value="!{id}"!{select}># !{id}: !{name_short}</option>
+                <!--##cont-->
+            </optgroup>
+        </select>
+    </fieldset>
+    <fieldset class="float">
+        <ul style="margin-left:20px;">
+            <!--##loop-list-->
+            <li class="thumbs">
+                <a href="!{link}" class="pic"><img src="!{src}" alt="!{title}" title="!{title}" /></a>
+                <p>
+                    <input type="text" value="!{sort}" name="sort[!{id}]" style="width:2em;" />
+                    <a href="!{delete}" style="float:left;">
+                        <img src="../../images/default/delete.png" alt="g(delete)" title="g(delete)" height="18" width="24" />
+                    </a>
+                </p>
+            </li>
+            <!--##cont-->
+        </ul>
+        <p><a href="!#ausgaben_renumber">g(renumber)</a></p>
+    </fieldset>
+    <fieldset>
+        <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+        <div class="clearer">&nbsp;</div>
+        <input type="submit" name="send[]" value="g(send)" class="first" />
+        <input type="reset" name="reset" value="g(reset)" onclick="resetForm()" class="next" />
+        <input type="submit" name="abort[]" value="g(abort)" class="next" />
+        <div class="clearer">&nbsp;</div>
+    </fieldset>
+    <div class="clearer">&nbsp;</div>
+    <p>!#ausgaben_output</p>
+    <p>!#ausgaben_inaccessible</p>
+</form>
+<!--##end-->
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>fileed.list</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: -939795212.compilation.tem.html 1480 2008-11-20 13:14:54Z krompi $-->
+<h1>#(ueberschrift)</h1>
+<div class="tabbed" style="">
+    <ul style="">
+        <!--##loop-tabs-->
+        <li style="!{style}">
+            <a href="!{link}" class="!{class}" style="">!{label}</a>
+        </li>
+        <!--##cont-->
+    </ul>
+</div>
+<div id="eEd">
+    <form method="POST" action="!#ausgaben_form_aktion">
+        <fieldset class="float" style="padding:0;">
+            <label class="small">
+                #(search)&nbsp;
+                <input type="text" name="search" value="!#ausgaben_search" class="textfield" />
+            </label>
+            <label class="small">
+                &nbsp;
+                <input type="submit" name="send[]" value="g(send)" />
+            </label>
+            <div class="clearer"></div>
+        </fieldset>
+    </form>
+
+    <div style="margin:0 10px 5px;clear:both;">
+
+        <p style="text-align:right;border-bottom:1px dashed #A9C0CE;">
+        <!--##hide-search_result-->
+            Ergebnisse <b>!#ausgaben_inhalt_selected</b> von <b>!#ausgaben_anzahl</b> !#ausgaben_result
+        <!--##show-->
+        </p>
+
+        <p class="toolbox">
+            <!--##hide-cms-->
+            <span style="display:!{display};" id="cms">
+                &nbsp;<a href="!{link}">g(cmslink)</a>
+            </span>
+            <!--##show-->
+            &nbsp;
+        </p>
+
+        <!--##loop-compilation-->
+        <div class="selection_teaser" style="width:540px;">
+            <b style="background:none;" id="cEd">
+                <a style="!{used_title_show}" class="infobox">
+                    #(used_title)
+                    <span>!{used_title_text}</span>
+                </a>
+                <input id="!{id}" class="selection_checkbox" type="checkbox" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});" style="vertical-align:middle;margin:0.166em 3px 0 0;"!{check} />
+                ID:!{id}
+            </b>
+            <div style="clear:both;"></div>
+
+            <div>
+                <ul>
+                    <li class="thumbs">
+                        <a title="!{pic_0_title}" class="pic" rel="lightbox[!{id}]" href="!{pic_0_src_lb}"><img title="" alt="" src="!{pic_0_src}"/></a>
+                    </li>
+                    <li class="thumbs">
+                        <a title="!{pic_1_title}" class="pic" rel="lightbox[!{id}]" href="!{pic_1_src_lb}"><img title="" alt="" src="!{pic_1_src}"/></a>
+                    </li>
+                    <li class="thumbs">
+                        <a title="!{pic_2_title}" class="pic" rel="lightbox[!{id}]" href="!{pic_2_src_lb}"><img title="" alt="" src="!{pic_2_src}"/></a>
+                    </li>
+                    <li class="thumbs">
+                        <a title="!{pic_3_title}" class="pic" rel="lightbox[!{id}]" href="!{pic_3_src_lb}"><img title="" alt="" src="!{pic_3_src}"/></a>
+                    </li>
+                    <li style="display:none;">!{lb_pics}</li>
+                </ul>
+            </div>
+            <span style="display:block;">
+                !{edit} (Anzahl der Bilder: !{count})!{used_on}</span>
+        </div>
+        <div style="clear:both;"></div>
+        <!--##cont-->
+
+        <p style="border-top:1px dashed #A9C0CE;margin-top:10px;padding-top:10px;">
+            <span style="float:right;">!#ausgaben_inhalt_selector</span>
+        </p>
+
+    </div>
+
+    <script type="text/javascript">
+        function session_update(compid) {
+            new Ajax.Request(
+                './compilation,' + compid + '.html',
+                {
+                    asynchronous:true,
+                    parameters:'ajax=on',
+                    onSuccess:function() {
+                        check_boxes(compid);
+                    }
+                }
+            );
+        }
+        function check_boxes(compid) {
+            elements = $$('input.selection_checkbox');
+            for (i=0;i<elements.length;i++) {
+                if ( elements[i].id != compid ) {
+                    elements[i].checked = false;
+                }
+            }
+        }
+    </script>
+
+</div>
+<div style="clear:both"></div>
+<p>#(inhalt)</p>
+<p>#(text1)</p>
+<p>!#ausgaben_output</p>
+<p>!#ausgaben_inaccessible</p>
+
+<!--##end-->
+</body>
+</html>

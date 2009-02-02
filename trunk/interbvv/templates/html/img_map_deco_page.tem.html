@@ -13,17 +13,23 @@
 <!--##begin-->
             <div style="background:#FFFFFF;float:left;" onmouseout="hover_prev(1,'hide')">
 <!--                 <h3>Schema</h3> -->
-                <img src="../../images/html/img_map_deco_page_start.png" style="float:left;border:0;" usemap="#map_start" />
 
-                <ul id="img_map">
-                    <!--##loop-img_map-->
-                    <li style="float:left;" id="item_hm_!{key}" onmouseout="hover_prev(!{key},'hide')" onmouseover="hover_prev(!{key},'show')">
-                        <a href="!{link}">
-                            <img src="!{src}" border="0" />
-                        </a>
-                    </li>
-                    <!--##cont-->
-                </ul>
+                <div id="preview_event">
+                    <img src="../../images/html/img_map_deco_page_start.png" style="float:left;border:0;" usemap="#map_start" />
+
+                    <ul id="img_map">
+                        <!--##loop-img_map-->
+                        <li style="float:left;" id="item_hm_!{key}">
+                            <a href="!{link}">
+                                <img src="!{src}" border="0" />
+                            </a>
+                        </li>
+                        <!--##cont-->
+                    </ul>
+                    <div style="clear:both;"></div>
+                </div>
+
+                <div id="output"></div>
 
                 <div id="hover_preview_frame" style="display:none;">
                     <div class="preview_title">
@@ -32,6 +38,7 @@
                     </div>
                     <div id="hover_preview">
                     </div>
+                    <div style="clear:both;"></div>
                 </div>
 
                 <script type="text/javascript">
@@ -55,36 +62,51 @@
                         window.location.href = '!#ausgaben_ajax_request?' + para;
                         new Effect.Pulsate('img_map',{duration:3.0});
                     }
-                    function hover_prev(id,meth) {
-                        if ( meth == 'show' ) {
-                            new Ajax.Updater(
-                                    'hover_preview',
-                                    '!#pathvars_requested',
-                                    {
-                                        parameters:'ajax_preview=on&block=' + id,
-                                        onLoading:function(){
-                                            new Effect.Appear('indicator',{duration:0.3});
-                                        },
-                                        onSuccess:function(){
-                                            new Effect.Appear('hover_preview_frame',{duration:0.3});
-                                            new Effect.Fade(
-                                                'content_blocks',
-                                                {
-                                                    duration:0.3,from: 1, to: 0.3
-                                                }
-                                            );
-                                        }
-                                    }
-                            );
-                        } else {
-                            $('hover_preview_frame').style.display = 'none';
-                            new Effect.Fade(
-                                'content_blocks',
-                                {
-                                    duration:0.3,to: 1
-                                }
-                            );
+
+                    Event.observe(
+                        'preview_event',
+                        'mouseover',
+                        function() {
+                            $('output').innerHTML = 'hallo welt';
+                            new Effect.BlindDown('hover_preview_frame',{duration:0.3});
+//                             new Effect.Fade(
+//                                 'content_blocks',
+//                                 {
+//                                     duration:0.3,from: 1, to: 0.3
+//                                 }
+//                             );
                         }
+                    );
+
+                    Event.observe(
+                        'preview_event',
+                        'mouseout',
+                        function() {
+                            $('output').innerHTML = 'ciao welt';
+                            new Effect.BlindUp('hover_preview_frame',{duration:0.3});
+//                             new Effect.Appear(
+//                                 'content_blocks',
+//                                 {
+//                                     duration:0.3
+//                                 }
+//                             );
+                        }
+                    );
+
+
+
+
+
+
+                    function hover_prev(id) {
+                        $('hover_preview').innerHTML = 'blub';
+//                             new Ajax.Updater(
+//                                     'hover_preview',
+//                                     '!#pathvars_requested',
+//                                     {
+//                                         parameters:'ajax_preview=on&block=' + id
+//                                     }
+//                             );
                     }
                 </script>
 
