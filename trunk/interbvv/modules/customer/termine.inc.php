@@ -214,7 +214,7 @@
                             if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
                             $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
                         }
-                        $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."d</a>";
+                        $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."</a>";
                         $dataloop["defaultlist"][$key]["veranstalter"] = $value["veranstalter_org"];
                     }
                 }
