@@ -99,10 +99,12 @@
     } else {
         $work = $all;
     }
+
+    // timestamp als erstes voranstellen zwecks sortierung
     if ( is_array($work) ) {
         foreach ( $work as $key => $value ) {
-            $anzahl = -(count($value)+1);
-            $value =array_pad($value,$anzahl,mktime(0,0,0,substr($value["termin_org"],8,2),substr($value["termin_org"],5,2),substr($value["termin_org"],0,4)));
+           $anzahl = -(count($value)+1);
+            $value =array_pad($value,$anzahl,mktime(0,0,0,substr($value["termin_org"],5,2),substr($value["termin_org"],8,2),substr($value["termin_org"],0,4)));
             $work[$key] = $value;
         }
 
@@ -113,136 +115,112 @@
         }
     }
 
-    // ADD und EDIT von Terminen
-    if ( $environment["parameter"][4] == "add" || $environment["parameter"][4] == "edit" ) {
-
-        if ( $_POST["kategorie"] && !$_POST["send"]) {
-            header("Location: ".$pathvars["virtual"].$_POST["kategorie"]."/termine,,,,add.html");
-            exit;
-        }
-
-        if ( $environment["parameter"][5] != "" ) {
-            $hidedata["add"]["link"] = "/aemter/".$environment["parameter"][5]."/index";
-        } else {
-            $hidedata["add"]["link"] = $url;
-        }
-        $hidedata["add"]["name"] = "";
-        $hidedata["add"]["ort"] = "";
-        $hidedata["add"]["beschreibung"] = "";
-        $hidedata["add"]["sort"] = "";
-        $hidedata["add"]["termin"] = "";
-        $hidedata["add"]["termin_en"] = "";
-        $hidedata["add"]["wizard"] = "artikel";
-
-        $ausgaben["form_aktion"] = $pathvars["virtual"]."/admin/bloged/add,".$id["mid"].".html";
-        $sql = "SELECT content FROM site_text WHERE status=1 AND tname='".eCRC($url).".".$work[0]["id"]."'";
-        $result = $db -> query($sql);
-        $data = $db -> fetch_array($result,1);
-        if ( $environment["parameter"][4] == "edit" ) {
-            foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value ) {
-                if ( is_array($value) ) {
-                    $value = $value["tag"];
-                }
-                preg_match("/\[$value\](.*)\[\/$value\]/",$data["content"],$regs);
-                if ( $regs[1] == "1970-01-01" ) $regs[1] = "";
-                $hidedata["add"][$key] = $regs[1];
-            }
-            $ausgaben["form_aktion"] = $pathvars["virtual"].$url.",,".$environment["parameter"][2].",,edit.html";
-        }
+    // Anzeige der Metadaten
+    if ( $environment["parameter"][2] != "" ) {
+        $show_array = array("name_org","termin_org","termin_en_org","veranstalter_org","ort_org","beschreibung_org");
         $ausgaben["calendar"] = "";
-        if ( $_POST ) {
-            foreach ( $_POST as $key => $value ) {
-                 if ( $key == "_TERMIN" && $value == "" ) $value = "1970-01-01";
-                $data["content"] = preg_replace("/\[$key\].*\[\/$key\]/","[".$key."]".$value."[/".$key."]",$data["content"]);
+        $hidedata["detail"] = $work[0];
+        foreach ( $show_array as $value ) {
+            if ( strstr($value,"termin")) {
+                if ( $work[0][$value] == "1970-01-01" ) {
+                    continue;
+                } else {
+                    $dataloop["detail"][$value]["name"] = substr($work[0][$value],8,2).".".substr($work[0][$value],5,2).".".substr($work[0][$value],0,4);
+                }
+            } else {
+                $dataloop["detail"][$value]["name"] = $work[0][$value];
             }
-            $sql = "UPDATE site_text SET content ='".$data["content"]."' WHERE status=1 AND tname='".eCRC($url).".".$work[0]["id"]."'";
-            $result = $db -> query($sql);
-            header("Location: ".$pathvars["virtual"].$url.",,".$work[0]["id"].".html");
-        }
-    } else {
-        if ( is_array($work) ) {
-            foreach ( $work as $key => $value ) {
-                $array[$value["veranstalter_org"]][$key]["name"] = $value["name_org"];
-                $array[$value["veranstalter_org"]][$key]["termin"] = $value["termin_org"];
-                $array[$value["veranstalter_org"]][$key]["termin_en"] = $value["termin_en_org"];
-                $array[$value["veranstalter_org"]][$key]["veranstalter"] = $value["veranstalter_org"];
-                $array[$value["veranstalter_org"]][$key]["datum"] = $value["datum"];
-                $array[$value["veranstalter_org"]][$key]["ort"] = $value["ort_org"];
-                $array[$value["veranstalter_org"]][$key]["beschreibung"] = $value["beschreibung_org"];
-                $array[$value["veranstalter_org"]][$key]["deletelink"] = $value["deletelink"];
-                $array[$value["veranstalter_org"]][$key]["editlink"] = $value["editlink"];
-                $array[$value["veranstalter_org"]][$key]["detaillink"] = $value["detaillink"];
-                $array[$value["veranstalter_org"]][$key]["id"] = $value["id"];
-            }
+            $dataloop["detail"][$value]["desc"] = "g(t_".$value.")";
         }
 
-        // Anzeige der Metadaten
-        if ( $environment["parameter"][2] != "" ) {
-            $ausgaben["calendar"] = "";
-            $hidedata["detail"] = $work[0];
-            foreach ( $tags as $key => $value ) {
-                if ( !array_key_exists($key,$array[$work[0]["veranstalter_org"]][0]) )continue;
-                if ( strstr($key,"termin")) {
-                    if ( $array[$work[0]["veranstalter_org"]][0][$key] == "1970-01-01" ) {
-                       continue;
-                    } else {
-                        $dataloop["detail"][$key]["name"] = substr($array[$work[0]["veranstalter_org"]][0][$key],8,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],5,2).".".substr($array[$work[0]["veranstalter_org"]][0][$key],0,4);
-                    }
-                } else {
-                    $dataloop["detail"][$key]["name"] = $array[$work[0]["veranstalter_org"]][0][$key];
-                }
-                $dataloop["detail"][$key]["desc"] = "g(termine_".$key.")";
-            }
-
-            if ( $work[0]["titel"] != "" ) {
-                if ( $environment["parameter"][3] == "all" ) {
-                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schlie&szlig;en</a>";
-                } else {
-                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">&Ouml;ffnen</a>";
-                }
-                $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
-            }
-
-            if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Termin bearbeiten|"."</a>";
-                $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
-            }
-
-            // gesamten content betrachten
+        if ( $work[0]["titel"] != "" ) {
             if ( $environment["parameter"][3] == "all" ) {
-                $hidedata["detail_all"]["tet"] = $work[0]["all"];
+                $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schlie&szlig;en</a>";
+            } else {
+                $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">&Ouml;ffnen</a>";
             }
+            $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
+        }
 
-        } else {
-            // liste 
-            $ausgaben["inhalt"] = "#(inhalt)";
-            // new link
-            if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                $hidedata["newlink"]["link"] = $pathvars["virtual"].$url.",,,,add.html";
-            }
-            $hidedata["list"]["on"] = "on";
-            $counter = 0;
-            if ( is_array($array) ) {
-                foreach ( $array as $key => $value ) {
+        if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
+            $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Termin bearbeiten|"."</a>";
+            $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
+        }
 
-                    $table = "";
-                    $counter++;
-                    $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter: ".$key."</th></tr>";
-                    $table .= "<tr><th align=\"left\" width=\"30%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th><tr>";
-                    foreach ( $value as $test => $test1 ) {
-                        if ( $test1["termin_en"] == "1970-01-01" ) {
-                            $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4);
-                        } else {
-                            $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4)."&nbsp;-&nbsp;".substr($test1["termin_en"],8,2).".".substr($test1["termin_en"],5,2).".".substr($test1["termin_en"],0,4);
-                        }
-                        $table .= "<tr><td align=\"left\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
+        // gesamten content betrachten
+        if ( $environment["parameter"][3] == "all" ) {
+            $hidedata["detail_all"]["tet"] = $work[0]["all"];
+        }
+
+    } else {
+        // liste 
+        $ausgaben["inhalt"] = "#(inhalt)";
+        // new link
+        if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
+            $hidedata["newlink"]["link"] = $pathvars["virtual"].$url.",,,,add.html";
+        }
+
+        switch ( $environment["parameter"][7] ) {
+            case "group":
+                if ( is_array($work) ) {
+                    foreach ( $work as $key => $value ) {
+                        $array[$value["veranstalter_org"]][$key]["name"] = $value["name_org"];
+                        $array[$value["veranstalter_org"]][$key]["termin"] = $value["termin_org"];
+                        $array[$value["veranstalter_org"]][$key]["termin_en"] = $value["termin_en_org"];
+                        $array[$value["veranstalter_org"]][$key]["veranstalter"] = $value["veranstalter_org"];
+                        $array[$value["veranstalter_org"]][$key]["datum"] = $value["datum"];
+                        $array[$value["veranstalter_org"]][$key]["ort"] = $value["ort_org"];
+                        $array[$value["veranstalter_org"]][$key]["beschreibung"] = $value["beschreibung_org"];
+                        $array[$value["veranstalter_org"]][$key]["deletelink"] = $value["deletelink"];
+                        $array[$value["veranstalter_org"]][$key]["editlink"] = $value["editlink"];
+                        $array[$value["veranstalter_org"]][$key]["detaillink"] = $value["detaillink"];
+                        $array[$value["veranstalter_org"]][$key]["id"] = $value["id"];
                     }
-
-                    $ausgaben["row"] .= parser( "-1721433623.termine-row", "");
                 }
-            }
+
+                if ( is_array($array) ) {
+                    foreach ( $array as $key => $value ) {
+
+                        $hidedata["list"]["on"] = "on";
+                        $counter = 0;
+                        $table = "";
+                        $counter++;
+                        $table .= "<tr><th align=\"left\" colspan=\"2\">Veranstalter: ".$key."</th></tr>";
+                        $table .= "<tr><th align=\"left\" width=\"30%\"><b>Datum</b></th><th align=\"left\" width=\"80%\"><b>Beschreibung</b></th><tr>";
+                        foreach ( $value as $test => $test1 ) {
+                            if ( $test1["termin_en"] == "1970-01-01" ) {
+                                $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4);
+                            } else {
+                                $anzeige = substr($test1["termin"],8,2).".".substr($test1["termin"],5,2).".".substr($test1["termin"],0,4)."&nbsp;-&nbsp;".substr($test1["termin_en"],8,2).".".substr($test1["termin_en"],5,2).".".substr($test1["termin_en"],0,4);
+                            }
+                            $table .= "<tr><td align=\"left\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
+                        }
+                        $ausgaben["row"] .= parser( "-1721433623.termine-row", "");
+                    }
+                }
+
+                break;
+            default:
+
+                $hidedata["defaultlist"]["on"] = "on";
+                if ( is_array($work) ) {
+                    $hidedata["headdefaultlist"]["on"] = "on";
+                    foreach ( $work as $key => $value ) {
+                        $today = date('U');
+                        if ( $value["termin_en_org"] == "1970-01-01" ) {
+                            if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+                            $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0]);
+                        } else {
+                            if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+                            $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
+                        }
+                        $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."d</a>";
+                        $dataloop["defaultlist"][$key]["veranstalter"] = $value["veranstalter_org"];
+                    }
+                }
         }
     }
+
     // fehlermeldungen
     if ( $HTTP_GET_VARS["error"] != "" ) {
         if ( $HTTP_GET_VARS["error"] == 1 ) {

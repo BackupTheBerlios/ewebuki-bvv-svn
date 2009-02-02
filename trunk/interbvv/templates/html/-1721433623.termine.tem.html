@@ -16,11 +16,26 @@
         <div id="substance" class="wide">
             !#ausgaben_inhalt
 
-<!-- LIST -->
+<!-- LIST  gruppiert-->
             <!--##hide-list-->
             !#ausgaben_row
             <!--##show-->
-<!-- LIST -->
+<!-- LIST  gruppiert-->
+
+<!-- LIST  default-->
+            <!--##hide-defaultlist-->
+            <table width="100%">
+            <!--##show-->
+            <!--##hide-headdefaultlist-->
+                <tr><th style="width:30%;">Datum</th><th style="width:35%;">Name</th><th style="width:35%;">Veranstalter</th></tr>
+            <!--##show-->
+            <!--##loop-defaultlist-->
+                <tr><td style="width:30%;">!{desc}</td><td style="width:35%;">!{name}</td><td style="width:35%;">!{veranstalter}</td></tr>
+            <!--##cont-->
+            <!--##hide-defaultlist-->
+            </table>
+            <!--##show-->
+<!-- LIST  default-->
 
 <!-- DETAIL -->
             <!--##hide-detail-->
@@ -40,28 +55,7 @@
             !{tet}
             <!--##show-->
 <!-- DETAIL -->
-
-<!-- ADD -->
-            <!--##hide-add-->
-            <form method="post" action="!#ausgaben_form_aktion">
-                <fieldset class="kontakt">
-                    <label for="lang">#(name)</label><input class="medium" type="text" name="NAME" value="!{name}"/><br /><br />
-                    <label for="lang">#(termin_bg)</label><input class="medium" type="text" name="SORT" value="!{termin}"/><br /><br />
-                    <label for="lang">#(termin_en)</label><input class="medium" type="text" name="TERMIN" value="!{termin_en}"/><br /><br />
-                    <label for="lang">#(ort)</label><input class="medium" type="text" name="ORT" value="!{ort}"/><br /><br />
-                    <label for="lang">#(veranstalter)</label><select type="text" name="VERANSTALTER" value="!{veranstalter}">
-                    <option>LVG</option><option>VA</option><option>FM</option></select><br /><br />
-<!--                     <label for="lang">#(beschreibung)</label><input type="text" name="BESCHREIBUNG" value="!{beschreibung}"/><br /><br /> -->
-                    <label for="lang">#(beschreibung)</label><textarea name="BESCHREIBUNG"/>!{beschreibung}</textarea><br /><br />
-                    <input type="hidden" name="wizard" value="!{wizard}"/><br /><br />
-                    <input type="submit" name="send[]"  value="g(send)" class="first" />
-                    <input type="hidden" name="link"  value="!{link}"/>
-                    <input type="hidden" name="kategorie"  value="!{link}"/>
-                </fieldset>
-            </form>
-            <!--##show-->
         </div>
-<!-- ADD -->
         #{margin}
 <!--##end-->
     </body>
