@@ -58,56 +58,6 @@
                             }
                         }
                     );
-                    function move_items(para) {
-                        window.location.href = '!#ausgaben_ajax_request?' + para;
-                        new Effect.Pulsate('img_map',{duration:3.0});
-                    }
-
-                    Event.observe(
-                        'preview_event',
-                        'mouseover',
-                        function() {
-                            $('output').innerHTML = 'hallo welt';
-                            new Effect.BlindDown('hover_preview_frame',{duration:0.3});
-//                             new Effect.Fade(
-//                                 'content_blocks',
-//                                 {
-//                                     duration:0.3,from: 1, to: 0.3
-//                                 }
-//                             );
-                        }
-                    );
-
-                    Event.observe(
-                        'preview_event',
-                        'mouseout',
-                        function() {
-                            $('output').innerHTML = 'ciao welt';
-                            new Effect.BlindUp('hover_preview_frame',{duration:0.3});
-//                             new Effect.Appear(
-//                                 'content_blocks',
-//                                 {
-//                                     duration:0.3
-//                                 }
-//                             );
-                        }
-                    );
-
-
-
-
-
-
-                    function hover_prev(id) {
-                        $('hover_preview').innerHTML = 'blub';
-//                             new Ajax.Updater(
-//                                     'hover_preview',
-//                                     '!#pathvars_requested',
-//                                     {
-//                                         parameters:'ajax_preview=on&block=' + id
-//                                     }
-//                             );
-                    }
                 </script>
 
                 <map name="map_start">

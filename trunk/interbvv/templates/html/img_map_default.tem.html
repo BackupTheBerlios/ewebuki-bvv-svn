@@ -51,37 +51,6 @@
                             }
                         }
                     );
-                    function hover_prev(id,meth) {
-                        if ( meth == 'show' ) {
-                            new Ajax.Updater(
-                                    'hover_preview',
-                                    '!#pathvars_requested',
-                                    {
-                                        parameters:'ajax_preview=on&block=' + id,
-                                        onLoading:function(){
-                                            new Effect.Appear('indicator',{duration:0.3});
-                                        },
-                                        onSuccess:function(){
-                                            new Effect.Appear('hover_preview_frame',{duration:0.3});
-                                            new Effect.Fade(
-                                                'content_blocks',
-                                                {
-                                                    duration:0.3,from: 1, to: 0.3
-                                                }
-                                            );
-                                        }
-                                    }
-                            );
-                        } else {
-                            $('hover_preview_frame').style.display = 'none';
-                            new Effect.Fade(
-                                'content_blocks',
-                                {
-                                    duration:0.3,to: 1
-                                }
-                            );
-                        }
-                    }
                 </script>
 
                 <map name="map_start">
