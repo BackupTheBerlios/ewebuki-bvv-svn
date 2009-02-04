@@ -106,7 +106,7 @@
                 echo "<tr><td style=\"width:20%\">".$regs_value."</td><td style=\"width:80%\">".$regs[2][$key_regs]."<tr>";
             }
         }
-        echo "</table>";
+        echo "</table><br>";
 // echo "</div>";
     } else {
 
