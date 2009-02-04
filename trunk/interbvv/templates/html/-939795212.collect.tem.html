@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>fileed.modify</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--##begin-->
+<!--$Id: -939795212.collect.tem.html 1194 2008-01-17 13:09:43Z chaot $-->
+<form method="POST" action="!#ausgaben_form_aktion" id="eEd">
+
+    <!--##hide-modus-->
+    <h1>!{heading}</h1>
+    <!--##show-->
+    <fieldset id="pics_chosen" style="padding:5px;">
+        <p>#(inhalt)</p>
+    </fieldset>
+
+    <fieldset id="pics_chosen" style="padding:0;min-height:90px;">
+        <legend>ausgewaehlte Bilder</legend>
+        <img src="/images/default/pos.png" style="width:1px;height:96px;float:right;" />
+        <!--##loop-chosen-->
+        <img src="!{src}" id="pic_!{id}" class="sel_item" style="float:left;margin:5px;" />
+        <!--##cont-->
+    </fieldset>
+
+    <fieldset id="pics_available" style="padding:0;">
+        <legend>Bilder-Ablage</legend>
+        <img src="/images/default/pos.png" style="width:1px;height:96px;float:right;" />
+        <!--##loop-clipboard-->
+        <img src="!{src}" id="pic_!{id}" class="sel_item" style="float:left;margin:5px;" />
+        <!--##cont-->
+    </fieldset>
+
+    <fieldset>
+        <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+        <div class="clearer">&nbsp;</div>
+        <input type="submit" name="get_pics[]" value="#(get_pics)" class="first" />
+        <input type="submit" name="send[]" value="g(send)" class="next" />
+        <input type="submit" name="abort[]" value="g(abort)" class="next" />
+        <div class="clearer">&nbsp;</div>
+    </fieldset>
+
+    <div id="output"></div>
+
+</form>
+
+<script type="text/javascript">
+    sections = new Array();
+    sections[0] = 'pics_chosen';
+// <!--#hide-storage-->
+    sections[1] = 'pics_available';
+
+    Sortable.create(
+        'pics_available',
+        {
+            tag:'img',
+                constraint: false,
+            dropOnEmpty: true,
+            containment: sections,
+            only:'sel_item',
+            evalScripts:true,
+            asynchronous:true,
+            onUpdate: function(){
+                new Ajax.Updater(
+                    'output',
+                    '!#ausgaben_form_ajax_aktion',
+                    {
+                        parameters:'ajax=on&compid=!#ausgaben_compid&' + Sortable.serialize('pics_chosen') + '&' + Sortable.serialize('pics_available')
+                    }
+                );
+            }
+        }
+    );
+// <!--#show-->
+
+    Sortable.create(
+        'pics_chosen',
+        {
+            tag:'img',
+                constraint: false,
+            dropOnEmpty: true,
+            containment: sections,
+            only:'sel_item',
+            evalScripts:true,
+            asynchronous:true,
+            onUpdate: function(){
+                new Ajax.Updater(
+                    'output',
+                    '!#ausgaben_form_aktion',
+                    {
+                        parameters:'ajax=on&compid=!#ausgaben_compid&' + Sortable.serialize('pics_chosen') + '&' + Sortable.serialize('pics_available')
+                    }
+                );
+            }
+        }
+    );
+</script>
+<!--##end-->
+</body>
+</html>
