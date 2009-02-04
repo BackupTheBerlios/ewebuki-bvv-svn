@@ -16,8 +16,9 @@
         <p>&nbsp;</p>
         <div class="clearer"></div>
     </div>
-
-    <div id="vorschau" style="display:none;margin-left:155px;padding:10px;width:540px;background:#FFFFFF;float:left;"></div>
+        <div id="vorschau" style="display:none">
+            <div id="substance" style="margin-left:155px;padding:10px;width:540px" !#ausgaben_class></div>
+    </div>
     <div class="clearer"></div>
 
     <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
@@ -349,7 +350,7 @@
 <script type="text/javascript">
     function preview() {
         if ( $('vorschau').style.display == 'none' ) {
-            var update = new Ajax.Updater('vorschau',
+            var update = new Ajax.Updater('substance',
                                         '!#ausgaben_form_aktion',
                                         {
                                             asynchronous:true,
