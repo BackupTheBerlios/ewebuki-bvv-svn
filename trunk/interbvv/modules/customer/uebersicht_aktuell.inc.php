@@ -83,8 +83,8 @@
     // loopen der termine
     $tags = "";
     $tags["termin1"] = "SORT";
-    $tags["titel"] = "NAME";
-    $tags["termin2"] = "TERMIN";
+    $tags["titel"] = "_NAME";
+    $tags["termin2"] = "_TERMIN";
     $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aktuell/termine");
 
     if ( is_array($work_array) ) {
