@@ -212,7 +212,7 @@
                     if ( count($dataloop["presse"]) > 0 ) {
                         $ausgaben["presse"] = "<h2>Aktuelle Pressemitteilungen</h2>";
                     }
-                    $tags["titel"]["tag"] = "NAME";
+                    $tags["titel"]["tag"] = "_NAME";
                     $dataloop["termine"] = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
 
                     $hidedata["termine"] = $hidedata["new"];
@@ -285,12 +285,12 @@
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
     
                 $hidedata["termine_detail"]["in"] = "on";
-                $tags["name"] = "NAME";
-                $tags["veranstalter"] = "VERANSTALTER";
+                $tags["name"] = "_NAME";
+                $tags["veranstalter"] = "_VERANSTALTER";
                 $tags["termin"] = "SORT";
-                $tags["termin_en"] = "TERMIN";
-                $tags["ort"] = "ORT";
-                $tags["beschreibung"] = "BESCHREIBUNG";
+                $tags["termin_en"] = "_TERMIN";
+                $tags["ort"] = "_ORT";
+                $tags["beschreibung"] = "_BESCHREIBUNG";
                 $tags["titel"] = "H1";
                 $all = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
 
@@ -300,7 +300,10 @@
 
                 foreach ( $tags as $key => $value ) {
                     if ( $key == "titel" ) continue;
-                    if ( $all[1][$key."_org"] == "1970-01-01" ) continue;
+                    if ( strstr($key,"termin") ) {
+                        if ( $all[1][$key."_org"] == "1970-01-01" ) continue;
+                        $all[1][$key."_org"] = substr($all[1][$key."_org"],8,2).".".substr($all[1][$key."_org"],5,2).".".substr($all[1][$key."_org"],0,4);
+                    }
                     $dataloop["termine_detail"][$key]["name"] = $all[1][$key."_org"];
                     $dataloop["termine_detail"][$key]["desc"] = "g(termine_".$key.")";
                 }
