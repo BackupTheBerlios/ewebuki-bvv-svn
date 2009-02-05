@@ -98,7 +98,8 @@
         foreach ( $meta_beschriftung as $key => $regs_value) {
             foreach ( $regs[1] as $key_regs => $value_regs ) {
                 if ( $key != $value_regs ) continue;
-                if ( $regs[2][$key_regs] == "1970-01-01" ) continue;
+                if ( $key == "_TERMIN" && $_POST["meta"] && !$_POST["set_end"] ) continue;
+                if ( $key == "_TERMIN" && $regs[2][$key_regs] == "1970-01-01" && !$_POST["meta"] ) continue;
                 if ( $value_regs == "SORT" || $value_regs == "_TERMIN") {
                     $regs[2][$key_regs] = substr($regs[2][$key_regs],8,2).".".substr($regs[2][$key_regs],5,2).".".substr($regs[2][$key_regs],0,4);
                 }
