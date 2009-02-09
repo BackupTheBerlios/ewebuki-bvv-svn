@@ -266,7 +266,7 @@
             <fieldset >
                 !#ausgaben_error
                 <label>#(termin_name)</label>
-                <input type="text" name="_NAME" value="!{_NAME}" /><br />
+                <input id = "tt" type="text" name="_NAME" value="!{_NAME}" onClick="if ($(tt).value=='Neuer Termin'){$(tt).value='';}" /><br />
                 <label>#(termin_veranstalter)</label>
                 <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" /><br />
 
