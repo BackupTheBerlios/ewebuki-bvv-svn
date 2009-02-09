@@ -265,19 +265,19 @@
             <!--##hide-termine-->
             <fieldset >
                 !#ausgaben_error
-                <label>Name</label>
+                <label>#(termin_name)</label>
                 <input type="text" name="_NAME" value="!{_NAME}" /><br />
-                <label>Veranstalter</label>
+                <label>#(termin_veranstalter)</label>
                 <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" /><br />
 
-                <label>Beginn</label><div>!#ausgaben_begin</div>
+                <label>#(termin_begin)</label><div>!#ausgaben_begin</div>
 
-                <label>Ende</label><div>!#ausgaben_ende</div>
-                <label>Endtermin setzen:</label><div><input type="checkbox" name="set_end" value="set_end" !#ausgaben_checked/></div><br />
+                <label>#(termin_end)</label><div>!#ausgaben_ende</div>
+                <label>#(termin_setend)</label><div><input type="checkbox" name="set_end" value="set_end" !#ausgaben_checked/></div><br />
 
-                <label>Ort</label>
+                <label>#(termin_ort)</label>
                 <input type="text" name="_ORT" value="!{_ORT}" /><br />
-                <label>Beschreibung</label>
+                <label>#(termin_desc)</label>
                 <textarea name="_BESCHREIBUNG">!{_BESCHREIBUNG}</textarea><br />
                 <input type="hidden" name="meta" value="on"/>
             </fieldset>
