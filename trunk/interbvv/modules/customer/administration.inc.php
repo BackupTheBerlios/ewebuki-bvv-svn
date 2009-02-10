@@ -94,7 +94,9 @@
                 $result = $db -> query($sql);
                 while ( $data = $db -> fetch_array($result,1) ) {
                     if ( substr($data["tname"],0,8) == "/aemter/" ) {
-                        $sql_amt = "SELECT * FROM db_adrd INNER JOIN db_adrd_kate ON ( cast (adkate as INTEGER )=katid)WHERE adakz='".substr($data["tname"],8,2)."'";
+                        $sql_amt = "SELECT *
+                                      FROM db_aemter
+                                     WHERE adakz='".substr($data["tname"],8,2)."'";
                         $result_amt = $db -> query($sql_amt);
                         $data_amt = $db -> fetch_array($result_amt,1);
                         $halt = -1;
@@ -126,7 +128,9 @@
                     }
                     if ( priv_check($value["kategorie"],"admin;publish;edit") ) {
                         if ( $value["kategorie"] != "/aktuell/archiv" && $value["kategorie"] != "/aktuell/presse" && $value["kategorie"] != "/aktuell/termine") {
-                            $sql_amt = "SELECT * FROM db_adrd INNER JOIN db_adrd_kate ON ( cast (adkate as INTEGER )=katid)WHERE adakz='".substr($value["kategorie"],8,2)."'";
+                            $sql_amt = "SELECT *
+                                          FROM db_aemter
+                                         WHERE adakz='".substr($value["kategorie"],8,2)."'";
                             $result_amt = $db -> query($sql_amt);
                             $data_amt = $db -> fetch_array($result_amt,1);
                             $value["amt"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];

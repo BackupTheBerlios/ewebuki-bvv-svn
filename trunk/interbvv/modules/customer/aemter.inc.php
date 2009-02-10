@@ -47,17 +47,8 @@
 
     if ( $cfg["aemter"]["right"] == "" || $rechte[$cfg["aemter"]["right"]] == -1 ) {
 
-        // page basics
-        // ***
-
-        // +++
-        // page basics
-
-
         // funktions bereich
         // ***
-
-        ### put your code here ###
 
         // amtkennzahl bestimmen
         $arrEbene = explode("/",$environment["ebene"]);
@@ -66,104 +57,93 @@
         // datensatz holen
         $sql = "SELECT *
                   FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
-                  JOIN db_adrd_kate on (cast(adkate as signed)=katid)
-                 WHERE adakz='".$amtid."'";
+                 WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$amtid."'";
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
         $result = $db -> query($sql);
         $form_values = $db -> fetch_array($result,1);
+// echo $cfg["aemter"]["db"]["dst"]["akz"];
+// echo "<pre>".print_r($form_values,true)."</pre>";
+        $akz_array = array($form_values[$cfg["aemter"]["db"]["dst"]["akz"]]);
 
         // ausgabe-marken belegen
+        $felder = array("amt","akz","str","plz","ort","tel","fax","email");
+        foreach ( $felder as $feld ) {
+            $ausgaben[$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
+            $dataloop["stellen"][0][$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
+        }
         $ausgaben["amt"] = "Vermessungsamt ".$form_values["adststelle"];
         $ausgaben["akz"] = $amtid;
-        $ausgaben["str"] = $form_values["adstr"];
-        $ausgaben["plz"] = $form_values["adplz"];
-        $ausgaben["ort"] = $form_values["adort"];
-        $ausgaben["tel"] = $form_values["adtelver"];
-        $ausgaben["fax"] = $form_values["adfax"];
-        $ausgaben["email"] = $form_values["ademail"];
+        $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
+        $dataloop["stellen"][0]["class"] = "selected";
+        $dataloop["stellen"][0]["display"] = "block";
 
         function aussenstellen($id){
-            global $db, $amtid, $environment, $dataloop, $pathvars;
+            global $db, $cfg, $dataloop, $hidedata, $form_values, $environment, $felder, $pathvars, $akz_array;
 
             $sql = "SELECT *
-                      FROM db_adrd
-                      JOIN db_adrd_kate ON (cast(adkate as signed)=katid)
-                     WHERE adid=".$id." AND adkate IN ('3','4','5','8')";
+                      FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                     WHERE ".$cfg["aemter"]["db"]["dst"]["parent"]."=".$id."
+                       AND ".$cfg["aemter"]["db"]["dst"]["kategorie"]." IN ('5','8')
+                  ORDER BY ".$cfg["aemter"]["db"]["dst"]["amt"];
             $result = $db -> query($sql);
-            $data = $db->fetch_array($result,1);
-            $amt  = $data["kat_lang"]." ".$data["adststelle"];
-            $link = $pathvars["virtual"]."/aemter/".$data["adakz"]."/".$environment["kategorie"].".html";
-            $dataloop["ast"][$data["adakz"]] = array(
-                "amt"  => "zum Hauptamt ".$data["adststelle"],
-                "link" => $link
-            );
+            if ( $db->num_rows($result) > 0 ){
+                $buffer = array(); $i = 0;
+                while ( $data = $db->fetch_array($result,1) ){
+                    // welche aussenstellen
+                    $buffer[] = $data[$cfg["aemter"]["db"]["dst"]["amt"]];
+                    $akz_array[] = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
+                    // informationen der einzelnen stellen
+                    $class = ""; $display = "none"; $i++;
+                    if ( $environment["parameter"][1] == $data[$cfg["aemter"]["db"]["dst"]["akz"]] ) {
+                        $class = "selected";
+                        $display = "";
+                        $dataloop["stellen"][0]["class"] = "";
+                        $dataloop["stellen"][0]["display"] = "none";
+                    }
 
-            $sql = "SELECT *
-                      FROM db_adrd
-                        JOIN db_adrd_kate ON (cast(adkate as signed)=katid)
-                       WHERE adparent=".$id." AND adkate IN ('5','8')";
-            $result = $db -> query($sql);
-            while ( $data = $db->fetch_array($result,1) ){
-                $amt  = $data["kat_lang"]." ".$data["adststelle"];
-                $link = $pathvars["virtual"]."/aemter/".$data["adakz"]."/".$environment["kategorie"].".html";
-                $dataloop["ast"][$data["adakz"]] = array(
-                    "amt"  => "zur ".$amt,
-                    "link" => $link
-                );
+                    $dataloop["stellen"][$i] = array(
+                                "akz" => $data[$cfg["aemter"]["db"]["dst"]["akz"]],
+                              "class" => $class,
+                                "src" => $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif",
+                            "display" => $display,
+                    );
+                    // fuer jede stelle die informationen eintragen
+                    foreach ( $felder as $feld ) {
+                        $dataloop["stellen"][$i][$feld] = $data[$cfg["aemter"]["db"]["dst"][$feld]];
+                    }
+                    $dataloop["stellen"][$i]["link_suffix"] = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
+                    $dataloop["stellen"][$i]["display"] = $display;
+                }
+                $hidedata["aussenstelle"]["ast"] = implode(", ",$buffer);
             }
-
-            unset( $dataloop["ast"][$amtid] );
         }
 
         // gibt es einen aussenstelle?
         $sql = "SELECT *
-                  FROM db_adrd
-                  JOIN db_adrd_kate ON (cast(adkate as signed)=katid)
-                 WHERE adparent=".$form_values["adid"]."
-                   AND adkate IN ('5','8')";
+                  FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                 WHERE ".$cfg["aemter"]["db"]["dst"]["parent"]."=".$form_values["adid"]."
+                   AND ".$cfg["aemter"]["db"]["dst"]["kategorie"]." IN ('5','8')";
         $result = $db -> query($sql);
         if ( $db->num_rows($result) > 0 ){
-            $ausgaben["amt"] .= " mit Au&szlig;enstelle";
-            aussenstellen($form_values["adid"]);
-        }else{
-//             echo "Keine Aussenstelle";
+            aussenstellen($form_values[$cfg["aemter"]["db"]["dst"]["key"]]);
         }
+// echo "<pre>".print_r($dataloop["stellen"],true)."</pre>";
 
         // ist das amt eine aussenstelle?
         $sql = "SELECT *
-                  FROM db_adrd WHERE adkate IN ('3','4') AND adid=".$form_values["adparent"];
+                  FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                 WHERE ".$cfg["aemter"]["db"]["dst"]["kategorie"]." IN ('3','4')
+                   AND ".$cfg["aemter"]["db"]["dst"]["key"]."=".$form_values["adparent"];
         $result = $db -> query($sql);
         if ( $db->num_rows($result) > 0 ){
+            // Weiterleitung zum Hauptamt
             $data = $db->fetch_array($result,1);
-            $ausgaben["amt"] = "Vermessungsamt ".$data["adststelle"]." - ".$form_values["kat_lang"]." ".$form_values["adststelle"];
-            aussenstellen($data["adid"]);
+            $header = $pathvars["virtual"]."/aemter/".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."/".$environment["kategorie"].".html";
+            header("Location: ".$header);
         }
 
         // kekse anpassen
         $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/index.html\">".$ausgaben["amt"]."</a>";
-
-        // bild v. amtsgebaeude
-        $extensions = array_keys($cfg["file"]["filetyp"],"img");
-        foreach ( $extensions as $value ) {
-            if ( file_exists(rtrim($pathvars["fileroot"],"/").$pathvars["images"]."aemter/va".$ausgaben["akz"]."_gebaeude.".$value) ) {
-                $hidedata["amtpic"]["src"] = $pathvars["images"]."aemter/va".$ausgaben["akz"]."_gebaeude.".$value;
-                break;
-            }
-        }
-        // wms-aufruf
-        $bbox = array(
-            "lu_x" => $form_values["adrechtswert"] - ($cfg["aemter"]["wms"]["width"]*$cfg["aemter"]["wms"]["m"]/2),
-            "lu_y" => $form_values["adhochwert"] - ($cfg["aemter"]["wms"]["height"]*$cfg["aemter"]["wms"]["m"]/2),
-            "ro_x" => $form_values["adrechtswert"] + ($cfg["aemter"]["wms"]["width"]*$cfg["aemter"]["wms"]["m"]/2),
-            "ro_y" => $form_values["adhochwert"] + ($cfg["aemter"]["wms"]["height"]*$cfg["aemter"]["wms"]["m"]/2),
-        );
-        $hidedata["amtpic"]["scr_bg"] = str_replace(array("##LAYERS##","##BBOX##","##WIDTH##","##HEIGHT##"
-                                                    ),
-                                                    array($cfg["aemter"]["wms"]["layers"],implode(",",$bbox),$cfg["aemter"]["wms"]["width"],$cfg["aemter"]["wms"]["height"]
-                                                    ),
-                                                    $cfg["aemter"]["wms"]["url"]
-                                        );
-        $wms_background = $cfg["aemter"]["wms"]["url"];
 
         $hidedata["sub_menu"][0] = "enable";
         foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
@@ -183,7 +163,8 @@
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 
-                $hidedata["index"][0] = "enable";
+                $hidedata["index"]["heading"] = "#(index)";
+                $hidedata["heading"]["heading"] = "#(index)";
                 unset($hidedata["sub_menu"]);
 
                 if ( $environment["ebene"] == "" ) {
@@ -219,16 +200,7 @@
                     if ( count($dataloop["termine"]) > 0 ) {
                         $ausgaben["termine"] = "<h2>Aktuelle Termine</h2>";
                     }
-
-
                 }
-
-//                 if ( $environment["parameter"][2] != "" ) {
-//                     $hidedata["artikel"][0] = "enable";
-//                 } else {
-//                     $hidedata["index"][0] = "enable";
-//                     unset($hidedata["sub_menu"]);
-//                 }
 
                 break;
             case "artikel":
@@ -238,6 +210,18 @@
                 $tags[] = "";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
+                unset($hidedata["aussenstelle"]);
+                if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
+                    foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
+                        $dataloop["sub_menu"][$key] = array(
+                            "link" => str_replace(".html",",".$match[1].".html",$value[0]),
+                            "label" => $value[1],
+                            "class" => "",
+                        );
+                    }
+                }
+
+
                 $dataloop["edit_lokale_artikel"][]["lokal_edit"] = $pathvars["virtual"]."/wizard/show,".DATABASE.",".eCrc("/aktuell/archiv").".".$environment["parameter"][2].",inhalt,,,none.html";
 
                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
@@ -261,6 +245,16 @@
                 $tags[] = "";
                 $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
+                unset($hidedata["aussenstelle"]);
+                if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
+                    foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
+                        $dataloop["sub_menu"][$key] = array(
+                            "link" => str_replace(".html",",".$match[1].".html",$value[0]),
+                            "label" => $value[1],
+                            "class" => "",
+                        );
+                    }
+                }
                 #$dataloop["edit_lokale_presse"][]["lokal_edit"] = $pathvars["virtual"]."/wizard/show,".DATABASE.",".eCrc("/aktuell/archiv").".".$environment["parameter"][2].",inhalt,,,none.html";
 //
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
@@ -283,8 +277,18 @@
                 $url = $environment["ebene"]."/".$environment["kategorie"];
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-    
+
                 $hidedata["termine_detail"]["in"] = "on";
+                unset($hidedata["aussenstelle"]);
+                if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
+                    foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
+                        $dataloop["sub_menu"][$key] = array(
+                            "link" => str_replace(".html",",".$match[1].".html",$value[0]),
+                            "label" => $value[1],
+                            "class" => "",
+                        );
+                    }
+                }
                 $tags["name"] = "_NAME";
                 $tags["veranstalter"] = "_VERANSTALTER";
                 $tags["termin"] = "SORT";
@@ -317,7 +321,7 @@
                     $dataloop["termine_detail"]["weitere"]["desc"] = "#(more_infos)";
                 }
 
-                if ( $environment["parameter"][2] != "" ) { 
+                if ( $environment["parameter"][2] != "" ) {
                     if ( $cfg["bloged"]["blogs"]["/aktuell/termine"]["right"] == "" || priv_check($url,$cfg["bloged"]["blogs"]["/aktuell/termine"]["right"])  ) {
                         $dataloop["termine_detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC("/aktuell/termine").".".$environment["parameter"][2].",inhalt.html\"> #(add_infos)"."</a>";
                         $dataloop["termine_detail"]["edit"]["desc"] = "Aktionen:";
@@ -330,13 +334,14 @@
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/standort.html\">Standort</a>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
+                $hidedata["heading"]["heading"] = "#(location)";
+
                 for ($i=1;$i<4;$i++){
                     $dataloop["gallery"][] = array(
                         "id"     => $i,
                         "amtakz" => $amtid
                     );
                 }
-                $hidedata["gallery"][0] = "enable";
 
                 $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$form_values["adrechtswert"].
                                                                            "&amp;hw=".$form_values["adhochwert"].
@@ -347,10 +352,10 @@
                 $hidedata["gallery"]["viewer"] = $form_values["adbayernviewer"];
                 $hidedata["gallery"]["viewer"] = $link;
 
-                if ( $environment["parameter"][1] == "print" ) {
-                    $hidedata["gal_print"][] = "enable";
+                if ( $environment["parameter"][2] == "print" ) {
+                    $hidedata["gal_print"]["akz"] = $form_values["adakz"];
                 } else {
-                    $hidedata["gal_sel"][] = "enable";
+                    $hidedata["gal_sel"]["akz"] = $form_values["adakz"];
                 }
 
 
@@ -360,41 +365,47 @@
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/amtsbezirk.html\">Amtsbezirk</a>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
-                $hidedata["bezirk"]["amtakz"] = $amtid;
-                $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde".
-                        " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
-                        " WHERE buort='".$amtid."'".
-                        " ORDER BY gmd.name";
-                $result = $db -> query($sql);
-                $prev = "";
-                while ( $data = $db->fetch_array($result,1) ) {
-                    // gemarkungen
-                    $sql = "SELECT DISTINCT name".
-                            " FROM gmn_gemeinden JOIN gmn_intranet ON (gmn=gmcode)".
-                           " WHERE gemeinde=".$data["gdecode"].
-                        " ORDER BY name";
-// echo "--".$sql;
+                $hidedata["bezirk"] = array();
 
-                    $res_gmkg = $db -> query($sql);
-                    $gmkg = "";
-                    while ( $dat_gmkg = $db->fetch_array($res_gmkg,1) ){
-                        if ( $gmkg != "" ) $gmkg .= ", ";
-                        $gmkg .= $dat_gmkg["name"];
+                $hidedata["heading"]["heading"] = "#(bezirk)";
+
+                foreach ( $akz_array as $key=>$value ) {
+                    $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde".
+                            " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
+                            " WHERE buort='".$value."'".
+                            " ORDER BY gmd.name";
+                    $result = $db -> query($sql);
+                    $prev = ""; $buffer = array();
+                    while ( $data = $db->fetch_array($result,1) ) {
+                        // gemarkungen
+                        $sql = "SELECT DISTINCT name".
+                                " FROM gmn_gemeinden JOIN gmn_intranet ON (gmn=gmcode)".
+                            " WHERE gemeinde=".$data["gdecode"].
+                            " ORDER BY name";
+
+                        $res_gmkg = $db->query($sql);
+                        $gmkg = "";
+                        while ( $dat_gmkg = $db->fetch_array($res_gmkg,1) ){
+                            if ( $gmkg != "" ) $gmkg .= ", ";
+                            $gmkg .= $dat_gmkg["name"];
+                        }
+
+                        $dataloop["gmd"][] = array(
+                            "item" => $data["gemeinde"],
+                            "gmkg" => $gmkg,
+                            "color" => $cfg["aemter"]["color"]["set"]
+                        );
+
+                        $buffer[] = "<tr>
+                                        <td>".$data["gemeinde"]."</td>
+                                        <td>$gmkg</td>
+                                     </tr>";
                     }
-
-                    // tabellen farben wechseln
-                    if ( $cfg["aemter"]["color"]["set"] == $cfg["aemter"]["color"]["a"]) {
-                        $cfg["aemter"]["color"]["set"] = $cfg["aemter"]["color"]["b"];
-                    } else {
-                        $cfg["aemter"]["color"]["set"] = $cfg["aemter"]["color"]["a"];
+                    if ( count($buffer) > 0 ) {
+                        $dataloop["stellen"][$key]["gmkg"] = implode("\n",$buffer);
                     }
-
-                    $dataloop["gmd"][] = array(
-                        "item" => $data["gemeinde"],
-                        "gmkg" => $gmkg,
-                        "color" => $cfg["aemter"]["color"]["set"]
-                    );
                 }
+
                 break;
 
             case "info":
@@ -411,9 +422,71 @@
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/ansprech.html\">Ansprechpartner</a>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
-                $hidedata["ansprech"]["inhalt"] = "#(ansprech_".$amtid.")";
-                if (priv_check("/aemter/".$amtid,"edit") ) {
-                    $hidedata["ansprech"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,ansprech_".$amtid.".html\" class=\"button\">VA".$amtid.": Ansprechpartner</a>";
+                $hidedata["ansprech"] = array();
+
+                $hidedata["heading"]["heading"] = "#(ansprech)";
+
+                $ansprech = array (
+                            "adleiter",
+                            "adstellvertreter",
+                            "ad_ansprech_auskunft",
+                            "ad_ansprech_lika",
+                            "ad_ansprech_koord",
+                            "ad_ansprech_fn",
+                            "ad_ansprech_gebaeude",
+                            "ad_ansprech_gebuehren",
+                            "ad_ansprech_umlegung",
+                );
+                foreach ( $akz_array as $key=>$value ) {
+                    $buffer = array();
+                    foreach ( $ansprech as $function ) {
+                        $sql = "SELECT *
+                                  FROM db_ansprech JOIN db_aemter ON (akz=adakz)
+                                 WHERE akz='".$value."'
+                                   AND function='".$function."'";
+                        $result = $db -> query($sql);
+                        if ( $db->num_rows($result) > 0 ) {
+                            while ( $data = $db->fetch_array($result,1) ) {
+                                $buffer[] = "<tr>
+                                                <td>#(".$function.")</td>
+                                                <td style=\"white-space:nowrap;\">".$data["name"]."</td>
+                                                <td style=\"white-space:nowrap;\">".$data["telefon"]."</td>
+                                                <td align=\"center\">
+                                                    <a href=\"".$data["ademail"]."\" title=\"".$data["ademail"]."\">
+                                                        <img src=\"/images/html/icon_email.jpg\" alt=\"".$data["ademail"]."\" />
+                                                    </a>
+                                                </td>
+                                            </tr>";
+                            }
+                        } else {
+                            $sql = "SELECT *
+                                      FROM db_aemter
+                                     WHERE adakz='".$value."'";
+                            $result = $db -> query($sql);
+                            $data = $db->fetch_array($result,1);
+                            $buffer[] = "<tr>
+                                            <td>#(".$function.")</td>
+                                            <td style=\"white-space:nowrap;\">Servicezentrum</td>
+                                            <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
+                                            <td align=\"center\">
+                                                <a href=\"".$data["ademail"]."\" title=\"".$data["ademail"]."\">
+                                                    <img src=\"/images/html/icon_email.jpg\" alt=\"".$data["ademail"]."\" />
+                                                </a>
+                                            </td>
+                                        </tr>";
+                        }
+                    }
+                    if ( count($buffer) > 0 ) {
+                        $dataloop["stellen"][$key]["ansprech"] = implode("\n",$buffer);
+                    }
+                    // ggf belegschaftsbild
+                    $beleg_img_src = $pathvars["fileroot"]."images/html/aemter/va".$value."_belegschaft.jpg";
+                    if ( file_exists($beleg_img_src) ) {
+                        $beleg_img_web = $pathvars["images"]."aemter/va".$value."_belegschaft.jpg";
+                        $dataloop["stellen"][$key]["beleg_img"] = "<img src=\"".$beleg_img_web."\" alt=\"Belegschaft VA ".$dataloop["stellen"][$key]["amt"]."\" />";
+                    } else {
+                        $dataloop["stellen"][$key]["beleg_img"] = "";
+                    }
                 }
                 break;
 

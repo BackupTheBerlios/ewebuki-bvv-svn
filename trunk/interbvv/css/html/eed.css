@@ -199,6 +199,10 @@ div.clearer {
         width: 200px;
     }
 
+        #eEd fieldset.float .bigger_form label {
+            width: 400px;
+        }
+
     #eEd fieldset.float p {
         clear: none;
         padding-left: 10px;
@@ -208,6 +212,10 @@ div.clearer {
         margin-top: 0;
         width: 200px;
     }
+
+        #eEd fieldset.float .bigger_form input, #eEd fieldset.float .bigger_form textarea, #eEd fieldset.float .bigger_form select {
+            width: 400px;
+        }
 
     #eEd fieldset.float label.small {
         width: 130px;
@@ -224,7 +232,7 @@ div.clearer {
   ----------------------*/
 
     .tabbed {
-        height:3em;
+        height:2em;
         margin-left:9px;
         position:relative;
     }

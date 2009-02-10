@@ -773,8 +773,8 @@ div.autocomplete {
 /* infobox fuer die startseite der aemter */
 /* * * * */
 .amt_info_box {
-    background:#FAFAFA;
-    border:1px solid #CCCCCC;
+    background:#EEF3FB;
+    border:1px solid #A9C0CE;
     float:left;
     padding:5px;
     width:528px;

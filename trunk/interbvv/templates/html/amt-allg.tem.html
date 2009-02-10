@@ -13,14 +13,17 @@
     <body>
 <!--##begin-->
         <div id="substance" class="wide">
-            <h1>!#ausgaben_amt</h1>
-<!--             <h1>Dienststellen der Bayerischen Vermessungsverwaltung</h1> -->
-            <!--##hide-amtpic-->
-<!--             <p class="amt_banner" style="background:url('!{scr_bg}') no-repeat bottom;"> -->
+            <h1>
+                !#ausgaben_amt
+                <!--##hide-aussenstelle-->
+                #(ast)&nbsp;!{ast}
+                <!--##show-->
+            </h1>
             <p class="amt_banner" style="background:url('../../images/html/dienststellen.jpg') no-repeat bottom;">
-                <img src="!{src}" alt="!#ausgaben_amt" title="!#ausgaben_amt" style="" />
+                <!--##loop-stellen-->
+                <img src="!{src}" alt="!{amt}" title="!{amt}" style="display:!{display}" />
+                <!--##cont-->
             </p>
-            <!--##show-->
 
             <!--##hide-sub_menu-->
             <div class="sub_menu" style="display:none;">
@@ -44,140 +47,164 @@
             </p>
             <!--##show-->
 
+            <!--##hide-heading-->
+            <h2>!{heading}</h2>
+            <!--##show-->
+
+            <!--##hide-aussenstelle-->
+            <div class="tabbed">
+                <ul>
+                    <!--##loop-stellen-->
+                    <li><a class="!{class}" href="!#environment_kategorie,!{akz}.html">!{amt}</a></li>
+                    <!--##cont-->
+                </ul>
+            </div>
+            <!--##show-->
+
             <!--##hide-index-->
-            <h2>Informationen</h2>
-            <div class="amt_info_box">
+            <!--##loop-stellen-->
+            <div class="amt_info_box" id="info_!{akz}" style="display:!{display}">
                 <div title="Anschrift">
                     <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
-                    <span>!#ausgaben_str</span>
-                    <span>!#ausgaben_plz !#ausgaben_ort</span>
+                    <span>!{str}</span>
+                    <span>!{plz} !{ort}</span>
                 </div>
                 <div title="Telefon">
                     <img src="../../images/html/icon_telefon.jpg" title="Telefon:" alt="Telefon:" />
-                    <span>!#ausgaben_tel</span>
+                    <span>!{tel}</span>
                 </div>
                 <div class="clear"></div>
                 <div title="&Ouml;ffnungszeiten">
                     <img src="../../images/html/icon_zeit.jpg" title="&Ouml;ffnungszeiten:" alt="&Ouml;ffnungszeiten:" />
-                    <span>Mo. - Do. 8:00 - 16:00 Uhr</span>
+<!--                    <span>Mo. - Do. 8:00 - 16:00 Uhr</span>
                     <span>Fr. 8:00 -12:00 Uhr</span>
-                    <span>und nach Vereinbarung</span>
+                    <span>und nach Vereinbarung</span>-->
+                    <span>
+                        Mo. - Do. 8:00 - 16:00 Uhr<br />
+                        Fr. 8:00 -12:00 Uhr<br />
+                        und nach Vereinbarung
+                    </span>
                 </div>
                 <div title="Fax">
                     <img src="../../images/html/icon_fax.jpg" title="Fax:" alt="Fax:" />
-                    <span>!#ausgaben_fax</span>
+                    <span>!{fax}</span>
                 </div>
                 <div class="clear"></div>
                 <div title="E-Mail">
                     <img src="../../images/html/icon_email.jpg" title="E-Mail:" alt="E-Mail:" />
-                    <span><a href="mailto:!#ausgaben_email">!#ausgaben_email</a></span>
+                    <span><a href="mailto:!#ausgaben_email">!{email}</a></span>
                 </div>
                 <div title="Standort">
                     <img src="../../images/html/icon_lage.jpg" title="Standort:" alt="Standort:" />
-                    <span><a href="standort.html" id="cont01-title">Standortanzeige</a></span>
+                    <span><a href="standort,!{akz}.html" id="cont01-title">#(standort)</a></span>
                 </div>
                 <div class="clear"></div>
                 <div title="Ansprechpartner">
-                    <img src="../../images/html/icon_ansprech.jpg" title="Ansprechpartner:" alt="Ansprechpartner:" />
-                    <span><a href="ansprech.html">Ansprechpartner</a></span>
+                    <img src="../../images/html/icon_ansprech.jpg" title="#(ansprech):" alt="#(ansprech):" />
+                    <span><a href="ansprech,!{akz}.html">#(ansprech)</a></span>
                 </div>
                 <div title="Verbindungen">
-                    <img src="../../images/html/icon_verbindungen.jpg" title="Verbindung suchen:" alt="Verbindung suchen:" />
-                    <span>#(connection)</span>
+                    <img src="../../images/html/icon_verbindungen.jpg" title="#(connection)" alt="#(connection)" />
+                    <span><d href="http://bayerninfo.de/">#(connection)</p></span>
                 </div>
                 <div class="clear"></div>
                 <div title="Amtsbezirk, Amtschronik">
-                    <img src="../../images/html/icon_info.jpg" title="Amtsbezirk, Amtschronik:" alt="Ansprechpartner:" />
-                    <span><a href="amtsbezirk.html">Amtsbezirk</a></span>
-                    <span><a href="amtschronik.html">Amtschronik</a></span>
+                    <img src="../../images/html/icon_info.jpg" title="#(bezirk), #(chronik):" alt="#(bezirk), #(chronik)" />
+                    <span><a href="amtsbezirk,!{akz}.html">#(bezirk)</a></span>
+                    <span><a href="amtschronik,!{akz}.html">#(chronik)</a></span>
                 </div>
                 <div title="Informationen">
-                    <img src="../../images/html/icon_behindert.jpg" title="Information f&uuml;r behinderte Menschen" alt="Information f&uuml;r behinderte Menschen:" />
-                    <span><a href="info.html" id="cont02-title">Informationen f&uuml;r behinderte Menschen</a></span>
+                    <img src="../../images/html/icon_behindert.jpg" title="#(handicap)" alt="#(handicap)" />
+                    <span><a href="info,!{akz}.html" id="cont02-title">#(handicap)</a></span>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="clear"></div>
+            <!--##cont-->
             #(aktuell_heading)
             <!--##show-->
 
             <!--##hide-artikel-->
             <!--##show-->
 
-            <!--##hide-gallery-->
-            #(location)
-            <div class="amt_info_box">
+            <!--##hide-gal_sel-->
+            <!--##loop-stellen-->
+            <div class="amt_info_box" style="display:!{display};">
                 <div title="Anschrift">
                     <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
-                    <span>!#ausgaben_str</span>
-                    <span>!#ausgaben_plz !#ausgaben_ort</span>
+                    <span>!{str}</span>
+                    <span>!{plz} !{ort}</span>
                 </div>
                 <div title="Bayernviewer">
                     <img src="../../images/html/icon_anfahrt.jpg" title="Bayernviewer:" alt="Bayernviewer:" />
                     <span><a href="!{viewer}">Das Vermessungsamt im BayernViewer</a></span>
                 </div>
+                <div class="clear"></div>
+                <a href="../../images/html/aemter/va!{akz}_anfahrt1.gif" title="Anfahrtskizze 1" rel="lightbox[skizze]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('../../images/html/aemter/va!{akz}_anfahrt1.gif') center center no-repeat;">
+                </a>
+                <a href="../../images/html/aemter/va!{akz}_anfahrt2.gif" title="Anfahrtskizze 2" rel="lightbox[skizze]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('../../images/html/aemter/va!{akz}_anfahrt2.gif') center center no-repeat;">
+                </a>
+                <a href="../../images/html/aemter/va!{akz}_anfahrt3.gif" title="Anfahrtskizze 3" rel="lightbox[skizze]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('../../images/html/aemter/va!{akz}_anfahrt3.gif') center center no-repeat;">
+                </a>
+                <div class="clear"></div>
+                <p><a href="standort,!{akz},print.html">Print-Ansicht</a></p>
             </div>
-            <div class="clear"></div>
-            <!--##show-->
-            <!--##hide-gal_sel-->
-            <div class="selection_teaser">
-                <b>Anfahrtskizzen</b>
-                <div>
-                    <ul>
-                        <!--##loop-gallery-->
-                        <li class="thumbs">
-                            <a href="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" title="Anfahrtskizze !{id}" rel="lightbox[skizze]" style="width:96px;height:96px;display:block;background: url('../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif') center center no-repeat;">
-                            </a>
-                        </li>
-                        <!--##cont-->
-                    </ul>
-                </div>
-                <span>g(compilation_info)&nbsp;</span>
-            </div>
-            <a href="standort,print.html">Print-Ansicht</a>
-            <div class="clear"></div>
-            <!--##show-->
-            <!--##hide-gal_print-->
-            <!--##loop-gallery-->
-            <h3>Anfahrtskizze !{id}</h3>
-            <img src="../../images/html/aemter/va!{amtakz}_anfahrt!{id}.gif" alt="Anfahrtskizze !{id}" style="border:1px solid #CCCCCC;padding:2px;" />
             <!--##cont-->
-            <div class="clear"></div>
-            <a href="standort.html">Galerie-Ansicht</a>
+            <!--##show-->
+
+            <!--##hide-gal_print-->
+            <!--##loop-stellen-->
+            <div class="amt_info_box" style="display:!{display};">
+                <div title="Anschrift">
+                    <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
+                    <span>!{str}</span>
+                    <span>!{plz} !{ort}</span>
+                </div>
+                <div title="Bayernviewer">
+                    <img src="../../images/html/icon_anfahrt.jpg" title="Bayernviewer:" alt="Bayernviewer:" />
+                    <span><a href="!{viewer}">Das Vermessungsamt im BayernViewer</a></span>
+                </div>
+                <div class="clear"></div>
+                <h3>Anfahrtskizzen</h3>
+                <img src="../../images/html/aemter/va!{akz}_anfahrt1.gif" alt="Anfahrtskizze 1" style="border:1px solid #CCCCCC;padding:2px;" />
+                <img src="../../images/html/aemter/va!{akz}_anfahrt2.gif" alt="Anfahrtskizze 2" style="border:1px solid #CCCCCC;padding:2px;" />
+                <img src="../../images/html/aemter/va!{akz}_anfahrt2.gif" alt="Anfahrtskizze 3" style="border:1px solid #CCCCCC;padding:2px;" />
+                <div class="clear"></div>
+                <p><a href="standort,!{akz}.html">Galerie-Ansicht</a></p>
+            </div>
+            <!--##cont-->
             <!--##show-->
 
             <!--##hide-bezirk-->
-            <h2>Amtsbezirkskarten</h2>
-            <p>Der Amtsbezirk</p>
-            <ul>
-                <li>
-                    <a href="../../images/html/aemter/va!{amtakz}.pdf">
-                        im pdf-Format
-                    </a>
-                </li>
-                <li>
-                    <a href="../../images/html/aemter/va!{amtakz}_amtsbezirk.gif" rel="lightbox[]" title="Der Amtsbezirk des Vermessungamtes !#ausgaben_amt als &Uuml;bersichtskarte">
-                        als &Uuml;bersichtskarte
-                    </a>
-                </li>
-            </ul>
-            <h2>Gemeinden und Gemarkungen</h2>
-            <table width="100%" summary="&Uuml;bersicht der zum Amt geh&ouml;renden Gemeinden und ihren Gemarkungen">
-                <thead>
-                    <tr style="">
-                        <th>Gemeinde</th>
-                        <th>Gemarkungen</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--##loop-gmd-->
-                    <tr style="background:!{color}">
-                        <td>!{item}</td>
-                        <td>!{gmkg}</td>
-                    </tr>
-                    <!--##cont-->
-                </tbody>
-            </table>
+            <!--##loop-stellen-->
+            <div class="amt_info_box" style="display:!{display};">
+                <h3>Der Amtsbezirk</h3>
+                <ul>
+                    <li>
+                        <a href="../../images/html/aemter/va!{akz}.pdf">
+                            im pdf-Format
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../../images/html/aemter/va!{akz}_amtsbezirk.gif" rel="lightbox[]" title="Der Amtsbezirk des Vermessungamtes !#ausgaben_amt als &Uuml;bersichtskarte">
+                            als &Uuml;bersichtskarte
+                        </a>
+                    </li>
+                </ul>
+                <h3>Gemeinden und Gemarkungen</h3>
+                <table width="100%" summary="&Uuml;bersicht der zum Amt geh&ouml;renden Gemeinden und ihren Gemarkungen">
+                    <thead>
+                        <tr style="">
+                            <th>Gemeinde</th>
+                            <th>Gemarkungen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        !{gmkg}
+                    </tbody>
+                </table>
+            </div>
+            <!--##cont-->
             <!--##show-->
 
             <!--##hide-info-->
@@ -188,6 +215,26 @@
             <!--##show-->
 
             <!--##hide-ansprech-->
+            <!--##loop-stellen-->
+            <div class="amt_info_box" style="display:!{display};">
+                <p>!{beleg_img}</p>
+                <table width="100%" summary="&Uuml;bersicht der zum Amt geh&ouml;renden Gemeinden und ihren Gemarkungen">
+                    <thead>
+                        <tr style="">
+                            <th>Bereich</th>
+                            <th>Partner</th>
+                            <th>Telefon</th>
+                            <th style="white-space:nowrap;">E-mail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        !{ansprech}
+                    </tbody>
+                </table>
+            </div>
+            <!--##cont-->
+
+
             #(ansprech)
             !{inhalt}
             !{wizard}
