@@ -271,10 +271,7 @@
                 <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" /><br />
 
                 <label>#(termin_begin)</label><div>!#ausgaben_begin</div>
-
-                <label>#(termin_end)</label><div>!#ausgaben_ende</div>
-                <label>#(termin_setend)</label><div><input type="checkbox" name="set_end" value="set_end" !#ausgaben_checked/></div><br />
-
+                <label><a onclick="anzeigen('end_termin')">#(termin_end)</a></label><div>!#ausgaben_ende</div>
                 <label>#(termin_ort)</label>
                 <input type="text" name="_ORT" value="!{_ORT}" /><br />
                 <label>#(termin_desc)</label>
@@ -351,6 +348,36 @@
     </form>
 </div>
 <script type="text/javascript">
+
+    function anzeigen(id) {
+        buffer = document.getElementById(id).style.display;
+        val_b = document.getElementById('date1');
+        val_e = document.getElementById('date2');
+        if ( buffer == "none" ) {
+            val_e.value=val_b.value;
+                new Effect.BlindDown(id, {duration: 0.2});
+        } else {
+            val_e.value="01.01.1970";
+            new Effect.BlindUp(id, {duration: 0.0})
+        }
+        return false;
+    }
+
+    Calendar.setup(
+    {
+        inputField  : "date1",         // ID of the input field
+        ifFormat    : "%d.%m.%Y",    // the date format
+        button      : "trigger1"       // ID of the button
+    }
+    );
+    Calendar.setup(
+    {
+        inputField  : "date2",         // ID of the input field
+        ifFormat    : "%d.%m.%Y",    // the date format
+        button      : "trigger2"       // ID of the button
+    }
+    );
+
     function preview() {
         if ( $('vorschau').style.display == 'none' ) {
             var update = new Ajax.Updater('substance',
