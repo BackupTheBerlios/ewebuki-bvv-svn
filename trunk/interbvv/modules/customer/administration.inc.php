@@ -247,7 +247,7 @@
 
         $blacklist = "/aktuell";
         $wizard_menu = sitemap(0, "admin", "wizard",$mod,"");
-        $wizard_menu = preg_replace($preg,"",$wizard_menu);
+     #   $wizard_menu = preg_replace($preg,"",$wizard_menu);
         $ausgaben["display"] = "none";
         $ausgaben["zeichen"] = "pluszeichen.jpg";
         if ( $environment["parameter"][1] >= "0" ) {
