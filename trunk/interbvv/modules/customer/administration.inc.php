@@ -240,11 +240,13 @@
         }
 
         // welche buttons sollen angezeigt werden
-        $mod = array("wizard"=> array("", "Seite editieren", "edit"));
+        $mod = array(
+                    "edit"=> array("", "Seite editieren", "edit"),
+                    "add"=> array("", "Seite add", "add")
+                    );
+
         $blacklist = "/aktuell";
         $wizard_menu = sitemap(0, "admin", "wizard",$mod,"");
-
-        $preg = '/(<ul|<\/ul).*>/i';
         $wizard_menu = preg_replace($preg,"",$wizard_menu);
         $ausgaben["display"] = "none";
         $ausgaben["zeichen"] = "pluszeichen.jpg";
@@ -254,9 +256,8 @@
         }
         $test = explode("<li>",$wizard_menu);
         array_shift($test);
-        $preg = '/<img.*\/img>/i';
-        $preg_link = '/^<a (href)="\/auth\/wizard,([0-9]*),[0-9]*\.html"/ui';
-        $preg_edit = '/^<(a href="\/auth\/wizard,)([0-9]*)/u';
+        $preg = '/<img.*\/img>/Ui';
+        $preg_link = '/^<a (href)="\/auth\/edit,([0-9]*),[0-9]*\.html"/ui';
         $preg_black = '/(href="\/auth\/login,)([0-9]*)\.html"/ui';
         $color = "#FFFFFF";
         preg_match($preg_black,$line,$black);
@@ -275,11 +276,11 @@
                     $make_crc = eCrc(substr(make_ebene($regis[2]),0,strrpos(make_ebene($regis[2]),"/"))).".";
                 }
                 $edit_crc = $make_crc.substr(make_ebene($regis[2]),strrpos(make_ebene($regis[2]),"/")+1);
-                $line = preg_replace($preg,"<span style=\"float: right; text-align: right; display: block;\">Bearbeiten</span>",$line);
                 $line = preg_replace($preg_link,"<a href=/auth/wizard/show,".DATABASE.",".$edit_crc.",inhalt,,,.html",$line);
-                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.2em;\">".$line."</li>";
+                $line = preg_replace("/<a href=\"\/auth\/add,[0-9]*,[0-9]*.html\"/","<a href=/auth/wizard/add,,".$edit_crc.".html",$line);
+                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.5em;\">".$line."</li>";
             } else {
-                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.2em;\">".$line."</li>";
+                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.5em;\">".$line."</li>";
             }
         }
 
