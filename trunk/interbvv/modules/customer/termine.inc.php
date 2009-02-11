@@ -234,7 +234,7 @@
                                 }
                                 $table .= "<tr><td align=\"left\">".$anzeige."</td><td><a href=\"termine,,".$test1["id"].".html\">".$test1["name"]."</a> ".$test1["deletelink"]."</td></tr>";
                             }
-                            $ausgaben["row"] .= parser( "-1721433623.termine-row", "");
+                            $ausgaben["row"] .= parser( "termine_show-row", "");
                         }
                     }
     
@@ -270,7 +270,7 @@
     }
 
     // was anzeigen
-    $mapping["main"] = eCRC($environment["ebene"]).".termine";
+    $mapping["main"] = "termine_show";
     #$mapping["navi"] = "leer";
 
 if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];

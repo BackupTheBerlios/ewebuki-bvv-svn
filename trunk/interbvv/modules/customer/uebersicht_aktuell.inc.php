@@ -78,6 +78,8 @@
     $dataloop["artikel"][1]["teaser_org"] = tagremove($dataloop["artikel"][1]["teaser_org"]);
     $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,3","/aktuell/archiv");
 
+    $hidedata["artikel"]["on"] = "on";
+
     // loopen der pressemitteilungen
     $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4","/aktuell/presse");
 
