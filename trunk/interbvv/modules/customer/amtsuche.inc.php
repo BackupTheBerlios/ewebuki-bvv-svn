@@ -132,8 +132,8 @@
                 $dienststelle = "Vermessungamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
             }
             // bayernviewer-link
-            $bvlink = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$data_amt["adrechtswert"].
-                                                                         "&amp;hw=".$data_amt["adhochwert"].
+            $bvlink = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$data_amt["georef_rw"].
+                                                                         "&amp;hw=".$data_amt["georef_hw"].
                                                                         "&amp;str=".$dienststelle." ".$neben.
                                                                         "&amp;ort=".$data_amt["adstr"].", ".$data_amt["adplz"]." ".$data_amt["adort"];
 

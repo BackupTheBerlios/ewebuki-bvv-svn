@@ -61,16 +61,15 @@
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
         $result = $db -> query($sql);
         $form_values = $db -> fetch_array($result,1);
-// echo $cfg["aemter"]["db"]["dst"]["akz"];
-// echo "<pre>".print_r($form_values,true)."</pre>";
         $akz_array = array($form_values[$cfg["aemter"]["db"]["dst"]["akz"]]);
 
         // ausgabe-marken belegen
-        $felder = array("amt","akz","str","plz","ort","tel","fax","email");
+        $felder = array("amt","akz","str","plz","ort","tel","fax","email","rechtswert","hochwert");
         foreach ( $felder as $feld ) {
             $ausgaben[$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
             $dataloop["stellen"][0][$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
         }
+        $hauptamt = $form_values["adststelle"];
         $ausgaben["amt"] = "Vermessungsamt ".$form_values["adststelle"];
         $ausgaben["akz"] = $amtid;
         $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
@@ -336,15 +335,22 @@
 
                 $hidedata["heading"]["heading"] = "#(location)";
 
-                for ($i=1;$i<4;$i++){
-                    $dataloop["gallery"][] = array(
-                        "id"     => $i,
-                        "amtakz" => $amtid
-                    );
+                foreach ( $akz_array as $key=>$value ) {
+                    $amt = $dataloop["stellen"][$key]["amt"];
+                    if ( $hauptamt != $dataloop["stellen"][$key]["amt"] ) {
+                        $amt = "VA ".$hauptamt."/".$dataloop["stellen"][$key]["amt"];
+                    } else {
+                        $amt = "VA ".$dataloop["stellen"][$key]["amt"];
+                    }
+                    $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$dataloop["stellen"][$key]["rechtswert"].
+                                                                               "&amp;hw=".$dataloop["stellen"][$key]["hochwert"].
+                                                                              "&amp;str=".urlencode(utf8_decode($amt)).
+                                                                              "&amp;ort=".urlencode(utf8_decode($dataloop["stellen"][$key]["str"].", ".$dataloop["stellen"][$key]["plz"]." ".$dataloop["stellen"][$key]["ort"]));
+                    $dataloop["stellen"][$key]["viewer"] = $link;
                 }
 
-                $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$form_values["adrechtswert"].
-                                                                           "&amp;hw=".$form_values["adhochwert"].
+                $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$form_values["georef_rw"].
+                                                                           "&amp;hw=".$form_values["georef_hw"].
                                                                            "&amp;str=".$ausgaben["amt"].
                                                                            "&amp;ort=".$form_values["adstr"].", ".$form_values["adplz"]." ".$form_values["adort"];
 

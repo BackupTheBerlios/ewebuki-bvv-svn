@@ -107,6 +107,7 @@ ins {
     }
 
     #head .clear {
+        clear:both;
         height:0;
         margin:0;
         padding:0;
@@ -509,9 +510,10 @@ ins {
 ----------------------*/
 
 /* keine float-effekte mehr */
-.clear {
+#site .clear {
     clear:both;
     height:0;
+    float:none !important;
 }
 
 .hidden {
