@@ -64,7 +64,7 @@
         $akz_array = array($form_values[$cfg["aemter"]["db"]["dst"]["akz"]]);
 
         // ausgabe-marken belegen
-        $felder = array("amt","akz","str","plz","ort","tel","fax","email","rechtswert","hochwert");
+        $felder = array("amt","akz","str","plz","ort","tel","fax","email","rechtswert","hochwert","oeffnung","behinderte");
         foreach ( $felder as $feld ) {
             $ausgaben[$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
             $dataloop["stellen"][0][$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
@@ -75,6 +75,8 @@
         $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
         $dataloop["stellen"][0]["class"] = "selected";
         $dataloop["stellen"][0]["display"] = "block";
+        $dataloop["stellen"][0]["oeffnung"] = nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"]));
+        $dataloop["stellen"][0]["behinderte"] = nl2br(strip_tags($dataloop["stellen"][0]["behinderte"]));
 
         function aussenstellen($id){
             global $db, $cfg, $dataloop, $hidedata, $form_values, $environment, $felder, $pathvars, $akz_array;
@@ -105,6 +107,8 @@
                               "class" => $class,
                                 "src" => $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif",
                             "display" => $display,
+                           "oeffnung" => $data[$cfg["aemter"]["db"]["dst"]["oeffnung"]],
+                         "behinderte" => $data[$cfg["aemter"]["db"]["dst"]["behinderte"]],
                     );
                     // fuer jede stelle die informationen eintragen
                     foreach ( $felder as $feld ) {
@@ -418,7 +422,14 @@
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/info.html\">Informationen f&uuml;r behinderte Menschen</a>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
-                $hidedata["info"]["inhalt"] = "#(handicap_".$amtid.")";
+                $hidedata["info"] = array();
+
+                $hidedata["heading"]["heading"] = "#(info)";
+
+//                 foreach ( $akz_array as $key=>$value ) {
+//                     $dataloop["stellen"][$key]["behinderte"] = implode("\n",$buffer);
+//                 }
+
                 if ( priv_check("/aemter/".$amtid,"edit") ) {
                     $hidedata["info"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,handicap_".$amtid.".html\" class=\"button\">VA".$amtid.": Informationen bearbeiten</a>";
                 }

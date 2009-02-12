@@ -76,13 +76,8 @@
                 <div class="clear"></div>
                 <div title="&Ouml;ffnungszeiten">
                     <img src="../../images/html/icon_zeit.jpg" title="&Ouml;ffnungszeiten:" alt="&Ouml;ffnungszeiten:" />
-<!--                    <span>Mo. - Do. 8:00 - 16:00 Uhr</span>
-                    <span>Fr. 8:00 -12:00 Uhr</span>
-                    <span>und nach Vereinbarung</span>-->
                     <span>
-                        Mo. - Do. 8:00 - 16:00 Uhr<br />
-                        Fr. 8:00 -12:00 Uhr<br />
-                        und nach Vereinbarung
+                        !{oeffnung}
                     </span>
                 </div>
                 <div title="Fax">
@@ -206,9 +201,11 @@
             <!--##show-->
 
             <!--##hide-info-->
-            #(handicap)
-            !{inhalt}
-            !{wizard}
+            <!--##loop-stellen-->
+            <div class="amt_info_box" style="display:!{display};">
+                !{behinderte}
+            </div>
+            <!--##cont-->
             <div class="clear"></div>
             <!--##show-->
 
