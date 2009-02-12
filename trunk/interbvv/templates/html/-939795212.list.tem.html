@@ -54,14 +54,14 @@
             <div class="clearer"></div>
             <!--##loop-filter_sel-->
             <label class="small">
-                <input type="radio" name="filter_sel" value="!{value}"!{check} />!{label}
+                <input type="radio" class="radiocheck" name="filter_sel" value="!{value}"!{check} />!{label}
             </label>
             <!--##cont-->
             <h2>Datei-Arten</h2>
             <div class="clearer"></div>
             <!--##loop-mimes-->
             <label class="small">
-                <input type="checkbox" name="mimes[!{label}]" value="!{label}" onclick=""!{checked} />!{label}
+                <input type="checkbox" class="radiocheck" name="mimes[!{label}]" value="!{label}" onclick=""!{checked} />!{label}
             </label>
             <!--##cont-->
             <div class="clearer"></div>
@@ -124,7 +124,7 @@
             <li class="thumbs">
                 <a href="!{ehref}" class="pic"><img src="!{src}" alt="!{alt}" title="!{title} g(edit)" /></a>
                 <p>
-                    <input type="checkbox" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} />
+                    <input type="checkbox" class="radiocheck" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} />
                     <a rel="lightbox[!{id}]" href="!{ohref_lb}" title="!{title} - Vorschau Original (original)">O</a>
                     <a rel="lightbox[!{id}]" href="!{bhref_lb}" title="!{title} - Vorschau Gross (big)">B</a>
                     <a rel="lightbox[!{id}]" href="!{mhref_lb}" title="!{title} - Vorschau Mittel (middle)">M</a>
@@ -144,7 +144,7 @@
         <!--##show-->
         <!--##hide-list_plain-->
         <!--##loop-list_other-->
-            <li style="background:!{color};">
+            <li style="background:!{color};" style="clear:both;">
                 !{cb}&nbsp;
                 <a title="!{title} bearbeiten" href="!{ehref}">
                     <img src="../../images/default/details.png" alt="g(details)" />
@@ -157,8 +157,8 @@
         <!--##show-->
         <!--##hide-list_ajax-->
         <!--##loop-list_other-->
-            <li style="background:!{color};">
-                <input type="checkbox" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} />&nbsp;
+            <li style="background:!{color};" style="clear:both;">
+                <input type="checkbox" class="radiocheck" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} />&nbsp;
                 <a title="!{title} bearbeiten" href="!{ehref}">
                     !{title}
                 </a> [ <a title="Herunterladen (download)" href="!{dhref}">D</a> ]
@@ -188,7 +188,7 @@
         <!--##hide-list_details_ajax-->
         <!--##loop-list_files-->
                 <tr style="background:#EFEFEF;">
-                    <td><input type="checkbox" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} /></td>
+                    <td><input type="checkbox" class="radiocheck" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} /></td>
                     <td>!{id}</td>
                     <td>!{title}</td>
                     <td style="width:5%;">
@@ -232,7 +232,7 @@
                 <a href="!{ehref}" class="pic"><img src="!{thumb_src}" alt="!{alt}" title="!{title} g(edit)" /></a>
         <div style="clear:both"></div>
                 <p>
-                    <input type="checkbox" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} />
+                    <input type="checkbox" class="radiocheck" name="sel_pics[!{id}]" value="-1" onclick="session_update(!{id});"!{checked} />
                     !{aktion}
                 </p>
             </li>

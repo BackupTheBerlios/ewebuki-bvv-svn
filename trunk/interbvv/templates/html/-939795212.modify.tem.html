@@ -42,18 +42,20 @@
         <p>!#ausgaben_form_error</p>
         <fieldset class="float">
             <!--##hide-preview_img-->
-            <a title="alle Ansichten" href="!{path}!{id}/s/" rel="lightbox[]" style="float:right;margin:5px 10px 10px 0;padding:5px 5px 20px 5px;border:1px solid #A9C0CE;background:#FFFFFF url('/images/default/filefind.png') no-repeat right bottom;">
-                <img src="!{path}!{id}/s/" alt="" style="float:right;" />
-            </a>
-            <a title="Vorschau mittel (middle)" href="!{path}!{id}/m/" rel="lightbox[]" style="display:none;float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;">
-                <img src="!{path}!{id}/m/" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
-            </a>
-            <a title="Vorschau gro&szlig; (big)" href="!{path}!{id}/b/" rel="lightbox[]" style="display:none;float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;">
-                <img src="!{path}!{id}/b/" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
-            </a>
-            <a title="Vorschau Original (original)" href="!{path}!{id}/o/" rel="lightbox[]" style="display:none;float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;">
-                <img src="!{path}!{id}/o/" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
-            </a>
+            <div style="float:right;padding:2px;margin:5px;border:1px solid #A9C0CE;">
+                <a title="alle Ansichten" href="!{path}!{id}/s/" rel="lightbox[]" style="background:#FFFFFF url('/images/default/filefind.png') no-repeat right bottom;padding-bottom:18px;display:block;">
+                    <img src="!{path}!{id}/s/" alt="" />
+                </a>
+                <a title="Vorschau mittel (middle)" href="!{path}!{id}/m/" rel="lightbox[]" style="display:none;">
+                    <img src="!{path}!{id}/m/" alt="" />
+                </a>
+                <a title="Vorschau gro&szlig; (big)" href="!{path}!{id}/b/" rel="lightbox[]" style="display:none;">
+                    <img src="!{path}!{id}/b/" alt="" />
+                </a>
+                <a title="Vorschau Original (original)" href="!{path}!{id}/o/" rel="lightbox[]" style="display:none;">
+                    <img src="!{path}!{id}/o/" alt="" />
+                </a>
+            </div>
             <!--##show-->
             <!--##hide-preview_def-->
             <img src="!{file}" alt="" style="float:right;margin:5px 10px 10px 0;padding:5px;border:1px solid #A9C0CE;background:#FFFFFF;" />
@@ -127,7 +129,7 @@
             </ul>
         </fieldset>
         <fieldset class="">
-            <input type="checkbox" name="selection" value="-1" class="first" /><span style="display:block;padding:5px 0 0 10px">#(bundle_zip)</span>
+            <input type="checkbox" class="radiocheck" name="selection" value="-1" class="first" /><span style="display:block;padding:5px 0 0 10px">#(bundle_zip)</span>
         </fieldset>
         #(zip_stdval)
         <fieldset class="float">

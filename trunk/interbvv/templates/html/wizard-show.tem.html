@@ -121,7 +121,7 @@
 
         <!--##hide-blocked-->
         <div class="box">
-            <input type="checkbox" name="release_mark" value="-1" checked="true" disabled="true" />#(blocked_release)
+            <input type="checkbox" class="radiocheck" name="release_mark" value="-1" checked="true" disabled="true" />#(blocked_release)
             <div class="clearer"></div>
         </div>
         <!--##show-->
@@ -203,53 +203,5 @@
     }
 </script>
 <!--##end-->
-
-    <fieldset>
-        <legend>#(add_block)</legend>
-        <!--##loop-add_buttons-->
-            <a href="!{link}" class="button">!{item}</a>
-        <!--##cont-->
-        <div class="clearer"></div>
-    </fieldset>
-
-    <!--##hide-default-->
-    <fieldset class="buttons">
-        <form method="post" action="!#ausgaben_form_aktion">
-            <button type="button" onclick="preview();" class="button">g(preview)</button>
-            <button type="submit" name="send[]" value="save" class="button">g(save)</button>
-            <button type="submit" name="send[]" value="version" class="button">g(version)</button>
-            <button type="submit" name="send[]" value="cancel" class="button">g(abort)</button>
-        </form>
-    </fieldset>
-    <!--##show-->
-
-    <!--##hide-edit-->
-    <fieldset class="buttons">
-        <form method="post" action="!#ausgaben_form_aktion">
-            <button type="button" onclick="preview();" class="button">g(preview)</button>
-            <button type="submit" name="send[]" value="version" class="button">g(save)</button>
-            <button type="submit" name="send[]" value="cancel" class="button">g(abort)</button><br />
-            <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(ask_release)</label>
-        </form>
-    </fieldset>
-    <!--##show-->
-
-    <!--##hide-publish-->
-    <fieldset class="buttons">
-        <form method="post" action="!#ausgaben_form_aktion">
-            <button type="button" onclick="preview();" class="button">g(preview)</button>
-            <button type="submit" name="send[]" value="save" class="button">g(save)</button>
-            <button type="submit" name="send[]" value="version" class="button">g(version)</button>
-            <button type="submit" name="send[]" value="cancel" class="button">g(abort)</button>
-            <label class="cbra"><input type="checkbox" name="release_mark" value="-1" class="button" />#(release)</label>
-        </form>
-    </fieldset>
-    <!--##show-->
-
-    <!--##hide-blocked-->
-    <fieldset>
-        <input type="checkbox" name="release_mark" value="-1" checked="true" disabled="true" />#(blocked_release)
-    </fieldset>
-    <!--##show-->
 </body>
 </html>

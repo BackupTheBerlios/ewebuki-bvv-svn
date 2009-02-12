@@ -457,11 +457,6 @@
                                                 <td>#(".$function.")</td>
                                                 <td style=\"white-space:nowrap;\">".$data["name"]."</td>
                                                 <td style=\"white-space:nowrap;\">".$data["telefon"]."</td>
-                                                <td align=\"center\">
-                                                    <a href=\"".$data["ademail"]."\" title=\"".$data["ademail"]."\">
-                                                        <img src=\"/images/html/icon_email.jpg\" alt=\"".$data["ademail"]."\" />
-                                                    </a>
-                                                </td>
                                             </tr>";
                             }
                         } else {
@@ -474,11 +469,6 @@
                                             <td>#(".$function.")</td>
                                             <td style=\"white-space:nowrap;\">Servicezentrum</td>
                                             <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
-                                            <td align=\"center\">
-                                                <a href=\"".$data["ademail"]."\" title=\"".$data["ademail"]."\">
-                                                    <img src=\"/images/html/icon_email.jpg\" alt=\"".$data["ademail"]."\" />
-                                                </a>
-                                            </td>
                                         </tr>";
                         }
                     }

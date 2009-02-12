@@ -45,7 +45,7 @@
             <ul style="float:left;">
             <!--##loop-imgmulti-->
                 <li style="margin:5px 0 10px 10px;clear:both;float:left;" >
-                    <input type="radio" value="!{src}" name="tagwerte[0]"!{checked} />
+                    <input type="radio" class="radiocheck" value="!{src}" name="tagwerte[0]"!{checked} />
                     <img src="!{src}" alt="Preview" style="float:left;margin:0 10px;" />
                     <div style="float:left;">
                         <b>Unterschrift</b><br />
@@ -77,7 +77,7 @@
                     <legend>#(size)</legend>
                     <!--##loop-show-->
                     <label class="cbra">
-                        <input type="radio" name="pic_size" value="!{value}"!{check} />!{label}
+                        <input type="radio" class="radiocheck" name="pic_size" value="!{value}"!{check} />!{label}
                     </label>
                     <!--##cont-->
                 </fieldset>
@@ -86,7 +86,7 @@
                     <legend>#(align)</legend>
                     <!--##loop-align-->
                     <label class="cbra">
-                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
+                        <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />!{label}
                     </label>
                     <!--##cont-->
                 </fieldset>
@@ -95,7 +95,7 @@
                     <legend>#(detail_size)</legend>
                     <!--##loop-size-->
                     <label class="cbra">
-                        <input type="radio" name="tagwerte[3]" value="!{value}"!{check} />!{label}
+                        <input type="radio" class="radiocheck" name="tagwerte[3]" value="!{value}"!{check} />!{label}
                     </label>
                     <!--##cont-->
                 </fieldset>
@@ -166,7 +166,7 @@
                     <legend>#(detail_size)</legend>
                     <!--##loop-size-->
                     <label class="cbra">
-                        <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
+                        <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />!{label}
                     </label>
                     <!--##cont-->
                 </fieldset>
@@ -174,10 +174,10 @@
                 <fieldset >
                     <legend>#(attributes)</legend>
                     <label class="cbra">
-                        <input type="checkbox" name="tagwerte[2]" value="TRUE"!{check_thumb} />#(show_thumbs)
+                        <input type="checkbox" class="radiocheck" name="tagwerte[2]" value="TRUE"!{check_thumb} />#(show_thumbs)
                     </label>
                     <label class="cbra">
-                        <input type="checkbox" name="tagwerte[4]" value="l"!{check_lbox} />#(lightbox)
+                        <input type="checkbox" class="radiocheck" name="tagwerte[4]" value="l"!{check_lbox} />#(lightbox)
                     </label>
                 </fieldset>
             </fieldset>
@@ -195,7 +195,7 @@
                             </span>
                         </a>
                         <p>
-                            <input type="checkbox" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
+                            <input type="checkbox" class="radiocheck" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
                         </p>
                     </li>
                     <!--##cont-->
@@ -228,7 +228,7 @@
                 <ul style="float:left;">
                     <!--##loop-fileed-->
                     <li style="clear:both;">
-                        <input type="radio" value="!{link}" name="tagwerte_memo"!{sel} /> &nbsp;!{label}
+                        <input type="radio" class="radiocheck" value="!{link}" name="tagwerte_memo"!{sel} /> &nbsp;!{label}
                     </li>
                     <!--##cont-->
                 </ul>
@@ -242,7 +242,7 @@
                 <legend>#(target)</legend>
                 <!--##loop-target-->
                 <label class="cbra">
-                    <input type="radio" name="tagwerte[1]" value="!{value}"!{check} />!{label}
+                    <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />!{label}
                 </label>
                 <!--##cont-->
             </fieldset>

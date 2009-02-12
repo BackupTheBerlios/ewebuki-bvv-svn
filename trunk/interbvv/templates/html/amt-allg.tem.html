@@ -92,7 +92,7 @@
                 <div class="clear"></div>
                 <div title="E-Mail">
                     <img src="../../images/html/icon_email.jpg" title="E-Mail:" alt="E-Mail:" />
-                    <span><a href="mailto:!#ausgaben_email">!{email}</a></span>
+                    <span><a href="mailto:!{email}">!{email}</a></span>
                 </div>
                 <div title="Standort">
                     <img src="../../images/html/icon_lage.jpg" title="Standort:" alt="Standort:" />
@@ -120,7 +120,6 @@
             </div>
             <div class="clear"></div>
             <!--##cont-->
-            #(aktuell_heading)
             <!--##show-->
 
             <!--##hide-artikel-->
@@ -220,21 +219,26 @@
                 <table width="100%" summary="&Uuml;bersicht der zum Amt geh&ouml;renden Gemeinden und ihren Gemarkungen">
                     <thead>
                         <tr style="">
-                            <th>Bereich</th>
-                            <th>Partner</th>
-                            <th>Telefon</th>
-                            <th style="white-space:nowrap;">E-mail</th>
+                            <th style="width:33%;">Bereich</th>
+                            <th style="width:33%;">Partner</th>
+                            <th style="width:33%;">Telefon</th>
                         </tr>
                     </thead>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" valign="middle" style="padding:3px;">
+                                <a href="mailto:!{email}">
+                                    <img src="/images/html/icon_email.jpg" alt="E-Mail: !{email}" style="vertical-align:middle;" /> #(email_contact)!{email}
+                                </a>
+                            </td>
+                        </tr>
+                    </tfoot>
                     <tbody>
                         !{ansprech}
                     </tbody>
                 </table>
             </div>
             <!--##cont-->
-
-
-            #(ansprech)
             !{inhalt}
             !{wizard}
             <div class="clear"></div>

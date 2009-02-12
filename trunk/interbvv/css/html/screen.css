@@ -4,7 +4,7 @@
 
 body{
     color:#303030;
-    font:76% Verdana,Tahoma,Arial,sans-serif;
+    font:76% Verdana,Arial,sans-serif;
     line-height:1.3em;
     margin:0;
 }
@@ -69,7 +69,7 @@ hr {
     height:1px;
 }
 p {
-    margin:0.5em 0;
+    margin:5px 0;
 }
 ul, ol{
 /*     list-style:none; */
@@ -306,6 +306,7 @@ ins {
 
     #substance ul, #substance ol {
         list-style-image:url('/images/html/li-dash.png');
+        margin-left:0;
         width:380px;
     }
 
@@ -590,9 +591,12 @@ p.teaser{
     background:#fff;
     border:1px solid #8F8F8F;
     margin:2px 2px;
+/*     width:146px; */
 }
 
     .schnellsuche input{
+        border:1px solid silver;
+/*         margin:0; */
         border:0px solid #FFFFFF;
         float:left;
 /*         font-size:0.9em; */
@@ -600,9 +604,9 @@ p.teaser{
     }
 
     .schnellsuche button {
-        border:0px solid #FFFFFF;
+        border:1px solid #EEEEEE;
         cursor:pointer;
-        float:right;
+/*         float:right; */
 /*         height:1.2em; */
         margin:0;
         padding:0;
@@ -929,76 +933,57 @@ input.medium, select.medium {
     }
 /* + + + */
 
-.cloud, .cloud_pages {
-    border:1px solid #CCCCCC;
-    margin:4px 0 6px;
-    padding:3px;
-}
-
-    .cloud ul, ul.cloud {
-        list-style:none !important;
-        width:auto !important;
+    .cloud {
+/*         text-align:justify; */
     }
 
-    .cloud legend, .cloud_pages legend {
-        background:#FFFFFF;
-        padding:0 10px;
-        -moz-border-radius:5px;
-    }
-
-    .cloud li {
-        border:2px solid #CCCCCC !important;
-        float:left;
-        margin:2px 4px !important;
-    }
-
-        .cloud li a {
+        .cloud a {
             cursor:pointer;
             line-height:1.5em;
-            padding:0 4px;
+/*             display:block; */
+            font-weight:normal !important;
+            padding:0 3px;
             text-decoration:none;
         }
 
-        .cloud li.selected {
-            background:#EEEEEE;
-            border:2px solid #2C5A93 !important;
+        .cloud a:hover, .cloud .selected {
+            background:#2C5A93;
+            color:#FFFFFF;
+            text-decoration:none;
         }
 
-        .cloud li.tag0 a {
-            color:#BBBBBB !important;
+        .cloud a.tag0 {
+            font-size:0.8em;
+/*             color:#BBBBBB !important; */
         }
 
-        .cloud li.tag1 a {
-            color:#888888 !important;
+        .cloud a.tag1 {
+            font-size:1em;
+/*             color:#888888 !important; */
         }
 
-        .cloud li.tag2 a {
-            color:#444444 !important;
+        .cloud a.tag2 {
+            font-size:1.2em;
+/*             color:#444444 !important; */
         }
 
-        .cloud li.tag3 a {
-            color:#333333 !important;
+        .cloud a.tag3 {
+            font-size:1.4em;
+/*             color:#333333 !important; */
             font-weight:bold;
         }
 
-.cloud_pages {
-}
+        .cloud a.tag4 {
+            font-size:1.6em;
+/*             color:#333333 !important; */
+            font-weight:bold;
+        }
 
-    .cloud_pages li {
-        background:#EEEEEE;
-        margin-bottom:5px;
-        padding:0 5px;
-    }
-
-    .cloud_pages a {
-        text-decoration:none;
-    }
-
-    .cloud_pages li p {
-        font-size:0.8em;
-        clear:both;
-        margin:0 !important;
-    }
+        .cloud a.tag5 {
+            font-size:1.8em;
+/*             color:#333333 !important; */
+/*             font-weight:bold; */
+        }
 
 /* administrationsbereich */
 /* * * * */
