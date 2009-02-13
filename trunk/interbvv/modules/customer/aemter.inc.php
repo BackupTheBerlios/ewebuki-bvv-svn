@@ -160,6 +160,7 @@
         $ausgaben["artikel"] = "";
         $ausgaben["presse"] = "";
         $ausgaben["termine"] = "";
+        $ausgaben["neuigkeiten"] = "";
         switch ($environment["parameter"][0]) {
             // startseite
             case "index":
@@ -187,22 +188,27 @@
                     $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
                     $hidedata["artikel"] = $hidedata["new"];
                     if ( count($dataloop["artikel"]) > 0 ) {
-                        $ausgaben["artikel"] = "<h2>Aktuelle Artikel</h2>";
+                        $ausgaben["artikel"] = "<b>Meldungen</b>";
                     }
 
 
                     $dataloop["presse"] = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
                     $hidedata["presse"] = $hidedata["new"];
                     if ( count($dataloop["presse"]) > 0 ) {
-                        $ausgaben["presse"] = "<h2>Aktuelle Pressemitteilungen</h2>";
+                        $ausgaben["presse"] = "<b>Pressemitteilungen</b>";
                     }
                     $tags["titel"]["tag"] = "_NAME";
                     $dataloop["termine"] = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
 
                     $hidedata["termine"] = $hidedata["new"];
                     if ( count($dataloop["termine"]) > 0 ) {
-                        $ausgaben["termine"] = "<h2>Aktuelle Termine</h2>";
+                        $ausgaben["termine"] = "<b>Termine</b>";
                     }
+
+                    if ( count($dataloop["termine"]) > 0 || count($dataloop["presse"]) > 0 || count($dataloop["artikel"]) > 0 ) {
+                        $ausgaben["neuigkeiten"] = "<h2>Aktuell</h2>";
+                    }
+
                 }
 
                 break;
