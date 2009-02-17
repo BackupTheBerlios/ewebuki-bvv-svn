@@ -12,28 +12,77 @@
 
 <!--##begin-->
 <div id="substance">
-    <form id="qsearch" method="post" action="!#pathvars_virtual/suche.html">
-        <fieldset class="kontakt">
-            <label>Suchbegriff</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
-            <input style="float:left;width:5em" type="submit" tabindex="20" value="Suche" name="send[]"/>
-            <div class="clear"/>
-        <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
-            <div class="clear"/>
-    <!--##loop-site_switch-->
-            <input style="float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="page"/>
-    <!--##cont-->
-
-        </fieldset>
-    </form>
-    !#ausgaben_result
-    <!--##loop-treffer-->
-    <div class="">
-        <u><a href="!{0}">!{1}</a></u>
-        <p>!{2}</p>
+    <div class="tabbed">
+        <ul>
+            <li><a class="!#ausgaben_search_sel" href="suche.html">#(search)</a><a class="!#ausgaben_esearch_sel" href="suche,esearch.html">#(esearch)</a></li>
+        </ul> 
     </div>
-    <!--##cont-->
+    <div class="amt_info_box" >
+        <form id="qsearch" method="post" action="!#pathvars_virtual/!#ausgaben_aktion">
+            <fieldset class="kontakt">
+
+                <!--##hide-search-->
+                <label>Suchbegriff</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
+                <input style="float:left;width:5em" type="submit" tabindex="20" value="Suche" name="send[]"/>
+                <div class="clear"/>
+                <!--##show-->
+
+                <!--##hide-esearch-->
+                <label>Suchbegriff</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
+                <label>menupunkt</label>
+                <select name="restrict">
+                    <option value="">Gesamt</option>
+                    <!--##loop-restrict-->
+                    <option value="!{entry}">!{label}</option>
+                    <!--##cont-->
+                    </select>
+                <input style="float:left;width:5em" type="submit" tabindex="20" value="Suche" name="send[]"/>
+                <div class="clear"/>
+                <!--##show-->
+
+                <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
+                <div class="clear"/>
+
+            </fieldset>
+            <ul id="hits_site"  style="width:520px;!#ausgaben_displaysite">
+                <!--##loop-site_switch-->
+                <input style="padding:0px;border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="spage"/>
+                <!--##cont-->
+                <br /><br /><li style="list-style:none">!#ausgaben_result<br /></li>
+                <li style="list-style:none;!#ausgaben_datresult"><a onclick="anzeigen('hits_files')" >Dateien</a><br /></li>
+
+                <!--##loop-treffer-->
+                <li><a href="!{0}">!{1}</a><br />!{2}</li>
+                <!--##cont-->
+            </ul>
+
+            <ul id="hits_files" style="width:500px;!#ausgaben_displayfile">
+                <!--##loop-files_site_switch-->
+                <input style="border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="fpage"/>
+                <!--##cont-->
+                <br /><br /><li style="list-style:none">!#ausgaben_filesresult<br /></li>
+                <li style="list-style:none"><a onclick="anzeigen('hits_files')" >Webseite</a><br /></li>
+                <!--##loop-files_treffer-->
+                <li><a href="!{0}">!{1}</a><br />!{2}</li>
+                <!--##cont-->
+            </ul>
+        </form>
+    </div>
 </div>
 #{margin}
+<script type="text/javascript">
+    function anzeigen(id) {
+        buffer = document.getElementById(id).style.display;
+        if ( buffer == "none" ) {
+            new Effect.BlindDown(id, {duration: 0.7});
+            new Effect.BlindUp('hits_site', {duration: 0.7});
+        } else {
+            new Effect.BlindUp(id, {duration: 0.7})
+            new Effect.BlindDown('hits_site', {duration: 0.7});
+        }
+        return false;
+    }
+</script>
 <!--##end-->
     </body>
 </html>
