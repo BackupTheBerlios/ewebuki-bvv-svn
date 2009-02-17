@@ -117,7 +117,7 @@
         if ( $_POST["fpage"] != "" ) $page_org = $_POST["fpage"]+1;
         $page = "&page=".$page_org;
     }
-    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=http://devel2/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
+    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=http://".$environment["fqdn"][0]."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
 
     while ( $line = fgets($fp,1000) ){
         $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
@@ -132,7 +132,7 @@
     }
 
     $i = 0;
-    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=http://devel2/file/&".$_POST["restrict"]."&method=any&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
+    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=http://".$environment["fqdn"][0]."/file/&".$_POST["restrict"]."&method=any&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
     while ( $line = fgets($fp1,1000) ){
         $i++;
         $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
