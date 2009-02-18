@@ -96,6 +96,8 @@
     if ( is_array($cfg["suche"]["alien_index"][$fqdn]) ) {
         $network_adress = $cfg["suche"]["alien_index"][$fqdn][1];
     }
+    $index = $network_adress;
+    if ( $cfg["suche"]["index_build"] != "" ) $index=$cfg["suche"]["index_build"];
 
     $suchanfrage = urlencode(utf8_decode($_POST["words"]));
 
@@ -117,7 +119,7 @@
         if ( $_POST["fpage"] != "" ) $page_org = $_POST["fpage"]+1;
         $page = "&page=".$page_org;
     }
-    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=101.47/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
+    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
 
     while ( $line = fgets($fp,1000) ){
         $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
@@ -132,7 +134,7 @@
     }
 
     $i = 0;
-    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=101.47/file/&".$_POST["restrict"]."&method=any&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
+    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=".$index."/file/&".$_POST["restrict"]."&method=any&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
     while ( $line = fgets($fp1,1000) ){
         $i++;
         $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
