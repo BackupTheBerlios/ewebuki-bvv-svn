@@ -102,9 +102,9 @@
     $suchanfrage = urlencode(utf8_decode($_POST["words"]));
 
     $suchanfrage2 = preg_replace("/%F6/","oe",$suchanfrage);
-    $suchanfrage2 = preg_replace("/%DF/","ss",$suchanfrage);
-    $suchanfrage2 = preg_replace("/%FC/","ue",$suchanfrage);
-    $suchanfrage2 = preg_replace("/%E4/","ae",$suchanfrage);
+    $suchanfrage2 = preg_replace("/%DF/","ss",$suchanfrage2);
+    $suchanfrage2 = preg_replace("/%FC/","ue",$suchanfrage2);
+    $suchanfrage2 = preg_replace("/%E4/","ae",$suchanfrage2);
 
 
     if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
