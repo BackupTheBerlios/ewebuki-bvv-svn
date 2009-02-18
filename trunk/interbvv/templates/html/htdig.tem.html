@@ -45,11 +45,14 @@
 
             </fieldset>
             <ul id="hits_site"  style="width:520px;!#ausgaben_displaysite">
+                <li style="list-style:none;!#ausgaben_datresult"><a onclick="anzeigen('hits_files')" >Dateien (!#ausgaben_fileshits Treffer)</a><br /></li> 
+                <li style="list-style:none;"><br />
                 <!--##loop-site_switch-->
-                <input style="padding:0px;border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="spage"/>
+                <input style="background:#EEF3FB;border:1px solid #A9C0CE;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="spage">
                 <!--##cont-->
+                </li>
                 <br /><br /><li style="list-style:none">!#ausgaben_result<br /></li>
-                <li style="list-style:none;!#ausgaben_datresult"><a onclick="anzeigen('hits_files')" >Dateien</a><br /></li>
+
 
                 <!--##loop-treffer-->
                 <li><a href="!{0}">!{1}</a><br />!{2}</li>
@@ -57,11 +60,13 @@
             </ul>
 
             <ul id="hits_files" style="width:500px;!#ausgaben_displayfile">
+                <li style="list-style:none"><a onclick="anzeigen('hits_files')" >Webseite (!#ausgaben_sitehits Treffer)</a><br /></li>
+                
                 <!--##loop-files_site_switch-->
-                <input style="border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="fpage"/>
+                <input style="background:#EEF3FB;border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="fpage"/>
                 <!--##cont-->
                 <br /><br /><li style="list-style:none">!#ausgaben_filesresult<br /></li>
-                <li style="list-style:none"><a onclick="anzeigen('hits_files')" >Webseite</a><br /></li>
+
                 <!--##loop-files_treffer-->
                 <li><a href="!{0}">!{1}</a><br />!{2}</li>
                 <!--##cont-->
