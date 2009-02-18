@@ -63,7 +63,7 @@
                     ON (".$cfg["rss"]["db"]["menu"]["entries"].".".$cfg["rss"]["db"]["menu"]["key"]."=".$cfg["rss"]["db"]["lang"]["entries"].".".$cfg["rss"]["db"]["menu"]["key"].")
                  WHERE  ".$cfg["rss"]["db"]["menu"]["ref"]."=".$refid."
                    AND  ".$cfg["rss"]["db"]["lang"]["lang"]."='".$environment["language"]."'
-                   AND (".$cfg["rss"]["db"]["menu"]["hide"]."=0
+                   AND (".$cfg["rss"]["db"]["menu"]["hide"]."='0'
                     OR  ".$cfg["rss"]["db"]["menu"]["hide"]." IS NULL)";
         $result = $db -> query($sql);
         while ( $data = $db -> fetch_array($result,1) ) {
@@ -100,10 +100,14 @@
                 $title = $match[1];
             }
             if ( $label != "" ) $title = $label.": ".$title;
-            $title = utf8_encode($title);
+            if ( $cfg["rss"]["utf_encoding"] == -1 ) $title = utf8_encode($title);
 
             // link
-            $link = $pathvars["webroot"].$data["ebene"]."/".$data["kategorie"].".html";
+            if ( $cfg["rss"]["webroot"] != "" ) {
+                $link = $cfg["rss"]["webroot"].$data["ebene"]."/".$data["kategorie"].".html";
+            } else {
+                $link = $pathvars["webroot"].$data["ebene"]."/".$data["kategorie"].".html";
+            }
 
             // teaser
             $teaser = "";
@@ -111,7 +115,7 @@
             if ( count($match) > 1 ) {
                 $teaser = tagremove($match[1]);
             }
-            $teaser = utf8_encode($teaser);
+            if ( $cfg["rss"]["utf_encoding"] == -1 ) $teaser = utf8_encode($teaser);
 
             // pubDate. RFC2822-formatierte Datum
             $pubDate = date("r",

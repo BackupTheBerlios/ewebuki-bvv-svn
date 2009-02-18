@@ -75,7 +75,7 @@
         $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
         $dataloop["stellen"][0]["class"] = "selected";
         $dataloop["stellen"][0]["display"] = "block";
-        $dataloop["stellen"][0]["oeffnung"] = nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"]));
+        $dataloop["stellen"][0]["oeffnung"] = preg_replace(array("/(\n|\r)/","/(<br \/>){2,}/"),array("","<br />"),nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"])));
         $dataloop["stellen"][0]["behinderte"] = nl2br(strip_tags($dataloop["stellen"][0]["behinderte"]));
 
         function aussenstellen($id){
