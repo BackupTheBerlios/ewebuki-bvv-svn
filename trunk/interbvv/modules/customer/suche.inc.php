@@ -102,6 +102,9 @@
     $suchanfrage = urlencode(utf8_decode($_POST["words"]));
 
     $suchanfrage2 = preg_replace("/%F6/","oe",$suchanfrage);
+    $suchanfrage2 = preg_replace("/%DF/","ss",$suchanfrage);
+    $suchanfrage2 = preg_replace("/%FC/","ue",$suchanfrage);
+    $suchanfrage2 = preg_replace("/%E4/","ae",$suchanfrage);
 
 
     if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
@@ -114,12 +117,13 @@
     }
 
     $page = "";
-    if ( $_POST["spage"] != "" || $_POST["fpage"] != "" ) {
-        $page_org = $_POST["spage"]+1;
-        if ( $_POST["fpage"] != "" ) $page_org = $_POST["fpage"]+1;
-        $page = "&page=".$page_org;
-    }
-    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
+
+    $page_org_site = $_POST["spage"];
+    $page_org_files = $_POST["fpage"];
+    $pages = "&page=".$page_org_site;
+    $pagef = "&page=".$page_org_files;
+
+    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pages,"r");
 
     while ( $line = fgets($fp,1000) ){
         $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
@@ -134,7 +138,7 @@
     }
 
     $i = 0;
-    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=".$index."/file/&".$_POST["restrict"]."&method=any&config=".$cfg["suche"]["config"].$matchesperpage.$page,"r");
+    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=".$index."/file/&".$_POST["restrict"]."&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pagef,"r");
     while ( $line = fgets($fp1,1000) ){
         $i++;
         $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
@@ -148,22 +152,23 @@
             $dataloop["files_treffer"][] = explode("##",$line);
         }
     }
+    $ausgaben["sitehits"] = "0";
+    $ausgaben["fileshits"] = "0";
+    if ( $dataloop["files_treffer"][0][5]) $ausgaben["fileshits"] = $dataloop["files_treffer"][0][5];
+    if ( $dataloop["treffer"][0][5] ) $ausgaben["sitehits"] = $dataloop["treffer"][0][5];
 
     if ( $i > 0 && $environment["parameter"][1] == "") $ausgaben["datresult"] = "";
-
-    if ( $page_org == 0 ) $page_org = 1;
-    $page_org = $page_org-1;
 
     // anzeige der trefferanzahl
     $site_count = floor($dataloop["treffer"][0][5] / $hits_per_site);
     if ( !$dataloop["treffer"][0][5] ) {
-        $ausgaben["result"] = "Keine Treffer f&uuml;r: ".$suchanfrage;
+        $ausgaben["result"] = "Keine Treffer f&uuml;r: ".$_POST["words"];
     } elseif ( $dataloop["treffer"][0][5] == 1 ) {
         $ausgaben["result"] = "Ein Treffer";
     } else {
-        $begin = $page_org*$hits_per_site+1;
+        $begin = $page_org_site*$hits_per_site+1;
         if ( $site_count > 0 ) {
-            $end = $page_org*$hits_per_site+$hits_per_site;
+            $end = $page_org_site*$hits_per_site+$hits_per_site;
             if ( $end > $dataloop["treffer"][0][5] ) $end = $dataloop["treffer"][0][5];
         } else {
             $end = $dataloop["treffer"][0][5];
@@ -175,13 +180,13 @@
     // anzeige der trefferanzahl
     $site_count_files = floor($dataloop["files_treffer"][0][5] / $hits_per_site);
     if ( !$dataloop["files_treffer"][0][5] ) {
-        $ausgaben["filesresult"] = "Keine Treffer f&uuml;r: ".$suchanfrage;
+        $ausgaben["filesresult"] = "Keine Treffer f&uuml;r: ".$_POST["words"];
     } elseif ( $dataloop["files_treffer"][0][5] == 1 ) {
         $ausgaben["filesresult"] = "Ein Treffer";
     } else {
-        $begin = $page_org*$hits_per_site+1;
+        $begin = $page_org_files*$hits_per_site+1;
         if ( $site_count > 0 ) {
-            $end = $page_org*$hits_per_site+$hits_per_site;
+            $end = $page_org_files*$hits_per_site+$hits_per_site;
             if ( $end > $dataloop["files_treffer"][0][5] ) $end = $dataloop["files_treffer"][0][5];
         } else {
             $end = $dataloop["files_treffer"][0][5];
@@ -192,28 +197,26 @@
 
     // buffy-umschalter
     if ( $site_count > 0 ) {
-        $dataloop["site_switch"][0]["site"] = 0;
-        $counter = 0;
-        while ( $counter < $site_count ) {
+        $dataloop["site_switch"][0]["site"] = 1;
+        $counter = 1;
+        while ( $counter <= $site_count ) {
            // bei 20 seiten ist schluss
             if ( $counter == 20 ) break;
             $counter++;
             $dataloop["site_switch"][$counter]["site"] = $counter;
         }
-        $dataloop["site_switch"][0]["site"] = 0;
     }
 
     // buffy-umschalter
     if ( $site_count_files > 0 ) {
-        $dataloop["files_site_switch"][0]["site"] = 0;
-        $counter = 0;
+        $dataloop["files_site_switch"][0]["site"] = 1;
+        $counter = 1;
         while ( $counter < $site_count_files ) {
            // bei 20 seiten ist schluss
             if ( $counter == 20 ) break;
             $counter++;
             $dataloop["files_site_switch"][$counter]["site"] = $counter;
         }
-        $dataloop["files_site_switch"][0]["site"] = 0;
     }
 
     // warnung ausgeben
