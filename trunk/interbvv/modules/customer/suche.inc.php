@@ -66,7 +66,7 @@
         $ausgaben["displaysite"] = " display:none";
         $ausgaben["displayfile"] = " display:none";
     }
-
+echo $_POST["restrict"];
 
     if ( $environment["parameter"][1] ) {
         $ausgaben["aktion"] = "suche,esearch.html";
@@ -78,6 +78,11 @@
         $sql_restrict = "SELECT * FROM site_menu INNER JOIN site_menu_lang ON (site_menu.mid=site_menu_lang.mlid)WHERE refid='0' AND ( hide is Null or hide = '0' ) ORDER by sort";
         $result_restrict = $db -> query($sql_restrict);
         while ( $data = $db -> fetch_array($result_restrict) ){
+            if ( $data["entry"] == $_POST["restrict"] ) {
+                $dataloop["restrict"][$data["entry"]]["selected"] = "selected";
+            } else {
+                $dataloop["restrict"][$data["entry"]]["selected"] = "";
+            }
             $dataloop["restrict"][$data["entry"]]["entry"] = $data["entry"];
             $dataloop["restrict"][$data["entry"]]["label"] = $data["label"];
         }

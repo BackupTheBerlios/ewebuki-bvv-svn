@@ -33,7 +33,7 @@
                 <select name="restrict">
                     <option value="">Gesamt</option>
                     <!--##loop-restrict-->
-                    <option value="!{entry}">!{label}</option>
+                    <option value="!{entry}" !{selected}>!{label}</option>
                     <!--##cont-->
                     </select>
                 <input style="float:left;width:5em" type="submit" tabindex="20" value="Suche" name="send[]"/>
@@ -45,7 +45,7 @@
 
             </fieldset>
             <ul id="hits_site"  style="width:520px;!#ausgaben_displaysite">
-                <li style="list-style:none;"><hr /></li>
+                <li style="list-style:none;!#ausgaben_datresult"><hr /></li>
                 <li style="list-style:none;!#ausgaben_datresult"><a onclick="anzeigen('hits_files')" >Ergebnisse in den Dateien (!#ausgaben_fileshits Treffer)</a><br /></li> 
                 <li style="list-style:none;"><hr /></li>
                 <li style="list-style:none;"><div class="clear"></div></li>
