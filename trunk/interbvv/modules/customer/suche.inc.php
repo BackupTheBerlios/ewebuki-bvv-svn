@@ -53,6 +53,9 @@
     $ausgaben["displaysite"] = "";
     $ausgaben["displayfile"] = " display:none";
     $ausgaben["datresult"] = " display:none";
+    $ausgaben["10"] = "";
+    $ausgaben["25"] = "";
+    $ausgaben["50"] = "";
 
     if ( $_POST["fpage"] ) {
         $ausgaben["displaysite"] = " display:none";
