@@ -93,6 +93,9 @@
                    AND status=1";
         $result = $db -> query($sql);
         while ( $data = $db -> fetch_array($result,1) ) {
+            // kategorieueberpruefung fuer amts-artikel
+            preg_match("#\[KATEGORIE\](.*)\[/KATEGORIE\]#U",$data["content"],$match);
+            if ( $match[1] != "" && !strstr($environment["ebene"],$match[1]) ) continue;
             // titel
             $title = "---";
             preg_match("/\[H[0-9]{1}\](.+)\[\/H/U",$data["content"],$match);
@@ -167,7 +170,7 @@
     if ( $cfg["rss"]["max_items"] != "" ) $dataloop["items"] = array_slice($dataloop["items"], 0, $cfg["rss"]["max_items"]);
 
     // was anzeigen
-    header("Content-type: application/rss+xml");
+//     header("Content-type: application/rss+xml");
     $HTTP_POST_VARS["print"][2] = "rss";
     #$mapping["navi"] = "leer";
 
