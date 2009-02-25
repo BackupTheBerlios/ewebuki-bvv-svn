@@ -117,6 +117,8 @@
         // marginalspalten-bearbeitung
         if ( priv_check("/global","publish") ) {
             $hidedata["marginal"] = array();
+            $hidedata["marginal"]["url"] = "/auth/wizard/show,devel0,global,marginal,,,.html";
+            $hidedata["marginal"]["url"] = $pathvars["virtual"]."/wizard/show,".$db->getDb().",global,marginal.html";
         }
 
         // einzelne bereiche durchgehen (artikel, termine, ...)
