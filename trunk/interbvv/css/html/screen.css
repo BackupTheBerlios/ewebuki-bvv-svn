@@ -882,6 +882,7 @@ input.medium, select.medium {
 #margin .box {
     padding:0 3px;
     text-align:left;
+    overflow:hidden;
 }
 
     #margin .box img {
@@ -892,6 +893,10 @@ input.medium, select.medium {
     #margin .box h2, #margin .box h3, #margin .box p {
         padding-left:0;
         padding-right:0;
+    }
+
+    #margin .box a {
+        font-weight:bold;
     }
 
     .wizard .box {
