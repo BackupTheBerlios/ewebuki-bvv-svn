@@ -879,23 +879,23 @@ input.medium, select.medium {
 /*     -moz-border-radius-topright:20px; */
 }
 
-#margin .box {
+#margin .add .box {
     padding:0 3px;
     text-align:left;
     overflow:hidden;
 }
 
-    #margin .box img {
+    #margin .add .box img {
         display:block;
         margin:0 auto;
     }
 
-    #margin .box h2, #margin .box h3, #margin .box p {
+    #margin .add .box h2, #margin .add .box h3, #margin .add .box p {
         padding-left:0;
         padding-right:0;
     }
 
-    #margin .box a {
+    #margin .add .box a {
         font-weight:bold;
     }
 
