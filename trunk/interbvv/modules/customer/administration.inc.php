@@ -114,6 +114,11 @@
         }
         // lokale redakteure erkennen
 
+        // marginalspalten-bearbeitung
+        if ( priv_check("/global","publish") ) {
+            $hidedata["marginal"] = array();
+        }
+
         // einzelne bereiche durchgehen (artikel, termine, ...)
         foreach ( $cfg["admin"]["specials"] as $url=>$bereich ) {
             // dataloop holen

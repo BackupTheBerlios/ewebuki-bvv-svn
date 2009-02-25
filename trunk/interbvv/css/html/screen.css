@@ -590,7 +590,7 @@ p.teaser{
 .schnellsuche{
     background:#fff;
     border:1px solid #8F8F8F;
-    margin:2px 2px;
+    margin:2px 0;
 /*     width:146px; */
 }
 
@@ -939,7 +939,7 @@ input.medium, select.medium {
         margin:3px;
     }
 
-.search {
+#margin .search {
     background:#2C5A93;
 }
 
