@@ -153,6 +153,7 @@
 !#ausgaben_inaccessible
 
 <script type="text/javascript">
+//     <!--##hide-sort_content-->
     Sortable.create("content_blocks",
         {only: 'ajax_move',
             onUpdate:function(){
@@ -168,6 +169,7 @@
             }
         }
     );
+//     <!--##show-->
 
     Event.observe('vorhang_cancel','click',buttonCancel);
     Event.observe('vorhang_preview','click',preview);
