@@ -512,6 +512,16 @@
                     $hidedata["amtschronik"]["wizard"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,interbvv,amt-allg,amtschronik_".$amtid.".html\" class=\"button\">VA".$amtid.": Amtschronik</a>";
                 }
                 break;
+            case "kontakt":
+                $hidedata["heading"]["heading"] = "#(kontakt)";
+                $environment["ebene"] = "/service";
+                $environment["kategorie"] = "kontakt";
+                include $pathvars["moduleroot"]."addon/kontakt.cfg.php";
+                $cfg["kontakt"]["basis"] = "kontakt";
+                include $pathvars["moduleroot"]."addon/kontakt.inc.php";
+                $hidedata["kontakt"]["inhalt"] = "on"; 
+                $ausgaben["kontakt"] = parser("aemter-kontakt","");
+                break;
         }
 
         // +++

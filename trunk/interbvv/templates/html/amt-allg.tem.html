@@ -87,7 +87,7 @@
                 <div class="clear"></div>
                 <div title="E-Mail">
                     <img src="../../images/html/icon_email.jpg" title="E-Mail:" alt="E-Mail:" />
-                    <span><a href="mailto:!{email}">!{email}</a></span>
+                    <span><a href="kontakt,!{akz}.html">Kontakt</a></span>
                 </div>
                 <div title="Standort">
                     <img src="../../images/html/icon_lage.jpg" title="Standort:" alt="Standort:" />
@@ -221,15 +221,6 @@
                             <th style="width:33%;">Telefon</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3" valign="middle" style="padding:3px;">
-                                <a href="mailto:!{email}">
-                                    <img src="/images/html/icon_email.jpg" alt="E-Mail: !{email}" style="vertical-align:middle;" /> #(email_contact)!{email}
-                                </a>
-                            </td>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         !{ansprech}
                     </tbody>
@@ -286,7 +277,11 @@
             <div class="clearer"></div>
             !{out}
             <!--##show-->
-
+            <!--##hide-kontakt-->
+            <div class="amt_info_box" style="display:!{display};">
+                !#ausgaben_kontakt
+            </div>
+            <!--##show-->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
