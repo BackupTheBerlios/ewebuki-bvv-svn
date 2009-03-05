@@ -35,8 +35,14 @@
     #{image_map}
 
     <div style="float:left;background:#FFFFFF;margin:0 7px;">
-        <div id="vorschau" style="display:none;padding-right:10px;">
-            <div id="substance" !#ausgaben_class></div>
+<!--         <div id="vorhang" style="display:none;"></div> -->
+        <div id="vorschau_container" style="display:none;">
+            <div id="vorschau">
+                <div id="substance" !#ausgaben_class></div>
+            </div>
+            <div id="preview_close">
+                <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
+            </div>
         </div>
 
         <!--##hide-no_sort_content-->
@@ -77,7 +83,10 @@
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
 <!--                 <button type="submit" name="save[]" value="save" class="button">g(save)</button> -->
                 <button type="submit" name="version[]" value="version" class="button">g(version)</button>
-                <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button>
+                <div id="cancel">
+                    <p>blab, blib, blub</p>
+                    <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button>
+                </div>
                 <div class="clearer"></div>
             </form>
         </div>
@@ -106,7 +115,14 @@
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:119px;">g(preview)</button>
                 <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(save)</button>
-                <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button>
+                <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button>
+                <div id="cancel" style="display:none;">
+                    #(confirm_cancel)
+                    <p >
+                        <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;">g(yes)</button>
+                        <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                    </p>
+                </div>
                 <div class="clearer"></div>
             </form>
         </div>
@@ -130,6 +146,8 @@
     <div class="clearer"></div>
 
 </div>
+<div id="vorhang_cancel" style="display:none;"></div>
+<div id="vorhang_preview" style="display:none;"></div>
 
 !#ausgaben_output
 !#ausgaben_inaccessible
@@ -147,48 +165,80 @@
                         }
                     }
                 );
-//                 new Ajax.Updater(
-//                     'test',
-//                     '!#ausgaben_ajax_request?' + Sortable.serialize("content_blocks")
-//                 );
             }
         }
     );
+
+    Event.observe('vorhang_cancel','click',buttonCancel);
+    Event.observe('vorhang_preview','click',preview);
+
+    var dauer = 0.5;
+    var deckkraft = 0.8;
+
+//     <!--##hide-ajax_scroll-->
+    Event.observe(window,'load',ajax_scroll);
+    function ajax_scroll() {
+        if ( $('!{section}') ) {
+            Effect.ScrollTo(
+                '!{section}',{offset:-20}
+            );
+            Effect.Pulsate('!{section}');
+        }
+    }
+//     <!--##show-->
+
+    function buttonCancel() {
+        if ( $('cancel').style.display == 'none' ) {
+            // fenstergroesse bestimmen (funktion ist in lightbox.js)
+            var arrayPageSize = getPageSize();
+            // box zentrieren
+            var pos_x = (window.innerWidth - $('cancel').getWidth()) / 2;
+            var pos_y = (window.innerHeight - $('cancel').getHeight()) / 3;
+            $('cancel').style.left = pos_x + 'px';
+            $('cancel').style.top = pos_y + 'px';
+            // "vorhang" einblenden
+            $('vorhang_cancel').style.width = arrayPageSize[0] + 'px';
+            $('vorhang_cancel').style.height = arrayPageSize[1] + 'px';
+            new Effect.Appear('vorhang_cancel', { duration: dauer, from: 0.0, to: deckkraft });
+            new Effect.Appear('cancel');
+        } else {
+            // nach oben scrollen und box und "vorhang" ausblenden
+            new Effect.ScrollTo('head', { duration: dauer});
+            new Effect.Fade('cancel');
+            new Effect.Fade('vorhang_cancel', { duration: dauer});
+        }
+    }
+
     function preview() {
-        if ( $('vorschau').style.display == 'none' ) {
+        if ( $('vorschau_container').style.display == 'none' ) {
             var update = new Ajax.Updater('substance',
                                         '!#ausgaben_form_aktion',
                                         {
                                             asynchronous:true,
                                             parameters: 'ajax=on&save=on',
                                             onSuccess:function(){
-                                                $('button_preview').style.background = '#FF9148';
-                                                new Effect.Parallel(
-                                                    [
-                                                        new Effect.BlindDown('vorschau'),
-//                                                         <!--##hide-no_sort_content-->
-                                                        new Effect.BlindUp('no_sort_content'),
-//                                                         <!--##show-->
-                                                        new Effect.BlindUp('content_blocks')
-                                                    ]
-                                                );
+                                                // fenstergroesse bestimmen (funktion ist in lightbox.js)
+                                                var arrayPageSize = getPageSize();
+                                                // vorschau zentrieren
+                                                var pos_x = (window.innerWidth - $('vorschau_container').getWidth()) / 2;
+                                                $('vorschau_container').style.left = pos_x + 'px';
+                                                // "vorhang" und vorschau einblenden
+                                                $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
+                                                $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
+                                                new Effect.Appear('vorhang_preview', { duration: dauer, from: 0.0, to: deckkraft });
+                                                new Effect.Appear('vorschau_container',{duration:0.5});
                                             }
                                         }
             );
             return false;
         } else {
-            $('button_preview').style.background = '#EEEEEE';
-            new Effect.Parallel(
-                [
-                    new Effect.BlindUp('vorschau'),
-//                     <!--##hide-no_sort_content-->
-                    new Effect.BlindDown('no_sort_content'),
-//                     <!--##show-->
-                    new Effect.BlindDown('content_blocks')
-                ]
-            );
+            // nach oben scrollen und box und "vorhang" ausblenden
+            new Effect.ScrollTo('head', { duration: dauer});
+            new Effect.Fade('vorhang_preview',{duration:0.5});
+            new Effect.Fade('vorschau_container',{duration:dauer});
         }
     }
+
     function anzeigen(id) {
         show = document.getElementById(id).style.display;
         f="ls_"+id;

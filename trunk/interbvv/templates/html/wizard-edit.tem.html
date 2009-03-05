@@ -16,8 +16,16 @@
         <p>&nbsp;</p>
         <div class="clearer"></div>
     </div>
-        <div id="vorschau" style="display:none">
+<!--    <div id="vorschau" style="display:none">
             <div id="substance" style="margin-left:155px;padding:10px;width:540px" !#ausgaben_class></div>
+    </div>-->
+    <div id="vorschau_container" style="display:none;">
+        <div id="vorschau">
+            <div id="substance" !#ausgaben_class></div>
+        </div>
+        <div id="preview_close">
+            <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
+        </div>
     </div>
     <div class="clearer"></div>
 
@@ -347,6 +355,7 @@
 
     </form>
 </div>
+<div id="vorhang_preview" style="display:none;"></div>
 <script type="text/javascript">
 
     function anzeigen(id) {
@@ -362,7 +371,7 @@
         }
         return false;
     }
-<!--##hide-terminecal-->
+// <!--##hide-terminecal-->
     Calendar.setup(
     {
         inputField  : "date1",         // ID of the input field
@@ -377,36 +386,37 @@
         button      : "trigger2"       // ID of the button
     }
     );
-<!--##show-->
+// <!--##show-->
+    var dauer = 0.5;
+    var deckkraft = 0.8;
+    Event.observe('vorhang_preview','click',preview);
     function preview() {
-        if ( $('vorschau').style.display == 'none' ) {
+        if ( $('vorschau_container').style.display == 'none' ) {
             var update = new Ajax.Updater('substance',
                                         '!#ausgaben_form_aktion',
                                         {
                                             asynchronous:true,
                                             parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
                                             onSuccess:function(){
-                                                $('button_preview').style.background = '#FF9148';
-                                                new Effect.ScrollTo('head');
-                                                new Effect.Parallel(
-                                                    [
-                                                        new Effect.BlindDown('vorschau'),
-                                                        new Effect.BlindUp('wiz_ed')
-                                                    ]
-                                                );
+                                                // fenstergroesse bestimmen (funktion ist in lightbox.js)
+                                                var arrayPageSize = getPageSize();
+                                                // vorschau zentrieren
+                                                var pos_x = (window.innerWidth - $('vorschau_container').getWidth()) / 2;
+                                                $('vorschau_container').style.left = pos_x + 'px';
+                                                // "vorhang" und vorschau einblenden
+                                                $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
+                                                $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
+                                                new Effect.Appear('vorhang_preview', { duration: dauer, from: 0.0, to: deckkraft });
+                                                new Effect.Appear('vorschau_container',{duration:0.5});
                                             }
                                         }
             );
             return false;
         } else {
-            $('button_preview').style.background = '#EEEEEE';
-            new Effect.ScrollTo('head');
-            new Effect.Parallel(
-                [
-                    new Effect.BlindUp('vorschau'),
-                    new Effect.BlindDown('wiz_ed')
-                ]
-            );
+            // nach oben scrollen und box und "vorhang" ausblenden
+            new Effect.ScrollTo('head', { duration: dauer});
+            new Effect.Fade('vorhang_preview',{duration:0.5});
+            new Effect.Fade('vorschau_container',{duration:dauer});
         }
     }
 </script>

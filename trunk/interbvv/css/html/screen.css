@@ -683,7 +683,7 @@ p.teaser{
             margin:0.2em 0;
         }
 
-            #substance .viewer .pic p img. #substance .viewer .pic_wide p img {
+            #substance .viewer .pic p img, #substance .viewer .pic_wide p img {
                 vertical-align:middle;
             }
 

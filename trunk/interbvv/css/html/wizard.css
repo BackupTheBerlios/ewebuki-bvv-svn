@@ -262,6 +262,47 @@ a img{
             width:540px;
         }
 
+#vorhang_preview, #vorhang_cancel {
+    background:#000000;
+    position:absolute;
+    left:0;
+    top:0;
+    opacity:0.5;
+    z-index:90;
+}
+
+#vorschau {
+    float:left;
+    padding-right:10px;
+}
+
+#vorschau_container{
+    background:#FFFFFF;
+    position:relative;
+    position:absolute;
+    z-index:100;
+}
+
+#preview_close {
+    border-top:3px solid #CCCCCC;
+    clear:both;
+    background:#FFFFFF;
+    text-align:right;
+}
+
+#cancel {
+    background:#FFF3CF;
+    border:3px solid #FFCF3F;
+    padding:7px;
+    position:fixed;
+    left:25px;
+    text-align:center;
+    top:50px;
+    width:250px;
+    z-index:100;
+    -moz-border-radius:7px;
+}
+
 
 /* The main calendar widget.  DIV containing a table. */
 
