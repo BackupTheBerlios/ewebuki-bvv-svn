@@ -9,46 +9,21 @@
 <body>
 <!--##begin-->
 <!--$Id: -939795212.modify.tem.html 1481 2008-11-20 14:10:34Z krompi $-->
-<script type="text/javascript">
-<!--
-  function resetForm(){
-     document.forms[0].reset();
-  }
-//-->
-    function anzeigen(id) {
-        if ( typeof(id) == 'string' ) {
-            var element = [id];
-        } else {
-            element = id;
-        }
-        for (i=0; i<element.length; i++) {
-            if ( $(element[i]) ) {
-                show = $(element[i]).style.display;
-                if ( show == 'none' ) {
-                    new Effect.BlindDown(element[i], {duration: 0.3});
-                } else {
-                    new Effect.BlindUp(element[i], {duration: 0.3})
-                }
-            }
-        }
-        return false;
-    }
-</script>
 <form method="post" action="!#ausgaben_form_aktion" id="eEd" enctype="multipart/form-data">
     <h1>#(ueberschrift)</h1>
     #(inhalt)
     <fieldset>
         <h2>!#ausgaben_title</h2>
         <label style="clear:left;">#(keyword)
-            <input id="keywords" type="text" value="!#ausgaben_keywords" name="keywords" onkeyup="update_tags(this)" tabindex="1" style="width:750px;" />
+            <input id="keywords_box" type="text" value="!#ausgaben_keywords" name="keywords" onkeyup="update_tags(this)" tabindex="1" style="width:750px;" />
         </label>
         <div id="autocomplete_choices" class="autocomplete"></div>
         <div class="clearer">&nbsp;</div>
         <!--##hide-tags_all-->
         <div style="margin-left:40px">
-        <div class="cloud">
+        <div id="cloud" class="cloud">
             <!--##loop-tags_all-->
-            <a class="!{class}" id="tag_!{keyword}" onclick="javascript:update_input('!{keyword}');" title="!{keyword} !{anzahl}">!{keyword}</a>
+            <a class="!{class}" id="tag_!{keyword_id}" onclick="javascript:update_input('!{keyword}');" title="!{keyword} !{anzahl}">!{keyword}</a>
             <!--##cont-->
         </div>
         </div>
@@ -62,12 +37,12 @@
 
     <script type="text/javascript">
         var edit_tags = new Ajax.Autocompleter(
-                            "keywords",
+                            "keywords_box",
                             "autocomplete_choices",
                             "edit_page.html",
                             {
                                 tokens: ',',
-                                parameters: 'ajax=on&taken=' + $('keywords').value
+                                parameters: 'ajax=on&taken=' + $('keywords_box').value
                             }
                         );
 
@@ -82,7 +57,7 @@
                 }
             }
             for (i=0;i<tags.length;i++) {
-                text = tags[i].replace (/^\s+/, '').replace (/\s+$/, '');
+                text = tags[i].replace (/^\s+/, '').replace (/\s+$/, '').replace(/\s/g,'_');
                 if ( text == '' ) continue;
                 tag_element = 'tag_' + text;
                 if ($(tag_element)) $(tag_element).addClassName(klasse);
@@ -92,7 +67,8 @@
         }
 
         function update_input(tag) {
-            var tags_written = $('keywords').value.split(',');
+            var inputElement = $('keywords_box');
+            var tags_written = inputElement.value.split(',');
             var text_input = new Array();
             var del = 0;
             var klasse = 'selected';
@@ -108,8 +84,8 @@
                 k++;
             }
             if ( del == 0 ) text_input[k++] = tag;
-            $('keywords').value = text_input.join(", ");
-            tag_element = 'tag_' + tag;
+            $('keywords_box').value = text_input.join(", ");
+            tag_element = 'tag_' + tag.replace(/\s/g,'_');
             if ( $(tag_element).hasClassName(klasse) ) {
                 $(tag_element).removeClassName(klasse);
             } else {

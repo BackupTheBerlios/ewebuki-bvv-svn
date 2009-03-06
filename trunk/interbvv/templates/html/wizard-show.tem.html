@@ -194,10 +194,9 @@
             // fenstergroesse bestimmen (funktion ist in lightbox.js)
             var arrayPageSize = getPageSize();
             // box zentrieren
-            var pos_x = (window.innerWidth - $('cancel').getWidth()) / 2;
-            var pos_y = (window.innerHeight - $('cancel').getHeight()) / 3;
+            var pos_x = ($('site').getWidth() - $('cancel').getWidth()) / 2;
             $('cancel').style.left = pos_x + 'px';
-            $('cancel').style.top = pos_y + 'px';
+            $('cancel').style.top = arrayPageSize[3]/3 + 'px';
             // "vorhang" einblenden
             $('vorhang_cancel').style.width = arrayPageSize[0] + 'px';
             $('vorhang_cancel').style.height = arrayPageSize[1] + 'px';
@@ -222,8 +221,9 @@
                                                 // fenstergroesse bestimmen (funktion ist in lightbox.js)
                                                 var arrayPageSize = getPageSize();
                                                 // vorschau zentrieren
-                                                var pos_x = (window.innerWidth - $('vorschau_container').getWidth()) / 2;
+                                                var pos_x = ($('site').getWidth() - $('vorschau_container').getWidth()) / 2;
                                                 $('vorschau_container').style.left = pos_x + 'px';
+                                                $('vorschau_container').style.top = arrayPageSize[3]/4 + 'px';
                                                 // "vorhang" und vorschau einblenden
                                                 $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
                                                 $('vorhang_preview').style.height = arrayPageSize[1] + 'px';

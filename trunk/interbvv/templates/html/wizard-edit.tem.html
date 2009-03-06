@@ -295,8 +295,8 @@
             <!--##hide-default-->
             <fieldset class="ce">
                 <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
-                <textarea id="content" name="!#ausgaben_name" class="ta_norm" cols="80" rows="15" style="width:100%;" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
-<!--                 <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div> -->
+                <textarea id="content_box" name="!#ausgaben_name" class="ta_norm" cols="80" rows="15" style="width:100%;" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
+                <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
                 <ul>
                 <!--##loop-list_images-->
                     <li class="thumbs">
@@ -336,7 +336,7 @@
                 <script type="text/javascript" language="JavaScript">
                     <!--
                     // This is for toolbar plugins
-                    var ebCanvas = document.getElementById('content');
+                    var ebCanvas = document.getElementById('content_box');
                     //-->
                 </script>
             </fieldset>
@@ -401,8 +401,9 @@
                                                 // fenstergroesse bestimmen (funktion ist in lightbox.js)
                                                 var arrayPageSize = getPageSize();
                                                 // vorschau zentrieren
-                                                var pos_x = (window.innerWidth - $('vorschau_container').getWidth()) / 2;
+                                                var pos_x = ($('site').getWidth() - $('vorschau_container').getWidth()) / 2;
                                                 $('vorschau_container').style.left = pos_x + 'px';
+                                                $('vorschau_container').style.top = arrayPageSize[3]/4 + 'px';
                                                 // "vorhang" und vorschau einblenden
                                                 $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
                                                 $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
