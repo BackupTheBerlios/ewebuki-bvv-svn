@@ -19,12 +19,12 @@
     </div>
     <div class="amt_info_box" >
         <form id="htdig_search" method="post" action="!#pathvars_virtual/!#ausgaben_aktion">
-            <fieldset class="kontakt">
 
+
+            <fieldset class="kontakt">
                 <!--##hide-search-->
                 <label>Suchbegriff</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
-                <input style="float:left;width:5em" type="submit" tabindex="20" value="Suche" name="send[]"/>
-                <div class="clear"/>
+                <div class="clear"></div>
                 <!--##show-->
 
                 <!--##hide-esearch-->
@@ -36,54 +36,50 @@
                     <option value="!{entry}" !{selected}>!{label}</option>
                     <!--##cont-->
                     </select>
-                <input style="float:left;width:5em" type="submit" tabindex="20" value="Suche" name="send[]"/>
-                <div class="clear"/>
+                <div class="clear"></div>
                 <!--##show-->
 
-                <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
-                <div class="clear"/>
 
+                <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
+                <div class="clear"></div>
+                <input style="width:50px" type="submit" tabindex="20" value="Suche" name="send[]"/>
             </fieldset>
-            <ul id="hits_site"  style="width:520px;!#ausgaben_displaysite">
-                <li style="list-style:none;!#ausgaben_datresult"><hr /></li>
-                <li style="list-style:none;!#ausgaben_datresult"><a onclick="anzeigen('hits_files')" >Ergebnisse in den Dateien (!#ausgaben_fileshits Treffer)</a><br /></li> 
-                <li style="list-style:none;"><hr /></li>
-                <li style="list-style:none;"><div class="clear"></div></li>
-                <li style="list-style:none"><span style="margin-left:0px;float:left">Ergebnisse auf der Webseite</span><span style="float:right">!#ausgaben_result</span></li>
-                <li style="list-style:none;"><div class="clear"></div></li>
-                <li style="list-style:none;"><hr /></li>
-                <!--##loop-treffer-->
-                <li><a href="!{0}">!{1}</a><br />!{2}</li>
-                <!--##cont-->
-                <li style="list-style:none;"><hr /></li>
-                <li style="list-style:none;"><br />
+
+
+
+            <div id="hits_site" style="width:100%;!#ausgaben_displaysite">
+                <hr />
+                <a onclick="anzeigen('hits_files')" >Ergebnisse in den Dateien (!#ausgaben_fileshits Treffer)</a><br />
+                <hr />
+                <span style="margin-left:0px;float:left">Ergebnisse auf der Webseite</span><span style="float:right">!#ausgaben_result</span><br />
+                <hr />
+                <ul style="width:520px">
+                    <!--##loop-treffer-->
+                    <li><a href="!{0}">!{1}</a><br />!{2}</li>
+                    <!--##cont-->
+                </ul>
+                <hr />
                 <!--##loop-site_switch-->
                 <input style="background:#EEF3FB;border:1px solid #A9C0CE;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="spage">
                 <!--##cont-->
-                </li>
+            </div>
 
-
-            </ul>
-
-            <ul id="hits_files" style="width:500px;!#ausgaben_displayfile">
-                <li style="list-style:none;"><hr></hr></li>
-                <li style="list-style:none"><a onclick="anzeigen('hits_files')" >Ergebnisse auf der Webseite (!#ausgaben_sitehits Treffer)</a><br /></li>
-                <li style="list-style:none;"><div class="clear"></div></li>
-                <li style="list-style:none;"><hr /></li>
-                <li style="list-style:none"><span style="margin-left:0px;float:left">Ergebnisse in den Dateien</span><span style="float:right">!#ausgaben_filesresult</span></li>
-                <li style="list-style:none;"><div class="clear"></div></li>
-                <li style="list-style:none;"><hr /></li>
-                <!--##loop-files_treffer-->
-                <li><a href="!{0}">!{1}</a><br />!{2}</li>
-                <!--##cont-->
-                <li style="list-style:none;"><hr /></li>
-                <li style="list-style:none;"><br />
+            <div id="hits_files" style="width:100%;!#ausgaben_displayfile">
+                <hr />
+                <a onclick="anzeigen('hits_files')" >Ergebnisse auf der Webseite (!#ausgaben_sitehits Treffer)</a><br />
+                <hr />
+                <span style="margin-left:0px;float:left">Ergebnisse in den Dateien</span><span style="float:right">!#ausgaben_filesresult</span><br />
+                <hr />
+                <ul style="width:500px;">
+                    <!--##loop-files_treffer-->
+                    <li><a href="!{0}">!{1}</a><br />!{2}</li>
+                    <!--##cont-->
+                </ul>
+                <hr />
                 <!--##loop-files_site_switch-->
                 <input style="background:#EEF3FB;border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="fpage"/>
                 <!--##cont-->
-                </li>
-
-            </ul>
+            </div>
         </form>
     </div>
 </div>

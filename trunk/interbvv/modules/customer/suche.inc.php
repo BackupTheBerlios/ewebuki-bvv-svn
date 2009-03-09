@@ -52,7 +52,6 @@
     $ausgaben["aktion"] = "suche.html";
     $ausgaben["displaysite"] = "";
     $ausgaben["displayfile"] = " display:none";
-    $ausgaben["datresult"] = " display:none";
     $ausgaben["10"] = "";
     $ausgaben["25"] = "";
     $ausgaben["50"] = "";
@@ -66,7 +65,6 @@
         $ausgaben["displaysite"] = " display:none";
         $ausgaben["displayfile"] = " display:none";
     }
-echo $_POST["restrict"];
 
     if ( $environment["parameter"][1] ) {
         $ausgaben["aktion"] = "suche,esearch.html";
@@ -164,8 +162,6 @@ echo $_POST["restrict"];
     $ausgaben["fileshits"] = "0";
     if ( $dataloop["files_treffer"][0][5]) $ausgaben["fileshits"] = $dataloop["files_treffer"][0][5];
     if ( $dataloop["treffer"][0][5] ) $ausgaben["sitehits"] = $dataloop["treffer"][0][5];
-
-    if ( $i > 0 && $environment["parameter"][1] == "") $ausgaben["datresult"] = "";
 
     // anzeige der trefferanzahl
     $site_count = floor($dataloop["treffer"][0][5] / $hits_per_site);
