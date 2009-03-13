@@ -90,7 +90,7 @@
         if ( is_array($dataloop["group_id"]) ) {
             foreach ( $dataloop["group_id"] as $gruppe ) {
                 if ( $halt == -1 ) break;
-                $sql = "SELECT * FROM auth_content WHERE gid='".$gruppe."' AND pid='3'";
+                $sql = "SELECT * FROM auth_content WHERE gid='".$gruppe."' AND ( pid='3' OR pid='2')";
                 $result = $db -> query($sql);
                 while ( $data = $db -> fetch_array($result,1) ) {
                     if ( substr($data["tname"],0,8) == "/aemter/" ) {
