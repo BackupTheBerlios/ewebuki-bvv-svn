@@ -176,6 +176,34 @@
                 </ul>
 
 <!--##show-->
+<!--##hide-lokal_artikel_release-->
+                <h3 onclick="anzeigen('lokal_artikel_release');" id="trigger_lokal_artikel_release" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
+                <ul id="lokal_artikel_release" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_artikel_release-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
+                            <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
+                            <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
+
+<!--                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>-->
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        (Autor: !{author})<br />
+                        (letzte Version von: !{last_author})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+<!--##show-->
+
+
+
 <!--##hide-lokal_artikel_section-->
             </div>
 <!--##show-->
@@ -199,7 +227,7 @@
                     <!--##loop-termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
@@ -217,7 +245,7 @@
                     <!--##loop-termine_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -272,6 +300,26 @@
                     <!--##cont-->
                 </ul>
 
+<!--##show-->
+<!--##hide-lokal_termine_release-->
+                <h3 onclick="anzeigen('lokal_termine_release');" id="trigger_lokal_termine_release" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
+                <ul id="lokal_termine_release" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_termine_release-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
+                            <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
+                            <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        (Autor: !{author})<br />
+                        (letzte Version von: !{last_author})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
 <!--##show-->
 <!--##hide-lokal_termine_section-->
             </div>
@@ -368,7 +416,31 @@
                 </ul>
 
 <!--##show-->
+<!--##hide-lokal_presse_release-->
+                <h3 onclick="anzeigen('lokal_presse_release');" id="trigger_lokal_presse_release" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
+                <ul id="lokal_presse_release" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_presse_release-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
 
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
+                            <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
+                            <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
+
+<!--                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>-->
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        (Autor: !{author})<br />
+                        (letzte Version von: !{last_author})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+<!--##show-->
 <!--##hide-lokal_presse_section-->
             </div>
 <!--##show-->

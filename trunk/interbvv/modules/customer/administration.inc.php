@@ -166,6 +166,45 @@
                 }
             }
 
+
+            if ( is_array ( $dataloop[$bereich."_release"] )  ) {
+
+                foreach ( $dataloop[$bereich."_release"] as $key => $value ) {
+                    if ( priv_check($value["kategorie"],"admin;publish") ) {
+                        if ( $value["kategorie"] != "/aktuell/archiv" && $value["kategorie"] != "/aktuell/presse" && $value["kategorie"] != "/aktuell/termine") {
+                            $sql_amt = "SELECT *
+                                          FROM db_aemter
+                                         WHERE adakz='".substr($value["kategorie"],8,2)."'";
+
+//                             $result_amt = $db -> query($sql_amt);
+//                             $data_amt = $db -> fetch_array($result_amt,1);
+                            $value["amt"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];
+                            $dataloop["lokal_".$bereich."_release"][$key] = $value;
+                           
+                            $hidedata["lokal_".$bereich."_release"] = array();
+                            // tabellen farben wechseln
+                            if ( $color["lokal_".$bereich."_release"] == $cfg["wizard"]["color"]["a"]) {
+                                $color["lokal_".$bereich."_release"] = $cfg["wizard"]["color"]["b"];
+                            } else {
+                                $color["lokal_".$bereich."_release"] = $cfg["wizard"]["color"]["a"];
+                            }
+                            $dataloop[$bereich."_release"][$key]["color"] = $color["lokal_".$bereich."_release"];
+                            unset($dataloop[$bereich."_release"][$key]);
+                        } else {
+                            // tabellen farben wechseln
+                            if ( $color[$bereich."_release"] == $cfg["wizard"]["color"]["a"]) {
+                                $color[$bereich."_release"] = $cfg["wizard"]["color"]["b"];
+                            } else {
+                                $color[$bereich."_release"] = $cfg["wizard"]["color"]["a"];
+                            }
+                            $dataloop[$bereich."_release"][$key]["color"] = $color[$bereich."_release"];
+                        }
+                    } else {
+                        unset($dataloop[$bereich."_release"][$key]);
+                    }
+                }
+            }
+
             // bereiche sichtbar machen
             if ( count($dataloop["lokal_".$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
                 $hidedata["lokal_".$bereich."_edit"]["num"] = count($dataloop["lokal_".$bereich."_edit"]);
