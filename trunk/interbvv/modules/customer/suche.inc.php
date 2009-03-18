@@ -123,10 +123,12 @@
     }
 
     $page = "";
-    if ( $_POST["spage"] || $_POST["fpage"] ) {
+    if ( $_POST["spage"]  ) {
         $page_org_site = $_POST["spage"]-1;
-        $page_org_files = $_POST["fpage"]-1;
         $pages = "&page=".$page_org_site;
+    }
+    if (  $_POST["fpage"] ) {
+        $page_org_files = $_POST["fpage"]-1;
         $pagef = "&page=".$page_org_files;
     }
 
