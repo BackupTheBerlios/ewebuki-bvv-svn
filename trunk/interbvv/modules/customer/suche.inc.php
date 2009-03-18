@@ -123,11 +123,12 @@
     }
 
     $page = "";
-
-    $page_org_site = $_POST["spage"];
-    $page_org_files = $_POST["fpage"];
-    $pages = "&page=".$page_org_site;
-    $pagef = "&page=".$page_org_files;
+    if ( $_POST["spage"] || $_POST["fpage"] ) {
+        $page_org_site = $_POST["spage"]-1;
+        $page_org_files = $_POST["fpage"]-1;
+        $pages = "&page=".$page_org_site;
+        $pagef = "&page=".$page_org_files;
+    }
 
     $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pages,"r");
 
@@ -164,7 +165,7 @@
     if ( $dataloop["treffer"][0][5] ) $ausgaben["sitehits"] = $dataloop["treffer"][0][5];
 
     // anzeige der trefferanzahl
-    $site_count = floor($dataloop["treffer"][0][5] / $hits_per_site);
+    $site_count = floor($dataloop["treffer"][0][5] / $hits_per_site) +1;
     if ( !$dataloop["treffer"][0][5] ) {
         $ausgaben["result"] = "Keine Treffer f&uuml;r: ".$_POST["words"];
     } elseif ( $dataloop["treffer"][0][5] == 1 ) {
@@ -200,10 +201,10 @@
     }
 
     // buffy-umschalter
-    if ( $site_count > 0 ) {
-        $dataloop["site_switch"][0]["site"] = 1;
-        $counter = 1;
-        while ( $counter <= $site_count ) {
+    if ( $site_count > 1 ) {
+//         $dataloop["site_switch"][0]["site"] = "1";
+        $counter = 0;
+        while ( $counter < $site_count ) {
            // bei 20 seiten ist schluss
             if ( $counter == 20 ) break;
             $counter++;
@@ -212,9 +213,9 @@
     }
 
     // buffy-umschalter
-    if ( $site_count_files > 0 ) {
-        $dataloop["files_site_switch"][0]["site"] = 1;
-        $counter = 1;
+    if ( $site_count_files > 1 ) {
+//         $dataloop["files_site_switch"][0]["site"] = 1;
+        $counter = 0;
         while ( $counter < $site_count_files ) {
            // bei 20 seiten ist schluss
             if ( $counter == 20 ) break;
