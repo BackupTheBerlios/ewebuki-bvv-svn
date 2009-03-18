@@ -211,6 +211,7 @@
             $('vorhang_cancel').style.height = arrayPageSize[1] + 'px';
             new Effect.Appear('vorhang_cancel', { duration: dauer, from: 0.0, to: deckkraft });
             new Effect.Appear('cancel');
+            new Effect.ScrollTo('head', { duration: dauer});
         } else {
             // nach oben scrollen und box und "vorhang" ausblenden
             new Effect.ScrollTo('head', { duration: dauer});
@@ -232,12 +233,13 @@
                                                 // vorschau zentrieren
                                                 var pos_x = ($('site').getWidth() - $('vorschau_container').getWidth()) / 2;
                                                 $('vorschau_container').style.left = pos_x + 'px';
-                                                $('vorschau_container').style.top = arrayPageSize[3]/4 + 'px';
+                                                $('vorschau_container').style.top = arrayPageSize[3]/8 + 'px';
                                                 // "vorhang" und vorschau einblenden
                                                 $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
                                                 $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
                                                 new Effect.Appear('vorhang_preview', { duration: dauer, from: 0.0, to: deckkraft });
                                                 new Effect.Appear('vorschau_container',{duration:0.5});
+                                                new Effect.ScrollTo('head', { duration: dauer});
                                             }
                                         }
             );
