@@ -31,329 +31,419 @@
 
     <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
 
-        <div id="wiz_ed">
-<!--             #(inhalt) -->
-            <p>!#ausgaben_form_error</p>
+    <!--##hide-img-->
+    <h1>!{num}. #(img_inhalt)</h1>
+    <!--##show-->
+    <!--##hide-tab-->
+    <h1>!{num}. #(tab_inhalt)</h1>
+    <!--##show-->
+    <!--##hide-sel-->
+    <h1>!{num}. #(sel_inhalt)</h1>
+    <!--##show-->
+    <!--##hide-link-->
+    <h1>!{num}. #(link_inhalt)</h1>
+    <!--##show-->
+    <!--##hide-default-->
+    <h1>!{num}. !{tag}</h1>
+    <!--##show-->
 
-<!--  IMG-Tag bearbeiten  -->
-            <!--##hide-img-->
-            #(img_inhalt)
-            <!--##show-->
-            <!--##hide-imgpreview-->
-            <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
-            <!--##show-->
-            <!--##hide-img-->
+    <div class="clearer"></div>
 
-            <fieldset >
-                <input type="submit" id="eb_submit" name="add[]" value="#(get_file)" title="#(get_file)" class="button" />
-                <input type="submit" name="upload[]" value="#(upload_file)" title="#(upload_file)" class="button" />
-                <input type="submit" name="change_pic[]" value="#(edit_file)" title="#(edit_file)" class="button" /><br />
-            <!--##show-->
-            <!--##hide-imgmulti-->
-            <ul style="float:left;">
-            <!--##loop-imgmulti-->
-                <li style="margin:5px 0 10px 10px;clear:both;float:left;" >
-                    <input type="radio" class="radiocheck" value="!{src}" name="tagwerte[0]"!{checked} />
-                    <img src="!{src}" alt="Preview" style="float:left;margin:0 10px;" />
-                    <div style="float:left;">
-                        <b>Unterschrift</b><br />
-                        <p>!{funder}</p>
-                        <b>Beschreibung</b><br />
-                        <p>!{fdesc}</p>
-                    </div>
-                </li>
-            <!--##cont-->
-            </ul>
-            <!--##show-->
-            <!--##hide-img-->
-            </fieldset>
+    <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data">
 
-            <fieldset style="display:none;">
-                <legend>#(values)</legend>
-                <label>#(top)</label>
-                <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" class="small" readonly="true" /><br />
-                <label>#(bottom)</label>
-                <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" class="small" readonly="true" /><br />
-                <label>#(side)</label>
-                <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" class="small" readonly="true" /><br />
-                <label>#(border)</label>
-                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="small" readonly="true" />
-            </fieldset>
+<!--         <div style="float:left;background:#FFFFFF;margin:0 7px;width:720px;" id="cEd"> -->
+        <div class="column_2 column_2_wide" style="" id="cEd">
 
-            <fieldset style="display:none;">
-                <fieldset >
-                    <legend>#(size)</legend>
-                    <!--##loop-show-->
-                    <label class="cbra">
-                        <input type="radio" class="radiocheck" name="pic_size" value="!{value}"!{check} />!{label}
-                    </label>
+
+                <div id="wiz_ed">
+        <!--             #(inhalt) -->
+                    <!--##hide_form_error>-->
+                    <p>!#ausgaben_form_error</p>
+                    <!--##show-->
+
+        <!--  IMG-Tag bearbeiten  -->
+                    <!--##hide-img-->
+                    #(img_inhalt)
+                    <!--##show-->
+                    <!--##hide-imgpreview-->
+                    <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
+                    <!--##show-->
+                    <!--##hide-img-->
+
+                    <fieldset >
+                        <input type="submit" id="eb_submit" name="add[]" value="#(get_file)" title="#(get_file)" class="button" />
+                        <input type="submit" name="upload[]" value="#(upload_file)" title="#(upload_file)" class="button" />
+                        <input type="submit" name="change_pic[]" value="#(edit_file)" title="#(edit_file)" class="button" /><br />
+                    <!--##show-->
+                    <!--##hide-imgmulti-->
+                    <ul style="">
+                    <!--##loop-imgmulti-->
+                        <li style="clear:both;margin:5px;padding:5px;" >
+                            <input type="radio" class="radiocheck" id="pic_!{id}" value="!{src}" name="tagwerte[0]"!{checked} />
+                            <label for="pic_!{id}">
+                                <img src="!{src}" alt="Preview" style="float:left;margin:0 10px;" />
+                                <div style="float:left;">
+                                    <b>Unterschrift</b><br />
+                                    <p>!{funder}</p>
+                                    <b>Beschreibung</b><br />
+                                    <p>!{fdesc}</p>
+                                </div>
+                            </label>
+                            <div class="clear"></div>
+                        </li>
                     <!--##cont-->
-                </fieldset>
+                    </ul>
+                    <!--##show-->
+                    <!--##hide-img-->
+                    </fieldset>
 
-                <fieldset >
-                    <legend>#(align)</legend>
-                    <!--##loop-align-->
-                    <label class="cbra">
-                        <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
-
-                <fieldset >
-                    <legend>#(detail_size)</legend>
-                    <!--##loop-size-->
-                    <label class="cbra">
-                        <input type="radio" class="radiocheck" name="tagwerte[3]" value="!{value}"!{check} />!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
-            </fieldset>
-            <!--##show-->
-
-<!--  TAB-Tag bearbeiten  -->
-            <!--##hide-tab-->
-            #(tab_inhalt)
-            <fieldset>
-                <legend>#(csvtab)</legend>
-                <input type="file" name="csv_upload"/><br />
-                <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
-            </fieldset>
-
-            <fieldset>
-                <legend>#(edit_cells)</legend>
-                !#ausgaben_tabelle
-            </fieldset>
-
-            <fieldset>
-                <legend>#(dimension)</legend>
-                <label>#(num_col)</label>
-                <input type="text" name="num_col" value="!#ausgaben_num_col" class="small" /><br />
-                <label>#(num_row)</label>
-                <input type="text" name="num_row" value="!#ausgaben_num_row" class="small" /><br />
-                <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
-            </fieldset>
-
-            <fieldset>
-                <legend>#(attributes)</legend>
-                <label>#(align)</label>
-                <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" class="small" /><br />
-                <label>#(width)</label>
-                <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" class="small" /><br />
-                <label>#(border)</label>
-                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="small" /><br />
-                <label>#(cellspacing)</label>
-                <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" class="small" /><br />
-                <label>#(cellpadding)</label>
-                <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" class="small" /><br />
-            </fieldset>
-            <!--##show-->
-
-<!--  SEL-Tag bearbeiten  -->
-            <!--##hide-sel-->
-            #(sel_inhalt)
-
-            <fieldset >
-                <label>#(description)</label>
-                <input type="text" name="description" value="!{description}" /><br />
-                <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
-            </fieldset>
-
-            <fieldset >
-                <label></label>
-                <button type="submit" name="sel[]" value="#(get_sel)" class="button">#(get_sel)</button><br />
-            </fieldset>
-
-            <fieldset >
-                <label></label>
-                <input type="file" name="new_file" />
-                <input type="submit" name="uploaded[]" value="#(upload_file)" title="Datei auswaehlen" class="button1" style="margin-left:30px;" /><br />
-            </fieldset>
-
-            <fieldset style="display:none;">
-                <fieldset >
-                    <legend>#(detail_size)</legend>
-                    <!--##loop-size-->
-                    <label class="cbra">
-                        <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />!{label}
-                    </label>
-                    <!--##cont-->
-                </fieldset>
-
-                <fieldset >
-                    <legend>#(attributes)</legend>
-                    <label class="cbra">
-                        <input type="checkbox" class="radiocheck" name="tagwerte[2]" value="TRUE"!{check_thumb} />#(show_thumbs)
-                    </label>
-                    <label class="cbra">
-                        <input type="checkbox" class="radiocheck" name="tagwerte[4]" value="l"!{check_lbox} />#(lightbox)
-                    </label>
-                </fieldset>
-            </fieldset>
-
-            <fieldset >
-                <legend>#(grid)</legend>
-                <ul id="grid_list">
-                    <!--##loop-list_images-->
-                    <li class="thumbs">
-                        <a href="!#pathvars_virtual/admin/fileed/!{ehref}">
-                            <img src="!{src}" alt="!{under} g(edit)" title="!{under} g(edit)" />
-                            <span>
-                                <b>#(description)</b><br />
-                                !{under}
-                            </span>
-                        </a>
+                    <fieldset style="display:block;">
+                        <legend>#(values)</legend>
                         <p>
-                            <input type="checkbox" class="radiocheck" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
+                            <label>#(top)</label>
+                            <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" class="small" readonly="true" />
                         </p>
-                    </li>
-                    <!--##cont-->
-                </ul>
-            </fieldset>
-
-            <script type="text/javascript">
-                function session_update(compid,fileid) {
-                    new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
-                                    {asynchronous:true
-                                    }
-                    );
-                }
-            </script>
-            <!--##show-->
-
-<!--  LINK-Tag bearbeiten  -->
-            <!--##hide-link-->
-            #(link_inhalt)
-            <fieldset >
-                <label>#(description)</label>
-                <input type="text" name="description" value="!#ausgaben_description" /><br />
-                <label>#(link)</label>
-                <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" /><br />
-                <label></label>
-                <input type="submit" id="eb_submit" name="add[]" value="#(get_link)" title="#(get_file)" class="button" /><br />
-            <!--##show-->
-            <!--##hide-fileed-->
-                <label></label>
-                <ul style="float:left;">
-                    <!--##loop-fileed-->
-                    <li style="clear:both;">
-                        <input type="radio" class="radiocheck" value="!{link}" name="tagwerte_memo"!{sel} /> &nbsp;!{label}
-                    </li>
-                    <!--##cont-->
-                </ul>
-            <!--##show-->
-            <!--##hide-link-->
-                <label>#(title)</label>
-                <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" /><br />
-            </fieldset>
-
-            <fieldset>
-                <legend>#(target)</legend>
-                <!--##loop-target-->
-                <label class="cbra">
-                    <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />!{label}
-                </label>
-                <!--##cont-->
-            </fieldset>
-            <!--##show-->
-
-<!--  SORT-Tag bearbeiten  -->
-            <!--##hide-sort-->
-<!--             #(link_inhalt) -->
-            <fieldset >
-                <div>!#ausgaben_calendar</div>
-                    <input type="hidden" name="day" value="!{day}" /><br />
-                    <input type="hidden" name="month" value="!{month}" /><br />
-                    <input type="hidden" name="year" value="!{year}" /><br />
-                <label>!{date}</label>
-            </fieldset>
-
-            <!--##show-->
-
-<!--  !-Tag bearbeiten fuer Termine  -->
-            <!--##hide-termine-->
-            <fieldset >
-                !#ausgaben_error
-                <label>#(termin_name)</label>
-                <input id = "tt" type="text" name="_NAME" value="!{_NAME}" onClick="if ($(tt).value=='Neuer Termin'){$(tt).value='';}" /><br />
-                <label>#(termin_veranstalter)</label>
-                <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" /><br />
-
-                <label>#(termin_begin)</label><div>!#ausgaben_begin</div>
-                <label><a onclick="anzeigen('end_termin')" title="#(termin_end_t)">#(termin_end)</a></label><div>!#ausgaben_ende</div>
-                <label>#(termin_ort)</label>
-                <input type="text" name="_ORT" value="!{_ORT}" /><br />
-                <label>#(termin_desc)</label>
-                <textarea name="_BESCHREIBUNG">!{_BESCHREIBUNG}</textarea><br />
-                <input type="hidden" name="meta" value="on"/>
-            </fieldset>
-            <!--##show-->
-
-
-            <div class="clearer"></div>
-
-<!-- Standard-Editor-Bereich -->
-            <!--##hide-default-->
-            <fieldset class="ce">
-                <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
-                <textarea id="content_box" name="!#ausgaben_name" class="ta_norm" cols="80" rows="15" style="width:100%;" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
-                <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
-                <ul>
-                <!--##loop-list_images-->
-                    <li class="thumbs">
                         <p>
-                            <input type="button" id="eb_imgo" value="O" title="Einf&uuml;gen Original (original)" onclick="!{oclick}" class="butfil" />
-                            <input type="button" id="eb_imgs" value="B" title="Einf&uuml;gen Gross (big)" onclick="!{bclick}" class="butfil" />
-                            <input type="button" id="eb_imgm" value="M" title="Einf&uuml;gen Mittel (middle)" onclick="!{mclick}" class="butfil" />
-                            <input type="button" id="eb_imgb" value="S" title="Einf&uuml;gen Klein (small)" onclick="!{sclick}" class="butfil" />
+                            <label>#(bottom)</label>
+                            <input type="text" name="tagwerte[5]" value="!#ausgaben_tagwerte5" class="small" readonly="true" />
                         </p>
-                        <img src="!{src}" !{size} alt="!{alt}" title="!{title}" onclick="!{oclick}" />
-                    </li>
-                <!--##cont-->
-                </ul>
-                <div style="clear:both"></div>
-                <ul>
-                <!--##loop-list_other-->
-                    <li class="files" style="background:!{color};">
-                        <a title="!{title} einf&uuml;gen" onclick="!{fclick}">!{title}</a>
-                        <a title="!{title} einf&uuml;gen" onclick="!{cvs_click}">!{cvs_title}</a>
-                        <div style="clear:both"></div>
-                    </li>
-                <!--##cont-->
-                </ul>
-                <div style="clear:both"></div>
-                <ul>
-                <!--##loop-selection-->
-                    <li class="files">
-                        <input type="button" id="eb_imgo" value="S" title="Einf&uuml;gen Original (original)" onclick="ebInsertSel(ebCanvas, '!{id}', 's', '', '!{pics}', 'TRUE')" class="butfil" />
-                        <input type="button" id="eb_imgo" value="M" title="Einf&uuml;gen Gross (big)" onclick="ebInsertSel(ebCanvas, '!{id}', 'm', '', '!{pics}', 'TRUE')" class="butfil" />
-                        <input type="button" id="eb_imgo" value="B" title="Einf&uuml;gen Mittel (middle)" onclick="ebInsertSel(ebCanvas, '!{id}', 'b', '', '!{pics}', 'TRUE')" class="butfil" />
-                        <input type="button" id="eb_imgo" value="O" title="Einf&uuml;gen Klein (small)" onclick="ebInsertSel(ebCanvas, '!{id}', 'o', '', '!{pics}', 'TRUE')" class="butfil" />
-                        &nbsp;# !{id}
-                        <div style="clear:both"></div>
-                    </li>
-                <!--##cont-->
-                </ul>
-                <script type="text/javascript" language="JavaScript">
-                    <!--
-                    // This is for toolbar plugins
-                    var ebCanvas = document.getElementById('content_box');
-                    //-->
-                </script>
-            </fieldset>
-            <!--##show-->
+                        <p>
+                            <label>#(side)</label>
+                            <input type="text" name="tagwerte[6]" value="!#ausgaben_tagwerte6" class="small" readonly="true" />
+                        </p>
+                        <p>
+                            <label>#(border)</label>
+                            <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="small" readonly="true" />
+                        </p>
+                    </fieldset>
 
+                    <fieldset style="display:block;">
+                        <fieldset >
+                            <legend>#(size)</legend>
+                            <!--##loop-show-->
+                            <p>
+                                <label>!{label}</label>
+                                <input type="radio" class="radiocheck" name="pic_size" value="!{value}"!{check} />
+                            </p>
+                            <!--##cont-->
+                        </fieldset>
+
+                        <fieldset >
+                            <legend>#(detail_size)</legend>
+                            <!--##loop-size-->
+                            <p>
+                                <label>!{label}</label>
+                                <input type="radio" class="radiocheck" name="tagwerte[3]" value="!{value}"!{check} />
+                            </p>
+                            <!--##cont-->
+                        </fieldset>
+
+                        <fieldset >
+                            <legend>#(align)</legend>
+                            <!--##loop-align-->
+                            <p>
+                                <label>!{label}</label>
+                                <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />
+                            </p>
+                            <!--##cont-->
+                        </fieldset>
+                    </fieldset>
+                    <!--##show-->
+
+        <!--  TAB-Tag bearbeiten  -->
+                    <!--##hide-tab-->
+                    #(tab_inhalt)
+                    <fieldset>
+                        <legend>#(csvtab)</legend>
+                        <p>
+                            <input type="file" name="csv_upload"/>
+                        </p>
+                        <p>
+                            <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
+                        </p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>#(edit_cells)</legend>
+                        !#ausgaben_tabelle
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>#(dimension)</legend>
+                        <p>
+                            <label>#(num_col)</label>
+                            <input type="text" name="num_col" value="!#ausgaben_num_col" class="small" />
+                        </p>
+                        <p>
+                            <label>#(num_row)</label>
+                            <input type="text" name="num_row" value="!#ausgaben_num_row" class="small" />
+                        </p>
+                        <p>
+                            <label>&nbsp;</label>
+                            <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
+                        </p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>#(attributes)</legend>
+                        <p>
+                            <label>#(align)</label>
+                            <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" class="small" />
+                            </p>
+                        <br />
+                        <p>
+                            <label>#(width)</label>
+                            <input type="text" name="tagwerte[1]" value="!#ausgaben_tagwerte1" class="small" />
+                        </p>
+                        <p>
+                            <label>#(border)</label>
+                            <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" class="small" />
+                        </p>
+                        <p>
+                            <label>#(cellspacing)</label>
+                            <input type="text" name="tagwerte[3]" value="!#ausgaben_tagwerte3" class="small" />
+                        </p>
+                        <p>
+                            <label>#(cellpadding)</label>
+                            <input type="text" name="tagwerte[4]" value="!#ausgaben_tagwerte4" class="small" />
+                        </p>
+                    </fieldset>
+                    <!--##show-->
+
+        <!--  SEL-Tag bearbeiten  -->
+                    <!--##hide-sel-->
+                    <fieldset >
+                        <p>
+                            <label>#(description)</label>
+                            <input type="text" name="description" value="!{description}" />
+                            <input type="hidden" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
+                        </p>
+                    </fieldset>
+
+                    <fieldset >
+                        <p>
+                            <label></label>
+                            <button type="submit" name="sel[]" value="#(get_sel)" class="button">#(get_sel)</button>
+                        </p>
+                    </fieldset>
+
+                    <fieldset >
+                        <p>
+                            <label></label>
+                            <input type="file" name="new_file" />
+                        </p>
+                        <p>
+                            <label></label>
+                            <input type="submit" name="uploaded[]" value="#(upload_file)" title="Datei auswaehlen" class="button" />
+                        </p>
+                    </fieldset>
+
+                    <fieldset style="display:block;">
+                        <fieldset >
+                            <legend>#(detail_size)</legend>
+                            <!--##loop-size-->
+                            <p>
+                                <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />
+                                <label>!{label}</label>
+                            </p>
+                            <!--##cont-->
+                        </fieldset>
+
+                        <fieldset >
+                            <legend>#(attributes)</legend>
+                            <p>
+                                <input type="checkbox" class="radiocheck" name="tagwerte[2]" value="TRUE"!{check_thumb} />
+                                <label>#(show_thumbs)</label>
+                            </p>
+                            <p>
+                                <input type="checkbox" class="radiocheck" name="tagwerte[4]" value="l"!{check_lbox} />
+                                <label>#(lightbox)</label>
+                            </p>
+                        </fieldset>
+                    </fieldset>
+
+                    <fieldset >
+                        <legend>#(grid)</legend>
+                        <ul id="grid_list">
+                            <!--##loop-list_images-->
+                            <li class="thumbs">
+                                <a href="!#pathvars_virtual/admin/fileed/!{ehref}">
+                                    <img src="!{src}" alt="!{under} g(edit)" title="!{under} g(edit)" />
+                                    <span>
+                                        <b>#(description)</b><br />
+                                        !{under}
+                                    </span>
+                                </a>
+                                <p>
+                                    <input type="checkbox" class="radiocheck" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
+                                </p>
+                            </li>
+                            <!--##cont-->
+                        </ul>
+                    </fieldset>
+
+                    <script type="text/javascript">
+                        function session_update(compid,fileid) {
+                            new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
+                                            {asynchronous:true
+                                            }
+                            );
+                        }
+                    </script>
+                    <!--##show-->
+
+        <!--  LINK-Tag bearbeiten  -->
+                    <!--##hide-link-->
+                    <fieldset >
+                        <p>
+                            <label>#(description)</label>
+                            <input type="text" name="description" value="!#ausgaben_description" />
+                        </p>
+                        <p>
+                            <label>#(link)</label>
+                            <input type="text" name="tagwerte[0]" value="!#ausgaben_tagwerte0" />
+                        </p>
+                        <p>
+                            <label></label>
+                            <input type="submit" id="eb_submit" name="add[]" value="#(get_link)" title="#(get_file)" class="button" />
+                        </p>
+                    <!--##show-->
+                    <!--##hide-fileed-->
+                        <p>
+                            <label></label>
+                            <ul style="float:left;">
+                                <!--##loop-fileed-->
+                                <li style="clear:both;">
+                                    <input type="radio" class="radiocheck" value="!{link}" name="tagwerte_memo"!{sel} /> &nbsp;!{label}
+                                </li>
+                                <!--##cont-->
+                            </ul>
+                        </p>
+                    <!--##show-->
+                    <!--##hide-link-->
+                        <p>
+                            <label>#(title)</label>
+                            <input type="text" name="tagwerte[2]" value="!#ausgaben_tagwerte2" />
+                        </p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>#(target)</legend>
+                        <!--##loop-target-->
+                        <p>
+                            <input type="radio" class="radiocheck" name="tagwerte[1]" value="!{value}"!{check} />
+                            <label style="width:80%;">!{label}</label>
+                        </p>
+                        <!--##cont-->
+                    </fieldset>
+                    <!--##show-->
+
+        <!--  SORT-Tag bearbeiten  -->
+                    <!--##hide-sort-->
+        <!--             #(link_inhalt) -->
+                    <fieldset >
+                        <div>!#ausgaben_calendar</div>
+                            <input type="hidden" name="day" value="!{day}" /><br />
+                            <input type="hidden" name="month" value="!{month}" /><br />
+                            <input type="hidden" name="year" value="!{year}" /><br />
+                        <label>!{date}</label>
+                    </fieldset>
+
+                    <!--##show-->
+
+        <!--  !-Tag bearbeiten fuer Termine  -->
+                    <!--##hide-termine-->
+                    <fieldset >
+                        !#ausgaben_error
+                        <label>#(termin_name)</label>
+                        <input id = "tt" type="text" name="_NAME" value="!{_NAME}" onClick="if ($(tt).value=='Neuer Termin'){$(tt).value='';}" /><br />
+                        <label>#(termin_veranstalter)</label>
+                        <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" /><br />
+
+                        <label>#(termin_begin)</label><div>!#ausgaben_begin</div>
+                        <label><a onclick="anzeigen('end_termin')" title="#(termin_end_t)">#(termin_end)</a></label><div>!#ausgaben_ende</div>
+                        <label>#(termin_ort)</label>
+                        <input type="text" name="_ORT" value="!{_ORT}" /><br />
+                        <label>#(termin_desc)</label>
+                        <textarea name="_BESCHREIBUNG">!{_BESCHREIBUNG}</textarea><br />
+                        <input type="hidden" name="meta" value="on"/>
+                    </fieldset>
+                    <!--##show-->
+
+
+                    <div class="clearer"></div>
+
+        <!-- Standard-Editor-Bereich -->
+                    <!--##hide-default-->
+                    <fieldset class="ce">
+                        <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
+                        <div style="margin-right:5px;">
+                            <textarea id="content_box" name="!#ausgaben_name" class="ta_norm" rows="15" style="width:100%;padding:2px;" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
+                        </div>
+                        <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
+                        <div style="clear:both"></div>
+                        <p>
+                        <!--##loop-list_other-->
+<!--                             <li class="files1" style="background:!{color};float:left;display:block;"> -->
+                                <a title="!{title} einf&uuml;gen" onclick="!{fclick}" class="button">!{title}</a>
+<!--                                 <a title="!{title} einf&uuml;gen" onclick="!{cvs_click}">!{cvs_title}</a> -->
+<!--                                 <div style="clear:both"></div> -->
+<!--                             </li> -->
+                        <!--##cont-->
+                        </p>
+                        <div style="display:none">
+                            <div style="clear:both"></div>
+                            <ul>
+                            <!--##loop-list_images-->
+                                <li class="thumbs">
+                                    <p>
+                                        <input type="button" id="eb_imgo" value="O" title="Einf&uuml;gen Original (original)" onclick="!{oclick}" class="butfil" />
+                                        <input type="button" id="eb_imgs" value="B" title="Einf&uuml;gen Gross (big)" onclick="!{bclick}" class="butfil" />
+                                        <input type="button" id="eb_imgm" value="M" title="Einf&uuml;gen Mittel (middle)" onclick="!{mclick}" class="butfil" />
+                                        <input type="button" id="eb_imgb" value="S" title="Einf&uuml;gen Klein (small)" onclick="!{sclick}" class="butfil" />
+                                    </p>
+                                    <img src="!{src}" !{size} alt="!{alt}" title="!{title}" onclick="!{oclick}" />
+                                </li>
+                            <!--##cont-->
+                            </ul>
+                            <div style="clear:both"></div>
+                            <ul>
+                            <!--##loop-selection-->
+                                <li class="files">
+                                    <input type="button" id="eb_imgo" value="S" title="Einf&uuml;gen Original (original)" onclick="ebInsertSel(ebCanvas, '!{id}', 's', '', '!{pics}', 'TRUE')" class="butfil" />
+                                    <input type="button" id="eb_imgo" value="M" title="Einf&uuml;gen Gross (big)" onclick="ebInsertSel(ebCanvas, '!{id}', 'm', '', '!{pics}', 'TRUE')" class="butfil" />
+                                    <input type="button" id="eb_imgo" value="B" title="Einf&uuml;gen Mittel (middle)" onclick="ebInsertSel(ebCanvas, '!{id}', 'b', '', '!{pics}', 'TRUE')" class="butfil" />
+                                    <input type="button" id="eb_imgo" value="O" title="Einf&uuml;gen Klein (small)" onclick="ebInsertSel(ebCanvas, '!{id}', 'o', '', '!{pics}', 'TRUE')" class="butfil" />
+                                    &nbsp;# !{id}
+                                    <div style="clear:both"></div>
+                                </li>
+                            <!--##cont-->
+                            </ul>
+                        </div>
+                        <script type="text/javascript" language="JavaScript">
+                            <!--
+                            // This is for toolbar plugins
+                            var ebCanvas = document.getElementById('content_box');
+                            //-->
+                        </script>
+                    </fieldset>
+                    <!--##show-->
+
+                </div>
         </div>
 
-
-        <fieldset class="buttons">
-            <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
-            <button type="submit" name="send[]" value="g(send)" accesskey="s" class="button">g(send)</button>
-<!--             <button type="reset" name="reset" value="g(reset)" accesskey="r" class="button">g(reset)</button> -->
-            <button type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button">g(abort)</button>
-            <div class="clearer">&nbsp;</div>
-        </fieldset>
+        <div class="column_3">
+            <div class="box">
+                <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
+                <button type="submit" name="send[]" value="g(send)" accesskey="s" class="button">g(send)</button>
+                <button type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button">g(abort)</button>
+                <div class="clearer"></div>
+            </div>
+        </div>
 
     </form>
+    <div style="clear:both"></div>
+
 </div>
 <div id="vorhang_preview" style="display:none;"></div>
 <script type="text/javascript">
@@ -423,102 +513,6 @@
 </script>
 !#ausgaben_output
 !#ausgaben_inaccessible
-<!--##end-->
-
-
-
-
-<hr />
-    <div id="substance" class="wizard">
-        !#ausgaben_ce_script
-        <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
-
-        <div id="wiz_ed">
-            #(inhalt)
-            <p>!#ausgaben_form_error</p>
-
-
-
-
-
-            <!--##hide-list-->
-            <fieldset class="ce">
-                Einzelne Listenpunkte bitte durch Leerzeile trennen!
-            </fieldset>
-            <!--##show-->
-
-            <div class="clearer">&nbsp;</div>
-
-        </div>
-
-            <div class="clearer">&nbsp;</div>
-
-        </form>
-
-        <script type="text/javascript">
-//             var update = new Ajax.PeriodicalUpdater('preview',
-//                                                     '!#ausgaben_form_aktion',
-//                                                     {
-//                                                         asynchronous:true,
-//                                                         parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
-//                                                         frequency: 2,
-//                                                         encoding: 'LATIN9',
-// //                                                         encoding: 'UTF-8',
-//                                                         onSuccess:function(){
-// //                                                             new Effect.Highlight('preview');
-//                                                             update.options.parameters = 'ajax=on&send[]=send&' + Form.serialize('cEd');
-//                                                         }
-//                                                     }
-//             );
-            function preview() {
-alert('hallo');
-                if ( $('vorschau').style.display == 'none' ) {
-                    var update = new Ajax.Updater('vorschau',
-                                                '!#ausgaben_form_aktion',
-                                                {
-                                                    asynchronous:true,
-                                                    parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
-                                                    onSuccess:function(){
-                                                        new Effect.Parallel(
-                                                            [
-                                                                new Effect.BlindDown('vorschau'),
-                                                                new Effect.BlindUp('wiz_ed')
-                                                            ]
-                                                        );
-                                                    }
-                                                }
-                    );
-                    return false;
-//                     new Effect.BlindDown('vorschau');
-//                     new Effect.BlindUp('wiz_ed');
-                } else {
-                                                self.location.href = '#top';
-                    new Effect.Parallel(
-                        [
-                            new Effect.BlindUp('vorschau'),
-                            new Effect.BlindDown('wiz_ed')
-                        ]
-                    );
-//                     new Effect.BlindUp('vorschau');
-//                     new Effect.BlindDown('wiz_ed');
-                }
-//                 new Effect.Highlight('pre');
-//                 new Effect.Highlight('pre');
-//                 var update = new Ajax.Updater('preview',
-//                                             '!#ausgaben_form_aktion',
-//                                             {
-//                                                 asynchronous:true,
-//                                                 parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
-//                                             }
-//                 );
-            }
-//             preview();
-        </script>
-
-        !#ausgaben_output
-        !#ausgaben_inaccessible
-
-    </div>
 <!--##end-->
 </body>
 </html>

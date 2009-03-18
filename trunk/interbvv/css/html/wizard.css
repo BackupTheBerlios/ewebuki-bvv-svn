@@ -1,268 +1,95 @@
-/* project: eWeBuKi stylesheet template for eWeBuKi wizard styles
-   based on a design from: luka cvrk (www.solucija.com)
 
-   $Id: eed.css 1230 2008-02-01 09:44:04Z buffy1860 $ */
-
-
-
-/*----------------------
-  alien styles
-  ----------------------*/
-/*
-body, p, form, ul, ol {
-    margin: 0;
-    padding: 0;
-}
-
-ul, ol {
-    list-style : none;
-}
-
-a img{
-    border:0px;
-}
-*/
-/* ---------------------*/
-
-/*----------------------
-  wizard styles
-  ----------------------*/
 
 #wizard {
     background:#FFF3CF;
-    padding:0 5px 5px 5px;
-    width:870px;
+/*     padding:0 5px 5px 5px; */
+    margin:0;
+    padding:0;
+    width:881px;
 }
 
-    #wizard h2 {
-        margin:0.5em 0;
-    }
+#wizard .admin_head {
+    margin-left:0;
+}
 
-    #wizard #substance {
-        background:#FFFFFF;
-    }
+/* spalten-definitionen
+----------------------*/
+#wizard .column_1, #wizard .column_2, #wizard .column_3 {
+    float:left;
+    display:inline;
+    min-height:50px;
+    padding:0 0 10px 0;
+}
 
-    #wizard form label {
-        display:block;
-        float:left;
-        margin:2px 0;
-        padding:1px;
-        width:180px;
-    }
+#wizard .column_1 {
+/*     background:yellow; */
+    width:160px;
+}
 
-        #wizard form label.cbra {
-            clear:both;
-            text-align:left;
-            width:100%;
-        }
+#wizard .column_2 {
+    background:#FEEAAD;
+    border:1px solid #FFCF3F;
+    margin:0 10px 0 10px;
+/*     margin-right:10px; */
+    width:558px;
+}
 
-            #wizard form .cbra input, #wizard form .thumbs input {
-                margin:0.3em 5px;
-                width:auto;
-            }
+#wizard .column_2_wide {
+    width:718px;
+}
 
-            #wizard form table input, #wizard form table textarea {
-                margin:0;
-                padding:0;
-                width:100%;
-            }
+#wizard .column_3 {
+/*     background:green; */
+    width:140px;
+}
 
-    #wizard form br {
-        clear:both;
-    }
+/* box und buttons
+----------------------*/
+#wizard .column_3 .box {
+    margin:0 0 10px;
+    padding:5px 5px 0;
+}
 
-    #wizard form input, #wizard form button, #wizard form textarea {
-        border:1px solid #DDDDDD;
-        color:inherit;
-        float:left;
-        font-size:0.95em;
-        line-height:1.4em;
-        margin:2px 0;
-        padding:1px;
-        width:250px;
-    }
+#wizard .button, #wizard .buttons a {
+    background:#EFEFEF;
+    border:1px solid #CCCCCC;
+    color:#303030;
+    cursor:pointer;
+    display:block;
+    margin:0 0 5px 0;
+    padding:3px 0;
+    text-align:center;
+    width:100%;
+    -moz-border-radius:5px;
+}
 
-    #wizard form textarea {
-/*         font-size:1.15em; */
-    }
+#wizard .buttons {
+    padding:6px 0;
+    text-align:right;
+}
 
-        #wizard form input.small {
-            width:50px;
-        }
+#wizard #wiz_ed .button {
+    width:auto;
+}
 
-    #wizard fieldset {
-        border:1px solid #CCCCCC;
-        margin:5px 0;
-        padding:5px;
-    }
+#wizard .buttons a, #wizard #wiz_ed .button {
+    display:inline;
+    margin:2px 4px 2px 0;
+    padding:3px;
+}
 
-        #wizard fieldset fieldset {
-            float:left;
-            margin-right:15px;
-            width:170px;
-        }
+#wizard a.button {
+    margin-left:-1px;
+}
 
-    #wizard fieldset.buttons {
-        text-align:right;
-    }
+#wizard a.button:hover, #wizard .buttons a:hover {
+    text-decoration:none;
+}
 
-        #wizard fieldset.buttons input, #wizard fieldset.buttons button {
-            float:none;
-        }
 
-    #wizard .button, #content_blocks .buttons a {
-        background-color:#EEEEEE;
-        border:1px solid #CCCCCC;
-        color:inherit;
-        cursor:pointer;
-        margin-right:5px;
-        padding:0.5ex 1ex;
-        text-decoration:none;
-        width:auto;
-    }
-
-    /* beschriftungen der selektions-bilder */
-    #wizard #grid_list a {
-        display:block;
-        position:relative;
-        text-decoration:none;
-    }
-
-        #wizard #grid_list a span {
-            background-color:#EEEEEE;
-            border:1px solid #CCCCCC;
-            display:none;
-            position:absolute;
-            text-align:left;
-            top:0;
-            width:100px;
-        }
-
-            #wizard #grid_list a:hover span {
-                display:block;
-            }
-
-    /* definitionen der uebersichtsseite */
-    #content_blocks {
-        padding:0;
-    }
-
-        #content_blocks div.clearer {
-            clear: none;
-        }
-
-        #content_blocks li {
-            background:no-repeat right top;
-            border:1px solid #DDDDDD;
-            list-style:none;
-            margin:0 0 3px;
-            padding:20px 4px 0;
-        }
-
-            #content_blocks li.ajax_move {
-                border-color:#FF9148;
-            }
-
-                #content_blocks li .block_edit {
-                    text-align:right;
-                }
-
-                #content_blocks li div.wiz_edit {
-                    border:1px solid #DDDDDD;
-/*                     float:left; */
-                    margin:5px 0;
-                }
-
-                    #content_blocks li div.wiz_edit div.buttons {
-                        clear:both;
-                        padding:0.5ex 0;
-                        text-align:right;
-                    }
-
-                #content_blocks li span.wiz_edit {
-                    border:1px solid #DDDDDD;
-                    position:relative;
-                }
-
-                    #content_blocks li span.wiz_edit span.buttons {
-                        display:none;
-                        font-weight:normal;
-                    }
-
-                        #content_blocks li span.wiz_edit span.buttons a {
-                            display:block;
-                            margin:3px;
-                        }
-
-                    #content_blocks li span.wiz_edit:hover span.buttons {
-                        background:#FFFFFF;
-                        border:1px solid #DDDDDD;
-                        display:block;
-                        left:0;
-                        position:absolute;
-                        top:1.2em;
-                        z-index:10;
-                    }
-
-                        #content_blocks li span.wiz_edit:hover span.buttons .button {
-                            clear:both;
-                            display:block;
-                            margin:3px;
-                            padding:0;
-                            width:200px;
-                        }
-
-    #wizard #img_map {
-        clear:both;
-        float:left;
-        margin:0;
-        padding:0;
-    }
-
-    #wizard #img_map li {
-        clear:both;
-        float:left;
-        list-style:none;
-    }
-
-    #wizard #img_map li img {
-        clear:both;
-        float:left;
-        list-style:none;
-        margin:0;
-        padding:0;
-    }
-
-    /* ajax-vorschau fuer einzelne bereiche*/
-    #hover_preview_frame {
-        background:#FFFFFF;
-        border:solid silver;
-        border-width:2px 4px 4px 2px;
-        position:fixed;
-        left:175px;
-        top:215px;
-        z-index:1000;
-    }
-
-        #hover_preview_frame .preview_title {
-            background:#2C5A93;
-            color:#FFFFFF;
-            font-weight:bold;
-            padding:0 5px;
-        }
-
-            #hover_preview_frame .preview_title a {
-                color:#FFFFFF;
-                cursor:pointer;
-                float:right;
-            }
-
-        #hover_preview_frame #hover_preview {
-            margin:5px;
-            width:540px;
-        }
-
-#vorhang_preview, #vorhang_cancel {
+/* ajax-definitionen
+----------------------*/
+#vorhang, #vorhang_preview, #vorhang_cancel {
     background:#000000;
     position:absolute;
     left:0;
@@ -281,6 +108,7 @@ a img{
     position:relative;
     position:absolute;
     z-index:85;
+    -moz-border-radius:7px;
 }
 
 #preview_close {
@@ -290,251 +118,173 @@ a img{
     text-align:right;
 }
 
-#cancel {
+#cancel, .ajax_pop_up {
     background:#FFF3CF;
     border:3px solid #FFCF3F;
     padding:7px;
-    position:fixed;
+    position:absolute;
     left:25px;
     text-align:center;
     top:50px;
-    width:250px;
-    z-index:100;
+    width:300px;
+    z-index:85;
     -moz-border-radius:7px;
 }
 
-
-/* The main calendar widget.  DIV containing a table. */
-
-div.calendar { position: relative; }
-
-.calendar, .calendar table {
-  border: 1px solid #556;
-  font-size: 11px;
-  color: #000;
-  cursor: default;
-  background: #eef;
-  font-family: tahoma,verdana,sans-serif;
+/* Image-Map-Bereich
+----------------------*/
+#wizard #img_map {
+    clear:both;
+    float:left;
+    margin:0;
+    padding:0;
 }
 
-/* Header part -- contains navigation buttons and day names. */
+    #wizard #img_map li {
+        clear:both;
+        float:left;
+        list-style:none;
+    }
 
-.calendar .button { /* "<<", "<", ">", ">>" buttons have this class */
-  text-align: center;    /* They are the navigation buttons */
-  padding: 2px;          /* Make the buttons seem like they're pressing */
+    #wizard #img_map li img {
+        clear:both;
+        float:left;
+        list-style:none;
+        margin:0;
+        padding:0;
+    }
+
+/* content-bereich
+----------------------*/
+#content_blocks {
+    display:block;margin:5px;
 }
 
-.calendar .nav {
-  background: #778 url(menuarrow.gif) no-repeat 100% 100%;
+    #content_blocks li {
+        background:no-repeat right top #FFFFFF;
+        border:1px solid #DDDDDD;
+        list-style:none;
+        margin:0 0 3px;
+        padding:20px 4px 4px;
+    }
+
+        #content_blocks li .block_edit {
+            text-align:right;
+        }
+
+            #content_blocks li .block_edit .button {
+                width:150px;
+            }
+
+    #content_blocks li.ajax_move {
+        border:1px solid #FF9148;
+    }
+
+    #content_blocks .wiz_edit {
+        background:#FFFFFF;
+        border:1px solid #DDDDDD;
+        margin:0 0 3px;
+        position:relative;
+    }
+
+    #content_blocks span.wiz_edit .buttons a {
+        display:none;
+        position:relative;
+    }
+
+    #content_blocks span.wiz_edit:hover .buttons a {
+        display:block;
+    }
+
+        #content_blocks li span.wiz_edit:hover span.buttons {
+            background:#FFFFFF;
+            border:1px solid #DDDDDD;
+            display:block;
+            left:0;
+            position:absolute;
+            top:1.2em;
+            z-index:10;
+        }
+
+            #wizard #content_blocks li span.wiz_edit:hover span.buttons a {
+                clear:both;
+                display:block;
+                margin:0 3px 3px;
+                width:200px;
+            }
+
+
+/* formular-definitionen
+----------------------*/
+#wizard h1 {
+    padding-left:10px;
+}
+#wizard ul {
+    margin:0;
+    padding:0;
 }
 
-.calendar thead .title { /* This holds the current "month, year" */
-  font-weight: bold;      /* Pressing it will take you to the current date */
-  text-align: center;
-  background: #fff;
-  color: #000;
-  padding: 2px;
+#wizard fieldset {
+    background:none;
+    border:1px solid #CCCCCC !important;
+    margin:5px;
+    padding:5px !important;
 }
 
-.calendar thead .headrow { /* Row <TR> containing navigation buttons */
-  background: #778;
-  color: #fff;
+    #wizard fieldset fieldset {
+        border-width:0 !important;
+        float:left;
+        width:45%;
+    }
+
+    #wizard fieldset legend {
+        color:#5F5F5F;
+        font-weight:bold;
+    }
+
+    #wizard fieldset p {
+        clear:both;
+    }
+
+    #wizard fieldset p label {
+        display:block;
+        float:left;
+        margin:2px 0;
+        padding:1px;
+        width:150px;
+    }
+
+    #wizard fieldset input, #wizard fieldset button, #wizard fieldset textarea {
+        border:1px solid #DDDDDD;
+        color:inherit;
+        float:left;
+        font-size:0.95em;
+        line-height:1.4em;
+        margin:2px 0;
+        padding:1px;
+        width:250px;
+    }
+
+    #wizard fieldset input.radiocheck {
+        border-width:0;
+        margin-right:3px;
+        width:auto;
+    }
+
+#wizard .thumbs {
+    position:relative;
 }
 
-.calendar thead .daynames { /* Row <TR> containing the day names */
-  background: #bdf;
+#wizard .thumbs span {
+    background:#EEEEEE;
+    display:none;
+    left:6px;
+    position:absolute;
+    text-align:left;
+    top:3px;
+    width:96px;
 }
 
-.calendar thead .name { /* Cells <TD> containing the day names */
-  border-bottom: 1px solid #556;
-  padding: 2px;
-  text-align: center;
-  color: #000;
+#wizard .thumbs:hover span {
+    display:block;
 }
-
-.calendar thead .weekend { /* How a weekend day name shows in header */
-  color: #a66;
-}
-
-.calendar thead .hilite { /* How do the buttons in header appear when hover */
-  background-color: #aaf;
-  color: #000;
-  border: 1px solid #04f;
-  padding: 1px;
-}
-
-.calendar thead .active { /* Active (pressed) buttons in header */
-  background-color: #77c;
-  padding: 2px 0px 0px 2px;
-}
-
-/* The body part -- contains all the days in month. */
-
-.calendar tbody .day { /* Cells <TD> containing month days dates */
-  width: 2em;
-  color: #456;
-  text-align: right;
-  padding: 2px 4px 2px 2px;
-}
-.calendar tbody .day.othermonth {
-  font-size: 80%;
-  color: #bbb;
-}
-.calendar tbody .day.othermonth.oweekend {
-  color: #fbb;
-}
-
-.calendar table .wn {
-  padding: 2px 3px 2px 2px;
-  border-right: 1px solid #000;
-  background: #bdf;
-}
-
-.calendar tbody .rowhilite td {
-  background: #def;
-}
-
-.calendar tbody .rowhilite td.wn {
-  background: #eef;
-}
-
-.calendar tbody td.hilite { /* Hovered cells <TD> */
-  background: #def;
-  padding: 1px 3px 1px 1px;
-  border: 1px solid #bbb;
-}
-
-.calendar tbody td.active { /* Active (pressed) cells <TD> */
-  background: #cde;
-  padding: 2px 2px 0px 2px;
-}
-
-.calendar tbody td.selected { /* Cell showing today date */
-  font-weight: bold;
-  border: 1px solid #000;
-  padding: 1px 3px 1px 1px;
-  background: #fff;
-  color: #000;
-}
-
-.calendar tbody td.weekend { /* Cells showing weekend days */
-  color: #a66;
-}
-
-.calendar tbody td.today { /* Cell showing selected date */
-  font-weight: bold;
-  color: #00f;
-}
-
-.calendar tbody .disabled { color: #999; }
-
-.calendar tbody .emptycell { /* Empty cells (the best is to hide them) */
-  visibility: hidden;
-}
-
-.calendar tbody .emptyrow { /* Empty row (some months need less than 6 rows) */
-  display: none;
-}
-
-/* The footer part -- status bar and "Close" button */
-
-.calendar tfoot .footrow { /* The <TR> in footer (only one right now) */
-  text-align: center;
-  background: #556;
-  color: #fff;
-}
-
-.calendar tfoot .ttip { /* Tooltip (status bar) cell <TD> */
-  background: #fff;
-  color: #445;
-  border-top: 1px solid #556;
-  padding: 1px;
-}
-
-.calendar tfoot .hilite { /* Hover style for buttons in footer */
-  background: #aaf;
-  border: 1px solid #04f;
-  color: #000;
-  padding: 1px;
-}
-
-.calendar tfoot .active { /* Active (pressed) style for buttons in footer */
-  background: #77c;
-  padding: 2px 0px 0px 2px;
-}
-
-/* Combo boxes (menus that display months/years for direct selection) */
-
-.calendar .combo {
-  position: absolute;
-  display: none;
-  top: 0px;
-  left: 0px;
-  width: 4em;
-  cursor: default;
-  border: 1px solid #655;
-  background: #def;
-  color: #000;
-  font-size: 90%;
-  z-index: 100;
-}
-
-.calendar .combo .label,
-.calendar .combo .label-IEfix {
-  text-align: center;
-  padding: 1px;
-}
-
-.calendar .combo .label-IEfix {
-  width: 4em;
-}
-
-.calendar .combo .hilite {
-  background: #acf;
-}
-
-.calendar .combo .active {
-  border-top: 1px solid #46a;
-  border-bottom: 1px solid #46a;
-  background: #eef;
-  font-weight: bold;
-}
-
-.calendar td.time {
-  border-top: 1px solid #000;
-  padding: 1px 0px;
-  text-align: center;
-  background-color: #f4f0e8;
-}
-
-.calendar td.time .hour,
-.calendar td.time .minute,
-.calendar td.time .ampm {
-  padding: 0px 3px 0px 4px;
-  border: 1px solid #889;
-  font-weight: bold;
-  background-color: #fff;
-}
-
-.calendar td.time .ampm {
-  text-align: center;
-}
-
-.calendar td.time .colon {
-  padding: 0px 2px 0px 3px;
-  font-weight: bold;
-}
-
-.calendar td.time span.hilite {
-  border-color: #000;
-  background-color: #667;
-  color: #fff;
-}
-
-.calendar td.time span.active {
-  border-color: #f00;
-  background-color: #000;
-  color: #0f0;
-}
-
-/* ---------------------*/

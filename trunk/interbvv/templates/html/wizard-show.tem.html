@@ -32,35 +32,39 @@
         <a name="preview">&nbsp;</a>
     </div>
 
-    #{image_map}
+    <hr>
 
-    <div style="float:left;background:#FFFFFF;margin:0 7px;">
-<!--         <div id="vorhang" style="display:none;"></div> -->
-        <div id="vorschau_container" style="display:none;">
-            <div id="vorschau">
-                <div id="substance" !#ausgaben_class></div>
-            </div>
-            <div id="preview_close">
-                <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
-            </div>
+    <div id="vorschau_container" style="display:none;">
+        <div id="vorschau">
+            <div id="substance" !#ausgaben_class></div>
         </div>
+        <div id="preview_close">
+            <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
+        </div>
+    </div>
+    <div id="vorhang_cancel" style="display:none;"></div>
+    <div id="vorhang_preview" style="display:none;"></div>
 
+    <div class="column_1">
+        #{image_map}
+    </div>
+
+    <div class="column_2">
         <!--##hide-no_sort_content-->
-        <div style="float:left;display:block;margin-left:10px;width:550px;" id="no_sort_content">#(show_none)</div>
+        <div style="display:block;margin:5px;background:silver;" id="no_sort_content">#(show_none)</div>
         <!--##show-->
-
         <!--##hide-sort_content-->
-        <ul id="content_blocks" style="float:left;display:block;margin:5px;width:550px;">
+        <ul id="content_blocks">
             <!--##loop-sort_content-->
             <li id="item_!{key}" class="!{class}" style="!{style}">
 <!--                 <a name="item_!{key}" href="#" style="float:right;">nach oben</a> -->
                 <div class="clearer"></div>
                 !{value_html}
                 <div class="clearer"></div>
-                <p class="block_edit" !{modify}>
-                    <a href="!{link_up}" class="button" title="#(wiz_moveup_desc)">#(wiz_moveup)</a>
-                    <a href="!{link_down}" class="button" title="#(wiz_movedown_desc)">#(wiz_movedown)</a>
-                    <a href="!{delete}" class="button" title="#(wiz_delete_desc)">#(wiz_delete)</a>
+                <p class="buttons" !{modify}>
+                    <a href="!{link_up}" class="button" title="#(wiz_moveup_desc)" style="!{display_up}">#(wiz_moveup)</a>
+                    <a href="!{link_down}" class="button" title="#(wiz_movedown_desc)" style="!{display_down}">#(wiz_movedown)</a>
+                    <a href="!{delete}" class="button" title="#(wiz_delete_desc)" style="!{display_delete}">#(wiz_delete)</a>
                 </p>
                 <div class="clearer"></div>
             </li>
@@ -69,24 +73,29 @@
         <!--##show-->
     </div>
 
-    <div id="margin" style="padding:0;width:135px;float:right;background:none;margin:0;">
+    <div class="column_3">
         <div class="box">
             <h3>#(add_block)</h3>
             <!--##loop-add_buttons-->
-            <a href="!{link}" class="button" style="display:block;margin:3px;" title="!{item}">!{item}</a>
+            <a href="!{link}" class="button" title="!{item}">!{item}</a>
             <!--##cont-->
+            <div class="clearer"></div>
         </div>
 
         <!--##hide-default-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
-<!--                 <button type="submit" name="save[]" value="save" class="button">g(save)</button> -->
-                <button type="submit" name="version[]" value="version" class="button">g(version)</button>
-                <div id="cancel">
-                    <p>blab, blib, blub</p>
-                    <button type="submit" name="cancel[]" value="cancel" class="button">g(abort)</button>
+                <button type="submit" name="version[]" value="version" class="button">g(save)</button>
+                <button type="button" onclick="buttonCancel();" class="button">g(abort)</button>
+                <div id="cancel" style="display:none;">
+                    #(confirm_cancel)
+                    <p >
+                        <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
+                        <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                    </p>
                 </div>
+
                 <div class="clearer"></div>
             </form>
         </div>
@@ -95,16 +104,24 @@
         <!--##hide-edit-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:119px;">g(preview)</button>
-                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(save)</button>
-                <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button><br />
+                <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
+                <button type="submit" name="version[]" value="version" class="button">g(save)</button>
+                <button type="button" onclick="buttonCancel();" class="button">g(abort)</button>
+                <div id="cancel" style="display:none;">
+                    #(confirm_cancel)
+                    <p >
+                        <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
+                        <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                    </p>
+                </div>
+
                 <div class="clearer"></div>
             </form>
         </div>
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">#(ask_release)</button>
-                <input type="hidden" name="release_mark" value="-1" class="button" />
+                <button type="submit" class="button" name="version[]" value="version">#(ask_release)</button>
+                <input type="hidden" name="release_mark" value="-1" />
                 <div class="clearer"></div>
             </form>
         </div>
@@ -113,32 +130,26 @@
         <!--##hide-publish-->
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="button" onclick="preview();" id="button_preview" class="button" style="display:block;margin:3px;width:119px;">g(preview)</button>
-                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">g(save)</button>
-                <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:119px;">g(abort)</button>
+                <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
+                <button type="submit" name="version[]" value="version" class="button">g(save)</button>
+                <button type="button" onclick="buttonCancel();" class="button">g(abort)</button>
                 <div id="cancel" style="display:none;">
                     #(confirm_cancel)
                     <p >
-                        <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;">g(yes)</button>
+                        <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
                         <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
                     </p>
                 </div>
+
                 <div class="clearer"></div>
             </form>
         </div>
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:119px;">#(release)</button>
-                <input type="hidden" name="release_mark" value="-1" class="button" />
+                <button type="submit" class="button" name="version[]" value="version">#(release)</button>
+                <input type="hidden" name="release_mark" value="-1" />
                 <div class="clearer"></div>
             </form>
-        </div>
-        <!--##show-->
-
-        <!--##hide-blocked-->
-        <div class="box">
-            <input type="checkbox" class="radiocheck" name="release_mark" value="-1" checked="true" disabled="true" />#(blocked_release)
-            <div class="clearer"></div>
         </div>
         <!--##show-->
     </div>
@@ -146,8 +157,6 @@
     <div class="clearer"></div>
 
 </div>
-<div id="vorhang_cancel" style="display:none;"></div>
-<div id="vorhang_preview" style="display:none;"></div>
 
 !#ausgaben_output
 !#ausgaben_inaccessible

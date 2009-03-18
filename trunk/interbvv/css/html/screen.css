@@ -96,6 +96,7 @@ ins {
 ------------------------------------------------------*/
 #head {
     background:url('/images/html/banner.jpg') bottom left no-repeat;
+    position:relative;
     width:990px;
 }
 
@@ -120,7 +121,8 @@ ins {
     /* head-navigation */
     #headnavi {
         height:40px;  /* -> #head a.wappen padding-top */
-        width:650px;
+        position:absolute;
+        width:750px;
     }
 
         #headnavi ul {

@@ -18,20 +18,45 @@
             <input type="hidden" name="link" value="!{link}"/>
             <input type="hidden" name="kategorie" value="!{kategorie}"/>
             <input type="hidden" name="special" value="!{kategorie}"/>
-        </form><br /><br />
+        </form>
         <!--##show-->
         <ul>
-        <!--##loop-list-->
-            <li id="ls_faq_!{id}" style="background-color:rgb(254, 234, 173);background-image: url(/images/html/wizard-icon-frage.png); position: relative;" >
-                <b>!{titel_org}</b><p class=block_edit><a class="button" href="!{titel_wizard_edit_link}">Frage bearbeiten</a></p>
+            <!--##loop-list-->
+            <li style="padding:0;">
+                <div id="ls_faq_!{id}" style="background: url(/images/html/wizard-icon-frage.png) no-repeat right top rgb(254, 234, 173);padding:20px 4px 4px; position: relative;">
+                    <b>!{titel_org}</b>
+                    <p class=buttons>
+                        <a class="button" href="!{titel_wizard_edit_link}">Frage bearbeiten</a>
+                    </p>
+                </div>
+                <div id="ls_faq_!{id}" style="background: url(/images/html/wizard-icon-antwort.png) no-repeat right top rgb(255, 243, 207);padding:20px 4px 4px; position: relative;">
+                    <ul>
+                        <li style="background-color:rgb(255, 243, 207)">
+                            !{div_before_org}
+                            <p class=buttons>
+                                <a class="button" href="!{div_before_wizard_edit_link}">Antwort bearbeiten</a>
+                            </p>
+                        </li>
+                        <li style="background-color:rgb(255, 243, 207)">
+                            !{faq}
+                            <p class=buttons>
+                                <a class="button" href="!{faq_wizard_edit_link}">Liste bearbeiten</a>
+                            </p>
+                        </li>
+                        <li style="background-color:rgb(255, 243, 207)">
+                            !{div_after_org}
+                            <p class=buttons>
+                                <a class="button" href="!{div_after_wizard_edit_link}">Antwort bearbeiten</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <p class=buttons style="background-color:rgb(254, 234, 173);margin:0;">
+                    <a class="button" href="!{sort_up}">FAQ-Eintrag nach oben</a>
+                    <a class="button" href="!{sort_down}">FAQ-Eintrag nach unten</a> !{deletelink}
+                </p>
             </li>
-            <li id="ls_faq_!{id}" style="background-color:rgb(255, 243, 207);background-image: url(/images/html/wizard-icon-antwort.png); position: relative;" >
-                <ul><p style="background-color:rgb(255, 243, 207)">!{div_before_org}<p class=block_edit><a class="button" href="!{div_before_wizard_edit_link}">Antwort bearbeiten</a></p></li></ul>
-                !{faq}<p class=block_edit><a class="button" href="!{faq_wizard_edit_link}">Liste bearbeiten</a></p>
-                <ul><p style="background-color:rgb(255, 243, 207);">!{div_after_org}<p class=block_edit><a class="button" href="!{div_after_wizard_edit_link}">Antwort bearbeiten</a></p></li></ul>
-                <a class="button" href="!{sort_up}">nach oben</a><a class="button" href="!{sort_down}">nach unten</a><a class="button" href="!{wizard_delete_link}">Löschen</a>
-            </li>
-        <!--##cont-->
+            <!--##cont-->
         </ul>
 <!--##end-->
     </body>
