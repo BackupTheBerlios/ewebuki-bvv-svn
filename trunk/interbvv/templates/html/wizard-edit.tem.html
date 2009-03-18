@@ -355,17 +355,33 @@
                     <!--##hide-termine-->
                     <fieldset >
                         !#ausgaben_error
-                        <label>#(termin_name)</label>
-                        <input id = "tt" type="text" name="_NAME" value="!{_NAME}" onClick="if ($(tt).value=='Neuer Termin'){$(tt).value='';}" /><br />
-                        <label>#(termin_veranstalter)</label>
-                        <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" /><br />
+                        <p>
+                            <label>#(termin_name)</label>
+                            <input id = "tt" type="text" name="_NAME" value="!{_NAME}" onClick="if ($(tt).value=='Neuer Termin'){$(tt).value='';}" />
+                        </p>
+                        <p>
+                            <label>#(termin_veranstalter)</label>
+                            <input type="text" name="_VERANSTALTER" value="!{_VERANSTALTER}" />
+                        </p>
 
-                        <label>#(termin_begin)</label><div>!#ausgaben_begin</div>
-                        <label><a onclick="anzeigen('end_termin')" title="#(termin_end_t)">#(termin_end)</a></label><div>!#ausgaben_ende</div>
-                        <label>#(termin_ort)</label>
-                        <input type="text" name="_ORT" value="!{_ORT}" /><br />
-                        <label>#(termin_desc)</label>
-                        <textarea name="_BESCHREIBUNG">!{_BESCHREIBUNG}</textarea><br />
+                        <p>
+                            <label>#(termin_begin)</label>
+                            <div>
+                                !#ausgaben_begin
+                            </div>
+                        </p>
+                        <p>
+                            <label><a onclick="anzeigen('end_termin')" title="#(termin_end_t)">#(termin_end)</a></label>
+                            <div>!#ausgaben_ende</div>
+                        </p>
+                        <p>
+                            <label>#(termin_ort)</label>
+                            <input type="text" name="_ORT" value="!{_ORT}" />
+                        </p>
+                        <p>
+                            <label>#(termin_desc)</label>
+                            <textarea name="_BESCHREIBUNG">!{_BESCHREIBUNG}</textarea><br />
+                        </p>
                         <input type="hidden" name="meta" value="on"/>
                     </fieldset>
                     <!--##show-->
@@ -376,11 +392,10 @@
         <!-- Standard-Editor-Bereich -->
                     <!--##hide-default-->
                     <fieldset class="ce">
-                        <div style="float:left"><script type="text/javascript">ebToolbar('T');</script></div>
+                        <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');ebToolbar('B');</script></div>
                         <div style="margin-right:5px;">
                             <textarea id="content_box" name="!#ausgaben_name" class="ta_norm" rows="15" style="width:100%;padding:2px;" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
                         </div>
-                        <div style="float:left"><script type="text/javascript">ebToolbar('B');</script></div>
                         <div style="clear:both"></div>
                         <p>
                         <!--##loop-list_other-->
@@ -466,7 +481,8 @@
     {
         inputField  : "date1",         // ID of the input field
         ifFormat    : "%d.%m.%Y",    // the date format
-        button      : "trigger1"       // ID of the button
+        button      : "trigger1",       // ID of the button
+        class:"test"
     }
     );
     Calendar.setup(

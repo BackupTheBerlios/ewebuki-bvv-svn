@@ -4,7 +4,7 @@
     background:#FFF3CF;
 /*     padding:0 5px 5px 5px; */
     margin:0;
-    padding:0;
+    padding:0 0 10px;
     width:881px;
 }
 
@@ -84,6 +84,10 @@
 
 #wizard a.button:hover, #wizard .buttons a:hover {
     text-decoration:none;
+}
+
+#wizard .editor_buttons div {
+    display:inline;
 }
 
 
