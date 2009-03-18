@@ -231,7 +231,7 @@
                 }
 
 
-                $dataloop["edit_lokale_artikel"][]["lokal_edit"] = $pathvars["virtual"]."/wizard/show,".DATABASE.",".eCrc("/aktuell/archiv").".".$environment["parameter"][2].",inhalt,,,none.html";
+                #$dataloop["edit_lokale_artikel"][]["lokal_edit"] = $pathvars["virtual"]."/wizard/show,".DATABASE.",".eCrc("/aktuell/archiv").".".$environment["parameter"][2].",inhalt,,,none.html";
 
                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
                                 ".$cfg["changed"]["db"]["changed"]["changed"].",
