@@ -181,10 +181,10 @@
                 $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
             }
 
-            if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
-                $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Termin bearbeiten|"."</a>";
-                $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
-            }
+//             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
+//                 $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Termin bearbeiten|"."</a>";
+//                 $dataloop["detail"]["edit"]["desc"] = "Aktionen:";
+//             }
 
             // gesamten content betrachten
             if ( $environment["parameter"][3] == "all" ) {
