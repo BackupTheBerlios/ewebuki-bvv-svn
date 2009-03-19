@@ -268,6 +268,9 @@
         padding:1px;
         width:250px;
     }
+    #wizard fieldset table textarea {
+        width:100%;
+    }
 
     #wizard fieldset input.radiocheck {
         border-width:0;
