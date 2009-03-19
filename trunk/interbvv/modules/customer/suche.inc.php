@@ -195,7 +195,7 @@
     } elseif ( $dataloop["files_treffer"][0][5] == 1 ) {
         $ausgaben["filesresult"] = "Ein Treffer";
     } else {
-        $begin = $page_org_files*$hits_per_site+1;
+        $begin = ($page_org_files-1)*$hits_per_site+1;
         if ( $site_count > 0 ) {
             $end = ($page_org_files-1)*$hits_per_site+$hits_per_site;
             if ( $end > $dataloop["files_treffer"][0][5] ) $end = $dataloop["files_treffer"][0][5];
