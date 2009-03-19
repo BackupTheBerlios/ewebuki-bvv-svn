@@ -123,12 +123,16 @@
     }
 
     $page = "";
+    $pages = "&page=1";
+    $page_org_site = 1;
+    $pagef = "&page=1";
+    $page_org_files = 1;
     if ( $_POST["spage"]  ) {
-        $page_org_site = $_POST["spage"]-1;
+        $page_org_site = $_POST["spage"];
         $pages = "&page=".$page_org_site;
     }
     if (  $_POST["fpage"] ) {
-        $page_org_files = $_POST["fpage"]-1;
+        $page_org_files = $_POST["fpage"];
         $pagef = "&page=".$page_org_files;
     }
 
@@ -173,9 +177,9 @@
     } elseif ( $dataloop["treffer"][0][5] == 1 ) {
         $ausgaben["result"] = "Ein Treffer";
     } else {
-        $begin = $page_org_site*$hits_per_site+1;
+        $begin = ($page_org_site-1)*$hits_per_site+1;
         if ( $site_count > 0 ) {
-            $end = $page_org_site*$hits_per_site+$hits_per_site;
+            $end = ($page_org_site-1)*$hits_per_site+$hits_per_site;
             if ( $end > $dataloop["treffer"][0][5] ) $end = $dataloop["treffer"][0][5];
         } else {
             $end = $dataloop["treffer"][0][5];
