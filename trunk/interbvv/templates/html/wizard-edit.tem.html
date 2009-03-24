@@ -62,9 +62,6 @@
                     <!--##show-->
 
         <!--  IMG-Tag bearbeiten  -->
-                    <!--##hide-img-->
-                    #(img_inhalt)
-                    <!--##show-->
                     <!--##hide-imgpreview-->
                     <img src="!{src}" alt="Preview" style="float:right;margin:0 0 10px 10px;" />
                     <!--##show-->
@@ -152,7 +149,6 @@
 
         <!--  TAB-Tag bearbeiten  -->
                     <!--##hide-tab-->
-                    #(tab_inhalt)
                     <fieldset>
                         <legend>#(csvtab)</legend>
                         <p>
@@ -392,7 +388,7 @@
         <!-- Standard-Editor-Bereich -->
                     <!--##hide-default-->
                     <fieldset class="ce">
-                        <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');ebToolbar('B');</script></div>
+                        <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');</script></div>
                         <div style="margin-right:5px;">
                             <textarea id="content_box" name="!#ausgaben_name" class="ta_norm" rows="15" style="width:100%;padding:2px;" !#ausgaben_eventh2>!#ausgaben_inhalt</textarea>
                         </div>
