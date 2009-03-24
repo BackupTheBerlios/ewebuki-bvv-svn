@@ -15,6 +15,7 @@
     <fieldset>
         <h2>!#ausgaben_title</h2>
         <label style="clear:left;">#(keyword)
+            <input id="url" type="hidden" value="!#ausgaben_path" name="url" tabindex="1" style="display:none;" />
             <input id="keywords_box" type="text" value="!#ausgaben_keywords" name="keywords" onkeyup="update_tags(this)" tabindex="1" style="width:750px;" />
         </label>
         <div id="autocomplete_choices" class="autocomplete"></div>
