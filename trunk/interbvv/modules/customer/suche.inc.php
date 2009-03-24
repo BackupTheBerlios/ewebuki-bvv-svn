@@ -171,7 +171,7 @@
     if ( $dataloop["treffer"][0][5] ) $ausgaben["sitehits"] = $dataloop["treffer"][0][5];
 
     // anzeige der trefferanzahl
-    $site_count = floor($dataloop["treffer"][0][5] / $hits_per_site) +1;
+    $site_count = floor(($dataloop["treffer"][0][5]-0.0001) / $hits_per_site) +1;
     if ( !$dataloop["treffer"][0][5] ) {
         $ausgaben["result"] = "Keine Treffer f&uuml;r: ".$_POST["words"];
     } elseif ( $dataloop["treffer"][0][5] == 1 ) {
