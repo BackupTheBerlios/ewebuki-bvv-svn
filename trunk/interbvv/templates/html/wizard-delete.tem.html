@@ -8,71 +8,86 @@
 </head>
 <body>
 <!--##begin-->
-
-
-<div class="clearer"></div>
 <div id="wizard">
-    #(inhalt)
-    <div id="vorschau" style="display:none;padding-right:10px;">
-        <div id="substance"></div>
+    <div class="admin_head" style="">
+        #(inhalt)
+        <div class="clearer"></div>
     </div>
 
-    <div id="content_blocks">
-        <div id="sdubstance">
-        <fieldset class="button">
-            <p>!#ausgaben_form_error</p>
-            <!--##loop-allartikel-->
-    <!--                 <button  type="button" onclick="preview(!{version});" id="!{version}" class="button">Version: !{version}</button><input type="radio" style="display:!{display}" name="version" value="!{version}"/> <br> -->
-            <button type="button" style="background-color:!{color}" onclick="preview(!{version});" id="!{version}" class="button">Version: !{version} </button>!{text}
-            <div class="clearer"></div>
-            <!--##cont-->
+    <div class="column_2 column_2_wide" style="" id="cEd">
+        <fieldset class="">
+            <ul>
+                <!--##loop-allartikel-->
+                <li style="border:1px solid silver; margin:0 0 5px;padding:5px;">
+                    <button type="button" style="float:right;width:auto;" onclick="preview(!{version});" id="!{version}" class="button">Vorschau</button>
+                    <h3 style="margin-top:0;">Version: !{version}:</h3>
+                    !{text}
+                </li>
+                <!--##cont-->
+            </ul>
         </fieldset>
+    </div>
+
+    <div class="column_3">
+        <form method="post" action="!#ausgaben_form_aktion">
+            <div class="box">
+                <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+                <button type="submit" name="delete[]" value="delete" accesskey="s" class="button">g(delete)</button>
+                <button type="button" name="cancel[]" value="g(abort)" accesskey="a" class="button" onclick="location='!#ausgaben_form_referer'">g(abort)</button>
+                <div class="clearer">&nbsp;</div>
+            </div>
+        </form>
+    </div>
+    <div id="vorhang_preview" style="display:none;"></div>
+    <div id="vorschau_container" style="display:none;">
+        <div id="vorschau">
+            <div id="substance" !#ausgaben_class></div>
+        </div>
+        <div id="preview_close">
+            <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
         </div>
     </div>
-    <div class="clearer">&nbsp;</div>
-    <form method="post" action="!#ausgaben_form_aktion">
-        <fieldset class="buttons">
-            <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
-
-        <button type="button" onclick="preview();" id="button_preview" style="display:none" class="button">Schließen</button>
-            <button type="submit" name="delete[]" value="delete" accesskey="s" class="button">Löschen</button>
-            <button type="button" name="cancel[]" value="g(abort)" accesskey="a" class="button" onclick="location='!#ausgaben_form_referer'">g(abort)</button>
-            <div class="clearer">&nbsp;</div>
-        </fieldset>
-    </form>
     !#ausgaben_output
     !#ausgaben_inaccessible
+    <div class="clearer"></div>
+
 </div>
+
+
+
 <script type="text/javascript">
 
+    var dauer = 0.5;
+    var deckkraft = 0.8;
+    Event.observe('vorhang_preview','click',preview);
     function preview(a) {
-        if ( $('vorschau').style.display == 'none' ) {
-            $('button_preview').style.display = 'inline';
+        if ( $('vorschau_container').style.display == 'none' ) {
             var update = new Ajax.Updater('substance',
                                         '!#ausgaben_form_aktion',
                                         {
                                             asynchronous:true,
                                             parameters: 'ajax=on&save=on&version='+a,
                                             onSuccess:function(){
-                                                new Effect.Parallel(
-                                                    [
-                                                        new Effect.BlindDown('vorschau'),
-                                                        new Effect.BlindUp('content_blocks')
-                                                    ]
-                                                );
+                                                // fenstergroesse bestimmen (funktion ist in lightbox.js)
+                                                var arrayPageSize = getPageSize();
+                                                // vorschau zentrieren
+                                                var pos_x = ($('site').getWidth() - $('vorschau_container').getWidth()) / 2;
+                                                $('vorschau_container').style.left = pos_x + 'px';
+                                                $('vorschau_container').style.top = arrayPageSize[3]/4 + 'px';
+                                                // "vorhang" und vorschau einblenden
+                                                $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
+                                                $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
+                                                new Effect.Appear('vorhang_preview', { duration: dauer, from: 0.0, to: deckkraft });
+                                                new Effect.Appear('vorschau_container',{duration:0.5});
                                             }
                                         }
             );
             return false;
         } else {
-            self.location.href = '#top';
-            $('button_preview').style.display = 'none';
-            new Effect.Parallel(
-                [
-                    new Effect.BlindUp('vorschau'),
-                    new Effect.BlindDown('content_blocks')
-                ]
-            );
+            // nach oben scrollen und box und "vorhang" ausblenden
+            new Effect.ScrollTo('head', { duration: dauer});
+            new Effect.Fade('vorhang_preview',{duration:0.5});
+            new Effect.Fade('vorschau_container',{duration:dauer});
         }
     }
 
