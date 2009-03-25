@@ -285,11 +285,12 @@
 #wizard .thumbs span {
     background:#EEEEEE;
     display:none;
-    left:6px;
+    left:100px;
     position:absolute;
     text-align:left;
     top:3px;
-    width:96px;
+    width:150px;
+    z-index:100;
 }
 
 #wizard .thumbs:hover span {

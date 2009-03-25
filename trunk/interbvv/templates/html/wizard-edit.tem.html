@@ -29,8 +29,6 @@
     </div>
     <div class="clearer"></div>
 
-    <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
-
     <!--##hide-img-->
     <h1>!{num}. #(img_inhalt)</h1>
     <!--##show-->
@@ -49,7 +47,7 @@
 
     <div class="clearer"></div>
 
-    <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data">
+    <form method="post" action="!#ausgaben_form_aktion" enctype="multipart/form-data" id="cEd">
 
 <!--         <div style="float:left;background:#FFFFFF;margin:0 7px;width:720px;" id="cEd"> -->
         <div class="column_2 column_2_wide" style="" id="cEd">
@@ -57,8 +55,8 @@
 
                 <div id="wiz_ed">
         <!--             #(inhalt) -->
-                    <!--##hide_form_error>-->
-                    <p>!#ausgaben_form_error</p>
+                    <!--##hide-form_error-->
+                    <p class="error">!#ausgaben_form_error</p>
                     <!--##show-->
 
         <!--  IMG-Tag bearbeiten  -->
@@ -234,7 +232,7 @@
                         </p>
                     </fieldset>
 
-                    <fieldset style="display:block;">
+                    <fieldset style="display:none;">
                         <fieldset >
                             <legend>#(detail_size)</legend>
                             <!--##loop-size-->
@@ -265,10 +263,10 @@
                             <li class="thumbs">
                                 <a href="!#pathvars_virtual/admin/fileed/!{ehref}">
                                     <img src="!{src}" alt="!{under} g(edit)" title="!{under} g(edit)" />
-                                    <span>
+<!--                                    <span>
                                         <b>#(description)</b><br />
                                         !{under}
-                                    </span>
+                                    </span>-->
                                 </a>
                                 <p>
                                     <input type="checkbox" class="radiocheck" name="tagwerte[3][]" value="!{id}"!{checked} onclick="session_update(!#ausgaben_tagwerte0,!{id});" />
