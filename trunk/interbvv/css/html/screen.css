@@ -407,6 +407,9 @@ ins {
         margin-top:35px;
         padding:3px;
     }
+    #substance .cloud_pages {
+        margin-top:50px;
+    }
 
         #substance .aktuell h3 {
             margin-top:0;
@@ -426,6 +429,10 @@ ins {
                 background:url('/images/html/dash.png') no-repeat;
                 padding-left:16px;
             }
+
+        #substance .aktuell ul {
+            width:100%;
+        }
     /* + + + */
     /* aktuell-box */
 

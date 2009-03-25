@@ -435,7 +435,7 @@ li.thumbs input {
 /* ---------------------*/
 
 
-#eEd .cloud, .cloud_pages {
+#eEd .cloud, #eEd .cloud_pages {
     border:1px solid #CCCCCC;
     margin:4px 0 6px;
     padding:3px;

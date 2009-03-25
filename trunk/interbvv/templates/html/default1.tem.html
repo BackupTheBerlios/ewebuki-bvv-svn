@@ -16,31 +16,22 @@
         <div id="substance">
             #(inhalt)
             !#ausgaben_output
-            <p class="anchor">
-                <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
-            </p>
+
             <!--##hide-tags_on_page-->
             <div class="aktuell cloud_pages">
-            <!--##show-->
-                <!--##hide-tags_on_page-->
-                <h3>#(#(keywords)</h3>
-                <!--##loop-tags_on_page-->
-                <a href="!{link}" title="!{keyword} !{anzahl}">!{keyword}</a>
-                <!--##cont-->
-                <!--##show-->
-            <!--##hide-rel_page-->
                 <h3>#(rel_pages)</h3>
                 <ul>
                     <!--##loop-rel_page-->
                     <li class="!{class}" >
-                        <a href="!{url}" >!{title}</a>
+                        <a href="!{url}" >!{title_content}</a>
                     </li>
                     <!--##cont-->
                 </ul>
-            <!--##show-->
-            <!--##hide-tags_on_page-->
             </div>
             <!--##show-->
+            <p class="anchor">
+                <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
+            </p>
         </div>
         #{margin}
 <!--##end-->
