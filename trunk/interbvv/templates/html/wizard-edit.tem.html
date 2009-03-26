@@ -286,6 +286,25 @@
                     </script>
                     <!--##show-->
 
+        <!--  LIST-Tag bearbeiten  -->
+            <!--##hide-list-->
+            #(link_inhalt)
+            <fieldset class="ce">
+                <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');ebToolbar('B');</script></div>
+                <div class="clearer"></div>
+                <ul id="sort_list" width="100%">
+                    <!--##loop-list-->
+                    <li><div style="background:#FEEAAD">
+                        !{del}
+                        <textarea onfocus="ebCanvas=document.getElementById(!{count})" style="float:none;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="3">!{inhalt}</textarea>
+                       </div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            </fieldset>
+
+              <!--##show-->
+
         <!--  LINK-Tag bearbeiten  -->
                     <!--##hide-link-->
                     <fieldset >
@@ -446,6 +465,9 @@
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="send[]" value="g(send)" accesskey="s" class="button">g(send)</button>
                 <button type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button">g(abort)</button>
+            <!--##hide-list-->
+                <button type="submit" name="new_line[]" value="Neuer Listeneintrag" class="button">Neuer Listeneintrag</button>
+              <!--##show-->
                 <div class="clearer"></div>
             </div>
         </div>
@@ -520,6 +542,11 @@
             new Effect.Fade('vorschau_container',{duration:dauer});
         }
     }
+
+// <!--##hide-list-->
+    Sortable.create("sort_list");
+// <!--##show-->
+
 </script>
 !#ausgaben_output
 !#ausgaben_inaccessible
