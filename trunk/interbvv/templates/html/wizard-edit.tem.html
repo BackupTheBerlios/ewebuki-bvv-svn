@@ -41,6 +41,9 @@
     <!--##hide-link-->
     <h1>!{num}. #(link_inhalt)</h1>
     <!--##show-->
+    <!--##hide-list-->
+    <h1>!{num}. #(list_inhalt)</h1>
+    <!--##show-->
     <!--##hide-default-->
     <h1>!{num}. !{tag}</h1>
     <!--##show-->
@@ -256,8 +259,13 @@
                         </fieldset>
                     </fieldset>
 
+                    <div id="output"></div>
+
                     <fieldset >
                         <legend>#(grid)</legend>
+                        <p id="sel_error" class="error" style="display:none;">
+                            <span></span> #(sel_num_error) !#ausgaben_max_sel_num
+                        </p>
                         <ul id="grid_list">
                             <!--##loop-list_images-->
                             <li class="thumbs">
@@ -277,24 +285,17 @@
                     </fieldset>
 
                     <script type="text/javascript">
-                        function session_update(compid,fileid) {
-                            new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
-                                            {asynchronous:true
-                                            }
-                            );
-                        }
                     </script>
                     <!--##show-->
 
         <!--  LIST-Tag bearbeiten  -->
             <!--##hide-list-->
-            #(link_inhalt)
             <fieldset class="ce">
                 <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');ebToolbar('B');</script></div>
                 <div class="clearer"></div>
                 <ul id="sort_list" width="100%">
                     <!--##loop-list-->
-                    <li><div style="background:#FEEAAD">
+                    <li><div style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
                         !{del}
                         <textarea onfocus="ebCanvas=document.getElementById(!{count})" style="float:none;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="3">!{inhalt}</textarea>
                        </div>
@@ -461,13 +462,15 @@
         </div>
 
         <div class="column_3">
+            <!--##hide-list-->
+            <div class="box">
+                <button type="submit" name="new_line[]" value="Neuer Listeneintrag" class="button">Neuer Listeneintrag</button>
+            </div>
+              <!--##show-->
             <div class="box">
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
-                <button type="submit" name="send[]" value="g(send)" accesskey="s" class="button">g(send)</button>
-                <button type="submit" name="cancel[]" value="g(abort)" accesskey="a" class="button">g(abort)</button>
-            <!--##hide-list-->
-                <button type="submit" name="new_line[]" value="Neuer Listeneintrag" class="button">Neuer Listeneintrag</button>
-              <!--##show-->
+                <button type="submit" name="send[]" id="button_send" value="g(send)" accesskey="s" class="button">g(send)</button>
+                <button type="submit" name="cancel[]" id="button_cancel" value="g(abort)" accesskey="a" class="button">g(abort)</button>
                 <div class="clearer"></div>
             </div>
         </div>
@@ -542,6 +545,37 @@
             new Effect.Fade('vorschau_container',{duration:dauer});
         }
     }
+
+//     <!--##hide-sel-->
+    function session_update(compid,fileid) {
+        new Ajax.Request('/auth/admin/fileed/compilation,' + compid + ',' + fileid + '.html?ajax',
+                        {asynchronous:true
+                        }
+        );
+        check_selected();
+    }
+    function check_selected() {
+        var i = 0;
+        $$('#grid_list .radiocheck').each( function(element,index) {
+                if ( element.checked == true ) {
+                    i++;
+                }
+            }
+        );
+        if ( i > !#ausgaben_max_sel_num ) {
+            if ( $('sel_error').style.display == 'none' ) new Effect.BlindDown('sel_error',{duration:0.5});
+            new Effect.BlindUp('button_preview',{duration:0.5});
+            new Effect.BlindUp('button_send',{duration:0.5});
+            $('sel_error').down('span').innerHTML = i;
+        } else {
+            new Effect.BlindUp('sel_error',{duration:0.5});
+            if ( $('button_preview').style.display == 'none' ) new Effect.BlindDown('button_preview',{duration:0.5});
+            if ( $('button_send').style.display == 'none' ) new Effect.BlindDown('button_send',{duration:0.5});
+        }
+        $('sel_error').down(1);
+    }
+    check_selected();
+// <!--##show-->
 
 // <!--##hide-list-->
     Sortable.create("sort_list");
