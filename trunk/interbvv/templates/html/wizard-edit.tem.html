@@ -386,7 +386,7 @@
                         </p>
                         <p>
                             <label><a onclick="anzeigen('end_termin')" title="#(termin_end_t)">#(termin_end)</a></label>
-                            <div>!#ausgaben_ende</div>
+                                !#ausgaben_ende
                         </p>
                         <p>
                             <label>#(termin_ort)</label>
@@ -500,15 +500,19 @@
     {
         inputField  : "date1",         // ID of the input field
         ifFormat    : "%d.%m.%Y",    // the date format
-        button      : "trigger1",       // ID of the button
-        class:"test"
+        //  showsTime : true, // will display a time selector
+        button : "trigger1", // trigger for the calendar (button ID)
+        //  singleClick : false, // double-click mode
+        step : 1 
     }
     );
+
     Calendar.setup(
     {
         inputField  : "date2",         // ID of the input field
         ifFormat    : "%d.%m.%Y",    // the date format
-        button      : "trigger2"       // ID of the button
+        button      : "trigger2",       // ID of the button
+        step : 1 
     }
     );
 // <!--##show-->
