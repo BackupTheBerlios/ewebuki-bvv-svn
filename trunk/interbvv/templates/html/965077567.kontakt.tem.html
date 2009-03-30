@@ -16,7 +16,7 @@
         <div id="substance">
             <form method="post" action="!#ausgaben_form_aktion">
                 #(kopf)
-                <p>!#ausgaben_form_error</p>
+                <p style="color:red">!#ausgaben_form_error</p>
                 <!--##hide-success-->
                 <p>
                     #(success)
@@ -28,8 +28,9 @@
                     <div class="clearer">&nbsp;</div>
                 </p>
                 <!--##show-->
+                <!--##hide-form-->
                 <fieldset class="kontakt">
-                    <legend>#(legend_adressat)</legend>
+                    <legend>g(legend_adressat)</legend>
                     <label for="betreff">#(betreff)</label>
                     !#element_betreff
                     <label for="mitteilung">#(mitteilung)</label>
@@ -52,16 +53,18 @@
                     <label for="tel">#(tel)</label>
                     !#element_tel
                     <label for="last_viewed">g(last_viewed)</label>
-                    <input type="text" value="!#ausgaben_last_viewed" name="last_viewed" class="" id="last_viewed"  readonly="readonly" />
+                    <input type="hidden" value="!#ausgaben_last_viewed" name="last_viewed" class="" id="last_viewed"  readonly="readonly" />
                 </fieldset>
 
                 <fieldset class="kontakt">
+                    <!--##show-->
                     <!--##hide-captcha-->
                     #(captcha)
                     <label for="captcha"><img title="captcha" alt="captcha" src="!{url}" /></label>
                     <input type="text" value="" name="captcha" class="" id="captcha" />
                     <input name="captcha_proof" type="hidden" value="!{proof}" class="hidden" />
                     <!--##show-->
+                    <!--##hide-form-->
                 </fieldset>
 
                 <fieldset class="button">
@@ -73,6 +76,7 @@
                     <div class="clearer">&nbsp;</div>
                 </fieldset>
                 #(inhalt)
+                <!--##show-->
                 <div class="clearer">&nbsp;</div>
                 <p>!#ausgaben_inaccessible</p>
                 <p>!#ausgaben_output</p>
