@@ -55,10 +55,12 @@ fieldset{
     padding:5px;
 }
 input, button, textarea {
-    font-size:inherit;
+    font-size:0.8em;
     font-family:Verdana,Tahoma,Arial,sans-serif;
 }
-
+input[type=text] {
+    font-size:1em;
+}
 
 /* weitere block-elemente */
 hr {
@@ -726,21 +728,22 @@ div.autocomplete {
     padding:0px;
 }
 
-    div.autocomplete ul, #content div.autocomplete ul {
+    div.autocomplete ul, #substance div.autocomplete ul {
         list-style-type:none;
         margin:0px;
         padding:0px;
     }
 
-        div.autocomplete ul li.selected { background-color: #C2DAEF;}
-
-        div.autocomplete ul li {
+        div.autocomplete ul li, #substance div.autocomplete ul li {
             list-style-type:none;
+            list-style-image:none;
             display:block;
             margin:0;
-            padding:0;
+            padding:2px;
             cursor:pointer;
         }
+
+        div.autocomplete ul li.selected { background-color: #C2DAEF;}
 /* + + + */
 
 /* terminkalender */

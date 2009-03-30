@@ -18,18 +18,18 @@
         <p>#(inhalt)</p>
     </fieldset>
 
-    <fieldset id="pics_chosen" style="padding:0;min-height:90px;">
-        <legend>ausgewaehlte Bilder</legend>
+    <fieldset id="pics_available" style="padding:0;">
+        <legend>#(clipboard)</legend>
         <img src="/images/default/pos.png" style="width:1px;height:96px;float:right;" />
-        <!--##loop-chosen-->
+        <!--##loop-clipboard-->
         <img src="!{src}" id="pic_!{id}" class="sel_item" style="float:left;margin:5px;" />
         <!--##cont-->
     </fieldset>
 
-    <fieldset id="pics_available" style="padding:0;">
-        <legend>Bilder-Ablage</legend>
+    <fieldset id="pics_chosen" style="padding:0;min-height:90px;">
+        <legend>#(sel_pics)</legend>
         <img src="/images/default/pos.png" style="width:1px;height:96px;float:right;" />
-        <!--##loop-clipboard-->
+        <!--##loop-chosen-->
         <img src="!{src}" id="pic_!{id}" class="sel_item" style="float:left;margin:5px;" />
         <!--##cont-->
     </fieldset>

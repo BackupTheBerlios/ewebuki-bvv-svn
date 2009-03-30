@@ -15,10 +15,10 @@
     <fieldset>
         <h2>!#ausgaben_title</h2>
         <label style="clear:left;">#(keyword)
-            <input id="url" type="hidden" value="!#ausgaben_path" name="url" tabindex="1" style="display:none;" />
             <input id="keywords_box" type="text" value="!#ausgaben_keywords" name="keywords" onkeyup="update_tags(this)" tabindex="1" style="width:750px;" />
+            <div id="autocomplete_choices" class="autocomplete"></div>
+            <input type="hidden" value="!#ausgaben_path" name="url" style="display:none;" />
         </label>
-        <div id="autocomplete_choices" class="autocomplete"></div>
         <div class="clearer">&nbsp;</div>
         <!--##hide-tags_all-->
         <div style="margin-left:40px">
@@ -30,6 +30,7 @@
         </div>
         <!--##show-->
     </fieldset>
+    <pre id="output"></pre>
     <fieldset>
         <input type="submit" name="send[]" value="g(send)" class="first" tabindex="3" />
         <input type="button" name="abort" value="g(abort)" onclick="location='!#ausgaben_form_break'" class="next" tabindex="4" />
@@ -43,7 +44,8 @@
                             "edit_page.html",
                             {
                                 tokens: ',',
-                                parameters: 'ajax=on&taken=' + $('keywords_box').value
+                                parameters: 'ajax=on&taken=' + $('keywords_box').value,
+                                afterUpdateElement : update_tags
                             }
                         );
 
@@ -51,20 +53,20 @@
             var tags = element.value.split(',');
             var klasse = 'selected';
             cloud_elements = $('cloud').childElements();
-            for (i=0;i<cloud_elements.length;i++) {
-                if ( $(cloud_elements[i].id).hasClassName(klasse) ) {
-                    tag_element = cloud_elements[i].id;
-                    $(tag_element).removeClassName(klasse);
+            // erstmal aller tags abwaehlen
+            cloud_elements.each( function(el) {
+                    if ( el.hasClassName(klasse) ) {
+                        el.removeClassName(klasse);
+                    }
                 }
-            }
-            for (i=0;i<tags.length;i++) {
-                text = tags[i].replace (/^\s+/, '').replace (/\s+$/, '').replace(/\s/g,'_');
-                if ( text == '' ) continue;
-                tag_element = 'tag_' + text;
-                if ($(tag_element)) $(tag_element).addClassName(klasse);
-            }
-
-
+            );
+            // tags aus input markieren
+            tags.each( function(el) {
+                    text = el.replace (/^\s+/, '').replace (/\s+$/, '').replace(/\s/g,'_');
+                    tag_element = 'tag_' + text;
+                    if ($(tag_element)) $(tag_element).addClassName(klasse);
+                }
+            );
         }
 
         function update_input(tag) {
