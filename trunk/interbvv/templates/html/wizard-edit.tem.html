@@ -294,6 +294,16 @@
                 <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');ebToolbar('B');</script></div>
                 <div class="clearer"></div>
                 <ul id="sort_list" width="100%">
+
+                    <!--##loop-faq-->
+                    <li><div style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
+                        !{del}
+                        <textarea onfocus="ebCanvas=document.getElementById(!{count})" style="float:none;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="3">!{question}</textarea>
+                        <textarea onfocus="ebCanvas=document.getElementById(!{count1})" style="float:none;width:75%" id="!{count1}" name="areas[!{count1}]" class="ta_norm" rows="3">!{answer}</textarea>
+                       </div>
+                    </li>
+                    <!--##cont-->
+
                     <!--##loop-list-->
                     <li><div style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
                         !{del}
