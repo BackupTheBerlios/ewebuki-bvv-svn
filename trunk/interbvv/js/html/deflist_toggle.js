@@ -15,6 +15,7 @@ var klasse = '';
 
 function dd_initialize() {
     // alle dt durchgehen
+// alert('hallo');
     elName = 'dl';
     if ( klasse != '' ) elName = 'dl.' + klasse;
     $$(elName).each( function(el,i) {

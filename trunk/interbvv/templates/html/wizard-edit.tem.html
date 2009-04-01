@@ -513,7 +513,7 @@
         //  showsTime : true, // will display a time selector
         button : "trigger1", // trigger for the calendar (button ID)
         //  singleClick : false, // double-click mode
-        step : 1 
+        step : 1
     }
     );
 
@@ -522,13 +522,16 @@
         inputField  : "date2",         // ID of the input field
         ifFormat    : "%d.%m.%Y",    // the date format
         button      : "trigger2",       // ID of the button
-        step : 1 
+        step : 1
     }
     );
 // <!--##show-->
-    var dauer = 0.5;
-    var deckkraft = 0.8;
-    Event.observe('vorhang_preview','click',preview);
+
+
+    Event.observe(window,'load', function () {
+        lb_preview = new LB_imitate('vorschau_container');
+    });
+
     function preview() {
         if ( $('vorschau_container').style.display == 'none' ) {
             var update = new Ajax.Updater('substance',
@@ -536,27 +539,15 @@
                                         {
                                             asynchronous:true,
                                             parameters: 'ajax=on&send[]=send&' + Form.serialize('cEd'),
-                                            onSuccess:function(){
-                                                // fenstergroesse bestimmen (funktion ist in lightbox.js)
-                                                var arrayPageSize = getPageSize();
-                                                // vorschau zentrieren
-                                                var pos_x = ($('site').getWidth() - $('vorschau_container').getWidth()) / 2;
-                                                $('vorschau_container').style.left = pos_x + 'px';
-                                                $('vorschau_container').style.top = arrayPageSize[3]/4 + 'px';
-                                                // "vorhang" und vorschau einblenden
-                                                $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
-                                                $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
-                                                new Effect.Appear('vorhang_preview', { duration: dauer, from: 0.0, to: deckkraft });
-                                                new Effect.Appear('vorschau_container',{duration:0.5});
+                                            onComplete:function(){
+                                                dd_initialize();
+                                                lb_preview.show();
                                             }
                                         }
             );
             return false;
         } else {
-            // nach oben scrollen und box und "vorhang" ausblenden
-            new Effect.ScrollTo('head', { duration: dauer});
-            new Effect.Fade('vorhang_preview',{duration:0.5});
-            new Effect.Fade('vorschau_container',{duration:dauer});
+            lb_preview.hide();
         }
     }
 

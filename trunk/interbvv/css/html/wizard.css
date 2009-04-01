@@ -94,7 +94,7 @@
 
 /* ajax-definitionen
 ----------------------*/
-#vorhang, #vorhang_preview, #vorhang_cancel {
+#vorhang, #vorhang_preview, #vorhang_cancel, #vorhangOverlay {
     background:#000000;
     position:absolute;
     left:0;

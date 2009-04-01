@@ -28,21 +28,14 @@
         <!--##show-->
     </span>
 
+    <pre id="output"></pre>
+
     <div class="clearer">
         <a name="preview">&nbsp;</a>
     </div>
 
     <hr>
-
-    <div id="vorschau_container" style="display:none;">
-        <div id="vorschau">
-            <div id="substance" !#ausgaben_class></div>
-        </div>
-        <div id="preview_close">
-            <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
-        </div>
-    </div>
-    <div id="vorhang_cancel" style="display:none;"></div>
+<!--     <div id="vorhang_cancel" style="display:none;"></div> -->
     <div id="vorhang_preview" style="display:none;"></div>
 
     <div class="column_1">
@@ -132,12 +125,14 @@
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="version[]" value="version" class="button">g(save)</button>
-                <button type="button" onclick="buttonCancel();" class="button">g(abort)</button>
+                <button type="button" onclick="lb_cancel.show();" class="button">g(abort)</button>
+<!--                 <button type="button" onclick="build_dumQuest('cancel');" class="button">g(abort)</button> -->
+<!--                 <button type="button" onclick="buttonCancel();" class="button">g(abort)</button> -->
                 <div id="cancel" style="display:none;">
                     #(confirm_cancel)
                     <p >
                         <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
-                        <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                        <button type="button" onclick="lb_cancel.hide();;" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
                     </p>
                 </div>
 
@@ -156,6 +151,15 @@
 
     <div class="clearer"></div>
 
+</div>
+
+<div id="vorschau_container" style="display:none;">
+    <div id="vorschau">
+        <div id="substance" !#ausgaben_class></div>
+    </div>
+    <div id="preview_close">
+        <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="preview()" src="/images/html/lb/closelabel.gif"/>
+    </div>
 </div>
 
 !#ausgaben_output
@@ -180,7 +184,7 @@
     );
 //     <!--##show-->
 
-    Event.observe('vorhang_cancel','click',buttonCancel);
+//     Event.observe('vorhang_cancel','click',buttonCancel);
     Event.observe('vorhang_preview','click',preview);
 
     var dauer = 0.5;
@@ -198,27 +202,16 @@
     }
 //     <!--##show-->
 
-    function buttonCancel() {
-        if ( $('cancel').style.display == 'none' ) {
-            // fenstergroesse bestimmen (funktion ist in lightbox.js)
-            var arrayPageSize = getPageSize();
-            // box zentrieren
-            var pos_x = ($('site').getWidth() - $('cancel').getWidth()) / 2;
-            $('cancel').style.left = pos_x + 'px';
-            $('cancel').style.top = arrayPageSize[3]/3 + 'px';
-            // "vorhang" einblenden
-            $('vorhang_cancel').style.width = arrayPageSize[0] + 'px';
-            $('vorhang_cancel').style.height = arrayPageSize[1] + 'px';
-            new Effect.Appear('vorhang_cancel', { duration: dauer, from: 0.0, to: deckkraft });
-            new Effect.Appear('cancel');
-            new Effect.ScrollTo('head', { duration: dauer});
-        } else {
-            // nach oben scrollen und box und "vorhang" ausblenden
-            new Effect.ScrollTo('head', { duration: dauer});
-            new Effect.Fade('cancel');
-            new Effect.Fade('vorhang_cancel', { duration: dauer});
-        }
-    }
+
+
+
+//     Event.observe(window,'load', function () {
+        lb_cancel = new LB_imitate('cancel');
+//     });
+//     Event.observe(window,'load', function () {
+        lb_preview = new LB_imitate('vorschau_container',{top:100});
+//     });
+
 
     function preview() {
         if ( $('vorschau_container').style.display == 'none' ) {
@@ -227,42 +220,16 @@
                                         {
                                             asynchronous:true,
                                             parameters: 'ajax=on&save=on',
-                                            onSuccess:function(){
-                                                // fenstergroesse bestimmen (funktion ist in lightbox.js)
-                                                var arrayPageSize = getPageSize();
-                                                // vorschau zentrieren
-                                                var pos_x = ($('site').getWidth() - $('vorschau_container').getWidth()) / 2;
-                                                $('vorschau_container').style.left = pos_x + 'px';
-                                                $('vorschau_container').style.top = arrayPageSize[3]/8 + 'px';
-                                                // "vorhang" und vorschau einblenden
-                                                $('vorhang_preview').style.width = arrayPageSize[0] + 'px';
-                                                $('vorhang_preview').style.height = arrayPageSize[1] + 'px';
-                                                new Effect.Appear('vorhang_preview', { duration: dauer, from: 0.0, to: deckkraft });
-                                                new Effect.Appear('vorschau_container',{duration:0.5});
-                                                new Effect.ScrollTo('head', { duration: dauer});
+                                            onComplete:function(){
+                                                dd_initialize();
+                                                lb_preview.show();
                                             }
                                         }
             );
             return false;
         } else {
-            // nach oben scrollen und box und "vorhang" ausblenden
-            new Effect.ScrollTo('head', { duration: dauer});
-            new Effect.Fade('vorhang_preview',{duration:0.5});
-            new Effect.Fade('vorschau_container',{duration:dauer});
+            lb_preview.hide();
         }
-    }
-
-    function anzeigen(id) {
-        show = document.getElementById(id).style.display;
-        f="ls_"+id;
-        if ( show == 'none' ) {
-            document.getElementById(f).style.background='url(/images/html/minuszeichen.jpg) left -5px no-repeat';
-            new Effect.BlindDown(id, {duration: 0.1});
-        } else {
-            new Effect.BlindUp(id, {duration: 0.1})
-            document.getElementById(f).style.background='url(/images/html/pluszeichen.jpg) left -5px no-repeat';
-        }
-        return false;
     }
 </script>
 <!--##end-->

@@ -159,6 +159,7 @@ ins {
 #site{
     background-image:url('/images/html/background.png');
     background-repeat: repeat-y;
+    clear:both;
     width:1000px;
     z-index:1;
 }
@@ -887,7 +888,7 @@ input.medium, select.medium {
     background:#fff;
     border:1px solid #CCCCCC;
     border-top:5px solid #CCCCCC;
-    margin:0;
+    margin:0 0 20px;
     text-align:center;
 /*     -moz-border-radius-topright:20px; */
 }

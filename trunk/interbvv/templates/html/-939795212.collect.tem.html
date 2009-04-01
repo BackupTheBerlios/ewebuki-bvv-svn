@@ -18,20 +18,31 @@
         <p>#(inhalt)</p>
     </fieldset>
 
-    <fieldset id="pics_available" style="padding:0;">
+    <fieldset style="padding:0;">
         <legend>#(clipboard)</legend>
-        <img src="/images/default/pos.png" style="width:1px;height:96px;float:right;" />
-        <!--##loop-clipboard-->
-        <img src="!{src}" id="pic_!{id}" class="sel_item" style="float:left;margin:5px;" />
-        <!--##cont-->
+        <ul id="pics_available" style="float:left;width:98% !important;margin:10px 5px 5px 10px;">
+            <li style="list-style:none;border:0 solid silver;float:left;margin:0;width:0;">
+                <img src="/images/default/pos.png" style="width:1px;height:96px;" />
+            </li>
+            <!--##loop-clipboard-->
+            <li id="pic_!{id}" class="sel_item thumbs">
+                <img src="!{src}" class="sel_item" />
+            </li>
+            <!--##cont-->
+        </ul>
     </fieldset>
-
-    <fieldset id="pics_chosen" style="padding:0;min-height:90px;">
+    <fieldset style="padding:0;">
         <legend>#(sel_pics)</legend>
-        <img src="/images/default/pos.png" style="width:1px;height:96px;float:right;" />
-        <!--##loop-chosen-->
-        <img src="!{src}" id="pic_!{id}" class="sel_item" style="float:left;margin:5px;" />
-        <!--##cont-->
+        <ul id="pics_chosen" style="float:left;width:98% !important;margin:10px 5px 5px 10px;">
+            <li style="list-style:none;border:0 solid silver;float:left;margin:0;width:0;">
+                <img src="/images/default/pos.png" style="width:1px;height:96px;" />
+            </li>
+            <!--##loop-chosen-->
+            <li id="pic_!{id}" class="sel_item thumbs">
+                <img src="!{src}" class="sel_item" />
+            </li>
+            <!--##cont-->
+        </ul>
     </fieldset>
 
     <fieldset>
@@ -56,8 +67,8 @@
     Sortable.create(
         'pics_available',
         {
-            tag:'img',
-                constraint: false,
+            constraint: false,
+            overlap:'horizontal',
             dropOnEmpty: true,
             containment: sections,
             only:'sel_item',
@@ -79,8 +90,8 @@
     Sortable.create(
         'pics_chosen',
         {
-            tag:'img',
-                constraint: false,
+            constraint: false,
+            overlap:'horizontal',
             dropOnEmpty: true,
             containment: sections,
             only:'sel_item',
