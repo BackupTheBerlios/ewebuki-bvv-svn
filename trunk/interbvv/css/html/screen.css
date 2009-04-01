@@ -887,9 +887,13 @@ input.medium, select.medium {
     background:#fff;
     border:1px solid #CCCCCC;
     border-top:5px solid #CCCCCC;
-    margin:0 3px 20px;
+    margin:0;
     text-align:center;
 /*     -moz-border-radius-topright:20px; */
+}
+
+#margin .box {
+    margin:0 3px 20px;
 }
 
 #margin .add .box {
