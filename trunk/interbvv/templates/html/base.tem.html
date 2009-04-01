@@ -32,9 +32,11 @@
 
         <div id="head">
 
-            <a href="!#pathvars_menuroot/index.html" class="wappen" name="top">
-                <img src="../../images/html/wappen.png" alt="Bayerische Vermessungsverwaltung" />
-            </a>
+            <div class="wappen">
+                <a href="!#pathvars_menuroot/index.html" name="top" style="">
+                    <img src="../../images/html/wappen.png" alt="Bayerische Vermessungsverwaltung" />
+                </a>
+            </div>
 
             <div class="hidden">
                 Springe direkt zu:
@@ -43,7 +45,7 @@
                 <a href="#navigation">Hauptnavigationsmen&uuml;</a>
             </div>
 
-            <div id="headnavi" style="">
+            <div class="head_navi" style="">
                 <ul>
                     <!--##loop-headnavi-->
                     <li><a href="!#pathvars_virtual/!{url}" title="!{title}">!{desc}</a></li>
@@ -63,16 +65,19 @@
                 </ul>
             </div>
 
+            <div class="head_subnavi" style="">
+                <ul>
+                    <li><a href="!#pathvars_virtual/aktuell/archiv.html">#(artikel)</a></li>
+                    <li><a href="!#pathvars_virtual/aktuell/termin.html">#(termine)</a></li>
+                    <li><a href="!#pathvars_virtual/aktuell/presse.html">#(presse)</a></li>
+                </ul>
+            </div>
+
             <div class="clear"></div>
         </div>
 
         <div id="site">
 
-            <p class="metanavi">
-                Sprache:
-                <a href="!#environment_ebene/!#environment_kategorie.html" title="deutsch">de</a>
-                &nbsp;
-            </p>
             <p class="kekse" style="">#(kekse) !#environment_kekse</p>
             <div class="clear"></div>
 

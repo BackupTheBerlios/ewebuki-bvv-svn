@@ -3,8 +3,9 @@
 ----------------------*/
 
 body{
+    background:#FFFFFF url('/images/html/schatten.jpg') repeat-y scroll 1000px 50%;
     color:#303030;
-    font:76% Verdana,Arial,sans-serif;
+    font:75% Verdana,Arial,sans-serif;
     line-height:1.3em;
     margin:0;
 }
@@ -97,58 +98,58 @@ ins {
 /* kopfbereich mit banner, logo, kopfnavigation
 ------------------------------------------------------*/
 #head {
-    background:url('/images/html/banner.jpg') bottom left no-repeat;
-    position:relative;
+    background:url('/images/html/banner.jpg') bottom left no-repeat #FFFFFF;
+    float:left;
+    margin:0;
+    padding-bottom:75px;
     width:990px;
 }
-
-    #head a.wappen {
-        display:block;
-        float:right;
-        padding-top:40px;  /* -> #headnavi height */
-        width:335px;
+    #head li {
+        border-left:1px dotted #FFFFFF;
+        float:left;
     }
-
-    #head .clear {
-        clear:both;
-        height:0;
-        margin:0;
-        padding:0;
-    }
-
-        #head a.wappen img {
-            float:right;
-        }
-
-    /* head-navigation */
-    #headnavi {
-        height:40px;  /* -> #head a.wappen padding-top */
-        position:absolute;
-        width:750px;
-    }
-
-        #headnavi ul {
-            background:#2C5A93;
-            color:#FFFFFF;
-            float:left;
-            height:2em;
-            line-height:2em;
-            margin:0;
-            padding:0 15px;
-        }
-
-            #headnavi li{
-                background:#2C5A93;
-                border-left:1px dotted #FFFFFF;
-                float:left;
-                list-style-type:none;
-                white-space:nowrap;
-            }
-
-                #headnavi li a{
-                    color:#EEF3FB;
+        #head li a {
                     display:block;
                     padding:0 10px;
+        }
+    #head .wappen {
+        float:right;
+        margin-top:6px;
+        width:340px;
+    }
+        #head .wappen img {
+            float:right;
+        }
+    #head .head_navi, #head .head_subnavi {
+        float:left;
+        width:620px;
+    }
+    #head .head_navi {
+        background:#2C5A93;
+        color:#FFFFFF;
+    }
+        #head .head_navi ul {
+            float:right;
+            margin:0.2em 0;
+        }
+            #head .head_navi ul li {
+                font-size:0.8em;
+                line-height:2em;
+            }
+                #head .head_navi ul li a {
+                    color:#FFFFFF;
+                }
+        #head .head_subnavi ul {
+            border-right:1px dotted #2C5A93;
+            float:left;
+            margin:2.2em 0 0 5em;
+        }
+            #head .head_subnavi ul li {
+                border-color:#2C5A93;
+                line-height:1.6em;
+            }
+                #head .head_subnavi ul li a {
+                    font-weight:bold;
                 }
 
 /* kompletter seiteninhalt,
@@ -162,22 +163,14 @@ ins {
     z-index:1;
 }
 
-    /* kekse und sprachenwechsler */
-    p.metanavi, p.kekse {
+    /* kekse */
+    p.kekse {
+        background:#FFFFFF;
         float:left;
         line-height:2em;
-        margin:0.3em 0;
-    }
-
-    p.metanavi {
-        text-align:right;
-        width:160px;
-    }
-
-    p.kekse {
-        padding-left:10px;
-        width:550px;
-        white-space:nowrap;
+        margin:0;
+        padding:6px 0 6px 15px;
+        width:900px;
     }
 
 /* globale menue spalte
@@ -586,7 +579,7 @@ p.teaser{
 /* schrift-groessen-aenderung */
 /* * * * */
 .fontsize {
-    border-left:1px dotted #FFFFFF;
+/*     border-left:1px dotted #FFFFFF; */
 }
 
     .fontsize span {
