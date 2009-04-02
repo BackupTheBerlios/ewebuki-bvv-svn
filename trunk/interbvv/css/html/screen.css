@@ -45,6 +45,25 @@ a{
         border:0px;
     }
 
+dt {
+    color:#2C5A93;
+    text-decoration:none;
+    cursor: pointer;
+    font-weight: bold;
+    float:left;
+    clear:both;
+}
+dd {
+    clear:both;
+    margin: 5px 0 5px 0;
+}
+dd div{
+    padding-left: 25px;
+    background:url('/images/html/li-dash.png') no-repeat;
+    background-position: 8px;
+}
+
+
 /* formulare */
 form {
     margin:0;
