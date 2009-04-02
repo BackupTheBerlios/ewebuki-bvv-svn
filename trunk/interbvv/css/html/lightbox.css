@@ -58,7 +58,7 @@
 	background-color: #fff;
 	margin: 0 auto;
 	line-height: 1.4em;
-	overflow: auto;
+/* 	overflow: auto; */
 	width: 100%
 	}
 
@@ -66,7 +66,22 @@
 #imageData #imageDetails{ width: 70%; float: left; text-align: left; }
 #imageData #caption{ font-weight: bold;	}
 #imageData #numberDisplay{ display: block; clear: left; padding-bottom: 1.0em;	}
-#imageData #bottomNavClose{ width: 108px; float: right;  padding-bottom: 0.7em;	}
+#imageData #bottomNavClose{ width: 108px; float: left;  padding-bottom: 0.7em;	}
+
+#imageData #bottomNav {
+    clear:both;
+    display:inline-block;
+    width:100%;
+}
+#imageData #bottomNav a {
+    float:none;
+}
+#imageData #bottomNav #bottomNavNext {
+    float:right;
+}
+#imageData #bottomNav #bottomNavPrev {
+    float:left;
+}
 
 #overlay{
 	position: absolute;

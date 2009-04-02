@@ -397,6 +397,10 @@ li.thumbs input {
         font-size:0.9em;
     }
 
+#eEd input.sel_pic_checkbox {
+    display:none;
+}
+
 .toolbox {
     width:auto !important;
 }

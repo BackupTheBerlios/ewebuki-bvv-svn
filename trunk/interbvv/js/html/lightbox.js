@@ -48,11 +48,13 @@
 LightboxOptions = Object.extend({
     fileLoadingImage:        '/images/html/lb/loading.gif',
     fileBottomNavCloseImage: '/images/html/lb/closelabel.gif',
+    fileBottomNavNextImage: '/images/html/lb/next.gif',
+    fileBottomNavPrevImage: '/images/html/lb/prev.gif',
 
     overlayOpacity: 0.8,   // controls transparency of shadow overlay
 
     animate: true,         // toggles resizing animations
-    resizeSpeed: 7,        // controls the speed of the image resizing animations (1=slowest and 10=fastest)
+    resizeSpeed: 9,        // controls the speed of the image resizing animations (1=slowest and 10=fastest)
 
     borderSize: 10,         //if you adjust the padding in the CSS, you will need to update this variable
 
@@ -153,9 +155,19 @@ Lightbox.prototype = {
                         Builder.node('span',{id:'numberDisplay'})
                     ]),
                     Builder.node('div',{id:'bottomNav'},
-                        Builder.node('a',{id:'bottomNavClose', href: '#' },
-                            Builder.node('img', { src: LightboxOptions.fileBottomNavCloseImage })
-                        )
+                        [
+                            Builder.node('a',{id:'bottomNavPrev', href: '#',title:'zurück' },
+                                Builder.node('img', { src: LightboxOptions.fileBottomNavPrevImage })
+                            )
+                            ,
+                            Builder.node('a',{id:'bottomNavNext', href: '#',title:'vor' },
+                                Builder.node('img', { src: LightboxOptions.fileBottomNavNextImage })
+                            )
+                            ,
+                            Builder.node('a',{id:'bottomNavClose', href: '#' },
+                                Builder.node('img', { src: LightboxOptions.fileBottomNavCloseImage })
+                            )
+                        ]
                     )
                 ])
             )
@@ -165,15 +177,17 @@ Lightbox.prototype = {
 		$('overlay').hide().observe('click', (function() { this.end(); }).bind(this));
 		$('lightbox').hide().observe('click', (function(event) { if (event.element().id == 'lightbox') this.end(); }).bind(this));
 		$('outerImageContainer').setStyle({ width: size, height: size });
-		$('prevLink').observe('click', (function(event) { event.stop(); this.changeImage(this.activeImage - 1); }).bindAsEventListener(this));
-		$('nextLink').observe('click', (function(event) { event.stop(); this.changeImage(this.activeImage + 1); }).bindAsEventListener(this));
+        $('prevLink').observe('click', (function(event) { event.stop(); this.changeImage(this.activeImage - 1); }).bindAsEventListener(this));
+        $('nextLink').observe('click', (function(event) { event.stop(); this.changeImage(this.activeImage + 1); }).bindAsEventListener(this));
+        $('bottomNavPrev').observe('click', (function(event) { event.stop(); this.changeImage(this.activeImage - 1); }).bindAsEventListener(this));
+        $('bottomNavNext').observe('click', (function(event) { event.stop(); this.changeImage(this.activeImage + 1); }).bindAsEventListener(this));
 		$('loadingLink').observe('click', (function(event) { event.stop(); this.end(); }).bind(this));
 		$('bottomNavClose').observe('click', (function(event) { event.stop(); this.end(); }).bind(this));
 
         var th = this;
         (function(){
             var ids =
-                'overlay lightbox outerImageContainer imageContainer lightboxImage hoverNav prevLink nextLink loading loadingLink ' +
+                'overlay lightbox outerImageContainer imageContainer lightboxImage hoverNav prevLink nextLink bottomNavPrev bottomNavNext loading loadingLink ' +
                 'imageDataContainer imageData imageDetails caption numberDisplay bottomNav bottomNavClose';
             $w(ids).each(function(id){ th[id] = $(id); });
         }).defer();
@@ -249,6 +263,8 @@ Lightbox.prototype = {
         this.hoverNav.hide();
         this.prevLink.hide();
         this.nextLink.hide();
+        this.bottomNavPrev.hide();
+        this.bottomNavNext.hide();
 		// HACK: Opera9 does not currently support scriptaculous opacity and appear fx
         this.imageDataContainer.setStyle({opacity: .0001});
         this.numberDisplay.hide();
@@ -362,10 +378,16 @@ Lightbox.prototype = {
         this.hoverNav.show();
 
         // if not first image in set, display prev image button
-        if (this.activeImage > 0) this.prevLink.show();
+        if (this.activeImage > 0) {
+            this.prevLink.show();
+            this.bottomNavPrev.show();
+        }
 
         // if not last image in set, display next image button
-        if (this.activeImage < (this.imageArray.length - 1)) this.nextLink.show();
+        if (this.activeImage < (this.imageArray.length - 1)) {
+            this.nextLink.show();
+            this.bottomNavNext.show();
+        }
 
         this.enableKeyboardNav();
     },
