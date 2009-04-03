@@ -290,36 +290,42 @@
 
         <!--  LIST-Tag bearbeiten  -->
             <!--##hide-list-->
-            <fieldset class="ce">
-                <div class="editor_buttons"><script type="text/javascript">ebToolbar('T');ebToolbar('B');</script></div>
+                    <fieldset class="ce">
+                        <div class="editor_buttons"><script type="text/javascript">ebToolbar('T')</script></div>
+                        <ul id="sort_list" width="100%">
+                            <div class="clearer"></div>
+                            <!--##loop-faq-->
+                            <li style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
+                                <div>
+                                    <div style="float:right">
+                                        !{del}
+                                    </div>
 
-                <ul id="sort_list" width="100%">
-                    <div class="clearer"></div>
-                        <!--##loop-faq-->
-                        <li><div style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
-                        <div style="float:right">
-                        !{del}
-                        <div style="clear:right"></div>
-                        <input  style="margin-left:5px;float:right" type="checkbox" name="!{count1}" value="!{count1}" !{checked}>#(list)
-                        </div>
-                        <textarea onfocus="ebCanvas=document.getElementById(!{count})" style="float:left;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="3">!{question}</textarea>
-                        <textarea onfocus="ebCanvas=document.getElementById(!{count1})" style="float:left;width:75%" id="!{count1}" name="areas[!{count1}]" class="ta_norm" rows="3">!{answer}</textarea>
-                        <div class="clearer"></div>
-                       </div>
-                    </li>
-                    <!--##cont-->
+                                    <span style="float:right" class="button">
+                                        #(move)
+                                    </span>
+                                    <textarea onfocus="new Effect.BlindUp(eb_acr, {duration: 0.2});new Effect.BlindUp(eb_b, {duration: 0.2});new Effect.BlindUp(eb_link, {duration: 0.2});" style="float:left;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="5">!{question}</textarea>
+                                    <textarea onfocus="new Effect.BlindDown(eb_acr, {duration: 0.2});new Effect.BlindDown(eb_b, {duration: 0.2});new Effect.BlindDown(eb_link, {duration: 0.2});ebCanvas=document.getElementById(!{count1})" style="float:left;width:75%" id="!{count1}" name="areas[!{count1}]" class="ta_norm" rows="5">!{answer}</textarea>
+                                    <div class="clearer"></div>
 
-                    <!--##loop-list-->
-                    <li><div style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
-                        !{del}
-                        <textarea onfocus="ebCanvas=document.getElementById(!{count})" style="float:none;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="3">!{inhalt}</textarea>
-                       </div>
-                    </li>
-                    <!--##cont-->
-                </ul>
-            </fieldset>
+                                    <div style="text-align:right">
+                                        <input  style="float:right;width:25px;margin-left:5px" type="checkbox" name="!{count1}" value="!{count1}" !{checked}> #(list)
+                                    </div>
+                                </div>
+                            </li>
+                            <!--##cont-->
 
-              <!--##show-->
+                            <!--##loop-list-->
+                            <li>
+                                <div style="background:#FFF3CF;border:1px solid #FFCF3F;margin:3px 0;padding:5px;">
+                                    !{del}
+                                    <textarea onfocus="ebCanvas=document.getElementById(!{count})" style="float:none;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="3">!{inhalt}</textarea>
+                                </div>
+                            </li>
+                            <!--##cont-->
+                        </ul>
+                    </fieldset>
+            <!--##show-->
 
         <!--  LINK-Tag bearbeiten  -->
                     <!--##hide-link-->
@@ -479,9 +485,9 @@
         <div class="column_3">
             <!--##hide-list-->
             <div class="box">
-                <button type="submit" name="new_line[]" value="Neuer Listeneintrag" class="button">Neuer Listeneintrag</button>
+                <button type="submit" name="new_line[]" value="!{new_point}" class="button">!{new_point}</button>
             </div>
-              <!--##show-->
+            <!--##show-->
             <div class="box">
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="send[]" id="button_send" value="g(send)" accesskey="s" class="button">g(send)</button>
