@@ -101,6 +101,7 @@ ul, ol{
 acronym {
     border-bottom:1px dotted #303030;
     cursor:help;
+    font:inherit;
 }
 del {
     color:red;
