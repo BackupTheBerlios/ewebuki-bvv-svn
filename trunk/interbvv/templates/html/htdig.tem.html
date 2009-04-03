@@ -15,7 +15,7 @@
     <div class="tabbed">
         <ul>
             <li><a class="!#ausgaben_search_sel" href="suche.html">#(search)</a><a class="!#ausgaben_esearch_sel" href="suche,esearch.html">#(esearch)</a></li>
-        </ul> 
+        </ul>
     </div>
     <div class="amt_info_box" >
         <form id="htdig_search" method="post" action="!#pathvars_virtual/!#ausgaben_aktion">
@@ -23,13 +23,13 @@
 
             <fieldset class="kontakt">
                 <!--##hide-search-->
-                <label>Suchbegriff</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
+                <label>#(search)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
                 <div class="clear"></div>
                 <!--##show-->
 
                 <!--##hide-esearch-->
-                <label>Suchbegriff</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
-                <label>menupunkt</label>
+                <label>#(search)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
+                <label>#(menuitem)</label>
                 <select name="restrict">
                     <option value="">Gesamt</option>
                     <!--##loop-restrict-->
