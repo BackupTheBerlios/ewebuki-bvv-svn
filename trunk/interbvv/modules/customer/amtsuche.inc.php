@@ -99,6 +99,9 @@
             $data = $db -> fetch_array($result,1);
             // amt-kennzahl
             $akz = $data[$cfg["amtsuche"]["db"]["plz"]["amt"]];
+            header("Location: ".$pathvars["virtual"]."/aemter/".$akz."/index.html");
+            exit;
+
             // gesuchter ort
             if ( $_GET["place"] != "" ) {
                 $place = $_GET["place"];
