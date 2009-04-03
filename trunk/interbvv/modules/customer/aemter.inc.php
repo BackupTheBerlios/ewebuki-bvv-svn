@@ -264,6 +264,13 @@
                         );
                     }
                 }
+                $sql = "SELECT * From db_aemter where adakz = '".str_replace("/aemter/","",$environment["ebene"])."'";
+                $result = $db -> query($sql);
+                $data = $db -> fetch_array($result);
+                $hidedata["presse_footer"]["strasse"] = $data["adstr"];
+                $hidedata["presse_footer"]["ort"] = $data["adplz"]." ".$data["adort"];
+                $hidedata["presse_footer"]["tel"] = $data["adtelver"];
+                $hidedata["presse_footer"]["fax"] = $data["adfax"];
                 #$dataloop["edit_lokale_presse"][]["lokal_edit"] = $pathvars["virtual"]."/wizard/show,".DATABASE.",".eCrc("/aktuell/archiv").".".$environment["parameter"][2].",inhalt,,,none.html";
 //
 //                     $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
