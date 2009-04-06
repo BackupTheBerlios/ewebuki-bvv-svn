@@ -16,6 +16,7 @@
     <form action="!#pathvars_virtual/suche.html" id="qsearch" method="post">
         <div class="schnellsuche">
             <input value="Suchbegriff" type="text" name="words" onfocus="this.value=''"/>
+            <input type="hidden" value="html" name="dok_type" />
             <button type="submit" title="Suche auf der gesamten Seite" onclick="if (window.document.qsearch.words.value=='Suchbegriff'){window.document.qsearch.words.value='';}">
                 <img src="../../images/html/start-suche.png" alt="" />
             </button>
