@@ -51,19 +51,23 @@
     $hidedata["search"]["on"] = "on";
     $ausgaben["aktion"] = "suche.html";
     $ausgaben["displaysite"] = "";
-    $ausgaben["displayfile"] = " display:none";
+        $ausgaben["select"] = "";
     $ausgaben["10"] = "";
     $ausgaben["25"] = "";
     $ausgaben["50"] = "";
 
-    if ( $_POST["fpage"] ) {
-        $ausgaben["displaysite"] = " display:none";
-        $ausgaben["displayfile"] = "";
-    }
+    $ausgaben["html"] = "";
+    $ausgaben["pdf"] = "";
+    $ausgaben["odt"] = "";
 
-    if ( !$_POST["words"] ) {
-        $ausgaben["displaysite"] = " display:none";
-        $ausgaben["displayfile"] = " display:none";
+    if ( $_POST["dok_type"] == "pdf" ) {
+        $ausgaben["pdf"] = "checked";
+        $ausgaben["select"] = ";display:none";
+    } elseif ( $_POST["dok_type"] == "odt" ) {
+        $ausgaben["odt"] = "checked";
+        $ausgaben["select"] = ";display:none";
+    } else {
+        $ausgaben["html"] = "checked";
     }
 
     if ( $environment["parameter"][1] ) {
@@ -114,6 +118,7 @@
 
 
     if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
+
     if ( $_POST["matchesperpage"] != "" ) {
         $matchesperpage = "&matchesperpage=".$_POST["matchesperpage"];
         $hits_per_site = $_POST["matchesperpage"];
@@ -135,47 +140,47 @@
         $page_org_files = $_POST["fpage"];
         $pagef = "&page=".$page_org_files;
     }
-
-    $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pages,"r");
-
-    while ( $line = fgets($fp,1000) ){
-        $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
-        $line = str_replace("</a>","",$line);
-        if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
-            if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
-                $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
+    if ( $_POST["dok_type"] == "html" ) {
+        // html-seiten suche
+        $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pages,"r");
+        while ( $line = fgets($fp,1000) ){
+            $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
+            $line = str_replace("</a>","",$line);
+            if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
+                if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
+                    $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
+                }
+                $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
+                $dataloop["treffer"][] = explode("##",$line);
             }
-            $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
-            $dataloop["treffer"][] = explode("##",$line);
+        }
+    }
+    // erweiterte-suche
+    if ( $_POST["dok_type"] == "pdf" || $_POST["dok_type"] == "odt") {
+        $i = 0;
+        $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=".$index."/file/".$_POST["dok_type"]."&".$_POST["restrict"]."&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pagef,"r");
+        while ( $line = fgets($fp1,1000) ){
+            $i++;
+            $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
+            $line = str_replace("</a>","",$line);
+            if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
+                if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
+                    $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
+                }
+                $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
+                $dataloop["treffer"][] = explode("##",$line);
+            }
         }
     }
 
-    $i = 0;
-    $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=".$index."/file/&".$_POST["restrict"]."&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pagef,"r");
-    while ( $line = fgets($fp1,1000) ){
-        $i++;
-        $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
-        $line = str_replace("</a>","",$line);
-        if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
-            if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
-                $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
-            }
 
-            $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
-            $dataloop["files_treffer"][] = explode("##",$line);
-        }
-    }
-    $ausgaben["sitehits"] = "0";
-    $ausgaben["fileshits"] = "0";
-    if ( $dataloop["files_treffer"][0][5]) $ausgaben["fileshits"] = $dataloop["files_treffer"][0][5];
-    if ( $dataloop["treffer"][0][5] ) $ausgaben["sitehits"] = $dataloop["treffer"][0][5];
-
-    // anzeige der trefferanzahl
+    // wieviele treffer-seiten ?
     $site_count = floor(($dataloop["treffer"][0][5]-0.0001) / $hits_per_site) +1;
+
     if ( !$dataloop["treffer"][0][5] ) {
-        $ausgaben["result"] = "Keine Treffer f&uuml;r: ".$_POST["words"];
+        $ausgaben["gesamt"] = "Keine Treffer";
     } elseif ( $dataloop["treffer"][0][5] == 1 ) {
-        $ausgaben["result"] = "Ein Treffer";
+        $ausgaben["gesamt"] = "Ein Treffer";
     } else {
         $begin = ($page_org_site-1)*$hits_per_site+1;
         if ( $site_count > 0 ) {
@@ -185,49 +190,42 @@
             $end = $dataloop["treffer"][0][5];
         }
 
-        $ausgaben["result"] = "Ergebnis ".$begin." bis ".$end." von ".$dataloop["treffer"][0][5];
+        $ausgaben["gesamt"] = "Anzahl der Treffer: ".$dataloop["treffer"][0][5];
     }
 
-    // anzeige der trefferanzahl
-    $site_count_files = floor($dataloop["files_treffer"][0][5] / $hits_per_site);
-    if ( !$dataloop["files_treffer"][0][5] ) {
-        $ausgaben["filesresult"] = "Keine Treffer f&uuml;r: ".$_POST["words"];
-    } elseif ( $dataloop["files_treffer"][0][5] == 1 ) {
-        $ausgaben["filesresult"] = "Ein Treffer";
-    } else {
-        $begin = ($page_org_files-1)*$hits_per_site+1;
-        if ( $site_count > 0 ) {
-            $end = ($page_org_files-1)*$hits_per_site+$hits_per_site;
-            if ( $end > $dataloop["files_treffer"][0][5] ) $end = $dataloop["files_treffer"][0][5];
+    $anfang = $page_org_site -2;
+    $ende = $page_org_site +2;
+    if ( $anfang <= 0 ) $anfang = 1;
+    if ( $ende > $site_count ) $ende = $site_count;
+
+    for ( $i = $anfang; $i <= $ende;$i++ ) {
+        // gibts den schalter zurueck?
+        if ( $page_org_site > 1 && $i == $page_org_site) {
+            $dataloop["site_switch"][0]["font"] = "bold";
+            $dataloop["site_switch"][0]["site"] = $i-1;
+            $dataloop["site_switch"][0]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
+        }
+    // gibts den schalter nach vorn?
+    if ( $page_org_site < $site_count && $i == $page_org_site ) {
+            $dataloop["site_switch"][999]["font"] = "bold";
+            $dataloop["site_switch"][999]["site"] = $i+1;
+            $dataloop["site_switch"][999]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
+        }
+
+        $start = $i*$hits_per_site-($hits_per_site-1);
+        $aus = ($i-1)*$hits_per_site+$hits_per_site;
+        if ( $aus > $dataloop["treffer"][0][5] ) $aus = $dataloop["treffer"][0][5];
+        if ( $i == $page_org_site ) {
+            $font = "bold";
         } else {
-            $end = $dataloop["files_treffer"][0][5];
+            $font = "";
         }
-
-        $ausgaben["filesresult"] = "Ergebnis ".$begin." bis ".$end." von ".$dataloop["files_treffer"][0][5];
+        $dataloop["site_switch"][$i]["font"] = $font;
+        $dataloop["site_switch"][$i]["site"] = $i;
+        $dataloop["site_switch"][$i]["anzeige"] = $start." - ".$aus." | ";
     }
-
-    // buffy-umschalter
-    if ( $site_count > 1 ) {
-//         $dataloop["site_switch"][0]["site"] = "1";
-        $counter = 0;
-        while ( $counter < $site_count ) {
-           // bei 20 seiten ist schluss
-            if ( $counter == 20 ) break;
-            $counter++;
-            $dataloop["site_switch"][$counter]["site"] = $counter;
-        }
-    }
-
-    // buffy-umschalter
-    if ( $site_count_files > 1 ) {
-//         $dataloop["files_site_switch"][0]["site"] = 1;
-        $counter = 0;
-        while ( $counter < $site_count_files ) {
-           // bei 20 seiten ist schluss
-            if ( $counter == 20 ) break;
-            $counter++;
-            $dataloop["files_site_switch"][$counter]["site"] = $counter;
-        }
+    if ( is_array($dataloop["site_switch"]) ) {
+        ksort($dataloop["site_switch"]);
     }
 
     // warnung ausgeben

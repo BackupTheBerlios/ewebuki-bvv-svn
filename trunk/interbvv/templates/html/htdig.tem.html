@@ -17,18 +17,19 @@
             <li><a class="!#ausgaben_search_sel" href="suche.html">#(search)</a><a class="!#ausgaben_esearch_sel" href="suche,esearch.html">#(esearch)</a></li>
         </ul>
     </div>
-    <div class="amt_info_box" >
+    <div class="amt_info_box kontakt" >
         <form id="htdig_search" method="post" action="!#pathvars_virtual/!#ausgaben_aktion">
 
-
-            <fieldset class="kontakt">
                 <!--##hide-search-->
                 <label>#(search_words)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
+                <input type="hidden" name="dok_type" value="html" />
                 <div class="clear"></div>
                 <!--##show-->
 
                 <!--##hide-esearch-->
                 <label>#(search_words)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
+                <div class="clear"></div>
+                <div id="tt" style="width:100% !#ausgaben_select">
                 <label>#(menuitem)</label>
                 <select name="restrict">
                     <option value="">Gesamt</option>
@@ -36,50 +37,37 @@
                     <option value="!{entry}" !{selected}>!{label}</option>
                     <!--##cont-->
                     </select>
+                </div>
                 <div class="clear"></div>
-                <!--##show-->
-
 
                 <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
                 <div class="clear"></div>
-                <input style="width:50px" type="submit" tabindex="20" value="Suche" name="send[]"/>
-            </fieldset>
+                <label>Dokumententyp</label><input onclick="new Effect.BlindDown($('tt'),{duration: 0.2})" style="float:none" type="radio" name="dok_type" value="html" !#ausgaben_html>html</input><input onclick="new Effect.BlindUp($('tt'),{duration: 0.2})" style="float:none" type="radio" name="dok_type" value="pdf" !#ausgaben_pdf>pdf</input><input onclick="new Effect.BlindUp($('tt'),{duration: 0.2})" style="float:none" type="radio" name="dok_type" value="odt" !#ausgaben_odt>odt</input>
+                <div class="clear"></div>
+                <!--##show-->
+
+                <hr />
+                <input style="float:left;width:90px" type="reset"/>
+                <input style="float:right;width:50px" type="submit" tabindex="20" value="Suche" name="send[]"/>
+                <div class="clear"></div>
+                <hr />
 
 
+                <span style="margin-left:0px;float:left">!#ausgaben_gesamt</span>
+                <div style="text-align:right;width:350px;float:right">
+                    <!--##loop-site_switch-->
+                    <button style="background:#EEF3FB;padding:0;font-weight:!{font};border:0;"  tabindex="20" value="!{site}" name="spage">!{anzeige}</button>
+                    <!--##cont-->
+                </div>
 
-            <div id="hits_site" style="width:100%;!#ausgaben_displaysite">
                 <hr />
-                <a onclick="anzeigen('hits_files')" >Ergebnisse in den Dateien (!#ausgaben_fileshits Treffer)</a><br />
-                <hr />
-                <span style="margin-left:0px;float:left">Ergebnisse auf der Webseite</span><span style="float:right">!#ausgaben_result</span><br />
-                <hr />
+
                 <ul style="width:520px">
                     <!--##loop-treffer-->
                     <li><a href="!{0}">!{1}</a><br />!{2}</li>
                     <!--##cont-->
                 </ul>
-                <hr />
-                <!--##loop-site_switch-->
-                <input style="background:#EEF3FB;border:1px solid #A9C0CE;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="spage">
-                <!--##cont-->
-            </div>
 
-            <div id="hits_files" style="width:100%;!#ausgaben_displayfile">
-                <hr />
-                <a onclick="anzeigen('hits_files')" >Ergebnisse auf der Webseite (!#ausgaben_sitehits Treffer)</a><br />
-                <hr />
-                <span style="margin-left:0px;float:left">Ergebnisse in den Dateien</span><span style="float:right">!#ausgaben_filesresult</span><br />
-                <hr />
-                <ul style="width:500px;">
-                    <!--##loop-files_treffer-->
-                    <li><a href="!{0}">!{1}</a><br />!{2}</li>
-                    <!--##cont-->
-                </ul>
-                <hr />
-                <!--##loop-files_site_switch-->
-                <input style="background:#EEF3FB;border:0;float:left;width:2em" type="submit" tabindex="20" value="!{site}" name="fpage"/>
-                <!--##cont-->
-            </div>
         </form>
     </div>
 </div>
