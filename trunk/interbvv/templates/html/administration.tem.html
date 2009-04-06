@@ -101,7 +101,8 @@
                     <!--##loop-artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
                         </span>
@@ -121,7 +122,8 @@
                     <!--##loop-artikel_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -163,9 +165,10 @@
                     <!--##loop-lokal_artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
                         <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
@@ -183,7 +186,8 @@
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
 
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -228,8 +232,9 @@
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
 <!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
                         <b>!{ext}</b><br />
                         (Autor: !{author})<br />
@@ -246,6 +251,7 @@
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
 <!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -288,9 +294,9 @@
                     <!--##loop-lokal_termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
                         <b>!{ext} (!{amt})</b><br />
                         (Autor: !{author})<br />
@@ -342,9 +348,10 @@
                     <!--##loop-presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
                         <b>!{titel}</b><br />
                         (Autor: !{author})<br />
@@ -360,7 +367,8 @@
                     <!--##loop-presse_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -403,9 +411,10 @@
                     <!--##loop-lokal_presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
                         <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
@@ -423,7 +432,8 @@
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
 
-                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -471,9 +481,10 @@
         <!--##loop-content_edit-->
         <li style="background-color:!{color};margin:0;padding:0.2em;">
             <span style="float:right;text-align:right;display:block;">
-                <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                 <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                 <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
             </span>
             <b>!{titel}</b><br />
             (Autor: !{author})<br />
@@ -489,7 +500,8 @@
         <!--##loop-content_release-->
         <li style="background-color:!{color};margin:0;padding:0.2em;">
             <span style="float:right;text-align:right;display:block;">
-                <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
+<!--                 <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                <a href="#" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                 <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                 <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                 <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
@@ -537,6 +549,16 @@
             </div>
 <!--##show-->
 
+            <div id="tmp_preview" style="border:1px solid silver;display:none;"></div>
+            <div id="vorschau_container" style="display:none;">
+                <div id="vorschau">
+                    <div id="substance"></div>
+                </div>
+                <div id="preview_close">
+                    <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="lb_preview.hide();" src="/images/html/lb/closelabel.gif"/>
+                </div>
+            </div>
+
             <script type="text/javascript">
                 function anzeigen(id) {
                     if ( $(id).style.display == 'none' ) {
@@ -550,6 +572,33 @@
                     }
                     return false;
                 }
+                function ajax_preview(url) {
+                    // 1. Seite holen
+                    new Ajax.Updater(
+                        'tmp_preview',
+                        url,
+                        {
+                            onComplete: function() {
+                                if ( $$('#tmp_preview #substance').length > 0 ) {
+                                    // 2. zielcontainer vorbereiten
+                                    var source = $$('#tmp_preview #substance')[0];
+                                    var destination = $$('#vorschau #substance')[0]
+                                    var klasse = source.className;
+                                    if ( !destination.hasClassName(klasse) ) destination.addClassName(klasse);
+                                    // 3. container fuellen
+                                    destination.innerHTML = source.innerHTML;
+                                    source.innerHTML = '';
+                                    // 4. ausgabe anpassen
+                                    dd_initialize();
+                                    lb_preview.show();
+                                } else {
+                                    $('tmp_preview').innerHTML = '';
+                                }
+                            }
+                        }
+                    );
+                }
+                lb_preview = new LB_imitate('vorschau_container');
             </script>
 
 
