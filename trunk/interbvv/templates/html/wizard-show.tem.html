@@ -80,12 +80,12 @@
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="version[]" value="version" class="button">g(save)</button>
-                <button type="button" onclick="buttonCancel();" class="button">g(abort)</button>
+                <button type="button" onclick="lb_cancel.show();" class="button">g(abort)</button>
                 <div id="cancel" style="display:none;">
                     #(confirm_cancel)
                     <p >
                         <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
-                        <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                        <button type="button" onclick="lb_cancel.hide();;" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
                     </p>
                 </div>
 
@@ -99,12 +99,12 @@
             <form method="post" action="!#ausgaben_form_aktion">
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="version[]" value="version" class="button">g(save)</button>
-                <button type="button" onclick="buttonCancel();" class="button">g(abort)</button>
+                <button type="button" onclick="lb_cancel.show();" class="button">g(abort)</button>
                 <div id="cancel" style="display:none;">
                     #(confirm_cancel)
                     <p >
                         <button type="submit" name="cancel[]" value="cancel" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
-                        <button type="button" onclick="buttonCancel();" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                        <button type="button" onclick="lb_cancel.hide();;" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
                     </p>
                 </div>
 
@@ -113,8 +113,15 @@
         </div>
         <div class="box">
             <form method="post" action="!#ausgaben_form_aktion">
-                <button type="submit" class="button" name="version[]" value="version">#(ask_release)</button>
-                <input type="hidden" name="release_mark" value="-1" />
+                <button type="button" onclick="lb_release.show();" class="button">#(ask_release)</button>
+                <div id="release" class="ajax_pop_up" style="display:none;">
+                    #(confirm_release)
+                    <p >
+                        <button type="submit" name="version[]" value="version" class="button" style="display:block;margin:3px;width:100px;float:left;">g(yes)</button>
+                        <button type="button" onclick="lb_release.hide();;" class="button" style="display:block;margin:3px;width:100px;float:right;">g(no)</button>
+                        <input type="hidden" name="release_mark" value="-1" />
+                    </p>
+                </div>
                 <div class="clearer"></div>
             </form>
         </div>
@@ -126,8 +133,6 @@
                 <button type="button" onclick="preview();" id="button_preview" class="button">g(preview)</button>
                 <button type="submit" name="version[]" value="version" class="button">g(save)</button>
                 <button type="button" onclick="lb_cancel.show();" class="button">g(abort)</button>
-<!--                 <button type="button" onclick="build_dumQuest('cancel');" class="button">g(abort)</button> -->
-<!--                 <button type="button" onclick="buttonCancel();" class="button">g(abort)</button> -->
                 <div id="cancel" style="display:none;">
                     #(confirm_cancel)
                     <p >
@@ -205,12 +210,11 @@
 
 
 
-//     Event.observe(window,'load', function () {
         lb_cancel = new LB_imitate('cancel');
-//     });
-//     Event.observe(window,'load', function () {
+//         <!--##hide-edit-->
+        lb_release = new LB_imitate('release');
+//         <!--##show-->
         lb_preview = new LB_imitate('vorschau_container',{top:100});
-//     });
 
 
     function preview() {

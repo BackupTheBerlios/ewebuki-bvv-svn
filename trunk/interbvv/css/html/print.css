@@ -1,6 +1,8 @@
 @import "screen.css";
 
+
 body {
+    background:none;
     font-family: Georgia, "Bitstream Vera Serif", serif;
     font-size:14px;
 }
@@ -40,10 +42,4 @@ body {
 #head,
 #site {
     background:none;
-}
-
-/* kopfbereich anpassen */
-#banner {
-    background:none;
-    margin-bottom:2em;
 }

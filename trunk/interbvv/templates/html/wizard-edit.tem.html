@@ -221,6 +221,7 @@
                         <p>
                             <label></label>
                             <button type="submit" name="sel[]" value="#(get_sel)" class="button">#(get_sel)</button>
+                            <button type="submit" name="create_sel[]" value="#(create_sel)" class="button">#(create_sel)</button>
                         </p>
                     </fieldset>
 
@@ -539,9 +540,9 @@
 // <!--##show-->
 
 
-    Event.observe(window,'load', function () {
-        lb_preview = new LB_imitate('vorschau_container');
-    });
+//     Event.observe(window,'load', function () {
+        lb_preview = new LB_imitate('vorschau_container',{top:100});
+//     });
 
     function preview() {
         if ( $('vorschau_container').style.display == 'none' ) {
