@@ -23,6 +23,16 @@
             <div class="clearer"></div>
             <!--##show-->
             #(inhalt)
+
+            <fieldset><legend>#(legend)</legend>#(calendar)
+            <!--##hide-anfrage-->
+            <div style="line-height:30px;height:30px;background-color:#FEEAAD">
+                #(suche)<B>!{suche}</B>!#ausgaben_hit
+            </div>
+            <span style="float:right">#(back)</span>
+            <!--##show-->
+            </fieldset>
+
             <!--##hide-all-->
             <p style="float:right;text-align:right;font-size:85%">
                 <a href="archiv.html">&Uuml;bersicht</a>&nbsp;|&nbsp;<a href="">Drucken</a>&nbsp;|&nbsp;<a href="">Versenden</a>
