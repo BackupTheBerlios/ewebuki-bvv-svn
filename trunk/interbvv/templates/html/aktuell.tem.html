@@ -23,11 +23,14 @@
             #(inhalt)
             !#ausgaben_output
 
+            <fieldset><legend>#(legend)</legend>#(calendar)
             <!--##hide-anfrage-->
-            <div class="amt_info_box">#(suche)!{suche}
-            <p>!#ausgaben_hit</p>
+            <div style="line-height:30px;height:30px;background-color:#FEEAAD">
+                #(suche)<B>!{suche}</B>!#ausgaben_hit
             </div>
+            <span style="float:right">#(back)</span>
             <!--##show-->
+            </fieldset>
             <div class="clearer"></div>
 
             <!--##hide-artikel-->
@@ -35,8 +38,8 @@
             <!--##show-->
 
             <!--##loop-artikel-->
-            <div class="single_news">
-                <h2>!{titel_org}</h2>
+            <div style="margin-top:0px" class="single_news">
+                !{datum}<h2>!{titel_org}</h2>
                 <img src="/file/!{image_img_art}/!{image_img_id}/s/test.png" alt="!{titel_org}"></img>
                 <p>!{teaser_org}</p>
                 <p><a href="!{detaillink}" title="!{titel_org}">Beitrag lesen</a></p>
@@ -51,25 +54,13 @@
                 <div class="clearer"></div>
             </div>
             <!--##cont-->
-            <!--##hide-more_artikel-->
-            #(uebersicht_artikel)
+            <!--##hide-artikel-->
+            <span style="float:right">#(uebersicht_artikel)</span>
             <hr />
             <!--##show-->
-            <!--##hide-presse-->
-            <h2>Pressemitteilungen</h2>
-            <!--##show-->
-            <!--##loop-presse-->
-            <div>
-                !{datum} <a href="!{detaillink}">!{titel_org}</a>
-                <div class="clearer"></div>
-            </div>
-            <!--##cont-->
-            <!--##hide-presse-->
-            #(uebersicht_presse)
-            <hr />
-            <!--##show-->
+
             <!--##hide-termine-->
-            <h2>Termine</h2>
+            <h2 style="margin-top:0px">Termine</h2>
             <!--##show-->
             <!--##loop-termine-->
             <div>
@@ -78,8 +69,24 @@
             </div>
             <!--##cont-->
             <!--##hide-termine-->
-            #(uebersicht_termine)
+            <span style="float:right">#(uebersicht_termine)</span>
+            <hr />
             <!--##show-->
+
+            <!--##hide-presse-->
+            <h2 style="margin-top:0px">Pressemitteilungen</h2>
+            <!--##show-->
+            <!--##loop-presse-->
+            <div>
+                !{datum} <a href="!{detaillink}">!{titel_org}</a>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+            <!--##hide-presse-->
+            <span style="float:right">#(uebersicht_presse)</span>
+            <hr />
+            <!--##show-->
+
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
