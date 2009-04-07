@@ -139,20 +139,27 @@
                     <!--##show-->
 
         <!--  TAB-Tag bearbeiten  -->
+                    <!--##hide-tab_error-->
+                    <fieldset class="error">
+                        <legend>Fehler</legend>
+                        #!ausgaben_form_error
+                    </fieldset>
+                    <!--##show-->
                     <!--##hide-tab-->
                     <fieldset>
                         <legend>#(csvtab)</legend>
-                        <p>
-                            <input type="file" name="csv_upload"/>
-                        </p>
-                        <p>
-                            <input type="submit" name="refresh[]" value="#(import)" class="button" />
-                        </p>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>#(edit_cells)</legend>
-                        !#ausgaben_tabelle
+                        <div style="float:right;border-left:1px dashed #CCCCCC;width:55%;padding-left:15px;font-size:0.8em;">
+                            #(tab_hint)
+                        </div>
+                        <div style="float:left;width:40%;">
+                            <p>
+                                <input type="file" name="csv_upload"/>
+                            </p>
+                            <p>
+                                <input type="submit" name="refresh[]" value="#(import)" class="button" />
+                            </p>
+                        </div>
+                        <div class="clear"></div>
                     </fieldset>
 
                     <fieldset>
@@ -169,6 +176,12 @@
                             <label>&nbsp;</label>
                             <input type="submit" name="refresh[]" value="#(refresh)" class="button" />
                         </p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>#(edit_cells)</legend>
+                        <div class="editor_buttons"><script type="text/javascript">ebToolbar('T')</script></div>
+                        !#ausgaben_tabelle
                     </fieldset>
 
                     <fieldset style="display:none">

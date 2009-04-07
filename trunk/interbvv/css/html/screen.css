@@ -45,7 +45,7 @@ a{
         border:0px;
     }
 dl {
-    width: 380px;
+/*     width: 380px; */
 }
 dt {
     color:#2C5A93;
@@ -305,7 +305,7 @@ ins {
 
     /* block-elemente */
     #substance p {
-        width:380px;
+/*         width:380px; */
     }
 
     #substance div.wide p,
@@ -326,7 +326,7 @@ ins {
         list-style-image:url('/images/html/li-dash.png');
         list-style-position:inside;
         margin-left:0;
-        width:380px;
+/*         width:380px; */
     }
 
         #substance ul ul, #substance ol ul {
@@ -378,11 +378,11 @@ ins {
     /* sub-menu */
     /* * * * */
     #substance .sub_menu {
-        background:#FFFFFF;
+        background:#EEEEEE;
         border:solid #CCCCCC;
         border-width:5px 1px 1px 1px;
         float:right;
-        margin:0.7em 0;
+        margin:7px 0 25px 15px;
         overflow:hidden;
         text-align:right;
         width:150px;
