@@ -23,9 +23,12 @@
             #(inhalt)
             !#ausgaben_output
 
-            <!--##hide-new-->
-            <p><a href="!{link}">g(new)</a></p>
+            <!--##hide-anfrage-->
+            <div class="amt_info_box">#(suche)!{suche}
+            <p>!#ausgaben_hit</p>
+            </div>
             <!--##show-->
+            <div class="clearer"></div>
             <!--##loop-artikel-->
             <div class="single_news">
                 <h2>!{titel_org}</h2>
@@ -36,18 +39,20 @@
                 <div class="clearer"></div>
             </div>
             <!--##cont-->
-            <!--##hide-artikel-->
+            <!--##hide-more_artikel-->
             <h2>Weitere Meldungen</h2>
             <!--##show-->
-            <!--##loop-artikel2-->
+            <!--##loop-more_artikel-->
             <div>
                 !{datum} <a href="!{detaillink}">!{titel_org}</a>
                 <div class="clearer"></div>
             </div>
             <!--##cont-->
-            <!--##hide-artikel-->
+            <!--##hide-more_artikel-->
             #(uebersicht_artikel)
             <hr />
+            <!--##show-->
+            <!--##hide-presse-->
             <h2>Pressemitteilungen</h2>
             <!--##show-->
             <!--##loop-presse-->
@@ -56,9 +61,11 @@
                 <div class="clearer"></div>
             </div>
             <!--##cont-->
-            <!--##hide-artikel-->
+            <!--##hide-presse-->
             #(uebersicht_presse)
             <hr />
+            <!--##show-->
+            <!--##hide-termine-->
             <h2>Termine</h2>
             <!--##show-->
             <!--##loop-termine-->
@@ -67,12 +74,12 @@
                 <div class="clearer"></div>
             </div>
             <!--##cont-->
-            <!--##hide-artikel-->
+            <!--##hide-termine-->
             #(uebersicht_termine)
+            <!--##show-->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
-            <!--##show-->
         </div>
         #{margin}
 <!--##end-->

@@ -62,6 +62,34 @@
     } else {
         $kat = $environment["ebene"]."/".$environment["kategorie"];
     }
+    if ( $environment["parameter"][4] != "" ) {
+        setlocale(LC_TIME,"de_DE.UTF8");
+        $monat = $environment["parameter"][5];
+        $jahr = $environment["parameter"][4];
+        $tag = $environment["parameter"][6];
+        if ( strlen($monat) == 1  ) {
+            $monat = "0".$monat;
+        } elseif ( strlen($monat) == 0  ) {
+            $monat = "01";
+        }
+        if ( strlen($tag) == 1 ) {
+            $tag = "0".$tag;
+        } elseif ( strlen($tag) == 0  ) {
+            $tag = "01";
+        }
+
+        $search = "";
+        if ( $environment["parameter"][6] != "" ) {
+            $search = strftime('%A',mktime(0,0,0,$monat,$tag,$jahr))." ".$tag.".";
+        }
+        if ( $environment["parameter"][5] != "" ) {
+            $search .= strftime('%B',mktime(0,0,0,$monat,$tag,$jahr))." ";
+        }
+        if ( $environment["parameter"][4] != "" ) {
+            $search .= $jahr;
+        }
+        $hidedata["anfrage"]["suche"] = $search;
+    }
 
     // kalender einblenden
     include $pathvars["moduleroot"]."libraries/function_calendar.inc.php";
@@ -78,12 +106,18 @@
     if ( is_array($dataloop["artikel"]) ) {
         $dataloop["artikel"][1]["teaser_org"] = tagremove($dataloop["artikel"][1]["teaser_org"]);
     }
-    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,3","/aktuell/archiv");
-
-    $hidedata["artikel"]["on"] = "on";
+    $dataloop["more_artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","1,3","/aktuell/archiv");
+    
+    if ( count($dataloop["more_artikel"]) > 0 ) {
+        $hidedata["more_artikel"]["on"] = "on";
+    }
 
     // loopen der pressemitteilungen
     $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4","/aktuell/presse");
+
+    if ( count($dataloop["presse"]) > 0 ) {
+        $hidedata["presse"]["on"] = "on";
+    }
 
     // loopen der termine
     $tags = "";
@@ -91,6 +125,10 @@
     $tags["titel"] = "_NAME";
     $tags["termin2"] = "_TERMIN";
     $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aktuell/termine");
+
+    if ( count($work_array) > 0 ) {
+        $hidedata["termine"]["on"] = "on";
+    }
 
     if ( is_array($work_array) ) {
         foreach ( $work_array as $key => $value ) {
@@ -105,6 +143,13 @@
             $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].".html";
         }
     }
+
+    //keine treffer
+    $ausgaben["hit"]  = "#(hit)";
+    if ( count($dataloop["artikel"]) == 0 && count($dataloop["presse"]) == 0 && count($work_array) == 0 ) {
+        $ausgaben["hit"]  = "#(no_hit)";
+    }
+
 
     $mapping["main"] = "aktuell";
 
