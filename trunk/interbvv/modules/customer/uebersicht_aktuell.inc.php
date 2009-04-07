@@ -108,8 +108,8 @@
     }
     $dataloop["more_artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","1,3","/aktuell/archiv");
     
-    if ( count($dataloop["more_artikel"]) > 0 ) {
-        $hidedata["more_artikel"]["on"] = "on";
+    if ( count($dataloop["artikel"]) > 0 ) {
+        $hidedata["artikel"]["on"] = "on";
     }
 
     // loopen der pressemitteilungen
