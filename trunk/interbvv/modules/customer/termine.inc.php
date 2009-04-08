@@ -162,6 +162,7 @@
                 $hidedata["detail_all"]["tet"] = $work[0]["all"];
             }
         } else {
+        $hidedata["fieldset"]["on"] = "on";
         if ( $environment["parameter"][4] != "" ) {
             setlocale(LC_TIME,"de_DE.UTF8");
             $monat = $environment["parameter"][5];
