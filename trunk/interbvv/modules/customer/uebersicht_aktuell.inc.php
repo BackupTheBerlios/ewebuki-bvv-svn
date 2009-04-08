@@ -124,29 +124,36 @@
     $tags["termin1"] = "SORT";
     $tags["titel"] = "_NAME";
     $tags["termin2"] = "_TERMIN";
-    $work_array = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aktuell/termine");
+    $work_array = show_blog("/aktuell/termine",$tags,"disabled","","/aktuell/termine");
 
-    if ( count($work_array) > 0 ) {
-        $hidedata["termine"]["on"] = "on";
-    }
 
     if ( is_array($work_array) ) {
         foreach ( $work_array as $key => $value ) {
-            $value =array_pad($value,-16,mktime(0,0,0,substr($value["termin1_org"],8,2),substr($value["termin1_org"],5,2),substr($value["termin1_org"],0,4)));
+            $value =array_pad($value,-23,mktime(0,0,0,substr($value["termin1_org"],8,2),substr($value["termin1_org"],5,2),substr($value["termin1_org"],0,4)));
             $work_array[$key] = $value;
         }
-
+        $today = date('U');
         ksort($work_array);
+
         foreach ( $work_array as $key => $value ) {
+            if ( $value["termin2_org"] == "1970-01-01" ) {
+                if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+            } else {
+                if ( mktime(0,0,0,substr($value["termin2_org"],5,2),substr($value["termin2_org"],8,2),substr($value["termin2_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+            }
             $dataloop["termine"][$value["id"]]["datum"] = substr($value["termin1_org"],8,2).".".substr($value["termin1_org"],5,2).".".substr($value["termin1_org"],0,4);
             $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
             $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].".html";
         }
     }
 
+    if ( count($dataloop["termine"]) > 0 ) {
+        $hidedata["termine"]["on"] = "on";
+    }
+
     //keine treffer
     $ausgaben["hit"]  = "#(hit)";
-    if ( count($dataloop["artikel"]) == 0 && count($dataloop["presse"]) == 0 && count($work_array) == 0 ) {
+    if ( count($dataloop["artikel"]) == 0 && count($dataloop["presse"]) == 0 && count($dataloop["termine"]) == 0 ) {
         $ausgaben["hit"]  = "#(no_hit)";
     }
 
