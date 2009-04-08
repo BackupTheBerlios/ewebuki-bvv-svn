@@ -66,13 +66,6 @@
     $ausgaben["row"] = "";
     $ausgaben["inhalt"] = "";
 
-    #include $pathvars["moduleroot"]."admin/bloged.cfg.php";
-
-    // laden der eigentlichen funktion
-    #include $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
-
-
-
     $url = $environment["ebene"]."/".$environment["kategorie"];
 
     if ( strstr($_SESSION["page"],"/auth/wizard") ) {
@@ -93,7 +86,7 @@
         $meta_beschriftung["_VERANSTALTER"] = "Veranstalter:";
         $meta_beschriftung["_ORT"] = "Ort:";
         $meta_beschriftung["_BESCHREIBUNG"] = "Beschreibung:";
-//     echo "<div id=substance>";
+
         echo "<table width=100%>";
         foreach ( $meta_beschriftung as $key => $regs_value) {
             foreach ( $regs[1] as $key_regs => $value_regs ) {
@@ -107,38 +100,17 @@
             }
         }
         echo "</table><br>";
-// echo "</div>";
+
     } else {
 
         $id = make_id($url);
-    
-        // laden der eigentlichen funktion
-        #include $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-    
-    
-        // erstellen der tags die angezeigt werden
-//         foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value) {
-//             if ( $value["show"] == 1 ) {
-//                 $tags[$key] = $value["name"];
-//             }
-//         }
-    
-        // erstellen der tags die angezeigt werden
-//         foreach ( $cfg["bloged"]["blogs"][$url]["addons"] as $key => $value) {
-//             $tags[$key] = $value;
-//         }
-    
-        // erstellen der tags die angezeigt werden
-//         foreach ( $cfg["bloged"]["blogs"][$url]["tags"] as $key => $value) {
-//             $tags[$key] = $value;
-//         }
-    
+
         if ( $environment["parameter"][2] == "" ) {
             $work = $dataloop["list"];
         } else {
             $work = $all;
         }
-    
+
         // timestamp als erstes voranstellen zwecks sortierung
         if ( is_array($work) ) {
             foreach ( $work as $key => $value ) {
@@ -146,7 +118,6 @@
             $value =array_pad($value,$anzahl,mktime(0,0,0,substr($value["termin_org"],5,2),substr($value["termin_org"],8,2),substr($value["termin_org"],0,4)));
                 $work[$key] = $value;
             }
-    
             if ( $environment["parameter"][2] == "" ) {
                 ksort($work);
             } else {
@@ -190,15 +161,48 @@
             if ( $environment["parameter"][3] == "all" ) {
                 $hidedata["detail_all"]["tet"] = $work[0]["all"];
             }
-    
         } else {
+        if ( $environment["parameter"][4] != "" ) {
+            setlocale(LC_TIME,"de_DE.UTF8");
+            $monat = $environment["parameter"][5];
+            $jahr = $environment["parameter"][4];
+            $tag = $environment["parameter"][6];
+            if ( strlen($monat) == 1  ) {
+                $monat = "0".$monat;
+            } elseif ( strlen($monat) == 0  ) {
+                $monat = "01";
+            }
+            if ( strlen($tag) == 1 ) {
+                $tag = "0".$tag;
+            } elseif ( strlen($tag) == 0  ) {
+                $tag = "01";
+            }
+            $search = "";
+            if ( $environment["parameter"][6] != "" ) {
+                $search = strftime('%A',mktime(0,0,0,$monat,$tag,$jahr))." ".$tag.".";
+            }
+            if ( $environment["parameter"][5] != "" ) {
+                $search .= strftime('%B',mktime(0,0,0,$monat,$tag,$jahr))." ";
+            }
+            if ( $environment["parameter"][4] != "" ) {
+                $search .= $jahr;
+            }
+            $hidedata["anfrage"]["suche"] = $search;
+        }
+        //keine treffer
+        $ausgaben["hit"]  = "#(hit)";
+        if ( count($dataloop["list"]) == 0 ) {
+            $ausgaben["hit"]  = "#(no_hit)";
+            unset($hidedata["inhalt_selector"]);
+        }
+
             // liste 
             $ausgaben["inhalt"] = "#(inhalt)";
             // new link
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
                 $hidedata["newlink"]["link"] = $pathvars["virtual"].$url.",,,,add.html";
             }
-    
+
             switch ( $environment["parameter"][7] ) {
                 case "group":
                     if ( is_array($work) ) {
@@ -216,10 +220,10 @@
                             $array[$value["veranstalter_org"]][$key]["id"] = $value["id"];
                         }
                     }
-    
+
                     if ( is_array($array) ) {
                         foreach ( $array as $key => $value ) {
-    
+
                             $hidedata["list"]["on"] = "on";
                             $counter = 0;
                             $table = "";
@@ -237,7 +241,7 @@
                             $ausgaben["row"] .= parser( "termine_show-row", "");
                         }
                     }
-    
+
                     break;
                 default:
 
@@ -247,10 +251,10 @@
                         foreach ( $work as $key => $value ) {
                             $today = date('U');
                             if ( $value["termin_en_org"] == "1970-01-01" ) {
-                                if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+//                                 if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
                                 $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0]);
                             } else {
-                                if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+//                                 if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
                                 $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
                             }
                             $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."</a>";
