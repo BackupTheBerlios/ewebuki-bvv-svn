@@ -20,18 +20,15 @@
                 <!--##show-->
                 <h1>#(ueberschrift)</h1>
                 <div class="clearer"></div>
-<!--                <h1>#(ueberschrift)</h1>
-                <div class="clearer"></div>
-                &nbsp;
-                <div class="clearer"></div>-->
             </div>
+
+            <div id="output"></div>
 
             #(inhalt)
 
             <div class="box" style="float:right;width:240px;overflow:hidden;">
 
                 <!--##hide-authTools-->
-<!--                 <p><b><a href="!#ausgaben_back_link">#(back)</a></b></p> -->
                 <h3>#(groups)</h3>
                 <ul>
                 <!--##loop-groups-->
@@ -74,16 +71,16 @@
                 </form>
                 <!--##show-->
             </div>
-<!--             !#ausgaben_adminbild -->
 
-<!--##hide-adminbild-->
+            <!--##hide-adminbild-->
             <div class="box">
                 #(adminbild)
                 <div class="clearer"></div>
             </div>
-                <!--##show-->
+            <!--##show-->
 
-<!--##hide-artikel_section-->
+
+            <!--##hide-artikel_section-->
             <div class="box" style="position:relative;">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
@@ -94,17 +91,18 @@
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
-<!--##show-->
-<!--##hide-artikel_edit-->
-                <h3 onclick="anzeigen('edit_artikel');" id="trigger_edit_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_artikel" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-artikel_edit-->
+                <h3><span onclick="anzeigen('artikel_edit');" id="trigger_artikel_edit" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="artikel_edit" style="display:!#ausgaben_toggle_artikel_edit;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
                         <b>!{titel}</b><br />
                         (Autor: !{author})<br />
@@ -113,16 +111,33 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-
-
-<!--##hide-artikel_release-->
-                <h3 onclick="anzeigen('release_artikel');" id="trigger_release_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_artikel" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-                    <!--##loop-artikel_release-->
+            <!--##show-->
+            <!--##hide-artikel_release_wait-->
+                <h3><span onclick="anzeigen('artikel_release_wait');" id="trigger_artikel_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="artikel_release_wait" style="display:!#ausgaben_toggle_artikel_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-artikel_release_wait-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-artikel_release_queue-->
+                <h3><span onclick="anzeigen('artikel_release_queue');" id="trigger_artikel_release_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="artikel_release_queue" style="display:!#ausgaben_toggle_artikel_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-artikel_release_queue-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
@@ -136,36 +151,56 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-artikel_section-->
+            <!--##show-->
+            <!--##hide-artikel_release_recent-->
+                <h3><span onclick="anzeigen('artikel_release_recent');" id="trigger_artikel_release_recent" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release_recent)
+                </span></h3>
+                <ul id="artikel_release_recent" style="display:!#ausgaben_toggle_artikel_release_recent;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-artikel_release_recent-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        (freigegeben am: !{changed})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-artikel_section-->
             </div>
-<!--##show-->
-<!--##hide-lokal_artikel_section-->
+            <!--##show-->
+
+
+            <!--##hide-lokal_artikel_section-->
             <div class="box">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">Lokale Artikel</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
                         <select name="kategorie">
-<!--##show-->
-<!--##loop-artikel_aemter-->
+            <!--##show-->
+                            <!--##loop-artikel_aemter-->
                             <option value="!{url}/index">!{name}</option>
-<!--##cont-->
-<!--##hide-lokal_artikel_section-->
+                            <!--##cont-->
+            <!--##hide-lokal_artikel_section-->
                         </select>
                         <input type="hidden" name="link" value="/aktuell/archiv"/>
                         <input type="submit" value="Neueintrag" name="termin"></input>
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
-<!--##show-->
-<!--##hide-lokal_artikel_edit-->
-
-                <h3 onclick="anzeigen('lokal_artikel');" id="trigger_lokal_artikel" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="lokal_artikel" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-lokal_artikel_edit-->
+                <h3><span onclick="anzeigen('lokal_artikel_edit');" id="trigger_lokal_artikel_edit" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="lokal_artikel_edit" style="display:!#ausgaben_toggle_lokal_artikel_edit;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_artikel_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
@@ -177,25 +212,38 @@
                     </li>
                     <!--##cont-->
                 </ul>
-
-<!--##show-->
-<!--##hide-lokal_artikel_release-->
-                <h3 onclick="anzeigen('lokal_artikel_release');" id="trigger_lokal_artikel_release" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="lokal_artikel_release" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-                    <!--##loop-lokal_artikel_release-->
+            <!--##show-->
+            <!--##hide-lokal_artikel_release_wait-->
+                <h3><span onclick="anzeigen('lokal_artikel_release_wait');" id="trigger_lokal_artikel_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)wait
+                </span></h3>
+                <ul id="lokal_artikel_release_wait" style="display:!#ausgaben_toggle_lokal_artikel_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_artikel_release_wait-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-lokal_artikel_release_queue-->
+                <h3><span onclick="anzeigen('lokal_artikel_release_queue');" id="trigger_lokal_artikel_release_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)--
+                </span></h3>
+                <ul id="lokal_artikel_release_queue" style="display:!#ausgaben_toggle_lokal_artikel_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_artikel_release_queue-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
                             <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
-
-<!--                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
-                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>-->
                         </span>
                         <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
@@ -204,17 +252,32 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-
-
-
-<!--##hide-lokal_artikel_section-->
+            <!--##show-->
+            <!--##hide-lokal_artikel_release_recent-->
+                <h3><span onclick="anzeigen('lokal_artikel_release_recent');" id="trigger_lokal_artikel_release_recent" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release_recent)
+                </span></h3>
+                <ul id="lokal_artikel_release_recent" style="display:!#ausgaben_toggle_lokal_artikel_release_recent;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_artikel_release_recent-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        (freigegeben am: !{changed})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-lokal_artikel_section-->
             </div>
-<!--##show-->
+            <!--##show-->
 
 
-<!--##hide-termine_section-->
-            <div class="box">
+            <!--##hide-termine_section-->
+            <div class="box" style="position:relative;">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
@@ -224,14 +287,15 @@
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
-<!--##show-->
-<!--##hide-termine_edit-->
-                <h3 onclick="anzeigen('edit_termine');" id="trigger_edit_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_termine" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-termine_edit-->
+                <h3><span onclick="anzeigen('termine_edit');" id="trigger_termine_edit" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="termine_edit" style="display:!#ausgaben_toggle_termine_edit;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
 <!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
@@ -243,95 +307,172 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-termine_release-->
-                <h3 onclick="anzeigen('release_termine');" id="trigger_release_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_termine" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-                    <!--##loop-termine_release-->
+            <!--##show-->
+            <!--##hide-termine_release_wait-->
+                <h3><span onclick="anzeigen('termine_release_wait');" id="trigger_termine_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="termine_release_wait" style="display:!#ausgaben_toggle_termine_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-termine_release_wait-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a> -->
+                        </span>
+                        <b>!{ext}</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-termine_release_queue-->
+                <h3><span onclick="anzeigen('termine_release_queue');" id="trigger_termine_release_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="termine_release_queue" style="display:!#ausgaben_toggle_termine_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-termine_release_queue-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
 <!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a> -->
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
                             <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
                         </span>
-                        <b>!{titel}</b><br />
+                        <b>!{ext}</b><br />
                         (Autor: !{author})<br />
                         (letzte Version von: !{last_author})
                         <div class="clearer"></div>
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-termine_section-->
+            <!--##show-->
+            <!--##hide-termine_release_recent-->
+                <h3><span onclick="anzeigen('termine_release_recent');" id="trigger_termine_release_recent" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release_recent)
+                </span></h3>
+                <ul id="termine_release_recent" style="display:!#ausgaben_toggle_termine_release_recent;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-termine_release_recent-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                        </span>
+                        <b>!{ext}</b><br />
+                        (freigegeben am: !{changed})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-termine_section-->
             </div>
-<!--##show-->
+            <!--##show-->
 
 
-<!--##hide-lokal_termine_section-->
+            <!--##hide-lokal_termine_section-->
             <div class="box">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">Lokale Termine</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
                         <select name="kategorie">
-<!--##show-->
-<!--##loop-artikel_aemter-->
+            <!--##show-->
+                            <!--##loop-artikel_aemter-->
                             <option value="!{url}/index">!{name}</option>
-<!--##cont-->
-<!--##hide-lokal_artikel_section-->
+                            <!--##cont-->
+            <!--##hide-lokal_termine_section-->
                         </select>
-                        <input type="hidden" name="link" value="/aktuell/termine"/>
+                        <input type="hidden" name="link" value="/aktuell/termin"/>
                         <input type="submit" value="Neueintrag" name="termin"></input>
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
-<!--##show-->
-<!--##hide-lokal_termine_edit-->
-                <h3 onclick="anzeigen('lokal_termine');" id="trigger_lokal_termine" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="lokal_termine" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-lokal_termine_edit-->
+                <h3><span onclick="anzeigen('lokal_termine_edit');" id="trigger_lokal_termine_edit" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="lokal_termine_edit" style="display:!#ausgaben_toggle_lokal_termine_edit;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_termine_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
                         </span>
-                        <b>!{ext} (!{amt})</b><br />
+                        <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
                         (letzte Version von: !{last_author})
                         <div class="clearer"></div>
                     </li>
                     <!--##cont-->
                 </ul>
-
-<!--##show-->
-<!--##hide-lokal_termine_release-->
-                <h3 onclick="anzeigen('lokal_termine_release');" id="trigger_lokal_termine_release" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="lokal_termine_release" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-                    <!--##loop-lokal_termine_release-->
+            <!--##show-->
+            <!--##hide-lokal_termine_release_wait-->
+                <h3><span onclick="anzeigen('lokal_termine_release_wait');" id="trigger_lokal_termine_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)wait
+                </span></h3>
+                <ul id="lokal_termine_release_wait" style="display:!#ausgaben_toggle_lokal_termine_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_termine_release_wait-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-lokal_termine_release_queue-->
+                <h3><span onclick="anzeigen('lokal_termine_release_queue');" id="trigger_lokal_termine_release_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)--
+                </span></h3>
+                <ul id="lokal_termine_release_queue" style="display:!#ausgaben_toggle_lokal_termine_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_termine_release_queue-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
                             <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
                         </span>
-                        <b>!{ext} (!{amt})</b><br />
+                        <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
                         (letzte Version von: !{last_author})
                         <div class="clearer"></div>
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-lokal_termine_section-->
+            <!--##show-->
+            <!--##hide-lokal_termine_release_recent-->
+                <h3><span onclick="anzeigen('lokal_termine_release_recent');" id="trigger_lokal_termine_release_recent" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release_recent)
+                </span></h3>
+                <ul id="lokal_termine_release_recent" style="display:!#ausgaben_toggle_lokal_termine_release_recent;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_termine_release_recent-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        (freigegeben am: !{changed})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-lokal_termine_section-->
             </div>
-<!--##show-->
-<!--##hide-presse_section-->
-            <div class="box">
+            <!--##show-->
+
+            <!--##hide-presse_section-->
+            <div class="box" style="position:relative;">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">!{heading}</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
@@ -341,14 +482,15 @@
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
-<!--##show-->
-<!--##hide-presse_edit-->
-                <h3 onclick="anzeigen('edit_presse');" id="trigger_edit_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="edit_presse" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-presse_edit-->
+                <h3><span onclick="anzeigen('presse_edit');" id="trigger_presse_edit" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="presse_edit" style="display:!#ausgaben_toggle_presse_edit;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
@@ -360,14 +502,33 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-presse_release-->
-                <h3 onclick="anzeigen('release_presse');" id="trigger_release_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="release_presse" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-                    <!--##loop-presse_release-->
+            <!--##show-->
+            <!--##hide-presse_release_wait-->
+                <h3><span onclick="anzeigen('presse_release_wait');" id="trigger_presse_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="presse_release_wait" style="display:!#ausgaben_toggle_presse_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-presse_release_wait-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-presse_release_queue-->
+                <h3><span onclick="anzeigen('presse_release_queue');" id="trigger_presse_release_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="presse_release_queue" style="display:!#ausgaben_toggle_presse_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-presse_release_queue-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
@@ -381,37 +542,56 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-presse_section-->
+            <!--##show-->
+            <!--##hide-presse_release_recent-->
+                <h3><span onclick="anzeigen('presse_release_recent');" id="trigger_presse_release_recent" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release_recent)
+                </span></h3>
+                <ul id="presse_release_recent" style="display:!#ausgaben_toggle_presse_release_recent;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-presse_release_recent-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        (freigegeben am: !{changed})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-presse_section-->
             </div>
-<!--##show-->
+            <!--##show-->
 
-<!--##hide-lokal_presse_section-->
+
+            <!--##hide-lokal_presse_section-->
             <div class="box">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">Lokale Pressemitteilungen</h2>
                     <div style="float:right;margin:1.5em 5px 0 0;">
                         <select name="kategorie">
-<!--##show-->
-<!--##loop-artikel_aemter-->
+            <!--##show-->
+                            <!--##loop-artikel_aemter-->
                             <option value="!{url}/index">!{name}</option>
-<!--##cont-->
-<!--##hide-lokal_presse_section-->
+                            <!--##cont-->
+            <!--##hide-lokal_presse_section-->
                         </select>
                         <input type="hidden" name="link" value="/aktuell/presse"/>
-                        <input type="submit" value="Neueintrag" name="termin"></input>
+                        <input type="submit" value="Neueintrag" name="presse"></input>
                     </div>
                 </form>
                 <div class="clearer" style="clear:left;"></div>
-<!--##show-->
-<!--##hide-lokal_presse_edit-->
-
-                <h3 onclick="anzeigen('lokal_presse');" id="trigger_lokal_presse" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-                <ul id="lokal_presse" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-lokal_presse_edit-->
+                <h3><span onclick="anzeigen('lokal_presse_edit');" id="trigger_lokal_presse_edit" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="lokal_presse_edit" style="display:!#ausgaben_toggle_lokal_presse_edit;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_presse_edit-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
@@ -423,25 +603,38 @@
                     </li>
                     <!--##cont-->
                 </ul>
-
-<!--##show-->
-<!--##hide-lokal_presse_release-->
-                <h3 onclick="anzeigen('lokal_presse_release');" id="trigger_lokal_presse_release" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-                <ul id="lokal_presse_release" style="display:none;overflow:hidden;list-style:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-lokal_presse_release_wait-->
+                <h3><span onclick="anzeigen('lokal_presse_release_wait');" id="trigger_lokal_presse_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)wait
+                </span></h3>
+                <ul id="lokal_presse_release_wait" style="display:!#ausgaben_toggle_lokal_presse_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_presse_release_wait-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-lokal_presse_release_queue-->
+                <h3><span onclick="anzeigen('lokal_presse_release_queue');" id="trigger_lokal_presse_release_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="lokal_presse_release_queue" style="display:!#ausgaben_toggle_lokal_presse_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_presse_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
-
-<!--                             <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
                             <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
-
-<!--                            <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a>
-                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">Löschen</a>-->
                         </span>
                         <b>!{titel} (!{amt})</b><br />
                         (Autor: !{author})<br />
@@ -450,14 +643,31 @@
                     </li>
                     <!--##cont-->
                 </ul>
-<!--##show-->
-<!--##hide-lokal_presse_section-->
+            <!--##show-->
+            <!--##hide-lokal_presse_release_recent-->
+                <h3><span onclick="anzeigen('lokal_presse_release_recent');" id="trigger_lokal_presse_release_recent" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release_recent)
+                </span></h3>
+                <ul id="lokal_presse_release_recent" style="display:!#ausgaben_toggle_lokal_presse_release_recent;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-lokal_presse_release_recent-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                        </span>
+                        <b>!{titel} (!{amt})</b><br />
+                        (freigegeben am: !{changed})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-lokal_presse_section-->
             </div>
-<!--##show-->
+            <!--##show-->
 
 
-
-<!--##hide-marginal-->
+            <!--##hide-marginal-->
             <div class="box" style="position:relative;">
                 <form action="/auth/admin/bloged/add.html" method="post" style="">
                     <h2 style="float:left;">#(marginal)</h2>
@@ -467,69 +677,90 @@
                 </form>
                 <div class="clearer" style="clear:left;"></div>
             </div>
-<!--##show-->
+            <!--##show-->
 
 
+            <!--##hide-menu_edit-->
+            <div class="box">
+                <h2>Inhaltsbereiche</h2>
+            <!--##show-->
+            <!--##hide-content_edit-->
+                <h3><span onclick="anzeigen('edit_content');" id="trigger_edit_content" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(edit)
+                </span></h3>
+                <ul id="edit_content" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-content_edit-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        (Autor: !{author})<br />
+                        (letzte Version von: !{last_author})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-content_release_wait-->
+                <h3><span onclick="anzeigen('content_release_wait');" id="trigger_content_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="content_release_wait" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-content_release_wait-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        Chefredakteure:<br />
+                        !{chefred}
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-content_release_queue-->
+                <h3><span onclick="anzeigen('release_content_queue');" id="trigger_release_content_queue" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    #(release)
+                </span></h3>
+                <ul id="release_content_queue" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                    <!--##loop-content_release_queue-->
+                    <li style="background-color:!{color};margin:0;padding:0.2em;">
+                        <span style="float:right;text-align:right;display:block;">
+                            <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
+                            <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
+                            <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
+                            <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
+                            <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
+                        </span>
+                        <b>!{titel}</b><br />
+                        (Autor: !{author})<br />
+                        (letzte Version von: !{last_author})
+                        <div class="clearer"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+            <!--##hide-menu_edit-->
+                <h3><span onclick="anzeigen('sitemap');" id="trigger_sitemap" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
+                    Verzeichnisbaum
+                </span></h3>
+                <ul id="sitemap" style="display:!#ausgaben_display;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+            <!--##show-->
+            <!--##hide-back-->
+                <li style="background-color:#FFF3CF;margin: 0pt; padding: 0.2em"><a href="!{link}">nach oben</a></li>
+            <!--##show-->
+            <!--##hide-menu_edit-->
+                !#ausgaben_edmenu
+                </ul>
+            </div>
+            <!--##show-->
 
-<!--##hide-menu_edit-->
-<div class="box">
-    <h2>Inhaltsbereiche</h2>
-    <!--##show-->
-    <!--##hide-content_edit-->
-    <h3 onclick="anzeigen('edit_content');" id="trigger_edit_content" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(edit)</h3>
-    <ul id="edit_content" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-        <!--##loop-content_edit-->
-        <li style="background-color:!{color};margin:0;padding:0.2em;">
-            <span style="float:right;text-align:right;display:block;">
-<!--                 <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
-                <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
-                <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                <a href="!{del}" style="display:block;" title="Seite bearbeiten">L&ouml;schen</a>
-            </span>
-            <b>!{titel}</b><br />
-            (Autor: !{author})<br />
-            (letzte Version von: !{last_author})
-            <div class="clearer"></div>
-        </li>
-        <!--##cont-->
-    </ul>
-    <!--##show-->
-    <!--##hide-content_release-->
-    <h3 onclick="anzeigen('release_content');" id="trigger_release_content" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">#(release)</h3>
-    <ul id="release_content" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-        <!--##loop-content_release-->
-        <li style="background-color:!{color};margin:0;padding:0.2em;">
-            <span style="float:right;text-align:right;display:block;">
-<!--                 <a href="!{view}" style="display:block;" title="Pfad: !{path}">Vorschau</a> -->
-                <a href="#" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
-                <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
-                <a href="!{release}" style="display:block;" title="Seite freigeben">Freigabe</a>
-                <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
-                <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
-            </span>
-            <b>!{titel}</b><br />
-            (Autor: !{author})<br />
-            (letzte Version von: !{last_author})
-            <div class="clearer"></div>
-        </li>
-        <!--##cont-->
-    </ul>
-    <!--##show-->
 
-    <!--##hide-menu_edit-->
-    <h3 onclick="anzeigen('sitemap');" id="trigger_sitemap" class="trigger" style="background-image:url(/images/html/!#ausgaben_zeichen);">Verzeichnisbaum</h3>
-    <ul id="sitemap" style="display:!#ausgaben_display;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-    <!--##show-->
-    <!--##hide-back-->
-    <li style="background-color:#FFF3CF;margin: 0pt; padding: 0.2em"><a href="!{link}">nach oben</a></li>
-    <!--##show-->
-    <!--##hide-menu_edit-->
-    !#ausgaben_edmenu
-    </ul>
-</div>
-<!--##show-->
-
-<!--##hide-authLogout-->
+            <!--##hide-authLogout-->
             <div class="clearer"></div>
             <div style="float:left;width:250px;display:none;">
                 <div class="box">
@@ -547,7 +778,7 @@
                     </ul>
                 </div>
             </div>
-<!--##show-->
+            <!--##show-->
 
             <div id="tmp_preview" style="border:1px solid silver;display:none;"></div>
             <div id="vorschau_container" style="display:none;">
@@ -564,10 +795,22 @@
                     if ( $(id).style.display == 'none' ) {
                         $('trigger_' + id).style.backgroundImage = 'url(/images/html/minuszeichen.jpg)';
                         new Effect.BlindDown(id, {duration: 0.3});
+                        new Ajax.Request(
+                            '!#pathvars_requested',
+                            {
+                                parameters:'ajax=blinddown&id=' + id
+                            }
+                        );
 //                         new Effect.ScrollTo($('trigger_' + id).up(0));
                     } else {
                         $('trigger_' + id).style.backgroundImage = 'url(/images/html/pluszeichen.jpg)';
                         new Effect.BlindUp(id, {duration: 0.3});
+                        new Ajax.Request(
+                            '!#pathvars_requested',
+                            {
+                                parameters:'ajax=blindup&id=' + id
+                            }
+                        );
 //                         new Effect.ScrollTo('head');
                     }
                     return false;

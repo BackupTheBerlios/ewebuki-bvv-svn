@@ -129,8 +129,11 @@ ins {
         float:left;
     }
         #head li a {
-                    display:block;
-                    padding:0 10px;
+            display:block;
+            padding:0 10px;
+        }
+        #head li a:hover {
+            text-decoration:none;
         }
     #head .wappen {
         float:right;

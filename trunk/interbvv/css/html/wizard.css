@@ -300,3 +300,38 @@
 #wizard .thumbs:hover span {
     display:block;
 }
+
+.info_hover {
+    padding-right:10px;
+    text-align:left;
+    float:left;
+}
+    .info_hover div {
+        cursor:pointer;
+        position:relative;
+    }
+        .info_hover div div {
+            background:#FEEAAD;
+            border:1px solid #FFCF3F;
+            display:none;
+            padding:10px;
+            position:absolute;
+            left:0;
+            text-align:left;
+            top:1.5em;
+            width:300px;
+            z-index:1000;
+        }
+        .info_hover div:hover div {
+            display:block;
+        }
+            .info_hover div div ul li {
+                background:url('/images/html/bg_bullet_arrow.gif') no-repeat left center;
+                float:left;
+                margin:1px 5px;
+                padding-left:10px;
+            }
+
+            .info_hover div div ul li:last-child {
+                font-style:italic;
+            }
