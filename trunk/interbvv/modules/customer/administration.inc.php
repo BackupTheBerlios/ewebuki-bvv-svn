@@ -312,7 +312,8 @@
         $ausgaben["user"] = $_SESSION["username"];
         // ggf. toggles ausklappen
         foreach ( $_SESSION["admin_toggle"] as $toggle ) {
-            $ausgaben["toggle_".$toggle] = "block";
+//             $ausgaben["toggle_".$toggle] = "block";
+            $dataloop["toggles"][]["element"] = $toggle;
         }
         // +++
         // funktions bereich

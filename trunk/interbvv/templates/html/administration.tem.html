@@ -797,9 +797,7 @@
                         new Effect.BlindDown(id, {duration: 0.3});
                         new Ajax.Request(
                             '!#pathvars_requested',
-                            {
-                                parameters:'ajax=blinddown&id=' + id
-                            }
+                            {parameters:'ajax=blinddown&id=' + id}
                         );
 //                         new Effect.ScrollTo($('trigger_' + id).up(0));
                     } else {
@@ -807,14 +805,15 @@
                         new Effect.BlindUp(id, {duration: 0.3});
                         new Ajax.Request(
                             '!#pathvars_requested',
-                            {
-                                parameters:'ajax=blindup&id=' + id
-                            }
+                            {parameters:'ajax=blindup&id=' + id}
                         );
 //                         new Effect.ScrollTo('head');
                     }
                     return false;
                 }
+//                 <!--##loop-toggles-->
+                anzeigen('!{element}');
+//                 <!--##cont-->
                 function ajax_preview(url) {
                     // 1. Seite holen
                     new Ajax.Updater(
