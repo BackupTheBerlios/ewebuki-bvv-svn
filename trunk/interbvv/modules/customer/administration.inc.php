@@ -194,7 +194,9 @@
                             unset($dataloop[$bereich."_".$tog_key][$key]);
                             continue;
                         }
-                        if ( priv_check($value["kategorie"],"admin;publish;edit") ) {
+                        if ( $value["kategorie"] != "---"
+                          && $value["kategorie"] != ""
+                          && priv_check($value["kategorie"],"admin;publish;edit") ) {
                             if ( $value["kategorie"] != "/aktuell/archiv"
                               && $value["kategorie"] != "/aktuell/presse"
                               && $value["kategorie"] != "/aktuell/termine" ) {
@@ -253,7 +255,7 @@
                 $hidedata[$bereich."_release_recent"]["num"] = count($dataloop[$bereich."_release_recent"]);
                 $dataloop[$bereich."_release_recent"] = array_reverse($dataloop[$bereich."_release_recent"],TRUE);
             }
-            if ( count($dataloop["lokal_".$bereich."_release_recent"]) > 0 ) {
+            if ( count($dataloop["lokal_".$bereich."_release_recent"]) > 0 && $halt == -1 ) {
                 $hidedata["lokal_".$bereich."_release_recent"]["num"] = count($dataloop["lokal_".$bereich."_release_recent"]);
                 $dataloop["lokal_".$bereich."_release_recent"] = array_reverse($dataloop["lokal_".$bereich."_release_recent"],TRUE);
             }
@@ -480,8 +482,6 @@
 
         // +++
         // page basics
-echo "<pre>".print_r($dataloop["lokal_artikel_release"],true)."</pre>";
-// echo "<pre>".print_r($hidedata,true)."</pre>";
 
     } else {
         header("Location: ".$pathvars["virtual"]."/");

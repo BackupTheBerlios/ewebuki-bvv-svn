@@ -302,12 +302,13 @@
 }
 
 .info_hover {
-    padding-right:10px;
+    color:#303030;
+    padding:5px 10px 0;
     text-align:left;
     float:left;
 }
     .info_hover div {
-        cursor:pointer;
+        cursor:help;
         position:relative;
     }
         .info_hover div div {

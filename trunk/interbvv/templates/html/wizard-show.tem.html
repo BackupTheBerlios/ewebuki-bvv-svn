@@ -12,24 +12,21 @@
 
     <div class="admin_head" style="">
         #(inhalt)
-        <div class="clearer"></div>
-    </div>
+        <div class="info_hover">
+            <div>
+                <img src="/images/default/details.png" alt="mehr Informationen" width="24" height="18" border="0">
 
-<!--     #(inhalt) -->
-
-    <div class="info_hover">
-        <div>
-            <img src="/images/default/details.png" alt="mehr Informationen" width="24" height="18" border="0">
-
-            <div class="info_hidden " id="" style="">
-                #(info_box)
-                <ul>
-                    <!--##loop-sima_pos-->
-                    <li>!{label}</li>
-                    <!--##cont -->
-                </ul>
+                <div class="info_hidden " id="" style="">
+                    #(info_box)
+                    <ul>
+                        <!--##loop-sima_pos-->
+                        <li>!{label}</li>
+                        <!--##cont -->
+                    </ul>
+                </div>
             </div>
         </div>
+        <div class="clearer"></div>
     </div>
 
     <!--versions-umschalter-->
