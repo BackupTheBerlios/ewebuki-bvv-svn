@@ -95,7 +95,11 @@
         while ( $data = $db -> fetch_array($result,1) ) {
             // kategorieueberpruefung fuer amts-artikel
             preg_match("#\[KATEGORIE\](.*)\[/KATEGORIE\]#U",$data["content"],$match);
-            if ( $match[1] != "" && !strstr($environment["ebene"],$match[1]) ) continue;
+            if ( $_GET["kategorie"] != "" ) {
+                if ( $match[1] != "" && !strstr($match[1],$_GET["kategorie"]) ) continue;
+            } else {
+                if ( $match[1] != "" && !strstr($environment["ebene"],$match[1]) ) continue;
+            }
             // titel
             $title = "---";
             preg_match("/\[H[0-9]{1}\](.+)\[\/H/U",$data["content"],$match);
@@ -167,7 +171,7 @@
     rss_walk_path($menu_item["mid"]);
 
     // anzahl der eintraege limitieren
-    if ( $cfg["rss"]["max_items"] != "" ) $dataloop["items"] = array_slice($dataloop["items"], 0, $cfg["rss"]["max_items"]);
+    if ( $cfg["rss"]["max_items"] != "" && count($dataloop["items"]) > 0 ) $dataloop["items"] = array_slice($dataloop["items"], 0, $cfg["rss"]["max_items"]);
 
     // was anzeigen
 //     header("Content-type: application/rss+xml");
