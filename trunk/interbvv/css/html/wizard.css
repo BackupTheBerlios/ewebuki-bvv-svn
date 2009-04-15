@@ -189,6 +189,7 @@
         background:#FFFFFF;
         border:1px solid #DDDDDD;
         margin:0 0 3px;
+        overflow:hidden;
         position:relative;
     }
 

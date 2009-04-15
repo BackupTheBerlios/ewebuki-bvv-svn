@@ -792,28 +792,28 @@
 
             <script type="text/javascript">
                 function anzeigen(id) {
-                    if ( $(id).style.display == 'none' ) {
-                        $('trigger_' + id).style.backgroundImage = 'url(/images/html/minuszeichen.jpg)';
-                        new Effect.BlindDown(id, {duration: 0.3});
-                        new Ajax.Request(
-                            '!#pathvars_requested',
-                            {parameters:'ajax=blinddown&id=' + id}
-                        );
-//                         new Effect.ScrollTo($('trigger_' + id).up(0));
-                    } else {
-                        $('trigger_' + id).style.backgroundImage = 'url(/images/html/pluszeichen.jpg)';
-                        new Effect.BlindUp(id, {duration: 0.3});
-                        new Ajax.Request(
-                            '!#pathvars_requested',
-                            {parameters:'ajax=blindup&id=' + id}
-                        );
-//                         new Effect.ScrollTo('head');
+                    if ( $(id) ) {
+                        if ( $(id).style.display == 'none' ) {
+                            $('trigger_' + id).style.backgroundImage = 'url(/images/html/minuszeichen.jpg)';
+                            new Effect.BlindDown(id, {duration: 0.3});
+                            new Ajax.Request(
+                                '!#pathvars_requested',
+                                {parameters:'ajax=blinddown&id=' + id}
+                            );
+                        } else {
+                            $('trigger_' + id).style.backgroundImage = 'url(/images/html/pluszeichen.jpg)';
+                            new Effect.BlindUp(id, {duration: 0.3});
+                            new Ajax.Request(
+                                '!#pathvars_requested',
+                                {parameters:'ajax=blindup&id=' + id}
+                            );
+                        }
                     }
                     return false;
                 }
-//                 <!--##loop-toggles-->
+                //<!--##loop-toggles-->
                 anzeigen('!{element}');
-//                 <!--##cont-->
+                //<!--##cont-->
                 function ajax_preview(url) {
                     // 1. Seite holen
                     new Ajax.Updater(
