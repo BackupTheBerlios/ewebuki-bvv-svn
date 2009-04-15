@@ -196,7 +196,7 @@
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
                 $result = $db -> query($sql);
-                if ( $db->num_rows($result) > 1 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom ".$form_values["kat"]." ".$form_values["adststelle"];
+                if ( $db->num_rows($result) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom ".$form_values["kat"]." ".$form_values["adststelle"];
 
                 break;
             case "artikel":
