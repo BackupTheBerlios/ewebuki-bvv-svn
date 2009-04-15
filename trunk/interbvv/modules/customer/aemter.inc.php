@@ -148,7 +148,7 @@
         // kekse anpassen
         $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/index.html\">".$ausgaben["amt"]."</a>";
 
-        $hidedata["sub_menu"][0] = "enable";
+        $hidedata["sub_menu"]["link"] = "index.html";
         foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
             $dataloop["sub_menu"][$key] = array(
                  "link" => $value[0],
@@ -183,39 +183,26 @@
                         $tags[$key] = $value;
                     }
                 }
+                $dd = date('U');
+                $art_tname = eCRC("/aktuell/archiv").".%";
+                $pre_tname = eCRC("/aktuell/presse").".%";
 
-                if ( $environment["parameter"][2] == "" ) {
-                    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
-                    $hidedata["artikel"] = $hidedata["new"];
-                    if ( count($dataloop["artikel"]) > 0 ) {
-                        $ausgaben["artikel"] = "<b>Meldungen</b>";
-                    }
-
-
-                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
-                    $hidedata["presse"] = $hidedata["new"];
-                    if ( count($dataloop["presse"]) > 0 ) {
-                        $ausgaben["presse"] = "<b>Pressemitteilungen</b>";
-                    }
-                    $tags["titel"]["tag"] = "_NAME";
-                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
-
-                    $hidedata["termine"] = $hidedata["new"];
-                    if ( count($dataloop["termine"]) > 0 ) {
-                        $ausgaben["termine"] = "<b>Termine</b>";
-                    }
-
-                    if ( count($dataloop["termine"]) > 0 || count($dataloop["presse"]) > 0 || count($dataloop["artikel"]) > 0 ) {
-                        $ausgaben["neuigkeiten"] = "<h2>Aktuell</h2>";
-                    }
-
-                }
+                // gibts artikel oder presse?
+                $sql = "Select tname from site_text
+                        WHERE 
+                            status='1' AND 
+                            ( tname like '".$art_tname."' OR tname like '".$pre_tname."') AND 
+                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00' AND
+                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                            ";
+                $result = $db -> query($sql);
+                if ( $db->num_rows($result) > 1 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom ".$form_values["kat"]." ".$form_values["adststelle"];
 
                 break;
             case "artikel":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $tags[] = "";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
@@ -250,7 +237,7 @@
             case "presse":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $tags[] = "";
                 $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
@@ -293,7 +280,7 @@
                 $url = $environment["ebene"]."/".$environment["kategorie"];
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $hidedata["termine_detail"]["in"] = "on";
                 unset($hidedata["aussenstelle"]);
                 if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
@@ -528,6 +515,33 @@
                 include $pathvars["moduleroot"]."addon/kontakt.inc.php";
                 $hidedata["kontakt"]["inhalt"] = "on"; 
                 $ausgaben["kontakt"] = parser("aemter-kontakt","");
+                break;
+            case "aktuell":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+                $tags[titel] = "H1";
+                $tags[teaser] = "P=teaser";
+                $tags[image] = "IMG=";
+
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
+
+                if ( $environment["parameter"][1] == "archiv" ) {
+                    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                } elseif ( $environment["parameter"][1] == "termine" ) {
+                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                } elseif ( $environment["parameter"][1] == "presse" ) {
+                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                } else {
+                    $hidedata["sub_menu"]["link"] = "index.html";
+                    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","0,1","/aemter/".$akz_array[0]."/index");
+                    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,4","/aemter/".$akz_array[0]."/index");
+                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4","/aemter/".$akz_array[0]."/index");
+                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aemter/".$akz_array[0]."/index");
+
+                    if ( count($dataloop["artikel"]) > 0 ) $hidedata["artikel"]["ueberschrift"] = "Meldungen";
+                    if ( count($dataloop["presse"]) > 0 ) $hidedata["presse"]["ueberschrift"] = "Pressemitteilungen";
+                    if ( count($dataloop["termine"]) > 0 ) $hidedata["termine"]["ueberschrift"] = "Termine";
+                }
                 break;
         }
 

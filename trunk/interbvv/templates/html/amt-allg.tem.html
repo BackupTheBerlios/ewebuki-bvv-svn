@@ -41,16 +41,18 @@
 
             <!--##hide-sub_menu-->
             <p>
-                <!--##loop-sub_menu-->
-                <a href="!{link}" class="!{class}">!{label}</a> -
-                <!--##cont-->
+                <a href="!{link}" class="">zurück</a>
             </p>
             <!--##show-->
 
             <!--##hide-heading-->
             <h2>!{heading}</h2>
             <!--##show-->
-
+            <!--##hide-aktuelles-->
+            <div style="margin-bottom:15px" class="amt_info_box">
+                <a href="aktuell.html">!{text}</a>
+            </div>
+            <!--##show-->
             <!--##hide-aussenstelle-->
             <div class="tabbed">
                 <ul>
@@ -241,20 +243,57 @@
 
             #(inhalt)
             !#ausgaben_neuigkeiten
-            !#ausgaben_artikel
+<!--             !#ausgaben_artikel -->
+
+
+            <!--##hide-artikel-->
+            <h2>Meldungen</h2>
+            <!--##show-->
 
             <!--##loop-artikel-->
+            <div style="margin-top:0px" class="single_news">
+                !{datum}<h2>!{titel_org}</h2>
+                <img src="/file/!{image_img_art}/!{image_img_id}/s/test.png" alt="!{titel_org}"></img>
+                <p>!{teaser_org}</p>
+                <p><a href="artikel,,!{id}.html" title="!{titel_org}">Beitrag lesen</a></p>
+                <p>!{editlink} !{deletelink}</p>
+                <div class="clearer"></div>
+            </div>
+            <!--##cont-->
+            <!--##loop-artikel2-->
             <p>!{datum} <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}</p>
             <!--##cont-->
-            !#ausgaben_presse
+
+            <!--##hide-artikel-->
+            <span style="float:right">#(uebersicht_artikel)</span>
+            <hr />
+            <!--##show-->
+
+            <!--##hide-presse-->
+            <h2>Pressemitteilungen</h2>
+            <!--##show-->
+
             <!--##loop-presse-->
             <p>!{datum} <a href="presse,,!{id}.html">!{titel_org}</a>!{editlink}</p>
             <!--##cont-->
 
-            !#ausgaben_termine
+            <!--##hide-presse-->
+            <span style="float:right">#(uebersicht_presse)</span>
+            <hr />
+            <!--##show-->
+
+            <!--##hide-termine-->
+            <h2>Termine</h2>
+            <!--##show-->
+
             <!--##loop-termine-->
             <p>!{datum} <a href="termine,,!{id}.html">!{titel_org}</a></p>
             <!--##cont-->
+
+            <!--##hide-termine-->
+            <span style="float:right">#(uebersicht_termine)</span>
+            <hr />
+            <!--##show-->
 
             <!--##hide-termine_detail-->
             <p style="float:right;text-align:right;font-size:85%">
