@@ -187,6 +187,7 @@
             );
             foreach ( $toggle_fields as $tog_key=>$tog_value ) {
                 $ausgaben["toggle_".$bereich."_".$tog_key] = "none";
+                $ausgaben["toggle_lokal_".$bereich."_".$tog_key] = "none";
                 if ( is_array ( $dataloop[$bereich."_".$tog_key] )  ) {
                     foreach ( $dataloop[$bereich."_".$tog_key] as $key => $value ) {
                         if ( $tog_value[0] == "own" &&
