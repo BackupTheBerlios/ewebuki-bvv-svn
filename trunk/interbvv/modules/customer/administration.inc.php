@@ -245,7 +245,7 @@
             if ( count($dataloop[$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
                 $hidedata[$bereich."_edit"]["num"] = count($dataloop[$bereich."_edit"]);
             }
-            if ( count($dataloop[$bereich."_release"]) > 0 && !priv_check($url,"admin;publish") && priv_check($url,"admin;edit") ) {
+            if ( count($dataloop[$bereich."_release_wait"]) > 0 && !priv_check($url,"admin;publish") && priv_check($url,"admin;edit") ) {
                 $hidedata[$bereich."_release_wait"]["num"] = count($dataloop[$bereich."_release"]);
             }
             if ( count($dataloop[$bereich."_release_queue"]) > 0 && priv_check($url,"admin;publish") ) {
