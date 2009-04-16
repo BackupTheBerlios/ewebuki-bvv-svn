@@ -519,6 +519,7 @@
             case "aktuell":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+                unset($hidedata["aussenstelle"]);
                 $tags[titel] = "H1";
                 $tags[teaser] = "P=teaser";
                 $tags[image] = "IMG=";
