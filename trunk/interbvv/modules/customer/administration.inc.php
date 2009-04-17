@@ -201,6 +201,7 @@
                             if ( $value["kategorie"] != "/aktuell/archiv"
                               && $value["kategorie"] != "/aktuell/presse"
                               && $value["kategorie"] != "/aktuell/termine" ) {
+                                get_chefred($value["kategorie"]);
                                 $sql_amt = "SELECT *
                                               FROM db_aemter
                                              WHERE adakz='".substr($value["kategorie"],8,2)."'";
