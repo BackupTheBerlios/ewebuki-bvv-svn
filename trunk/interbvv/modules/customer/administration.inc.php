@@ -209,7 +209,7 @@
                                 $value["amt"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];
                                 $dataloop["lokal_".$bereich."_".$tog_key][$key] = $value;
                                 unset($dataloop[$bereich."_".$tog_key][$key]);
-                                if ( $hidedata["lokal_".$bereich."_section"][0] == "on" ) {
+                                if ( $hidedata["lokal_".$bereich."_section"][0] == "on" && priv_check($value["kategorie"],$tog_value[1])  ) {
                                     $hidedata["lokal_".$bereich."_".$tog_key] = array();
                                 }
                                 // tabellen farben wechseln
