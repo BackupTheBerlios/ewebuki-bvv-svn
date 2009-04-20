@@ -638,7 +638,7 @@
                     #(release)
                 </span></h3>
                 <ul id="lokal_presse_release_queue" style="display:!#ausgaben_toggle_lokal_presse_release_queue;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
-                    <!--##loop-lokal_presse_release_queue-->
+                    <!--##loop-lokal_presse_release-->
                     <li style="background-color:!{color};margin:0;padding:0.2em;">
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
@@ -794,69 +794,6 @@
             </div>
             <!--##show-->
 
-            <div id="tmp_preview" style="border:1px solid silver;display:none;"></div>
-            <div id="vorschau_container" style="display:none;">
-                <div id="vorschau">
-                    <div id="substance"></div>
-                </div>
-                <div id="preview_close">
-                    <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="lb_preview.hide();" src="/images/html/lb/closelabel.gif"/>
-                </div>
-            </div>
-
-            <script type="text/javascript">
-                function anzeigen(id) {
-                    if ( $(id) ) {
-                        if ( $(id).style.display == 'none' ) {
-                            $('trigger_' + id).style.backgroundImage = 'url(/images/html/minuszeichen.jpg)';
-                            new Effect.BlindDown(id, {duration: 0.3});
-                            new Ajax.Request(
-                                '!#pathvars_requested',
-                                {parameters:'ajax=blinddown&id=' + id}
-                            );
-                        } else {
-                            $('trigger_' + id).style.backgroundImage = 'url(/images/html/pluszeichen.jpg)';
-                            new Effect.BlindUp(id, {duration: 0.3});
-                            new Ajax.Request(
-                                '!#pathvars_requested',
-                                {parameters:'ajax=blindup&id=' + id}
-                            );
-                        }
-                    }
-                    return false;
-                }
-                //<!--##loop-toggles-->
-                anzeigen('!{element}');
-                //<!--##cont-->
-                function ajax_preview(url) {
-                    // 1. Seite holen
-                    new Ajax.Updater(
-                        'tmp_preview',
-                        url,
-                        {
-                            onComplete: function() {
-                                if ( $$('#tmp_preview #substance').length > 0 ) {
-                                    // 2. zielcontainer vorbereiten
-                                    var source = $$('#tmp_preview #substance')[0];
-                                    var destination = $$('#vorschau #substance')[0]
-                                    var klasse = source.className;
-                                    if ( !destination.hasClassName(klasse) ) destination.addClassName(klasse);
-                                    // 3. container fuellen
-                                    destination.innerHTML = source.innerHTML;
-                                    source.innerHTML = '';
-                                    // 4. ausgabe anpassen
-                                    dd_initialize();
-                                    lb_preview.show();
-                                } else {
-                                    $('tmp_preview').innerHTML = '';
-                                }
-                            }
-                        }
-                    );
-                }
-                lb_preview = new LB_imitate('vorschau_container',{top:100});
-            </script>
-
 
             <div class="clearer"></div>
             !#ausgaben_output
@@ -864,6 +801,69 @@
 
         </div>
     </div>
+
+    <div id="tmp_preview" style="border:1px solid silver;display:none;"></div>
+    <div id="vorschau_container" style="display:none;">
+        <div id="vorschau">
+            <div id="substance"></div>
+        </div>
+        <div id="preview_close">
+            <img style="cursor: pointer;" alt="Vorschau schliessen" onclick="lb_preview.hide();" src="/images/html/lb/closelabel.gif"/>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function anzeigen(id) {
+            if ( $(id) ) {
+                if ( $(id).style.display == 'none' ) {
+                    $('trigger_' + id).style.backgroundImage = 'url(/images/html/minuszeichen.jpg)';
+                    new Effect.BlindDown(id, {duration: 0.3});
+                    new Ajax.Request(
+                        '!#pathvars_requested',
+                        {parameters:'ajax=blinddown&id=' + id}
+                    );
+                } else {
+                    $('trigger_' + id).style.backgroundImage = 'url(/images/html/pluszeichen.jpg)';
+                    new Effect.BlindUp(id, {duration: 0.3});
+                    new Ajax.Request(
+                        '!#pathvars_requested',
+                        {parameters:'ajax=blindup&id=' + id}
+                    );
+                }
+            }
+            return false;
+        }
+        //<!--##loop-toggles-->
+        anzeigen('!{element}');
+        //<!--##cont-->
+        function ajax_preview(url) {
+            // 1. Seite holen
+            new Ajax.Updater(
+                'tmp_preview',
+                url,
+                {
+                    onComplete: function() {
+                        if ( $$('#tmp_preview #substance').length > 0 ) {
+                            // 2. zielcontainer vorbereiten
+                            var source = $$('#tmp_preview #substance')[0];
+                            var destination = $$('#vorschau #substance')[0]
+                            var klasse = source.className;
+                            if ( !destination.hasClassName(klasse) ) destination.addClassName(klasse);
+                            // 3. container fuellen
+                            destination.innerHTML = source.innerHTML;
+                            source.innerHTML = '';
+                            // 4. ausgabe anpassen
+                            dd_initialize();
+                            lb_preview.show();
+                        } else {
+                            $('tmp_preview').innerHTML = '';
+                        }
+                    }
+                }
+            );
+        }
+        lb_preview = new LB_imitate('vorschau_container',{top:100});
+    </script>
 <!--##end-->
 
     </body>
