@@ -85,6 +85,9 @@ LB_imitate = Class.create({
         var arrayPageSize = this.getPageSize();
         // box zentrieren
         var pos_x = ($('site').getWidth() - this.section.getWidth()) / 2;
+        if ( pos_x < 0 ) {
+            var pos_x = '100px';
+        }
         this.section.style.left = pos_x + 'px';
         if ( this.pos_top > 1 ) {
             this.section.style.top = this.pos_top + 'px';
