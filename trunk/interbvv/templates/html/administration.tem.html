@@ -218,7 +218,7 @@
             <!--##show-->
             <!--##hide-lokal_artikel_release_wait-->
                 <h3><span onclick="anzeigen('lokal_artikel_release_wait');" id="trigger_lokal_artikel_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
-                    #(release)wait
+                    #(release)
                 </span></h3>
                 <ul id="lokal_artikel_release_wait" style="display:!#ausgaben_toggle_lokal_artikel_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_artikel_release_wait-->
@@ -407,7 +407,7 @@
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                             <a href="!{del}" style="display:block;" title="Seite l&ouml;schen">L&ouml;schen</a>
                         </span>
-                        <b>!{titel} (!{amt})</b><br />
+                        <b>!{ext} (!{amt})</b><br />
                         Autor: !{author}<br />
                         letzte &Auml;nderung: !{changed}<br />
                         letzte Version von: !{last_author}
@@ -418,7 +418,7 @@
             <!--##show-->
             <!--##hide-lokal_termine_release_wait-->
                 <h3><span onclick="anzeigen('lokal_termine_release_wait');" id="trigger_lokal_termine_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
-                    #(release)wait
+                    #(release)
                 </span></h3>
                 <ul id="lokal_termine_release_wait" style="display:!#ausgaben_toggle_lokal_termine_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_termine_release_wait-->
@@ -426,7 +426,7 @@
                         <span style="float:right;text-align:right;display:block;">
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" onclick="ajax_preview('!{view}');return false;">Vorschau</a>
                         </span>
-                        <b>!{titel} (!{amt})</b><br />
+                        <b>!{ext} (!{amt})</b><br />
                         letzte &Auml;nderung: !{changed}<br />
                         Chefredakteure: !{chefred}
                         <div class="clearer"></div>
@@ -448,7 +448,7 @@
                             <a href="!{history}" style="display:block;" title="Pfad: !{path}">Versionen</a>
                             <a href="!{unlock}" style="display:block;" title="Seite entsperren">Entsperren</a>
                         </span>
-                        <b>!{titel} (!{amt})</b><br />
+                        <b>!{ext} (!{amt})</b><br />
                         Autor: !{author}<br />
                         letzte &Auml;nderung: !{changed}<br />
                         letzte Version von: !{last_author}
@@ -468,7 +468,7 @@
                             <a href="!{view}" style="display:block;" title="Pfad: !{path}" >zur Seite</a>
                             <a href="!{edit}" style="display:block;" title="Seite bearbeiten">Bearbeiten</a>
                         </span>
-                        <b>!{titel} (!{amt})</b><br />
+                        <b>!{ext} (!{amt})</b><br />
                         (freigegeben am: !{changed})
                         <div class="clearer"></div>
                     </li>
@@ -617,7 +617,7 @@
             <!--##show-->
             <!--##hide-lokal_presse_release_wait-->
                 <h3><span onclick="anzeigen('lokal_presse_release_wait');" id="trigger_lokal_presse_release_wait" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
-                    #(release)wait
+                    #(release)
                 </span></h3>
                 <ul id="lokal_presse_release_wait" style="display:!#ausgaben_toggle_lokal_presse_release_wait;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
                     <!--##loop-lokal_presse_release_wait-->
@@ -762,7 +762,7 @@
                 <h3><span onclick="anzeigen('sitemap');" id="trigger_sitemap" class="trigger" style="background-image:url(/images/html/pluszeichen.jpg);">
                     Verzeichnisbaum
                 </span></h3>
-                <ul id="sitemap" style="display:none;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
+                <ul id="sitemap" style="display:!#ausgaben_display;overflow:hidden;list-style:none;list-style-image:none;margin:3px;padding:1px;border:1px solid #CCCCCC;width:auto;">
             <!--##show-->
             <!--##hide-back-->
                 <li style="background-color:#FFF3CF;margin: 0pt; padding: 0.2em"><a href="!{link}">nach oben</a></li>
