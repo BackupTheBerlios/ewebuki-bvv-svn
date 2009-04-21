@@ -385,24 +385,15 @@
 
         $blacklist = "/aktuell";
         $wizard_menu = sitemap(0, "admin", "wizard",$mod,"");
-     #   $wizard_menu = preg_replace($preg,"",$wizard_menu);
-        $ausgaben["display"] = "none";
-        $ausgaben["zeichen"] = "pluszeichen.jpg";
-        if ( $environment["parameter"][1] >= "0" ) {
-            $ausgaben["zeichen"] = "minuszeichen.jpg";
-            $ausgaben["display"] = "";
-        }
         $test = explode("<li>",$wizard_menu);
         array_shift($test);
         $preg = '/<img.*\/img>/Ui';
         $preg_link = '/^<a (href)="\/auth\/edit,([0-9]*),[0-9]*\.html"/ui';
         $preg_black = '/(href="\/auth\/login,)([0-9]*)\.html"/ui';
-//         $color = "#FFFFFF";
         $color = $cfg["wizard"]["color"]["a"];
         preg_match($preg_black,$line,$black);
 
         foreach ( $test as $line ) {
-//             ( $color == "#FFFFFF" ) ? $color = "#EEEEEE" : $color = "#FFFFFF";
             ( $color == $cfg["wizard"]["color"]["a"] ) ? $color = $cfg["wizard"]["color"]["b"] : $color = $cfg["wizard"]["color"]["a"];
             preg_match($preg_black,$line,$black);
             preg_match($preg_link,$line,$regis);
