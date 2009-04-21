@@ -186,9 +186,10 @@
                 $dd = date('U');
                 $art_tname = eCRC("/aktuell/archiv").".%";
                 $pre_tname = eCRC("/aktuell/presse").".%";
+                $ter_tname = eCRC("/aktuell/termine").".%";
 
                 // gibts artikel oder presse?
-                $sql = "Select tname from site_text
+                $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
                         WHERE 
                             status='1' AND 
                             ( tname like '".$art_tname."' OR tname like '".$pre_tname."') AND 
@@ -196,13 +197,40 @@
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
                 $result = $db -> query($sql);
-                if ( $db->num_rows($result) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom ".$form_values["kat"]." ".$form_values["adststelle"];
+
+                while ( $data = $db->fetch_array($result,1) ) {
+                    ( strstr($data["ebene"],"archiv") ) ? $what = "artikel" : $what = "presse";
+                    preg_match("/\[H1\](.*)\[\/H1\]/Ui",$data["content"],$match);
+                    $dataloop[$data["ebene"]][$count]["link"] =  $what.",,".$data["kategorie"].".html";
+                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
+                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+
+                }
+                // gibts termine?
+                $sql_t = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
+                        WHERE 
+                            status='1' AND 
+                            ( tname like '".$ter_tname."') AND 
+                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' AND
+                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                            ";
+                $result_t = $db -> query($sql_t);
+                $count = 0;
+                while ( $data = $db->fetch_array($result_t,1) ) {
+                    $count++;
+                    preg_match("/\[_NAME\](.*)\[\/_NAME\]/Ui",$data["content"],$match);
+                    $dataloop[$data["ebene"]][$count]["link"] =  "termine,,".$data["kategorie"].".html";
+                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
+                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+                }
+
+                if ( $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
 
                 break;
             case "artikel":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-                $hidedata["sub_menu"]["link"] = "aktuell.html";
+//                 $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $tags[] = "";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
@@ -237,7 +265,7 @@
             case "presse":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-                $hidedata["sub_menu"]["link"] = "aktuell.html";
+//                 $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $tags[] = "";
                 $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
                 $hidedata["all"]["out"] = $all[1]["all"];
@@ -280,7 +308,7 @@
                 $url = $environment["ebene"]."/".$environment["kategorie"];
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-                $hidedata["sub_menu"]["link"] = "aktuell.html";
+              #  $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $hidedata["termine_detail"]["in"] = "on";
                 unset($hidedata["aussenstelle"]);
                 if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
@@ -520,9 +548,10 @@
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
                 unset($hidedata["aussenstelle"]);
-                $tags[titel] = "H1";
-                $tags[teaser] = "P=teaser";
-                $tags[image] = "IMG=";
+                $tags["titel"] = "H1";
+                $tags["teaser"] = "P=teaser";
+                $tags["image"] = "IMG=";
+                $tags["termine"] = "_NAME";
 
                 $hidedata["sub_menu"]["link"] = "aktuell.html";
 

@@ -50,7 +50,22 @@
             <!--##show-->
             <!--##hide-aktuelles-->
             <div style="margin-bottom:15px" class="amt_info_box">
-                <a href="aktuell.html">!{text}</a>
+                <a onclick="Effect.toggle('aktuell', 'blind'); return false;" href="#">!{text}</a>
+                <div id="aktuell" style="width:100%;display:none">
+                <!--##loop-/aktuell/archiv-->
+                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
+                    <div class="clearer" style="margin:0"></div>
+                <!--##cont-->
+                <!--##loop-/aktuell/presse-->
+                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
+                    <div class="clearer" style="margin:0"></div>
+                <!--##cont-->
+                <!--##loop-/aktuell/termine-->
+                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
+                    <div class="clearer" style="margin:0"></div>
+                <!--##cont-->
+                </div>
+
             </div>
             <div class="clear"></div>
             <!--##show-->
@@ -288,7 +303,7 @@
             <!--##show-->
 
             <!--##loop-termine-->
-            <p>!{datum} <a href="termine,,!{id}.html">!{titel_org}</a></p>
+            <p>!{datum} <a href="termine,,!{id}.html">!{termine_org}</a></p>
             <!--##cont-->
 
             <!--##hide-termine-->
