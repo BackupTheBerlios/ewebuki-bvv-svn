@@ -409,9 +409,9 @@
                 $edit_crc = $make_crc.substr(make_ebene($regis[2]),strrpos(make_ebene($regis[2]),"/")+1);
                 $line = preg_replace($preg_link,"<a href=/auth/wizard/show,".DATABASE.",".$edit_crc.",inhalt,,,.html",$line);
                 $line = preg_replace("/<a href=\"\/auth\/add,[0-9]*,[0-9]*.html\"/","<a href=/auth/wizard/add,,".$edit_crc.".html",$line);
-                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.5em;\">".$line."</li>";
+                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.5em;clear:both;\">".$line."</li>";
             } else {
-                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.5em;\">".$line."</li>";
+                $ausgaben["edmenu"] .= "<li style=\"background-color:".$color.";margin:0;padding:0.5em;clear:both;\">".$line."</li>";
             }
         }
 

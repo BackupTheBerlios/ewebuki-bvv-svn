@@ -359,6 +359,7 @@ ins {
 
     /* tabellen */
     #substance table {
+        clear:both;
         font-size:inherit;
     }
         #substance td, #substance th, #substance .cell {
