@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+<!--##begin-->
+    <div id="substance" class="wide">
+
+
+<table>
+    <!--##loop-faq_sites-->
+<tr>
+    <td><a href="faq,!{id}.html">!{name}</a></td><td><a href="">zur seite</a></td>
+</tr>
+    <!--##cont-->
+</table>
+
+<dl>
+!#ausgaben_faq
+</dl>
+
+    </div>
+    #{margin}
+
+    <script type="text/javascript">
+        function anzeigen(id) {
+            if ( $(id) ) {
+                if ( $(id).style.display == 'none' ) {
+                    $('trigger_' + id).style.backgroundImage = 'url(/images/html/minuszeichen.jpg)';
+                    new Effect.BlindDown(id, {duration: 0.3});
+                    new Ajax.Request(
+                        '!#pathvars_requested',
+                        {parameters:'ajax=blinddown&id=' + id}
+                    );
+                } else {
+                    $('trigger_' + id).style.backgroundImage = 'url(/images/html/pluszeichen.jpg)';
+                    new Effect.BlindUp(id, {duration: 0.3});
+                    new Ajax.Request(
+                        '!#pathvars_requested',
+                        {parameters:'ajax=blindup&id=' + id}
+                    );
+                }
+            }
+            return false;
+        }
+    </script>
+<!--##end-->
+
+    </body>
+</html>
