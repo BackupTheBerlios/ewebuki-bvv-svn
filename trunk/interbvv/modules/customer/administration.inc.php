@@ -180,10 +180,10 @@
 
             // unterschiedliche "toggle-bereiche" nachbearbeiten
             $toggle_fields = array(
-                          "edit" => array("own","edit"),
+                          "edit" => array("own","edit;publish"),
                  "release_queue" => array("all","publish"),
                   "release_wait" => array("own","edit"),
-                "release_recent" => array("own","edit"),
+                "release_recent" => array("own","edit;publish"),
             );
             foreach ( $toggle_fields as $tog_key=>$tog_value ) {
                 $ausgaben["toggle_".$bereich."_".$tog_key] = "none";
@@ -279,10 +279,10 @@
         $dataloop[$bereich."_release"] = $buffer[-2];
         $dataloop[$bereich."_release_wait"] = $buffer[-2];
         $toggle_fields = array(
-                      "edit" => array("all","edit"),
+                      "edit" => array("all","edit;publish"),
              "release_queue" => array("all","publish"),
               "release_wait" => array("own","edit"),
-            "release_recent" => array("own","edit"),
+            "release_recent" => array("own","edit;publish"),
         );
         foreach ( $toggle_fields as $tog_key=>$tog_value ) {
             if ( is_array ( $dataloop[$bereich."_".$tog_key] )  ) {
