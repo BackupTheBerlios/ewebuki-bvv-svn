@@ -52,8 +52,6 @@
 
         // amtkennzahl bestimmen
         if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
-//         echo "<pre>";
-//         echo $_SERVER["SERVER_NAME"]."<br>";
             preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
             $sql = "SELECT *
                       FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
@@ -61,20 +59,15 @@
             $result = $db -> query($sql);
             $data = $db -> fetch_array($result,1);
             $amtid = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
-
-            // menu ausblenden
-            $ausgaben["menu"] = "";
-            $hidedata["amtnavi"] = array();
-            unset($hidedata["head_subnavi"]);
-//         echo "\$sql: $sql<br>";
-//         echo "\$amtid: $amtid<br>";
-//         echo print_r($match,true);
-//         echo "</pre>";
         } else {
             $arrEbene = explode("/",$environment["ebene"]);
             $amtid = $arrEbene["2"];
         }
 
+        // menu ausblenden
+        $ausgaben["menu"] = "";
+        $hidedata["amtnavi"] = array();
+        unset($hidedata["head_subnavi"]);
 
         // datensatz holen
         $sql = "SELECT *
@@ -152,7 +145,6 @@
         if ( $db->num_rows($result) > 0 ){
             aussenstellen($form_values[$cfg["aemter"]["db"]["dst"]["key"]]);
         }
-// echo "<pre>".print_r($dataloop["stellen"],true)."</pre>";
 
         // ist das amt eine aussenstelle?
         $sql = "SELECT *
@@ -168,9 +160,9 @@
         }
 
         // kekse anpassen
-        if ( !strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
-            $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/index.html\">".$ausgaben["amt"]."</a>";
-        }
+//         if ( !strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+//             $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/index.html\">".$ausgaben["amt"]."</a>";
+//         }
 
         $hidedata["sub_menu"]["link"] = "index.html";
         foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
