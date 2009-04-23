@@ -51,8 +51,30 @@
         // ***
 
         // amtkennzahl bestimmen
-        $arrEbene = explode("/",$environment["ebene"]);
-        $amtid = $arrEbene["2"];
+        if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+//         echo "<pre>";
+//         echo $_SERVER["SERVER_NAME"]."<br>";
+            preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
+            $sql = "SELECT *
+                      FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                     WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'";
+            $result = $db -> query($sql);
+            $data = $db -> fetch_array($result,1);
+            $amtid = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
+
+            // menu ausblenden
+            $ausgaben["menu"] = "";
+            $hidedata["amtnavi"] = array();
+            unset($hidedata["head_subnavi"]);
+//         echo "\$sql: $sql<br>";
+//         echo "\$amtid: $amtid<br>";
+//         echo print_r($match,true);
+//         echo "</pre>";
+        } else {
+            $arrEbene = explode("/",$environment["ebene"]);
+            $amtid = $arrEbene["2"];
+        }
+
 
         // datensatz holen
         $sql = "SELECT *
@@ -146,7 +168,9 @@
         }
 
         // kekse anpassen
-        $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/index.html\">".$ausgaben["amt"]."</a>";
+        if ( !strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+            $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/index.html\">".$ausgaben["amt"]."</a>";
+        }
 
         $hidedata["sub_menu"]["link"] = "index.html";
         foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
@@ -154,6 +178,13 @@
                  "link" => $value[0],
                 "label" => $value[1],
                 "class" => "",
+            );
+            $class = "Level1";
+            if ( $key == $environment["kategorie"] ) $class = "Level1Active";
+            $dataloop["amtnavi"][$key] = array(
+                 "link" => $value[0],
+                "label" => $value[1],
+                "class" => $class,
             );
         }
 
@@ -190,9 +221,9 @@
 
                 // gibts artikel oder presse?
                 $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
-                        WHERE 
-                            status='1' AND 
-                            ( tname like '".$art_tname."' OR tname like '".$pre_tname."') AND 
+                        WHERE
+                            status='1' AND
+                            ( tname like '".$art_tname."' OR tname like '".$pre_tname."') AND
                             Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00' AND
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
@@ -208,9 +239,9 @@
                 }
                 // gibts termine?
                 $sql_t = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
-                        WHERE 
-                            status='1' AND 
-                            ( tname like '".$ter_tname."') AND 
+                        WHERE
+                            status='1' AND
+                            ( tname like '".$ter_tname."') AND
                             Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' AND
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
@@ -541,7 +572,7 @@
                 include $pathvars["moduleroot"]."addon/kontakt.cfg.php";
                 $cfg["kontakt"]["basis"] = "kontakt";
                 include $pathvars["moduleroot"]."addon/kontakt.inc.php";
-                $hidedata["kontakt"]["inhalt"] = "on"; 
+                $hidedata["kontakt"]["inhalt"] = "on";
                 $ausgaben["kontakt"] = parser("aemter-kontakt","");
                 break;
             case "aktuell":
