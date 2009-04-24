@@ -384,7 +384,7 @@
                     );
 
         $blacklist = "/aktuell";
-        $wizard_menu = sitemap(0, "admin", "wizard",$mod,"");
+        $wizard_menu = sitemap(0, "admin", "menued",$mod,"");
         $test = explode("<li>",$wizard_menu);
         array_shift($test);
         $preg = '/<img.*\/img>/Ui';
