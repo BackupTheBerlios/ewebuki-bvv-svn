@@ -113,7 +113,9 @@ ins {
 /*----------------------------
   id-definitionen (bereiche)
 ----------------------------*/
-
+#sitemap .red {
+    color: red;
+}
 
 /* kopfbereich mit banner, logo, kopfnavigation
 ------------------------------------------------------*/
