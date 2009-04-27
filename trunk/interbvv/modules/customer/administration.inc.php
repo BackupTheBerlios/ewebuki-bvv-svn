@@ -380,7 +380,8 @@
         // welche buttons sollen angezeigt werden
         $mod = array(
                     "edit"=> array("", "Seite editieren", "edit"),
-                    "add"=> array("", "Seite add", "add")
+                    "add"=> array("", "Seite hinzufuegen", "add"),
+                    "jump"=> array("", "zur Seite", "admin")
                     );
 
         $blacklist = "/aktuell";
