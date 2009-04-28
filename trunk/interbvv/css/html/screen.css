@@ -113,6 +113,12 @@ ins {
 /*----------------------------
   id-definitionen (bereiche)
 ----------------------------*/
+#sitemap ul li{
+    margin-left: 30px;
+    list-style:none;
+}
+
+
 #sitemap .red {
     color: red;
 }
@@ -391,7 +397,7 @@ ins {
         margin:7px 0 25px 15px;
         overflow:hidden;
         text-align:right;
-        width:150px;
+        min-width:150px;
     }
 
         #substance .sub_menu h2 {
