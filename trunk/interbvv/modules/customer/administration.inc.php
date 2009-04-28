@@ -344,6 +344,9 @@
         }
 
         if ( $_SESSION["menued_id"] != "" ) {
+
+            $ausgaben["edmenu"] = "<script type=\"text/javascript\">Effect.ScrollTo('trigger_sitemap')</script>";
+
             // explode des parameters
             $opentree = explode("-",$_SESSION["menued_opentree"]);
             // was muss geschlossen werden ?!?!?
