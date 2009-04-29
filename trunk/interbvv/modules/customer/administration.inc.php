@@ -384,7 +384,7 @@
         $mod = array(
                     "edit"=> array("", "Seite editieren", "edit"),
                     "add"=> array("", "Seite hinzufuegen", "add"),
-                    "jump"=> array("", "zur Seite", "admin")
+                    "jump"=> array("", "zur Seite", "edit;publish")
                     );
 
         $blacklist = "/aktuell";
