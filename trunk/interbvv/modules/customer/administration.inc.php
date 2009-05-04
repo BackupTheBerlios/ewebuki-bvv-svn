@@ -276,7 +276,7 @@
         $bereich = "content";
         $buffer = find_marked_content( "/", $cfg, "inhalt", array(-2,-1), array(), FALSE, array("/aktuell","/service/fragen"));
         $dataloop[$bereich."_edit"] = $buffer[-1];
-        $dataloop[$bereich."_release"] = $buffer[-2];
+        $dataloop[$bereich."_release_queue"] = $buffer[-2];
         $dataloop[$bereich."_release_wait"] = $buffer[-2];
         $toggle_fields = array(
                       "edit" => array("all","edit;publish"),
