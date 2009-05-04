@@ -335,8 +335,8 @@ ins {
 
     #substance ul, #substance ol {
         list-style-image:url('/images/html/li-dash.png');
-        list-style-position:inside;
         margin-left:0;
+        clear:left;
 /*         width:380px; */
     }
 
@@ -349,7 +349,7 @@ ins {
         }
 
         #substance ul li, #substance ol li {
-/*             margin-left:25px; */
+            margin-left:25px;
         }
 
             #substance ul li blockquote {
