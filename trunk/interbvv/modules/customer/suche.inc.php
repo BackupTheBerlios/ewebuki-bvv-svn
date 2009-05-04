@@ -71,7 +71,7 @@
     }
 
     if ( $environment["parameter"][1] ) {
-        $ausgaben["aktion"] = "suche,esearch.html";
+        $ausgaben["aktion"] = "service/suche,esearch.html";
         $ausgaben["search_sel"] = "";
         $hidedata["esearch"]["on"] = "";
         $ausgaben["esearch_sel"] = "selected";
