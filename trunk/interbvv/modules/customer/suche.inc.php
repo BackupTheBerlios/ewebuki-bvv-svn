@@ -49,7 +49,7 @@
     $ausgaben["search_sel"] = "selected";
     $ausgaben["esearch_sel"] = "";
     $hidedata["search"]["on"] = "on";
-    $ausgaben["aktion"] = "suche.html";
+    $ausgaben["aktion"] = "service/suche.html";
     $ausgaben["displaysite"] = "";
         $ausgaben["select"] = "";
     $ausgaben["10"] = "";
@@ -192,6 +192,8 @@
 
         $ausgaben["gesamt"] = "Anzahl der Treffer: ".$dataloop["treffer"][0][5];
     }
+
+    if ( !$_POST ) $ausgaben["gesamt"] = "Bitte geben Sie einen Suchbegriff ein";
 
     $anfang = $page_org_site -2;
     $ende = $page_org_site +2;
