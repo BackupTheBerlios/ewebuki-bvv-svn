@@ -65,9 +65,8 @@
         }
 
         // menu ausblenden
-        $ausgaben["menu"] = "";
+        #$ausgaben["menu"] = "";
         $hidedata["amtnavi"] = array();
-        unset($hidedata["head_subnavi"]);
 
         // datensatz holen
         $sql = "SELECT *
@@ -173,11 +172,11 @@
             );
             $class = "Level1";
             if ( $key == $environment["kategorie"] ) $class = "Level1Active";
-            $dataloop["amtnavi"][$key] = array(
-                 "link" => $value[0],
-                "label" => $value[1],
-                "class" => $class,
-            );
+//             $dataloop["amtnavi"][$key] = array(
+//                  "link" => $value[0],
+//                 "label" => $value[1],
+//                 "class" => $class,
+//             );
         }
 
         $ausgaben["artikel"] = "";
@@ -187,8 +186,8 @@
         switch ($environment["parameter"][0]) {
             // startseite
             case "index":
-                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
-                require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+//                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+//                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 
                 $hidedata["index"]["heading"] = "#(index)";
                 $hidedata["heading"]["heading"] = "#(index)";
