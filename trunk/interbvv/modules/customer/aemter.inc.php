@@ -566,7 +566,7 @@
                 $hidedata["kontakt"]["inhalt"] = "on";
                 $ausgaben["kontakt"] = parser("aemter-kontakt","");
                 break;
-            case "aktuell":
+            case "va-aktuell":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
                 unset($hidedata["aussenstelle"]);
@@ -594,6 +594,39 @@
                     if ( count($dataloop["presse"]) > 0 ) $hidedata["presse"]["ueberschrift"] = "Pressemitteilungen";
                     if ( count($dataloop["termine"]) > 0 ) $hidedata["termine"]["ueberschrift"] = "Termine";
                 }
+                break;
+            case "va-archiv":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+                unset($hidedata["aussenstelle"]);
+                $tags["titel"] = "H1";
+                $tags["teaser"] = "P=teaser";
+                $tags["image"] = "IMG=";
+                $tags["termine"] = "_NAME";
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
+                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                break;
+            case "va-termine":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+                unset($hidedata["aussenstelle"]);
+                $tags["titel"] = "H1";
+                $tags["teaser"] = "P=teaser";
+                $tags["image"] = "IMG=";
+                $tags["termine"] = "_NAME";
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
+                $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                break;
+            case "va-presse":
+                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+                require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+                unset($hidedata["aussenstelle"]);
+                $tags["titel"] = "H1";
+                $tags["teaser"] = "P=teaser";
+                $tags["image"] = "IMG=";
+                $tags["termine"] = "_NAME";
+                $hidedata["sub_menu"]["link"] = "aktuell.html";
+                $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
                 break;
         }
 
