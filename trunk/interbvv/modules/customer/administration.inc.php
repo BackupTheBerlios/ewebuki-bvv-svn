@@ -200,6 +200,7 @@
                           && priv_check($value["kategorie"],"admin;publish;edit") ) {
                             if ( $value["kategorie"] != "/aktuell/archiv"
                               && $value["kategorie"] != "/aktuell/presse"
+                              && $value["kategorie"] != "/aktuell/ausstellungen"
                               && $value["kategorie"] != "/aktuell/termine" ) {
                                 get_chefred($value["kategorie"]);
                                 $sql_amt = "SELECT *

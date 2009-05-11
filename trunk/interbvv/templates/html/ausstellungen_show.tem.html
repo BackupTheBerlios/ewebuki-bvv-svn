@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>termine-liste</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--##begin-->
+        <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+        <div id="substance" class="wide">
+            !#ausgaben_inhalt
+            #(inhalt1)
+<!-- LIST  gruppiert-->
+            <!--##hide-list-->
+            !#ausgaben_row
+            <!--##show-->
+<!-- LIST  gruppiert-->
+
+<!-- LIST  default-->
+
+
+            <!--##hide-fieldset-->
+            <fieldset><legend>#(legend)</legend>#(calendar)
+            <!--##show-->
+            <!--##hide-anfrage-->
+            <div style="line-height:30px;height:30px;background-color:#FEEAAD">
+                #(suche)<B>!{suche}</B>!#ausgaben_hit
+            </div>
+            <span style="float:right">#(back)</span>
+            <!--##show-->
+            <!--##hide-fieldset-->
+            </fieldset>
+            <!--##show-->
+
+
+            <!--##hide-defaultlist-->
+<!--             <table width="100%"> -->
+            <!--##show-->
+            <!--##hide-headdefaultlist-->
+<!--                 <tr><th style="width:30%;text-align:left">Datum</th><th style="width:70%;text-align:left">Beschreibung</th></tr> -->
+            <!--##show-->
+            <!--##loop-defaultlist-->
+            <div class="single_news">
+                <small>!{begin} - !{ende}</small>
+                <h2>!{name}</h2>
+                <div style="">
+                <img src="/file/!{image_img_art}/!{image_img_id}/s/!{image_img_fname}" style="width:150px;border-style:solid;border-width:1px;border-color:#BBD3EF;" alt="!{image_img_under}" title="!{image_img_desc}" ></img>
+                    <p>!{teaser_org}</p>
+                    <p><b><a href="!{detaillink}" title="!{titel_org}">Beitrag lesen</a></b></p>
+                </div>
+                <hr />
+            </div>
+
+
+<!--                 <tr><td style="width:30%;">!{desc}</td><td style="width:35%;">!{name}</td></tr> -->
+            <!--##cont-->
+            <!--##hide-defaultlist-->
+<!--             </table> -->
+            <!--##show-->
+<!-- LIST  default-->
+
+<!-- DETAIL -->
+            <!--##hide-detail-->
+            <p style="float:right;text-align:right;font-size:85%">
+                <a href="termine.html">&Uuml;bersicht</a>&nbsp;|&nbsp;<a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=http://www.vermessung.bayern.de!#pathvars_uri">Versenden</a>
+            </p>
+            <table width="100%">
+            <!--##show-->
+                <!--##loop-detail-->
+                <tr><td style="width:20%;">!{desc}</td><td>!{name}</td></tr>
+                <!--##cont-->
+            <!--##hide-detail-->
+            </table>
+            <!--##show-->
+            <!--##hide-detail_all-->
+            <br />
+            !{tet}
+            <!--##show-->
+<!-- DETAIL -->
+        </div>
+        #{margin}
+<!--##end-->
+    </body>
+</html>

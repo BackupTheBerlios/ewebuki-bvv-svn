@@ -64,7 +64,7 @@
     }
 
     $ausgaben["row"] = "";
-    $ausgaben["inhalt"] = "";
+    $ausgaben["inhalt"] = "#(inhalt)";
 
     $url = $environment["ebene"]."/".$environment["kategorie"];
 
@@ -198,7 +198,6 @@
         }
 
             // liste 
-            $ausgaben["inhalt"] = "#(inhalt)";
             // new link
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
                 $hidedata["newlink"]["link"] = $pathvars["virtual"].$url.",,,,add.html";
@@ -251,15 +250,30 @@
                         $hidedata["headdefaultlist"]["on"] = "on";
                         foreach ( $work as $key => $value ) {
                             $today = date('U');
-                            if ( $value["termin_en_org"] == "1970-01-01" ) {
-//                                 if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
-                                $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0]);
+                            if ( $url == "/aktuell/ausstellungen" ) {
+                                if ( $value["termin_en_org"] == "1970-01-01" ) {
+                                    $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0]);
+                                } else {
+                                    $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
+                                }
+                                $dataloop["defaultlist"][$key]["name"] = "<a href=\"ausstellungen/".$value["id"].".html\">".$value["titel_org"]."</a>";
+                                $dataloop["defaultlist"][$key]["teaser_org"] = $value["teaser_org"];
+                                $dataloop["defaultlist"][$key]["image_img_art"] = $value["image_img_art"];
+                                $dataloop["defaultlist"][$key]["image_img_id"] = $value["image_img_id"];
+                                $dataloop["defaultlist"][$key]["begin"] = substr($value["termin_org"],8,2).".".substr($value["termin_org"],5,2).".".substr($value["termin_org"],0,4);
+                                $dataloop["defaultlist"][$key]["ende"] = substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
+
                             } else {
-//                                 if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
-                                $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
+                                if ( $value["termin_en_org"] == "1970-01-01" ) {
+    //                                 if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+                                    $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0]);
+                                } else {
+    //                                 if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
+                                    $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
+                                }
+                                $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."</a>";
+                                $dataloop["defaultlist"][$key]["veranstalter"] = $value["veranstalter_org"];
                             }
-                            $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."</a>";
-                            $dataloop["defaultlist"][$key]["veranstalter"] = $value["veranstalter_org"];
                         }
                     }
             }
@@ -275,9 +289,12 @@
     }
 
     // was anzeigen
-    $mapping["main"] = "termine_show";
-    #$mapping["navi"] = "leer";
-
+    if ( $url == "/aktuell/ausstellungen" ) {
+        $mapping["main"] = "ausstellungen_show";
+    } else {
+        $mapping["main"] = "termine_show";
+        #$mapping["navi"] = "leer";
+    }
 if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
