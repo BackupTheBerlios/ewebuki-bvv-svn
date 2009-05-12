@@ -256,6 +256,7 @@
                                 } else {
                                     $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
                                 }
+                                $dataloop["defaultlist"][$key]["detaillink"] = $value["detaillink"];
                                 $dataloop["defaultlist"][$key]["name"] = "<a href=\"ausstellungen/".$value["id"].".html\">".$value["titel_org"]."</a>";
                                 $dataloop["defaultlist"][$key]["teaser_org"] = $value["teaser_org"];
                                 $dataloop["defaultlist"][$key]["image_img_art"] = $value["image_img_art"];
