@@ -87,7 +87,7 @@
         $hidedata["order_form"][$key] = $_POST[$key];
         if ( $ausgaben["form_error"] == "" ) {
             if ( $_POST[$key] > 0 ) {
-                $order .= $_POST[$key]." Stueck ".$value."\n";
+                $order .= $_POST[$key]." Stück ".$value."\n";
             }
         }
     }
@@ -95,7 +95,8 @@
         $ausgaben["form_error"] = "<p class=\"error\">".$ausgaben["form_error"]."</p>";
     } else {
         if (  $order != "" ) {
-            mail($cfg["bestellung"]["email"]["owner"],$cfg["bestellung"]["email"]["subject"],$cfg["bestellung"]["email"]["text"]."\n\n".$order."\n\n".$shopper,"Mime-Version: 1.0 Content-Type: text/plain; charset=ISO-8859-15");
+            $shopper = utf8_decode($shopper);
+            mail($cfg["bestellung"]["email"]["owner"],$cfg["bestellung"]["email"]["subject"],$cfg["bestellung"]["email"]["text"]."\n\n".$order."\n\n".$shopper,"Mime-Version: 1.0 Content-Type: text/plain; charset=ISO-8859-1");
             $hidedata["order_success"]["text"] = "#(success)";
            unset($hidedata["order_form"]);
         } else {
