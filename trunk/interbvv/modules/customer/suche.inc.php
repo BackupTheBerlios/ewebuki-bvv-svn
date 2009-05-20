@@ -133,7 +133,9 @@
     $pagef = "&page=1";
     $page_org_files = 1;
     if ( $_POST["spage"]  ) {
-        $page_org_site = $_POST["spage"];
+        preg_match("/(\|)([0-9]*)/",$_POST["spage"],$matches);
+        $page_org_site = round($matches[2]/$hits_per_site)+1;
+//         $page_org_site = $_POST["spage"];
         $pages = "&page=".$page_org_site;
     }
     if (  $_POST["fpage"] ) {
@@ -205,13 +207,13 @@
         if ( $page_org_site > 1 && $i == $page_org_site) {
             $dataloop["site_switch"][0]["font"] = "bold";
             $dataloop["site_switch"][0]["site"] = $i-1;
-            $dataloop["site_switch"][0]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
+//             $dataloop["site_switch"][0]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
         }
     // gibts den schalter nach vorn?
     if ( $page_org_site < $site_count && $i == $page_org_site ) {
-            $dataloop["site_switch"][999]["font"] = "bold";
-            $dataloop["site_switch"][999]["site"] = $i+1;
-            $dataloop["site_switch"][999]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
+//             $dataloop["site_switch"][999]["font"] = "bold";
+//             $dataloop["site_switch"][999]["site"] = $i+1;
+//             $dataloop["site_switch"][999]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
         }
 
         $start = $i*$hits_per_site-($hits_per_site-1);
@@ -224,7 +226,7 @@
         }
         $dataloop["site_switch"][$i]["font"] = $font;
         $dataloop["site_switch"][$i]["site"] = $i;
-        $dataloop["site_switch"][$i]["anzeige"] = $start." - ".$aus." | ";
+        $dataloop["site_switch"][$i]["anzeige"] = "|".$start."-".$aus."|";
     }
     if ( is_array($dataloop["site_switch"]) ) {
         ksort($dataloop["site_switch"]);
