@@ -129,10 +129,10 @@
                             WHERE ".$cfg["amtsuche"]["db"]["amt"]["key"]."='".$data_amt[$cfg["amtsuche"]["db"]["amt"]["parent"]]."'";
                 $result_ha = $db -> query($sql_ha);
                 $data_ha   = $db -> fetch_array($result_ha,1);
-                $dienststelle = "Vermessungamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                $dienststelle = "Vermessungsamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
             } else {
                 $neben = "";
-                $dienststelle = "Vermessungamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                $dienststelle = "Vermessungsamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
             }
             // bayernviewer-link
             $bvlink = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$data_amt["georef_rw"].
@@ -193,10 +193,10 @@
                                 WHERE ".$cfg["amtsuche"]["db"]["amt"]["key"]."='".$data_amt[$cfg["amtsuche"]["db"]["amt"]["parent"]]."'";
                     $result_ha = $db -> query($sql_ha);
                     $data_ha   = $db -> fetch_array($result_ha,1);
-                    $dienststelle = "Vermessungamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                    $dienststelle = "Vermessungsamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
                 } else {
                     $neben = "";
-                    $dienststelle = "Vermessungamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                    $dienststelle = "Vermessungsamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
                 }
 
                 $dataloop["hits"][] = array(
