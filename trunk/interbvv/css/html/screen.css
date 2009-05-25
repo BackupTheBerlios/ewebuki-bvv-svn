@@ -12,6 +12,12 @@ body{
 
 /* ueberschriften */
 h1{
+
+background-image:url(/images/html/favicon.ico);
+background-position:left center;
+background-repeat:no-repeat;
+padding-left:20px;
+/*     background:#FFFFFF url('/images/html/favicon.ico') repeat-y ; */
     border-bottom:1px solid #CCCCCC;
     font-size:1.15em;
     margin:0 0 10px 0;
@@ -188,7 +194,7 @@ ins {
       elemente nicht umbrechen koennen
 ------------------------------------------------------*/
 #site{
-    background-image:url('/images/html/background.png');
+/*     background-image:url('/images/html/background.png'); */
     background-repeat: repeat-y;
     clear:both;
     width:1000px;
@@ -224,14 +230,15 @@ ins {
     #navi ul {
         padding:0;
         margin:0;
+/*display:block;*/
     }
 
     /* seiten-navigation */
     #navi .menu {
         background:#2C5A93;
-        margin-bottom:10px;
-        padding-bottom:10px;
-        padding-top:10px;
+/*         margin-bottom:10px; */
+/*         padding-bottom:10px; */
+/*         padding-top:10px; */
     }
 
         #navi .menu h1 {
@@ -259,50 +266,86 @@ ins {
             }
 */
 
-    #navi ul.navigation {
-        margin:0 0 0 15px;
+    #navi ul.navigation a{
+        margin:0 0 3px 10px;
+        padding:3px 0 0 0;
+        display: block;
     }
 
         #navi ul.navigation ul {
-            margin:3px 0 0 10px;
+            padding:5px 0 0 0;
         }
 
-        #navi ul.navigation li {
-            padding:5px 5px 5px 0;
-            list-style:none;
-            position:relative;
-        }
-
-            #navi .menu ul.navigation li a {
-                font-weight:bold;
-                color:#EEF3FB;
+/*             ebene2 links */
+            #navi .menu  ul.navigation  .Level2 a {
+                padding:0;
+                margin:0 0 0 15px;
+                display:inline;
+                font-size:0.9em;
             }
+
+            #navi .menu  ul.navigation  .Level2Active a {
+                padding:0;
+                margin:0 0 0 15px;
+                font-size:0.9em;
+            }
+/*             ebene2 links */
+
+/*                 striche ebene2 */
+            #navi .menu  ul.navigation ul li{
+                border-bottom:1px solid #FFFFFF;
+            }
+
+           #navi .menu  ul.navigation ul {
+                padding: 0;
+
+            }
+
+/*                 striche ebene2 */
+
+/*                 striche ebene1 */
+            #navi .menu  li.Level1, li.Level1Active{
+                border-bottom:1px solid #FFFFFF;
+            }
+/*                 striche ebene1 */
 
                 /* nur der aktive menuepunkt soll leuchten */
                 #navi ul.navigation li.Level1Active a {
-                    color:#FEEAAD;
+                        font-weight:bold;
                 }
 
-                    #navi .menu ul.navigation li.Level1Active li a {
-                        color:#EEF3FB;
-                    }
+                /* farbe der ebene2 punkte */
+                #navi .menu ul.navigation li.Level1Active li a {
+                    color:#2C5A93;
+                }
 
-                        #navi ul.navigation li.Level1Active li.Level2Active a {
-                            color:#FEEAAD;
-                            font-weight:bold;
-                        }
+                #navi .menu ul.navigation li.Level1Active li a:hover {
+                    text-decoration:underline;
+                }
 
-                #navi ul.navigation li a:hover {
+                #navi ul.navigation li.Level1Active li.Level2Active a {
+                    color:#2C5A93;
+                    font-weight:bold;
+                }
+
+                #navi ul.navigation li a {
                     text-decoration:none;
                 }
 
             /* sonderformatierungen level 2 punkte  */
             #navi ul.navigation ul li {
                 padding:2px 0;
+                background-color:#EEF3FB;
             }
 
                 #navi .menu ul.navigation ul li a {
                     font-weight:normal;
+                }
+
+                #navi ul.navigation1 {
+                    padding: 15px  0 0 15px;
+                    background-color:white;
+/*                     font-weight:bold; */
                 }
 
 /* eigentlicher inhalt
@@ -1001,6 +1044,7 @@ input.medium, select.medium {
 
     .search h3 {
         color:#EEF3FB;
+        font-weight:normal;
     }
 /* + + + */
 
