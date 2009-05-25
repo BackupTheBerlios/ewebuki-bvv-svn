@@ -603,7 +603,7 @@
                 $tags["teaser"] = "P=teaser";
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
-                $hidedata["sub_menu"]["link"] = "aktuell.html";
+                $hidedata["sub_menu"]["link"] = "va-aktuell.html";
                 $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
                 break;
             case "va-termine":
@@ -614,7 +614,7 @@
                 $tags["teaser"] = "P=teaser";
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
-                $hidedata["sub_menu"]["link"] = "aktuell.html";
+                $hidedata["sub_menu"]["link"] = "va-aktuell.html";
                 $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
                 break;
             case "va-presse":
@@ -625,7 +625,7 @@
                 $tags["teaser"] = "P=teaser";
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
-                $hidedata["sub_menu"]["link"] = "aktuell.html";
+                $hidedata["sub_menu"]["link"] = "va-aktuell.html";
                 $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
                 break;
         }
