@@ -219,8 +219,9 @@
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
                 $result = $db -> query($sql);
-
+                $count = 0;
                 while ( $data = $db->fetch_array($result,1) ) {
+                    $count++;
                     ( strstr($data["ebene"],"archiv") ) ? $what = "artikel" : $what = "presse";
                     preg_match("/\[H1\](.*)\[\/H1\]/Ui",$data["content"],$match);
                     $dataloop[$data["ebene"]][$count]["link"] =  $what.",,".$data["kategorie"].".html";
