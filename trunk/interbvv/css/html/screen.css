@@ -13,15 +13,11 @@ body{
 /* ueberschriften */
 h1{
 
-background-image:url(/images/html/favicon.ico);
-background-position:left center;
-background-repeat:no-repeat;
-padding-left:20px;
-/*     background:#FFFFFF url('/images/html/favicon.ico') repeat-y ; */
+    background:url("/images/html/favicon.ico") no-repeat left center;
     border-bottom:1px solid #CCCCCC;
     font-size:1.15em;
     margin:0 0 10px 0;
-    padding-bottom:3px;
+    padding:0 0 3px 20px
 }
 
 h2{
@@ -352,7 +348,8 @@ ins {
 ----------------------*/
 #substance{
     float:left;
-    padding:10px 0 10px 10px;
+/*     padding:10px 0 10px 10px; */
+    padding:0 0 10px 10px;
     width:540px;
     overflow:hidden;
 }
@@ -1040,6 +1037,9 @@ input.medium, select.medium {
 
 #margin .search {
     background:#2C5A93;
+    border-width:0;
+/*     margin:0 0 20px; */
+    padding:2px;
 }
 
     .search h3 {
@@ -1158,6 +1158,7 @@ input.medium, select.medium {
         }
 
         #substance.admin .admin_head h1, #wizard .admin_head h1 {
+            background:none;
             border:none;
             float:left;
 /*             font-size:1.5em; */
