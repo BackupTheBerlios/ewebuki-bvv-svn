@@ -141,23 +141,25 @@
             $member_edit = array();
             $member_publish = array();
             foreach ( $priv_info as $priv_url=>$value ) {
-                foreach ( $value["add"] as $group=>$rights ) {
-                    $sql = "SELECT *
-                              FROM auth_group
-                              JOIN auth_member
-                                ON (auth_group.gid=auth_member.gid)
-                              JOIN auth_user
-                                ON (auth_member.uid=auth_user.uid)
-                             WHERE ggroup='".$group."'";
-                    $result = $db -> query($sql);
-                    $member = array();
-                    while ( $data = $db -> fetch_array($result,1) ) {
-                        $member[$data["username"]] = "<a href=\"mailto:".$data["email"]."\">".$data["vorname"]." ".$data["nachname"]."</a>";
-                        if ( strstr($rights,"edit") && !strstr($value["del"][$group],"edit") ) {
-                            $member_edit[$data["username"]] = "<a href=\"mailto:".$data["email"]."\">".$data["vorname"]." ".$data["nachname"]."</a>";
-                        }
-                        if ( strstr($rights,"publish") && !strstr($value["del"][$group],"publish") ) {
-                            $member_publish[$data["username"]] = "<a href=\"mailto:".$data["email"]."\">".$data["vorname"]." ".$data["nachname"]."</a>";
+                if ( is_array($value["add"]) ) {
+                    foreach ( $value["add"] as $group=>$rights ) {
+                        $sql = "SELECT *
+                                FROM auth_group
+                                JOIN auth_member
+                                    ON (auth_group.gid=auth_member.gid)
+                                JOIN auth_user
+                                    ON (auth_member.uid=auth_user.uid)
+                                WHERE ggroup='".$group."'";
+                        $result = $db -> query($sql);
+                        $member = array();
+                        while ( $data = $db -> fetch_array($result,1) ) {
+                            $member[$data["username"]] = "<a href=\"mailto:".$data["email"]."\">".$data["vorname"]." ".$data["nachname"]."</a>";
+                            if ( strstr($rights,"edit") && !strstr($value["del"][$group],"edit") ) {
+                                $member_edit[$data["username"]] = "<a href=\"mailto:".$data["email"]."\">".$data["vorname"]." ".$data["nachname"]."</a>";
+                            }
+                            if ( strstr($rights,"publish") && !strstr($value["del"][$group],"publish") ) {
+                                $member_publish[$data["username"]] = "<a href=\"mailto:".$data["email"]."\">".$data["vorname"]." ".$data["nachname"]."</a>";
+                            }
                         }
                     }
                 }
