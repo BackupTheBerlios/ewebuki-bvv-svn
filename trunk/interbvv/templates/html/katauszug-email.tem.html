@@ -1,0 +1,93 @@
+<html>
+<head>
+<!--$Id: kontakt-email1.tem.html 1435 2008-08-25 10:20:10Z krompi $-->
+<title>kontakt-email1 (mail an betreiber)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+<pre>Achtung Plain Text eMail, kein HTML verwenden!
+<!--##begin-->
+Formulardaten:
+--------------
+Nachname:   !{surname}
+Vorname:    !{forename}
+Strasse:    !{strasse}
+PLZ:        !{plz}
+Ort:        !{ort}
+Telefon:    !{tel}
+Email:      !{email}
+
+
+Bestellung:
+-----------
+!{art}:
+-----------
+
+<!--##hide-lageplan-->
+<!--##loop-order-->
+Flurstuecksnummer:      !{flst}
+Gemarkung:              !{gmkg}
+Beglaubigter Lageplan:  !{begl}
+Lageplan-Massstab:       !{massstab}
+Anzahl:                 !{anzahl} Exemplar(e)
+
+<!--##cont-->
+<!--##show-->
+<!--##hide-vektor-->
+<!--##loop-order-->
+Flurstuecksnummer:      !{flst}
+Gemarkung:              !{gmkg}
+Format:                 !{format}
+Umgriff in Meter:       !{umgriff}
+beglaub. Lageplan?      !{add_begl}
+Lageplan-Massstab:      !{massstab}
+Anzahl:                 !{anzahl}
+
+<!--##cont-->
+<!--##show-->
+<!--##hide-masszahlen-->
+<!--##loop-masszahlen-->
+Flurstuecksnummer:      !{flst}
+Gemarkung:              !{gmkg}
+Format:                 !{din}
+beglaub. Lageplan?      !{add_begl}
+Lageplan-Massstab:      !{massstab}
+Anzahl:                 !{anzahl}
+
+<!--##cont-->
+
+KOORDINATEN:
+-----------
+
+<!--##loop-koordinaten-->
+Flurstuecksnummer:      !{flst}
+Gemarkung:              !{gmkg}
+Listenform:             !{list}
+Datentraeger:           !{disc}
+
+<!--##cont-->
+<!--##show-->
+<!--##hide-send-->
+
+Die bestellten Unterlagen ZUSENDEN!
+<!--##show-->
+<!--##hide-nosend-->
+
+Die bestellten Unterlagen WERDEN ABGEHOLT!
+<!--##show-->
+<!--##hide-versand_adresse-->
+
+Versandadresse:
+!{adresse}
+<!--##show-->
+<!--##hide-sonder-->
+
+Sonderwuensche:
+!{sonder}
+
+<!--##show-->
+
+<!--##end-->
+</pre>
+</body>
+</html>

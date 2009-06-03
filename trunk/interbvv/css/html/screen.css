@@ -73,7 +73,7 @@ form {
 fieldset{
     background:#EFEFEF;
     border:1px solid #CCCCCC;
-    margin:5px 0;
+    margin:5px 0 !important;
     padding:5px;
 }
 input, button, textarea {
@@ -912,22 +912,26 @@ div.autocomplete {
 
 /* Kontakt-Formular */
 /* * * * */
-.kontakt input, .kontakt select {
+.kontakt input, .kontakt select, .formular input, .formular select {
     float:left;
     margin-top: 1px;
     margin-bottom: 1px;
     width: 300px;
 }
 
-.kontakt input:focus, .kontakt select:focus {
+.kontakt input:focus, .kontakt select:focus, .formular input:focus, .formular select:focus {
     background:#FEF6DE;
 }
 
-    .kontakt textarea{
+.formular input[type=checkbox] {
+    margin-top:5px;
+}
+
+    .kontakt textarea, .formular textarea {
         width:450px;
     }
 
-    .kontakt label {
+    .kontakt label, .formular label {
         float: left;
         display: block;
         clear: both;
@@ -935,13 +939,13 @@ div.autocomplete {
         margin:3px 0;
     }
 
-        .kontakt label.label_right {
+        .kontakt label.label_right, .formular label.label_right {
             clear:none;
             margin-left:5px;
             width:450px;
         }
 
-            .kontakt label.label_right input {
+            .kontakt label.label_right input, .formular label.label_right input {
                 margin-right:5px;
                 width:auto;
             }
@@ -951,7 +955,11 @@ input.small, select.small {
 }
 
 input.medium, select.medium {
-    width: 248px;
+    width: 246px;
+}
+
+label.ganz {
+    width:500px;
 }
 /* + + + */
 
