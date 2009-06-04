@@ -143,7 +143,7 @@
             }
             $dataloop["termine"][$value["id"]]["datum"] = substr($value["termin1_org"],8,2).".".substr($value["termin1_org"],5,2).".".substr($value["termin1_org"],0,4);
             $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
-            $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].".html";
+            $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
         }
     }
 
