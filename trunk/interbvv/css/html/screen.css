@@ -903,6 +903,10 @@ div.autocomplete {
             margin-left:40px;
         }
 
+            .amt_info_box ul span {
+                margin-left:0;
+            }
+
 /* banner fuer die amtsseite */
 #substance p.amt_banner {
     height:120px;

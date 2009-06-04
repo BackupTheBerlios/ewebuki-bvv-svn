@@ -57,6 +57,44 @@
             $specialvars["editlock"] = -1;
         }
 
+        if ( $environment["parameter"][2] == "" ) {
+            $environment["parameter"][2] = "lageplan";
+        }
+
+        // amtkennzahl bestimmen
+        if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+            if ( $environment["parameter"][1] == "" ) {
+                preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
+                $sql = "SELECT *
+                          FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]."
+                         WHERE ".$cfg["katauszug"]["db"]["amt"]["internet"]." LIKE '%".$match[1]."%'
+                           AND ".$cfg["katauszug"]["db"]["amt"]["kate"]." IN ('3','4')";
+            } else {
+                $sql = "SELECT *
+                          FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]."
+                         WHERE ".$cfg["katauszug"]["db"]["amt"]["akz"]." = '".$environment["parameter"][1]."'
+                           AND ".$cfg["katauszug"]["db"]["amt"]["kate"]." IN ('3','4')";
+            }
+            $result = $db -> query($sql);
+            $data = $db -> fetch_array($result,1);
+            if ( $environment["parameter"][1] == "" ) {
+                $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$data[$cfg["katauszug"]["db"]["amt"]["akz"]].",".$environment["parameter"][2].".html";
+                header("Location: ".$header);
+            }
+        }
+
+        if ( $_POST["amt_wechseln"] != "" && $environment["parameter"][1] != $_POST["amt_wechseln"] ) {
+            $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$_POST["amt_wechseln"].",".$environment["parameter"][2].".html";
+            header("Location: ".$header);
+        }
+
+        if ( !strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+            $hidedata["change_amt"]["label"] = "#(".$environment["parameter"][2].")";
+        } else {
+            $hidedata["amt_page"]["label"] = "#(".$environment["parameter"][2].")";
+            $hidedata["amt_page"]["amt"] = "VA ".$data[$cfg["katauszug"]["db"]["amt"]["name"]];
+        }
+
         if ( $_POST["amt_wechseln"] != "" && $_POST["amt_wechseln"] != $environment["parameter"][1] ) {
             $environment["parameter"][1] = $_POST["amt_wechseln"];
         }

@@ -22,6 +22,8 @@
                 </fieldset>
                 <!--##show-->
 
+                <!--##hide-change_amt-->
+                <h1>!{label}</h1>
                 <fieldset class="formular1">
                     <legend>#(amt_wechseln)</legend>
                     <label class="halb">
@@ -35,6 +37,28 @@
                         <input type="submit" name="chg_amt" value="g(send)" class="next" tabindex="101" />
                     </label>
                 </fieldset>
+                <!--##show-->
+                <!--##hide-amt_page-->
+                <h1>!{label}</h1>
+                <fieldset class="formular1">
+<!--                     <legend>#(amt_wechseln)</legend> -->
+                    <p>
+                        Ihr ausgew&auml;hltes Amt: <b>!{amt}</b> (<a onclick="new Effect.toggle('change_amt','blind',{duration:0.3});" style="cursor:pointer;">Amt wechseln</a>)
+                    </p>
+                    <div id="change_amt" style="display:none;">
+                        <label class="halb">
+                            <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="100">
+                                <!--##loop-amt-->
+                                <option value="!{value}"!{sel}>!{item}</option>
+                                <!--##cont-->
+                            </select>
+                        </label>
+                        <label class="halb">
+                            <input type="submit" name="chg_amt" value="g(send)" class="next" tabindex="101" />
+                        </label>
+                    </div>
+                </fieldset>
+                <!--##show-->
 
                 <fieldset class="formular">
                     <legend>#(legend_adresse)</legend>
