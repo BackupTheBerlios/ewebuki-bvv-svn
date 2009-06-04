@@ -233,8 +233,11 @@
                 $sql_t = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
                         WHERE
                             status='1' AND
-                            ( tname like '".$ter_tname."') AND
-                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' AND
+                            ( tname like '".$ter_tname."') AND (
+                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' 
+                            OR
+                            Cast(SUBSTR(content,POSITION('[_TERMIN]' IN content)+9,POSITION('[/_TERMIN]' IN content)-POSITION('[_TERMIN]' IN content)-9) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' 
+                            ) AND
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
                 $result_t = $db -> query($sql_t);
@@ -393,9 +396,9 @@
                 foreach ( $akz_array as $key=>$value ) {
                     $amt = $dataloop["stellen"][$key]["amt"];
                     if ( $hauptamt != $dataloop["stellen"][$key]["amt"] ) {
-                        $amt = "VA ".$hauptamt."/".$dataloop["stellen"][$key]["amt"];
+                        $amt = "Vermessungsamt ".$hauptamt."/".$dataloop["stellen"][$key]["amt"];
                     } else {
-                        $amt = "VA ".$dataloop["stellen"][$key]["amt"];
+                        $amt = "Vermessungsamt ".$dataloop["stellen"][$key]["amt"];
                     }
                     $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$dataloop["stellen"][$key]["rechtswert"].
                                                                                "&amp;hw=".$dataloop["stellen"][$key]["hochwert"].
