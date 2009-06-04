@@ -143,14 +143,14 @@
                 $dataloop["detail"][$value]["desc"] = "g(t_".$value.")";
             }
 
-            if ( strstr($work[0]["all"],"<div class=\"termine\">") ) {
-                if ( $environment["parameter"][3] == "all" ) {
-                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schlie&szlig;en</a>";
-                } else {
-                    $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">&Ouml;ffnen</a>";
-                }
-                $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
-            }
+//             if ( strstr($work[0]["all"],"<div class=\"termine\">") ) {
+//                 if ( $environment["parameter"][3] == "all" ) {
+//                     $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].".html\">Schlie&szlig;en</a>";
+//                 } else {
+//                     $dataloop["detail"]["weitere"]["name"] = "<a href=\"termine,,".$work[0]["id"].",all.html\">&Ouml;ffnen</a>";
+//                 }
+//                 $dataloop["detail"]["weitere"]["desc"] = "Weitere Informationen";
+//             }
 
             if ( $cfg["bloged"]["blogs"][$url]["right"] == "" || ( priv_check($url,$cfg["bloged"]["blogs"][$url]["right"]) || ( function_exists(priv_check_old) && priv_check_old("",$cfg["bloged"]["blogs"][$url]["right"]) ) ) ) {
                 $dataloop["detail"]["edit"]["name"] = "<a href=\"".$pathvars["virtual"]."/wizard/show,".DATABASE.",".eCRC($url).".".$work[0]["id"].",inhalt.html\"> |Termin bearbeiten|"."</a>";
@@ -272,7 +272,7 @@
     //                                 if ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
                                     $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0])."&nbsp;-&nbsp;".substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
                                 }
-                                $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].".html\">".$value["name_org"]."</a>";
+                                $dataloop["defaultlist"][$key]["name"] = "<a href=\"termine,,".$value["id"].",all.html\">".$value["name_org"]."</a>";
                                 $dataloop["defaultlist"][$key]["veranstalter"] = $value["veranstalter_org"];
                             }
                         }
