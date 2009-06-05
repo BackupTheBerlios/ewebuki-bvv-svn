@@ -16,6 +16,14 @@
         <div id="substance">
             #(inhalt)
             <form method="post" action="!#ausgaben_form_aktion" class="wide">
+
+                <!--##hide-change_amt-->
+                <h1>!{label}</h1>
+                <!--##show-->
+                <!--##hide-amt_page-->
+                <h1>!{label}</h1>
+                <!--##show-->
+
                 <!--##hide-form_error-->
                 <fieldset class="error">
                     <p>!#ausgaben_form_error</p>
@@ -23,25 +31,22 @@
                 <!--##show-->
 
                 <!--##hide-change_amt-->
-                <h1>!{label}</h1>
                 <fieldset class="formular1">
                     <legend>#(amt_wechseln)</legend>
                     <label class="halb">
-                        <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="100">
+                        <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="">
                             <!--##loop-amt-->
                             <option value="!{value}"!{sel}>!{item}</option>
                             <!--##cont-->
                         </select>
                     </label>
                     <label class="halb">
-                        <input type="submit" name="chg_amt" value="g(send)" class="next" tabindex="101" />
+                        <input type="submit" name="chg_amt" value="g(send)" class="next" tabindex="" />
                     </label>
                 </fieldset>
                 <!--##show-->
                 <!--##hide-amt_page-->
-                <h1>!{label}</h1>
                 <fieldset class="formular1">
-<!--                     <legend>#(amt_wechseln)</legend> -->
                     <p>
                         Ihr ausgew&auml;hltes Amt: <b>!{amt}</b> (<a onclick="new Effect.toggle('change_amt','blind',{duration:0.3});" style="cursor:pointer;">Amt wechseln</a>)
                     </p>
@@ -59,6 +64,9 @@
                     </div>
                 </fieldset>
                 <!--##show-->
+            </form>
+
+            <form method="post" action="!#ausgaben_form_aktion" class="wide">
 
                 <fieldset class="formular">
                     <legend>#(legend_adresse)</legend>
@@ -585,7 +593,7 @@
                         <label for="koordFlst_0" class="">
                             #(flst)
                         </label>
-                        <input id="koordFlst_0" class="small" type="text" value="!{flst_0}" name="koordinaten[0][flst]" tabindex="28" />
+                        <input id="koordFlst_0" class="small" type="text" value="!{koordFlst_0}" name="koordinaten[0][flst]" tabindex="28" />
                         <label for="koordGmkg_0" class="">
                             #(gmkg)
                         </label>
@@ -607,7 +615,7 @@
                         <label for="koordFlst_1" class="">
                             #(flst)
                         </label>
-                        <input id="koordFlst_1" class="small" type="text" value="!{flst_1}" name="koordinaten[1][flst]" tabindex="32" />
+                        <input id="koordFlst_1" class="small" type="text" value="!{koordFlst_1}" name="koordinaten[1][flst]" tabindex="32" />
                         <label for="koordGmkg_1" class="">
                             #(gmkg)
                         </label>
@@ -629,7 +637,7 @@
                         <label for="koordFlst_2" class="">
                             #(flst)
                         </label>
-                        <input id="koordFlst_2" class="small" type="text" value="!{flst_2}" name="koordinaten[2][flst]" tabindex="36" />
+                        <input id="koordFlst_2" class="small" type="text" value="!{koordFlst_2}" name="koordinaten[2][flst]" tabindex="36" />
                         <label for="koordGmkg_2" class="">
                             #(gmkg)
                         </label>
@@ -672,6 +680,7 @@
                 </fieldset>
             </form>
             !#ausgaben_output
+            !#ausgaben_inaccessible
         </div>
         #{margin}
 <!--##end-->

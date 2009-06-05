@@ -234,9 +234,9 @@
                         WHERE
                             status='1' AND
                             ( tname like '".$ter_tname."') AND (
-                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' 
+                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
                             OR
-                            Cast(SUBSTR(content,POSITION('[_TERMIN]' IN content)+9,POSITION('[/_TERMIN]' IN content)-POSITION('[_TERMIN]' IN content)-9) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00' 
+                            Cast(SUBSTR(content,POSITION('[_TERMIN]' IN content)+9,POSITION('[/_TERMIN]' IN content)-POSITION('[_TERMIN]' IN content)-9) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
                             ) AND
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
@@ -434,7 +434,7 @@
                 $hidedata["heading"]["heading"] = "#(bezirk)";
 
                 foreach ( $akz_array as $key=>$value ) {
-                    $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde".
+                    $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde, gmd.gdeart".
                             " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
                             " WHERE buort='".$value."'".
                             " ORDER BY gmd.name";
@@ -459,9 +459,16 @@
                             "gmkg" => $gmkg,
                             "color" => $cfg["aemter"]["color"]["set"]
                         );
+                        $gmd = $data["gemeinde"];
+                        $gmd_frei = "";
+                        if ( $data["gdeart"] == "Gemeindefreies Gebiet" ) {
+                            $gmd = "";
+                            $gmd_frei = $data["gemeinde"];
+                        }
 
                         $buffer[] = "<tr>
-                                        <td>".$data["gemeinde"]."</td>
+                                        <td>".$gmd."</td>
+                                        <td>".$gmd_frei."</td>
                                         <td>$gmkg</td>
                                      </tr>";
                     }

@@ -61,7 +61,7 @@
             $environment["parameter"][2] = "lageplan";
         }
 
-        // amtkennzahl bestimmen
+        // amtkennzahl bestimmen und ggf zur url MIT amtkennzahl springen
         if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
             if ( $environment["parameter"][1] == "" ) {
                 preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
@@ -83,18 +83,19 @@
             }
         }
 
+        // falls das amt mit dropdown gewechselt wird
         if ( $_POST["amt_wechseln"] != "" && $environment["parameter"][1] != $_POST["amt_wechseln"] ) {
             $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$_POST["amt_wechseln"].",".$environment["parameter"][2].".html";
             header("Location: ".$header);
         }
 
+        // ueberschriftsmarke besetzen
         if ( !strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
             $hidedata["change_amt"]["label"] = "#(".$environment["parameter"][2].")";
         } else {
             $hidedata["amt_page"]["label"] = "#(".$environment["parameter"][2].")";
             $hidedata["amt_page"]["amt"] = "VA ".$data[$cfg["katauszug"]["db"]["amt"]["name"]];
         }
-
         if ( $_POST["amt_wechseln"] != "" && $_POST["amt_wechseln"] != $environment["parameter"][1] ) {
             $environment["parameter"][1] = $_POST["amt_wechseln"];
         }
@@ -245,8 +246,8 @@
                 $hidedata[$environment["parameter"][2]]["flst_".$i] = $_POST["order"][$i]["flst"];
                 $hidedata[$environment["parameter"][2]]["umgriff_".$i] = $_POST["order"][$i]["umgriff"];
                 if ( $_POST["koordinaten"][$i]["flst"] != "" ) {
-                    $hidedata[$environment["parameter"][2]]["flst_".$i] = $_POST["koordinaten"][$i]["flst"];
-                } else {
+                    $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = $_POST["koordinaten"][$i]["flst"];
+                } elseif ( $_POST["masszahlen"][$i]["flst"] != "" ) {
                     $hidedata[$environment["parameter"][2]]["flst_".$i] = $_POST["masszahlen"][$i]["flst"];
                 }
                 // checkboxen
@@ -314,6 +315,7 @@
         if ( isset($HTTP_GET_VARS["edit"]) ) {
             $ausgaben["inaccessible"] = "inaccessible values:<br />";
             $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
+            $ausgaben["inaccessible"] .= "# (success) #(success)<br />";
         } else {
             $ausgaben["inaccessible"] = "";
         }
@@ -422,8 +424,12 @@
                     $ausgaben["form_error"] .= "</pre>";
                     $hidedata["form_error"] = array();
                 } else {
-                    $result = mail($amt_poststelle,$subject,$message,$header_amt);
-                    $result = mail($_POST["person"]["email"],$subject,$message_kunde,$header_kunde);
+                    $result_amt = mail($amt_poststelle,$subject,$message,$header_amt);
+                    $result_kunde = mail($_POST["person"]["email"],$subject,$message_kunde,$header_kunde);
+                    if ( $result_amt && $result_kunde ) {
+                        $ausgaben["form_error"]  = "#(success)";
+                        $hidedata["form_error"] = array();
+                    }
                 }
 
 
