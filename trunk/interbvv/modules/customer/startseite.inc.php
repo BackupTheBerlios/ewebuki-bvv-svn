@@ -48,7 +48,7 @@
         $ausgaben["form_error"] = "";
 
         // weiterleitung zur login-seite
-        if ( $_SERVER["REDIRECT_URL"] == "/" && $_SERVER["SERVER_NAME"] == "internetredakteur.bvv.bayern.de") {
+        if ( $_SERVER["REDIRECT_URL"] == "/" && ( $_SERVER["SERVER_NAME"] == "internetredakteur.bvv.bayern.de" || $_SERVER["SERVER_NAME"] == "lvg-entw-intertest") ) {
             header("Location: /login.html");
         }
 
