@@ -48,27 +48,7 @@
             <!--##hide-heading-->
             <h2>!{heading}</h2>
             <!--##show-->
-            <!--##hide-aktuelles-->
-            <div style="margin-bottom:15px" class="amt_info_box">
-                <a onclick="Effect.toggle('aktuell', 'blind'); return false;" href="#">!{text}</a>
-                <div id="aktuell" style="width:100%;display:none">
-                <!--##loop-/aktuell/archiv-->
-                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
-                    <div class="clearer" style="margin:0"></div>
-                <!--##cont-->
-                <!--##loop-/aktuell/presse-->
-                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
-                    <div class="clearer" style="margin:0"></div>
-                <!--##cont-->
-                <!--##loop-/aktuell/termine-->
-                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
-                    <div class="clearer" style="margin:0"></div>
-                <!--##cont-->
-                </div>
 
-            </div>
-            <div class="clear"></div>
-            <!--##show-->
             <!--##hide-aussenstelle-->
             <div class="tabbed">
                 <ul>
@@ -346,6 +326,28 @@
             <div class="amt_info_box" style="display:!{display};">
                 !#ausgaben_kontakt
             </div>
+            <!--##show-->
+
+            <!--##hide-aktuelles-->
+            <div style="margin-top:15px" class="amt_info_box">
+                <h2>!{text}</h2>
+                <div id="aktuell" style="width:100%;display:">
+                <!--##loop-/aktuell/archiv-->
+                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
+                    <div class="clearer" style="margin:0"></div>
+                <!--##cont-->
+                <!--##loop-/aktuell/presse-->
+                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
+                    <div class="clearer" style="margin:0"></div>
+                <!--##cont-->
+                <!--##loop-/aktuell/termine-->
+                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
+                    <div class="clearer" style="margin:0"></div>
+                <!--##cont-->
+                </div>
+
+            </div>
+            <div class="clear"></div>
             <!--##show-->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
