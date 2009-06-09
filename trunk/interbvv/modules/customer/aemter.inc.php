@@ -224,6 +224,7 @@
                     $count++;
                     ( strstr($data["ebene"],"archiv") ) ? $what = "artikel" : $what = "presse";
                     preg_match("/\[H1\](.*)\[\/H1\]/Ui",$data["content"],$match);
+                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
                     $dataloop[$data["ebene"]][$count]["link"] =  $what.",,".$data["kategorie"].".html";
                     $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
                     $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
@@ -245,11 +246,24 @@
                 while ( $data = $db->fetch_array($result_t,1) ) {
                     $count++;
                     preg_match("/\[_NAME\](.*)\[\/_NAME\]/Ui",$data["content"],$match);
+                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
                     $dataloop[$data["ebene"]][$count]["link"] =  "termine,,".$data["kategorie"].".html";
                     $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
                     $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
                 }
 
+                if ( count($dataloop["/aktuell/termine"]) > 0 ) {
+                    asort($dataloop["/aktuell/termine"]);
+                    $hidedata["aktuelles_termine"]["on"] = "on";
+                }
+                if ( count($dataloop["/aktuell/archiv"]) > 0 ) {
+                    arsort($dataloop["/aktuell/archiv"]);
+                    $hidedata["aktuelles_archiv"]["on"] = "on";
+                }
+                if ( count($dataloop["/aktuell/presse"]) > 0 ) {
+                    arsort($dataloop["/aktuell/presse"]);
+                    $hidedata["aktuelles_presse"]["on"] = "on";
+                }
                 if ( $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
 
                 break;

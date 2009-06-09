@@ -329,23 +329,34 @@
             <!--##show-->
 
             <!--##hide-aktuelles-->
+            <h2>!{text}</h2>
             <div style="margin-top:15px" class="amt_info_box">
-                <h2>!{text}</h2>
-                <div id="aktuell" style="width:100%;display:">
+            <!--##show-->
+                <!--##hide-aktuelles_archiv-->
+                <b>Meldungen</b>
+                <ul style="list-style:none">
                 <!--##loop-/aktuell/archiv-->
-                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
-                    <div class="clearer" style="margin:0"></div>
+                    <li><a href="!{link}">!{date}</a> !{text}</li>
                 <!--##cont-->
+                </ul>
+                <!--##show-->
+                <!--##hide-aktuelles_presse-->
+                <b>Pressemitteilungen</b>
+                <ul style="list-style:none">
                 <!--##loop-/aktuell/presse-->
-                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
-                    <div class="clearer" style="margin:0"></div>
+                    <li><a href="!{link}">!{date}</a> !{text}</li>
                 <!--##cont-->
+                </ul>
+                <!--##show-->
+                <!--##hide-aktuelles_termine-->
+                <b>Termine</b>
+                <ul style="list-style:none">
                 <!--##loop-/aktuell/termine-->
-                    <div style="width:100%;margin:5px 0 0 0"><a href="!{link}">!{date}</a> !{text}</div>
-                    <div class="clearer" style="margin:0"></div>
+                    <li><a href="!{link}">!{date}</a> !{text}</li>
                 <!--##cont-->
-                </div>
-
+                </ul>
+                <!--##show-->
+            <!--##hide-aktuelles-->
             </div>
             <div class="clear"></div>
             <!--##show-->
