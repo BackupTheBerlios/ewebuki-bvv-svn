@@ -352,6 +352,7 @@ ins {
     padding:0 0 10px 10px;
     width:540px;
     overflow:hidden;
+    position:relative;
 }
 
     /* block-elemente */
@@ -1111,6 +1112,31 @@ label.ganz {
 /*             color:#333333 !important; */
 /*             font-weight:bold; */
         }
+
+h1.greeting {
+    background:none;
+    border-width:0;
+    right:0;
+    margin:0;
+    padding:10px;
+    position:absolute;
+    text-align:right;
+}
+
+    h1.greeting span {
+        display:block;
+        font-weight:bold;
+    }
+
+    h1.greeting span.gr_1 {
+        color:#059DFF;
+        font:italic bold 2.5em "Univers 55",serif;
+    }
+
+    h1.greeting span.gr_2 {
+        color:#FFFFFF;
+        font-weight:bold;
+    }
 
 /* administrationsbereich */
 /* * * * */
