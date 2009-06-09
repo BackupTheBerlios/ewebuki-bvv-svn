@@ -14,13 +14,12 @@
 <!--##begin-->
         <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
         <div id="substance">
+            <!--##hide-inhalt-->
             #(inhalt)
+            <!--##show-->
             <form method="post" action="!#ausgaben_form_aktion" class="wide">
 
-                <!--##hide-change_amt-->
-                <h1>!{label}</h1>
-                <!--##show-->
-                <!--##hide-amt_page-->
+                <!--##hide-ueberschrift-->
                 <h1>!{label}</h1>
                 <!--##show-->
 
@@ -68,6 +67,7 @@
 
             <form method="post" action="!#ausgaben_form_aktion" class="wide">
 
+                <!--##hide-formular-->
                 <fieldset class="formular">
                     <legend>#(legend_adresse)</legend>
                     <label for="forename" class="">
@@ -96,6 +96,7 @@
                     </label>
                     <input id="email" class="" type="text" value="!#ausgaben_email" name="person[email]" tabindex="7" />
                 </fieldset>
+                <!--##show-->
 
                 <!--##hide-lageplan-->
                 <fieldset class="formular">
@@ -669,6 +670,7 @@
                 </fieldset>
                 <!--##show-->
 
+                <!--##hide-formular-->
                 <fieldset class="formular1">
                     <label class="halb">
                         <input type="submit" name="send[]" value="g(send)" class="" tabindex="50" />
@@ -678,6 +680,7 @@
                     </label>
                     <div class="clearer">&nbsp;</div>
                 </fieldset>
+                <!--##show-->
             </form>
             !#ausgaben_output
             !#ausgaben_inaccessible
