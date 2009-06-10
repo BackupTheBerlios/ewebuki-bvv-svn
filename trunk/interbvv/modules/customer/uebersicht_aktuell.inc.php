@@ -120,32 +120,28 @@
     }
 
     // loopen der termine
-    $tags = "";
-    $tags["termin1"] = "SORT";
-    $tags["titel"] = "_NAME";
-    $tags["termin2"] = "_TERMIN";
-    $work_array = show_blog("/aktuell/termine",$tags,"disabled","","/aktuell/termine");
-
-
-    if ( is_array($work_array) ) {
-        foreach ( $work_array as $key => $value ) {
-            $value =array_pad($value,-23,mktime(0,0,0,substr($value["termin1_org"],8,2),substr($value["termin1_org"],5,2),substr($value["termin1_org"],0,4)));
-            $work_array[$key] = $value;
-        }
-        $today = date('U');
-        ksort($work_array);
-
-        foreach ( $work_array as $key => $value ) {
-            if ( $value["termin2_org"] == "1970-01-01" ) {
-                if ( $value[0] < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
-            } else {
-                if ( mktime(0,0,0,substr($value["termin2_org"],5,2),substr($value["termin2_org"],8,2),substr($value["termin2_org"],0,4)) < $today && ( $environment["parameter"][4] == "" && $environment["parameter"][5] == "" && $environment["parameter"][6] == "") ) continue;
-            }
-            $dataloop["termine"][$value["id"]]["datum"] = substr($value["termin1_org"],8,2).".".substr($value["termin1_org"],5,2).".".substr($value["termin1_org"],0,4);
-            $dataloop["termine"][$value["id"]]["titel"] = $value["titel_org"];
-            $dataloop["termine"][$value["id"]]["detaillink"] = $pathvars["virtual"]."/aktuell/termine,,".$value["id"].",all.html";
-        }
-    }
+    $ter_tname = eCRC("/aktuell/termine").".%";
+    $dd = date('U');
+    $sql_t = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
+            WHERE
+                status='1' AND
+                ( tname like '".$ter_tname."') AND (
+                Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
+                OR
+                Cast(SUBSTR(content,POSITION('[_TERMIN]' IN content)+9,POSITION('[/_TERMIN]' IN content)-POSITION('[_TERMIN]' IN content)-9) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
+                ) AND
+                SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aktuell/termine' 
+                ORDER BY date LIMIT 0,4";
+                $result_t = $db -> query($sql_t);
+                $count = 0;
+                while ( $data = $db->fetch_array($result_t,1) ) {
+                    $count++;
+                    preg_match("/\[_NAME\](.*)\[\/_NAME\]/Ui",$data["content"],$match);
+                    $dataloop["termine"][$count]["datuma"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                    $dataloop["termine"][$count]["detaillink"] =  "aktuell/termine,,".$data["kategorie"].".html";
+                    $dataloop["termine"][$count]["titel"] =  $match[1];
+                    $dataloop["termine"][$count]["datum"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+                }
 
     if ( count($dataloop["termine"]) > 0 ) {
         $hidedata["termine"]["on"] = "on";
