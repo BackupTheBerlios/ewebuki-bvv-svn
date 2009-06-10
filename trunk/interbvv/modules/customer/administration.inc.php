@@ -48,7 +48,7 @@
     // ip_check
     $ip_c = explode(".",$_SERVER["REMOTE_ADDR"]);
     if ( $ip_c[0] == $cfg["admin"]["ip_check"][0] && $ip_c[1] == $cfg["admin"]["ip_check"][1] && $ip_c[2] == $cfg["admin"]["ip_check"][2] ) {
-        header("Location: ".$pathvars["virtual"]."/");
+        header("Location: ".$pathvars["virtual"]."/index.html");
     }
 
     if ( $cfg["admin"]["right"] == "" || $rechte[$cfg["admin"]["right"]] == -1 ) {
