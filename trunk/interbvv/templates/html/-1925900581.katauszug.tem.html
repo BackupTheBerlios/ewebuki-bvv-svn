@@ -30,27 +30,28 @@
                 <!--##show-->
 
                 <!--##hide-change_amt-->
-                <fieldset class="formular1">
+                <fieldset class="formular">
                     <legend>#(amt_wechseln)</legend>
+                    <label for="s_plz">PLZ</label>
+                    <input name="s_plz" class="medium" type="text" value="" name="s_plz" tabindex="" />
+                    <label for="amt_wechseln"> - oder - </label>
+                    <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="">
+                        <option value="">Vermessungsamt ausw&auml;hlen</option>
+                        <!--##loop-amt-->
+                        <option value="!{value}"!{sel}>!{item}</option>
+                        <!--##cont-->
+                    </select>
                     <label class="halb">
-                        <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="">
-                            <option value="">Bitte Vermessungsamt ausw&auml;hlen</option>
-                            <!--##loop-amt-->
-                            <option value="!{value}"!{sel}>!{item}</option>
-                            <!--##cont-->
-                        </select>
                     </label>
-                    <label class="halb">
-                        <input type="submit" name="chg_amt" value="g(send)" class="next" tabindex="" />
-                    </label>
+                    <input type="submit" name="chg_amt" value="g(send)" class="medium" tabindex="" />
                 </fieldset>
                 <!--##show-->
                 <!--##hide-amt_page-->
-                <fieldset class="formular1">
+                <fieldset class="formular">
                     <p>
                         Ihr ausgew&auml;hltes Amt: <b>!{amt}</b> (<a onclick="new Effect.toggle('change_amt','blind',{duration:0.3});" style="cursor:pointer;">Amt wechseln</a>)
                     </p>
-                    <div id="change_amt" style="display:none;">
+                    <div id="change_amt1" style="display:none;">
                         <label class="halb">
                             <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="100">
                                 <!--##loop-amt-->
@@ -61,6 +62,20 @@
                         <label class="halb">
                             <input type="submit" name="chg_amt" value="g(send)" class="next" tabindex="101" />
                         </label>
+                    </div>
+                    <div id="change_amt" style="display:none;">
+                        <label for="s_plz">PLZ</label>
+                        <input name="s_plz" class="medium" type="text" value="" name="s_plz" tabindex="" />
+                        <label for="amt_wechseln"> - oder - </label>
+                        <select id="amt_wechseln" class="medium" name="amt_wechseln" tabindex="">
+                            <option value="">Vermessungsamt ausw&auml;hlen</option>
+                            <!--##loop-amt-->
+                            <option value="!{value}"!{sel}>!{item}</option>
+                            <!--##cont-->
+                        </select>
+                        <label class="halb">
+                        </label>
+                        <input type="submit" name="chg_amt" value="g(send)" class="medium" tabindex="" />
                     </div>
                 </fieldset>
                 <!--##show-->

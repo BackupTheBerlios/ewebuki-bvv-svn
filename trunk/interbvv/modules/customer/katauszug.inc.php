@@ -89,6 +89,41 @@
                 }
             }
 
+            // PLZ-Suche
+            if ( $_POST["s_plz"] != "" ) {
+                $sql = "SELECT DISTINCT ".$cfg["katauszug"]["db"]["plz"]["akz"]."
+                                   FROM ".$cfg["katauszug"]["db"]["plz"]["entries"]."
+                                  WHERE ".$cfg["katauszug"]["db"]["plz"]["plz"]."=".$_POST["s_plz"];
+                $result = $db -> query($sql);
+                $num = $db->num_rows($result);
+                if ( $num == 1 ) {
+                    $data = $db -> fetch_array($result,1);
+                    // auf aussenstelle pruefen
+                    $sql = "SELECT amt.".$cfg["katauszug"]["db"]["amt"]["kate"]." as kategorie,
+                                   parent.".$cfg["katauszug"]["db"]["amt"]["akz"]." as kennzahl
+                              FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]." as amt
+                              JOIN ".$cfg["katauszug"]["db"]["amt"]["entries"]." as parent
+                                ON (amt.".$cfg["katauszug"]["db"]["amt"]["parent"]."=parent.".$cfg["katauszug"]["db"]["amt"]["key"].")
+                             WHERE amt.".$cfg["katauszug"]["db"]["amt"]["akz"]."='".$data[$cfg["katauszug"]["db"]["plz"]["akz"]]."'";
+                    $res_test  = $db -> query($sql);
+                    $data_test = $db -> fetch_array($res_test,1);
+                    if ( $data_test["kategorie"] == 5 ) {
+                        $akz = $data_test["kennzahl"];
+                    } else {
+                        $akz = $data[$cfg["katauszug"]["db"]["plz"]["akz"]];
+                    }
+                    $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$akz.",".$environment["parameter"][2].".html";
+                    header("Location: ".$header);
+                } else {
+                    $hidedata["form_error"] = array();
+                    if ( $num == 0 ) {
+                        $ausgaben["form_error"]  = "#(error_plz_nope)";
+                    } else {
+                        $ausgaben["form_error"]  = "#(error_plz_multi)";
+                    }
+                }
+            }
+
             // falls das amt mit dropdown gewechselt wird
             if ( $_POST["amt_wechseln"] != "" && $environment["parameter"][1] != $_POST["amt_wechseln"] ) {
                 $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$_POST["amt_wechseln"].",".$environment["parameter"][2].".html";
@@ -97,10 +132,8 @@
 
             // ueberschriftsmarke besetzen
             if ( !strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
-    //             $hidedata["change_amt"]["label"] = "#(".$environment["parameter"][2].")";
                 $hidedata["change_amt"] = array();
             } else {
-    //             $hidedata["amt_page"]["label"] = "#(".$environment["parameter"][2].")";
                 $hidedata["amt_page"]["amt"] = "VA ".$data[$cfg["katauszug"]["db"]["amt"]["name"]];
             }
             $hidedata["ueberschrift"]["label"] = "#(".$environment["parameter"][2].")";
@@ -304,13 +337,13 @@
             // ***
 
             // fehlermeldungen
-            if ( $HTTP_GET_VARS["error"] != "" ) {
-                if ( $HTTP_GET_VARS["error"] == 1 ) {
-                    $ausgaben["form_error"] = "#(error1)";
-                }
-            } else {
-                $ausgaben["form_error"] = "";
-            }
+//             if ( $HTTP_GET_VARS["error"] != "" ) {
+//                 if ( $HTTP_GET_VARS["error"] == 1 ) {
+//                     $ausgaben["form_error"] = "#(error1)";
+//                 }
+//             } else {
+//                 $ausgaben["form_error"] = "";
+//             }
 
             // navigation erstellen
             $ausgaben["form_aktion"] = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$amtkennzahl.",".$environment["parameter"][2].",verify.html";
@@ -327,6 +360,8 @@
             if ( isset($HTTP_GET_VARS["edit"]) ) {
                 $ausgaben["inaccessible"] = "inaccessible values:<br />";
                 $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
+                $ausgaben["inaccessible"] .= "# (error_plz_nope) #(error_plz_nope)<br />";
+                $ausgaben["inaccessible"] .= "# (error_plz_multi) #(error_plz_multi)<br />";
                 $ausgaben["inaccessible"] .= "# (success) #(success)<br />";
             } else {
                 $ausgaben["inaccessible"] = "";
