@@ -218,6 +218,9 @@
                                 $data_amt = $db -> fetch_array($result_amt,1);
                                 $value["amt"] = $data_amt["kat_kurz"]." ".$data_amt["adststelle"];
                                 $dataloop["lokal_".$bereich."_".$tog_key][$key] = $value;
+                                $zw = str_replace("/index","/".$bereich,$value["kategorie"].",,");
+                                ( $bereich == "termine" ) ? $regi = str_replace("/","\/",$url).",," : $regi = str_replace("/","\/",$url)."\/";
+                                $dataloop["lokal_".$bereich."_".$tog_key][$key]["site"] = preg_replace("/".$regi."/",$zw,$value["view"]);
                                 unset($dataloop[$bereich."_".$tog_key][$key]);
                                 if ( $hidedata["lokal_".$bereich."_section"][0] == "on" && priv_check($value["kategorie"],$tog_value[1])  ) {
                                     $hidedata["lokal_".$bereich."_".$tog_key] = array();
