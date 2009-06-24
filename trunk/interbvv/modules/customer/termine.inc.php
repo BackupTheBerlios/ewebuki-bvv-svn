@@ -261,6 +261,9 @@
                                 $dataloop["defaultlist"][$key]["teaser_org"] = $value["teaser_org"];
                                 $dataloop["defaultlist"][$key]["image_img_art"] = $value["image_img_art"];
                                 $dataloop["defaultlist"][$key]["image_img_id"] = $value["image_img_id"];
+                                $dataloop["defaultlist"][$key]["image_img_fname"] = $value["image_img_fname"];
+                                $dataloop["defaultlist"][$key]["image_img_desc"] = $value["image_img_desc"];
+                                $dataloop["defaultlist"][$key]["image_img_under"] = $value["image_img_under"];
                                 $dataloop["defaultlist"][$key]["begin"] = substr($value["termin_org"],8,2).".".substr($value["termin_org"],5,2).".".substr($value["termin_org"],0,4);
                                 $dataloop["defaultlist"][$key]["ende"] = substr($value["termin_en_org"],8,2).".".substr($value["termin_en_org"],5,2).".".substr($value["termin_en_org"],0,4);
 
