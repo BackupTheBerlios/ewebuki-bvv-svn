@@ -99,8 +99,11 @@
             $data = $db -> fetch_array($result,1);
             // amt-kennzahl
             $akz = $data[$cfg["amtsuche"]["db"]["plz"]["amt"]];
-            header("Location: ".$pathvars["virtual"]."/aemter/".$akz."/index.html");
-            exit;
+
+            if ( date("U") < mktime(15,0,0,7,2,2009) ) {
+                header("Location: ".$pathvars["virtual"]."/aemter/".$akz."/index.html");
+                exit;
+            }
 
             // gesuchter ort
             if ( $_GET["place"] != "" ) {
@@ -130,10 +133,15 @@
                 $result_ha = $db -> query($sql_ha);
                 $data_ha   = $db -> fetch_array($result_ha,1);
                 $dienststelle = "Vermessungsamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                $internet = $data_ha[$cfg["amtsuche"]["db"]["amt"]["internet"]]."/index,".$akz.".html";
             } else {
                 $neben = "";
                 $dienststelle = "Vermessungsamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                $internet = $data_amt[$cfg["amtsuche"]["db"]["amt"]["internet"]];
             }
+            header("Location: ".$internet);
+            exit;
+
             // bayernviewer-link
             $bvlink = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$data_amt["georef_rw"].
                                                                          "&amp;hw=".$data_amt["georef_hw"].
@@ -194,9 +202,17 @@
                     $result_ha = $db -> query($sql_ha);
                     $data_ha   = $db -> fetch_array($result_ha,1);
                     $dienststelle = "Vermessungsamt ".$data_ha[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                    $internet = $data_ha[$cfg["amtsuche"]["db"]["amt"]["internet"]]."/index,".$data_amt[$cfg["amtsuche"]["db"]["amt"]["akz"]].".html";
                 } else {
                     $neben = "";
                     $dienststelle = "Vermessungsamt ".$data_amt[$cfg["amtsuche"]["db"]["amt"]["amt"]];
+                    $internet = $data_amt[$cfg["amtsuche"]["db"]["amt"]["internet"]];
+                }
+
+                if ( date("U") < mktime(15,0,0,7,2,2009) ) {
+                    $amt_link = $pathvars["virtual"]."/aemter/".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."/index.html";
+                } else {
+                    $amt_link = $internet;
                 }
 
                 $dataloop["hits"][] = array(
@@ -206,7 +222,7 @@
                      "gmd" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]]),
                     "teil" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$gmd_teil),
            "link_amt_info" => "?amt=".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."&place=".urlencode($place),
-          "link_amt_seite" => $pathvars["virtual"]."/aemter/".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."/index.html",
+          "link_amt_seite" => $amt_link,
                       "hl" => $highlighted,
                 );
             }

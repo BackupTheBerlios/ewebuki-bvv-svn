@@ -55,7 +55,8 @@
             preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
             $sql = "SELECT *
                       FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
-                     WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'";
+                     WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'
+                       AND adkate IN ('3','4')";
             $result = $db -> query($sql);
             $data = $db -> fetch_array($result,1);
             $amtid = $data[$cfg["aemter"]["db"]["dst"]["akz"]];

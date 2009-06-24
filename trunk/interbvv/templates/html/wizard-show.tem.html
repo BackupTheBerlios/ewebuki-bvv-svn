@@ -249,12 +249,14 @@
                                             onComplete:function(){
                                                 dd_initialize();
                                                 lb_preview.show();
+                                                Event.observe('vorhangOverlay','click',preview );
                                             }
                                         }
             );
             return false;
         } else {
             lb_preview.hide();
+            $('substance').innerHTML = '';
         }
     }
 </script>
