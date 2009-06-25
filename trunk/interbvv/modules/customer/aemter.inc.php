@@ -583,14 +583,22 @@
                 }
                 break;
             case "kontakt":
-                $hidedata["heading"]["heading"] = "#(kontakt)";
-                $environment["ebene"] = "/service";
-                $environment["kategorie"] = "kontakt";
-                include $pathvars["moduleroot"]."addon/kontakt.cfg.php";
-                $cfg["kontakt"]["basis"] = "kontakt";
-                include $pathvars["moduleroot"]."addon/kontakt.inc.php";
-                $hidedata["kontakt"]["inhalt"] = "on";
-                $ausgaben["kontakt"] = parser("aemter-kontakt","");
+                if ( $environment["ebene"] == "" ) {
+                    $sql = "SELECT ".$cfg["aemter"]["db"]["dst"]["email"]." FROM ".$cfg["aemter"]["db"]["dst"]["entries"]." WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$environment["parameter"][1]."'";
+                    $result = $db -> query($sql);
+                    $data = $db->fetch_array($result,1);
+                    $hidedata["heading"]["heading"] = "#(kontakt)";
+                    $environment["ebene"] = "/service";
+                    $environment["kategorie"] = "kontakt";
+                    include $pathvars["moduleroot"]."addon/kontakt.cfg.php";
+                    $cfg["kontakt"]["basis"] = "kontakt";
+                    if ( $cfg["aemter"]["email"] == -1 ) {
+                        $cfg["kontakt"]["email"]["owner"] = $data["ademail"];
+                    }
+                    include $pathvars["moduleroot"]."addon/kontakt.inc.php";
+                    $hidedata["kontakt"]["inhalt"] = "on";
+                    $ausgaben["kontakt"] = parser("aemter-kontakt","");
+                }
                 break;
             case "va-aktuell":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
