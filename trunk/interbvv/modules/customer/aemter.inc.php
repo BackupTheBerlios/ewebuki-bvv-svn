@@ -583,7 +583,7 @@
                 }
                 break;
             case "kontakt":
-                if ( $environment["ebene"] == "" ) {
+                if ( $environment["ebene"] == "" || strstr($environment["ebene"],"/aemter/") ) {
                     $sql = "SELECT ".$cfg["aemter"]["db"]["dst"]["email"]." FROM ".$cfg["aemter"]["db"]["dst"]["entries"]." WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$environment["parameter"][1]."'";
                     $result = $db -> query($sql);
                     $data = $db->fetch_array($result,1);
