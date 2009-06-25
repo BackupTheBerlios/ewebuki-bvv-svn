@@ -9,9 +9,11 @@
     }
     my_obstart(); // Führt die Funktion nun aus
 
-    $pathvars["fileroot"] = dirname(dirname(__FILE__))."/";
+    $path = dirname(dirname(__FILE__))."/";
+    $path = str_replace("/modules/","",$path);
+    $path = str_replace(".ext","",$path);
 
-    $file = "/srv/www/htdocs/internet/interbvv".$_SERVER["REQUEST_URI"];
+    $file = $path.$_SERVER["REQUEST_URI"];
     $ext_array = array("css","js");
 
     $extension = substr(basename($file),(strrpos(basename($file),".")+1));
