@@ -1,7 +1,7 @@
 <?php
     function my_obstart() {
         $encode = getenv("HTTP_ACCEPT_ENCODING");
-            if(ereg("gzip",$encode)) {
+        if(ereg("gzip",$encode)) {
             ob_start("ob_gzhandler");
         } else {
             ob_start();

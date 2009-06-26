@@ -76,6 +76,9 @@ fieldset{
     margin:5px 0 !important;
     padding:5px;
 }
+legend {
+    font-weight:bold;
+}
 input, button, textarea {
     font-size:0.8em;
     font-family:Verdana,Tahoma,Arial,sans-serif;
@@ -925,12 +928,17 @@ div.autocomplete {
     width: 300px;
 }
 
-.kontakt input:focus, .kontakt select:focus, .formular input:focus, .formular select:focus {
+.kontakt input, .kontakt select, .kontakt textarea, .formular input, .formular select, .formular textarea {
+    border:1px solid #CCCCCC;
+}
+
+.kontakt input:focus, .kontakt select:focus, .kontakt textarea:focus, .formular input:focus, .formular select:focus, .formular textarea:focus {
     background:#FEF6DE;
 }
 
-.formular input[type=checkbox] {
-    margin-top:5px;
+.formular input[type=checkbox], .formular input[type=radio] {
+    margin-top:3px;
+    width:auto;
 }
 
     .kontakt textarea, .formular textarea {
@@ -961,7 +969,7 @@ input.small, select.small {
 }
 
 input.medium, select.medium {
-    width: 246px;
+    width: 248px;
 }
 
 label.ganz {
