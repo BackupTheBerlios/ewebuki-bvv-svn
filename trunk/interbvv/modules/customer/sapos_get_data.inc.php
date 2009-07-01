@@ -109,7 +109,7 @@
            $delete_sql."\n".
            implode("\n",$insert_sql)."\n".
            "END;";
-    // $result = $db -> query($sql);
+    $result = $db -> query($sql);
 
     header("HTTP/1.0 200 OK");
     header("Content-Type: text/plain");
