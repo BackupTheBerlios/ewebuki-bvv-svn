@@ -111,6 +111,7 @@
            "END;";
     // $result = $db -> query($sql);
 
+    header("HTTP/1.0 200 OK");
     header("Content-Type: text/plain");
     echo $sql."\n";
     die();
