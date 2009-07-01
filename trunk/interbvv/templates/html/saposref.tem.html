@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>default</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+        <script type="text/javascript" src="../../js/html/prototype.js"></script>
+        <script type="text/javascript" src="../../js/html/scriptaculous.js?load=builder,effects,dragdrop,controls"></script>
+        <script type="text/javascript" src="../../js/html/fontsize.js"></script>
+        <script type="text/javascript" src="../../js/html/lightbox.js"></script>
+    </head>
+    <body>
+<!--##begin-->
+        <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+
+
+        <div id="substance">
+
+            <!--##hide-station-->
+            <h1>
+                SAPOS-Referenzstation !{punktkennung_1}: !{stationsbezeichnung}
+            </h1>
+
+            <a href="!{link_back}" title="zur&uuml;ck zur &Uuml;bersicht">zur&uuml;ck zur &Uuml;bersicht</a>
+
+            <fieldset>
+                <legend>#(stat_allg)</legend>
+                <table style="width:100%;">
+                    <tr>
+                        <th style="width:175px;">#(stationsbezeichnung)</th>
+                        <td>!{stationsbezeichnung}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(punktkennung_1)</th>
+                        <td>!{punktkennung_1}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(punktkennung_2)</th>
+                        <td>!{punktkennung_2}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(standort)</th>
+                        <td>!{standort}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(betriebsbeginn)</th>
+                        <td>!{betriebsbeginn}</td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>#(stat_koord)</legend>
+                <table style="width:100%;">
+                    <tr>
+                        <th style="width:175px;">#(ETRS89_kart)</th>
+                        <td>!{etrs89_x}<br />!{etrs89_y}<br />!{etrs89_z}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ETRS89_geo)</th>
+                        <td>!{etrs89_b}<br />!{etrs89_l}<br />!{etrs89_h}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(utm32)</th>
+                        <td>!{utm32_e} !{utm32_n}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(utm33)</th>
+                        <td>!{utm33_e} !{utm33_n}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(vermarkung)</th>
+                        <td>!{vermarkung_bezugspunkt}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(koord_gueltig_seit)</th>
+                        <td>!{koord_gueltig_seit}</td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>#(stat_antenne)</legend>
+                <table style="width:100%;">
+                    <tr>
+                        <th style="width:175px;">#(ant_typ)</th>
+                        <td>!{ant_typ}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ant_typ_igs)</th>
+                        <td>!{ant_typ_igs}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ant_radome)</th>
+                        <td>!{ant_radome}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ant_sn)</th>
+                        <td>!{ant_sn}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ant_letzte_kalib)</th>
+                        <td>!{ant_letzte_kalib}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(vermarkungsart)</th>
+                        <td>!{vermarkungsart_details}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(dh_vermark_arp)</th>
+                        <td>!{dh_vermark_arp}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(exz_n)</th>
+                        <td>!{exz_n}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(exz_e)</th>
+                        <td>!{exz_e}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ant_installationsdatum)</th>
+                        <td>!{ant_installationsdatum}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(ant_bemerkung)</th>
+                        <td>!{ant_bemerkung}</td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset>
+                <legend>#(stat_receiver)</legend>
+                <table style="width:100%;">
+                    <tr>
+                        <th style="width:175px;">#(empf_typ)</th>
+                        <td>!{empf_typ}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(empf_typ_igs)</th>
+                        <td>!{empf_typ_igs}</td>
+                    </tr>
+                    <tr>
+                        <th style="width:175px;">#(empf_installationsdatum)</th>
+                        <td>!{empf_installationsdatum}</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-uebersicht-->
+            <h1>!#ausgaben_pagetitle</h1>
+            <img src="../../images/html/sapos.png" usemap="#SaposStationen" style="border-width:0;" />
+            <map name="SaposStationen">
+                <!--##loop-stationen-->
+                <area shape="circle" coords="!{pic_x},!{pic_y},10" alt="!{kennung}: !{ort}" title="!{kennung}: !{ort}" href="!{link}"></area>
+                <!--##cont-->
+            </map>
+            #(map_info)
+
+            <div style="text-align:justify;margin:25px 0;">
+            <!--##loop-stationen-->
+            <a href="!{link}" style="background:#EFF2FA;padding:4px 10px;margin:2px;display:inline-block;">!{kennung}: !{ort}</a>
+            <!--##cont-->
+            </div>
+            <!--##show-->
+
+
+<!--             #(inhalt) -->
+            !#ausgaben_output
+            <p class="anchor">
+                <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
+            </p>
+        </div>
+        #{margin}
+<!--##end-->
+    </body>
+</html>
