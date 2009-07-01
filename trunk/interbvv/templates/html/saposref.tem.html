@@ -163,11 +163,23 @@
             </map>
             #(map_info)
 
-            <div style="text-align:justify;margin:25px 0;">
-            <!--##loop-stationen-->
-            <a href="!{link}" style="background:#EFF2FA;padding:4px 10px;margin:2px;display:inline-block;">!{kennung}: !{ort}</a>
-            <!--##cont-->
-            </div>
+
+            <table style="width:100%;" summary="Tabellarische &Uuml;bersicht der SaPos-Referenzstationen">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">Kennzahl</th>
+                        <th>Stationsname</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--##loop-stationen-->
+                    <tr>
+                        <td><a href="!{link}" title="!{kennung} !{ort}: zur Detailansicht">!{kennung}</a></td>
+                        <td><a href="!{link}" title="!{kennung} !{ort}: zur Detailansicht">!{ort}</a></td>
+                    </tr>
+                    <!--##cont-->
+                </tbody>
+            </table>
             <!--##show-->
 
 
