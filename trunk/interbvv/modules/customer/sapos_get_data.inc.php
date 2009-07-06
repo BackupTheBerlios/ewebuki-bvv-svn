@@ -103,17 +103,17 @@
         $i++;
     }
 
-    $delete_sql = "DELETE FROM sapos_referenz;";
+    if ( count($insert_sql) > 0 ) {
+        $sql = "BEGIN;\n".
+               "DELETE FROM sapos_referenz;\n".
+                implode("\n",$insert_sql)."\n".
+               "END;";
+        $result = $db -> query($sql);
 
-    $sql = "BEGIN;\n".
-           $delete_sql."\n".
-           implode("\n",$insert_sql)."\n".
-           "END;";
-    $result = $db -> query($sql);
-
-    header("HTTP/1.0 200 OK");
-    header("Content-Type: text/plain");
-    echo $sql."\n";
+        header("HTTP/1.0 200 OK");
+        header("Content-Type: text/plain");
+        echo $sql."\n";
+    }
     die();
 
 

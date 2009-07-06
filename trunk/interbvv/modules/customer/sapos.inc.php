@@ -169,6 +169,7 @@
                            "id" => $data["refst_obid"],
                       "kennung" => sprintf("%04d",$data["punktkennung_1"]),
                           "ort" => $data["stationsbezeichnung"],
+                     "standort" => $data["standort"],
                         "pic_x" => floor($pic_x),
                         "pic_y" => floor($pic_y),
                          "link" => $cfg["sapos"]["basis"].",".$data["punktkennung_1"].".html",

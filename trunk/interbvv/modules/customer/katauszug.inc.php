@@ -87,6 +87,7 @@
                     $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$data[$cfg["katauszug"]["db"]["amt"]["akz"]].",".$environment["parameter"][2].".html";
                     header("Location: ".$header);
                 }
+                $ausgaben["akz"] = $environment["parameter"][1];
             }
 
             // PLZ-Suche
@@ -178,13 +179,32 @@
 
             if ( $amtkennzahl != "" ) {
                 $hidedata["formular"] = array();
+
+                // aussenstellen mitnehmen
+                $sql = "SELECT aussen.*
+                          FROM db_aemter as haupt
+                          JOIN db_aemter as aussen
+                            ON (aussen.adparent=haupt.adid)
+                         WHERE haupt.adakz = '".$amtkennzahl."'";
+                $result = $db -> query($sql);
+                $gmkg_akz = array();
+                $dst_name = array();
+                if ( $db->num_rows($result) > 0 ) {
+                    while ( $data = $db -> fetch_array($result,1) ) {
+                        $gmkg_akz[] = $data["adakz"];
+                        $dst_name[] = $data["adststelle"];
+                    }
+                }
+                $gmkg_akz[] = $amtkennzahl;
+
                 $hidedata["amt_page"]["amt"] = "VA ".$dienststelle;
+                if ( count($dst_name) > 0 ) $hidedata["amt_page"]["amt"] .= " mit Au&szlig;enstelle ".implode(", ",$dst_name);
                 unset($hidedata["change_amt"]);
 
                 // gemarkungs-dropdown
                 $sql = "SELECT DISTINCT gmcode as gmkg_nr, name as gmkg
                         FROM gmn_gemeinden JOIN gmn_intranet ON (gmn=gmcode)
-                        WHERE buort='".$amtkennzahl."'
+                        WHERE buort IN ('".implode("', '",$gmkg_akz)."')
                     ORDER BY name";
                 $result = $db -> query($sql);
                 while ( $data = $db -> fetch_array($result,1) ) {
