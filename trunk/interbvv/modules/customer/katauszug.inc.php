@@ -497,6 +497,11 @@
                             $ausgaben["form_error"]  = "#(success)";
                             $hidedata["form_error"] = array();
                         }
+                        unset($hidedata["change_amt"]);
+                        unset($hidedata["amt_page"]);
+                        unset($hidedata["formular"]);
+                        unset($hidedata["lageplan"]);
+                        unset($hidedata["vektor"]);
                     }
 
 
