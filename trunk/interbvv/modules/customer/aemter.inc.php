@@ -53,6 +53,25 @@
         // amtkennzahl bestimmen
         if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
             preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
+
+            // aussenstelle wird weitergeleitet
+            $sql = "SELECT *
+                      FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                     WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'
+                       AND ".$cfg["aemter"]["db"]["dst"]["kate"]." IN ('5','8')";
+            $result = $db -> query($sql);
+            if ( $db->num_rows($result) > 0 ) {
+                $data = $db -> fetch_array($result,1);
+                $sql = "SELECT *
+                          FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                         WHERE ".$cfg["aemter"]["db"]["dst"]["key"]."=".$data[$cfg["aemter"]["db"]["dst"]["parent"]];
+                $result = $db -> query($sql);
+                $data1 = $db -> fetch_array($result,1);
+                echo "Location:".$data1[$cfg["aemter"]["db"]["dst"]["internet"]]."/index,".$data[$cfg["aemter"]["db"]["dst"]["akz"]].".html<br>";
+                header("Location:".$data1[$cfg["aemter"]["db"]["dst"]["internet"]]."/index,".$data[$cfg["aemter"]["db"]["dst"]["akz"]].".html");
+            }
+
+
             $sql = "SELECT *
                       FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
                      WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'
@@ -106,7 +125,12 @@
                 $buffer = array(); $i = 0;
                 while ( $data = $db->fetch_array($result,1) ){
                     // welche aussenstellen
-                    $buffer[] = $data[$cfg["aemter"]["db"]["dst"]["amt"]];
+                    $sql = "SELECT *
+                              FROM ".$cfg["aemter"]["db"]["kate"]["entries"]."
+                             WHERE ".$cfg["aemter"]["db"]["kate"]["key"]."='".$data[$cfg["aemter"]["db"]["dst"]["kate"]]."'";
+                    $res = $db -> query($sql);
+                    $dat = $db->fetch_array($res,1);
+                    $buffer[] = $dat[$cfg["aemter"]["db"]["kate"]["kate"]]." ".$data[$cfg["aemter"]["db"]["dst"]["amt"]];
                     $akz_array[] = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
                     // informationen der einzelnen stellen
                     $class = ""; $display = "none"; $i++;
