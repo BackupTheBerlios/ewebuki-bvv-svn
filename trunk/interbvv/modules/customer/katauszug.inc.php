@@ -191,14 +191,19 @@
                 $dst_name = array();
                 if ( $db->num_rows($result) > 0 ) {
                     while ( $data = $db -> fetch_array($result,1) ) {
+                        $sql = "SELECT *
+                                  FROM db_adrd_kate
+                                 WHERE katid='".$data["adkate"]."'";
+                        $res = $db -> query($sql);
+                        $dat = $db->fetch_array($res,1);
                         $gmkg_akz[] = $data["adakz"];
-                        $dst_name[] = $data["adststelle"];
+                        $dst_name[] = $dat["kat_lang"]." ".$data["adststelle"];
                     }
                 }
                 $gmkg_akz[] = $amtkennzahl;
 
                 $hidedata["amt_page"]["amt"] = "VA ".$dienststelle;
-                if ( count($dst_name) > 0 ) $hidedata["amt_page"]["amt"] .= " mit Au&szlig;enstelle ".implode(", ",$dst_name);
+                if ( count($dst_name) > 0 ) $hidedata["amt_page"]["amt"] .= " mit ".implode(", ",$dst_name);
                 unset($hidedata["change_amt"]);
 
                 // gemarkungs-dropdown
