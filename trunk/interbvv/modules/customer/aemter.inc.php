@@ -127,7 +127,7 @@
         }
         $dataloop["stellen"][0]["class"] = "selected";
         $dataloop["stellen"][0]["display"] = "block";
-        $dataloop["stellen"][0]["oeffnung"] = preg_replace(array("/(\n|\r)/","/(<br \/>){2,}/"),array("","<br />"),nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"])));
+        $dataloop["stellen"][0]["oeffnung"] = nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"]));
         $dataloop["stellen"][0]["behinderte"] = nl2br(strip_tags($dataloop["stellen"][0]["behinderte"]));
 
         function aussenstellen($id){
@@ -164,13 +164,14 @@
                               "class" => $class,
                                 "src" => $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif",
                             "display" => $display,
-                           "oeffnung" => $data[$cfg["aemter"]["db"]["dst"]["oeffnung"]],
+                           "oeffnung" => nl2br($data[$cfg["aemter"]["db"]["dst"]["oeffnung"]]),
                          "behinderte" => $data[$cfg["aemter"]["db"]["dst"]["behinderte"]],
                     );
                     // fuer jede stelle die informationen eintragen
                     foreach ( $felder as $feld ) {
                         $dataloop["stellen"][$i][$feld] = $data[$cfg["aemter"]["db"]["dst"][$feld]];
                     }
+                    $dataloop["stellen"][$i]["oeffnung"] = nl2br(strip_tags($data[$cfg["aemter"]["db"]["dst"]["oeffnung"]]));
                     $dataloop["stellen"][$i]["link_suffix"] = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
                     $dataloop["stellen"][$i]["display"] = $display;
                 }
