@@ -100,7 +100,7 @@
             // amt-kennzahl
             $akz = $data[$cfg["amtsuche"]["db"]["plz"]["amt"]];
 
-            if ( date("U") < mktime(15,0,0,7,2,2009) ) {
+            if ( date("U") < mktime(15,0,0,8,2,2009) || !strstr($_SERVER["SERVER_ADDR"],"10.248.65") || !strstr($_SERVER["SERVER_ADDR"],"10.192.101.47") ) {
                 header("Location: ".$pathvars["virtual"]."/aemter/".$akz."/index.html");
                 exit;
             }
@@ -209,7 +209,7 @@
                     $internet = $data_amt[$cfg["amtsuche"]["db"]["amt"]["internet"]];
                 }
 
-                if ( date("U") < mktime(15,0,0,7,2,2009) ) {
+                if ( date("U") < mktime(15,0,0,7,2,2009) || !strstr($_SERVER["SERVER_ADDR"],"10.248.65") || !strstr($_SERVER["SERVER_ADDR"],"10.192.101.47") ) {
                     $amt_link = $pathvars["virtual"]."/aemter/".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."/index.html";
                 } else {
                     $amt_link = $internet;
