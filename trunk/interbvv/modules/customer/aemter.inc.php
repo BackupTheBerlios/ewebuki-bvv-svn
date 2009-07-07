@@ -80,8 +80,19 @@
             $data = $db -> fetch_array($result,1);
             $amtid = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
         } else {
+            // amtskennzahl aus url bestimmen
             $arrEbene = explode("/",$environment["ebene"]);
             $amtid = $arrEbene["2"];
+            // adresse aus db-holen
+            $sql = "SELECT *
+                      FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                     WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$amtid."'";
+
+            $result = $db -> query($sql);
+            $data = $db -> fetch_array($result,1);
+            // weiterleiten
+            $header = $data[$cfg["aemter"]["db"]["dst"]["internet"]];
+            header("Location:".$header);
         }
 
         // menu ausblenden
@@ -180,7 +191,7 @@
             // Weiterleitung zum Hauptamt
             $data = $db->fetch_array($result,1);
             $header = $pathvars["virtual"]."/aemter/".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."/".$environment["kategorie"].".html";
-            header("Location: ".$header);
+//             header("Location: ".$header);
         }
 
         // kekse anpassen
