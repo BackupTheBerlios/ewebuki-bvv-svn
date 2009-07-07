@@ -83,7 +83,7 @@
             // amtskennzahl aus url bestimmen
             $arrEbene = explode("/",$environment["ebene"]);
             $amtid = $arrEbene["2"];
-            if ( !strstr($_SERVER["SERVER_ADDR"],"10.248.65") ) {
+            if ( !strstr($_SERVER["SERVER_ADDR"],"10.248.65") && !strstr($_SERVER["SERVER_ADDR"],"10.192.101.47") ) {
                 // adresse aus db-holen
                 $sql = "SELECT *
                           FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
