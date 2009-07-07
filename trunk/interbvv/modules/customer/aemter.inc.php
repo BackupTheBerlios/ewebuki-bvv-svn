@@ -83,16 +83,18 @@
             // amtskennzahl aus url bestimmen
             $arrEbene = explode("/",$environment["ebene"]);
             $amtid = $arrEbene["2"];
-            // adresse aus db-holen
-            $sql = "SELECT *
-                      FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
-                     WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$amtid."'";
+            if ( !strstr($_SERVER["SERVER_ADDR"],"10.248.65") ) {
+                // adresse aus db-holen
+                $sql = "SELECT *
+                          FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                         WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$amtid."'";
 
-            $result = $db -> query($sql);
-            $data = $db -> fetch_array($result,1);
-            // weiterleiten
-            $header = $data[$cfg["aemter"]["db"]["dst"]["internet"]];
-            header("Location:".$header);
+                $result = $db -> query($sql);
+                $data = $db -> fetch_array($result,1);
+                // weiterleiten
+                $header = $data[$cfg["aemter"]["db"]["dst"]["internet"]];
+                header("Location:".$header);
+            }
         }
 
         // menu ausblenden
@@ -117,7 +119,12 @@
         $hauptamt = $form_values["adststelle"];
         $ausgaben["amt"] = "Vermessungsamt ".$form_values["adststelle"];
         $ausgaben["akz"] = $amtid;
-        $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
+        // amtsgebaeude-bild
+        if ( file_exists($pathvars["fileroot"].trim($pathvars["images"],"/")."/aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg") ) {
+            $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg";
+        } else {
+            $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
+        }
         $dataloop["stellen"][0]["class"] = "selected";
         $dataloop["stellen"][0]["display"] = "block";
         $dataloop["stellen"][0]["oeffnung"] = preg_replace(array("/(\n|\r)/","/(<br \/>){2,}/"),array("","<br />"),nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"])));
