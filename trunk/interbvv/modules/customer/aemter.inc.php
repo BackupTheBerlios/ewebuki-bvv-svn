@@ -51,7 +51,7 @@
         // ***
 
         // amtkennzahl bestimmen
-        if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+        if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") && !preg_match("/^\/aemter\/[0-9]{1,2}$/",$environment["ebene"]) ) {
             preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
 
             // aussenstelle wird weitergeleitet
