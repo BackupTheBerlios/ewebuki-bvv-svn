@@ -89,7 +89,7 @@
                 </div>
                 <div title="Standort">
                     <img src="../../images/html/icon_lage.jpg" title="Standort:" alt="Standort:" />
-                    <span><a href="standort,!{akz}.html" id="cont01-title">#(standort)</a></span>
+                    <span><a href="!#ausgaben_standort_link" id="cont01-title">#(standort)</a></span>
                     <span><a href="http://bayerninfo.de/">#(connection)</a></span>
                 </div>
                 <div class="clear"></div>
@@ -121,8 +121,7 @@
             <!--##show-->
 
             <!--##hide-gal_sel-->
-            <!--##loop-stellen-->
-            <div class="amt_info_box" style="display:!{display};">
+            <div class="amt_info_box"">
                 <div title="Anschrift">
                     <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
                     <span>!{str}</span>
@@ -133,21 +132,17 @@
                     <span><a href="!{viewer}">Das Vermessungsamt im BayernViewer</a></span>
                 </div>
                 <div class="clear"></div>
-                <a href="../../images/html/aemter/va!{akz}_anfahrt1.gif" title="Anfahrtskizze 1" rel="lightbox[skizze]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('../../images/html/aemter/va!{akz}_anfahrt1.gif') center center no-repeat;">
+                <!--##loop-anfahrtspics-->
+                <a href="!{path}" title="Anfahrtskizze !{index}" rel="lightbox[skizze_!{akz}]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('!{path}') center center no-repeat;">
                 </a>
-                <a href="../../images/html/aemter/va!{akz}_anfahrt2.gif" title="Anfahrtskizze 2" rel="lightbox[skizze]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('../../images/html/aemter/va!{akz}_anfahrt2.gif') center center no-repeat;">
-                </a>
-                <a href="../../images/html/aemter/va!{akz}_anfahrt3.gif" title="Anfahrtskizze 3" rel="lightbox[skizze]" style="width:100px;height:100px;display:block;float:left;margin:5px;border:1px solid silver;background: url('../../images/html/aemter/va!{akz}_anfahrt3.gif') center center no-repeat;">
-                </a>
+                <!--##cont-->
                 <div class="clear"></div>
                 <p><a href="standort,!{akz},print.html">Print-Ansicht</a></p>
             </div>
-            <!--##cont-->
             <!--##show-->
 
             <!--##hide-gal_print-->
-            <!--##loop-stellen-->
-            <div class="amt_info_box" style="display:!{display};">
+            <div class="amt_info_box"">
                 <div title="Anschrift">
                     <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
                     <span>!{str}</span>
@@ -158,10 +153,9 @@
                     <span><a href="!{viewer}">Das Vermessungsamt im BayernViewer</a></span>
                 </div>
                 <div class="clear"></div>
-                <h3>Anfahrtskizzen</h3>
-                <img src="../../images/html/aemter/va!{akz}_anfahrt1.gif" alt="Anfahrtskizze 1" style="border:1px solid #CCCCCC;padding:2px;" />
-                <img src="../../images/html/aemter/va!{akz}_anfahrt2.gif" alt="Anfahrtskizze 2" style="border:1px solid #CCCCCC;padding:2px;" />
-                <img src="../../images/html/aemter/va!{akz}_anfahrt3.gif" alt="Anfahrtskizze 3" style="border:1px solid #CCCCCC;padding:2px;" />
+                <!--##loop-anfahrtspics-->
+                <img src="!{path}" alt="Anfahrtskizze !{index}" style="border:1px solid #CCCCCC;padding:2px;" />
+                <!--##cont-->
                 <div class="clear"></div>
                 <p><a href="standort,!{akz}.html">Galerie-Ansicht</a></p>
             </div>

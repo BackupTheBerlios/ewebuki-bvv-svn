@@ -54,13 +54,14 @@
         if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") && !preg_match("/^\/aemter\/[0-9]{1,2}$/",$environment["ebene"]) ) {
             preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
 
-            // aussenstelle wird weitergeleitet
+            // feststellen, ob die url eine aussenstelle darstellt
             $sql = "SELECT *
                       FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
                      WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'
                        AND ".$cfg["aemter"]["db"]["dst"]["kate"]." IN ('5','8')";
             $result = $db -> query($sql);
             if ( $db->num_rows($result) > 0 ) {
+                // hauptamt rausfinden und weiterleiten
                 $data = $db -> fetch_array($result,1);
                 $sql = "SELECT *
                           FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
@@ -71,7 +72,7 @@
                 header("Location:".$data1[$cfg["aemter"]["db"]["dst"]["internet"]]."/index,".$data[$cfg["aemter"]["db"]["dst"]["akz"]].".html");
             }
 
-
+            // amtskennzahl feststellen
             $sql = "SELECT *
                       FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
                      WHERE ".$cfg["aemter"]["db"]["dst"]["internet"]." LIKE '%".$match[1]."%'
@@ -108,30 +109,31 @@
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
         $result = $db -> query($sql);
         $form_values = $db -> fetch_array($result,1);
-        $akz_array = array($form_values[$cfg["aemter"]["db"]["dst"]["akz"]]);
+        $akz_array = array();
+        $akz_array[$amtid] = $form_values[$cfg["aemter"]["db"]["dst"]["akz"]];
 
         // ausgabe-marken belegen
         $felder = array("amt","akz","str","plz","ort","tel","fax","email","rechtswert","hochwert","oeffnung","behinderte");
         foreach ( $felder as $feld ) {
             $ausgaben[$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
-            $dataloop["stellen"][0][$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
+            $dataloop["stellen"][$amtid][$feld] = $form_values[$cfg["aemter"]["db"]["dst"][$feld]];
         }
         $hauptamt = $form_values["adststelle"];
         $ausgaben["amt"] = "Vermessungsamt ".$form_values["adststelle"];
         $ausgaben["akz"] = $amtid;
         // amtsgebaeude-bild
         if ( file_exists($pathvars["fileroot"].trim($pathvars["images"],"/")."/aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg") ) {
-            $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg";
+            $dataloop["stellen"][$amtid]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg";
         } else {
-            $dataloop["stellen"][0]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
+            $dataloop["stellen"][$amtid]["src"] = $pathvars["images"]."aemter/va".$form_values[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
         }
-        $dataloop["stellen"][0]["class"] = "selected";
-        $dataloop["stellen"][0]["display"] = "block";
-        $dataloop["stellen"][0]["oeffnung"] = nl2br(strip_tags($dataloop["stellen"][0]["oeffnung"]));
-        $dataloop["stellen"][0]["behinderte"] = nl2br(strip_tags($dataloop["stellen"][0]["behinderte"]));
+        $dataloop["stellen"][$amtid]["class"] = "selected";
+        $dataloop["stellen"][$amtid]["display"] = "block";
+        $dataloop["stellen"][$amtid]["oeffnung"] = nl2br(strip_tags($dataloop["stellen"][$amtid]["oeffnung"]));
+        $dataloop["stellen"][$amtid]["behinderte"] = nl2br(strip_tags($dataloop["stellen"][$amtid]["behinderte"]));
 
         function aussenstellen($id){
-            global $db, $cfg, $dataloop, $hidedata, $form_values, $environment, $felder, $pathvars, $akz_array;
+            global $db, $cfg, $dataloop, $hidedata, $form_values, $environment, $felder, $pathvars, $akz_array, $amtid;
 
             $sql = "SELECT *
                       FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
@@ -155,11 +157,11 @@
                     if ( $environment["parameter"][1] == $data[$cfg["aemter"]["db"]["dst"]["akz"]] ) {
                         $class = "selected";
                         $display = "";
-                        $dataloop["stellen"][0]["class"] = "";
-                        $dataloop["stellen"][0]["display"] = "none";
+                        $dataloop["stellen"][$amtid]["class"] = "";
+                        $dataloop["stellen"][$amtid]["display"] = "none";
                     }
 
-                    $dataloop["stellen"][$i] = array(
+                    $dataloop["stellen"][$data[$cfg["aemter"]["db"]["dst"]["akz"]]] = array(
                                 "akz" => $data[$cfg["aemter"]["db"]["dst"]["akz"]],
                               "class" => $class,
                                 "src" => $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif",
@@ -169,11 +171,11 @@
                     );
                     // fuer jede stelle die informationen eintragen
                     foreach ( $felder as $feld ) {
-                        $dataloop["stellen"][$i][$feld] = $data[$cfg["aemter"]["db"]["dst"][$feld]];
+                        $dataloop["stellen"][$data[$cfg["aemter"]["db"]["dst"]["akz"]]][$feld] = $data[$cfg["aemter"]["db"]["dst"][$feld]];
                     }
-                    $dataloop["stellen"][$i]["oeffnung"] = nl2br(strip_tags($data[$cfg["aemter"]["db"]["dst"]["oeffnung"]]));
-                    $dataloop["stellen"][$i]["link_suffix"] = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
-                    $dataloop["stellen"][$i]["display"] = $display;
+                    $dataloop["stellen"][$data[$cfg["aemter"]["db"]["dst"]["akz"]]]["oeffnung"] = nl2br(strip_tags($data[$cfg["aemter"]["db"]["dst"]["oeffnung"]]));
+                    $dataloop["stellen"][$data[$cfg["aemter"]["db"]["dst"]["akz"]]]["link_suffix"] = $data[$cfg["aemter"]["db"]["dst"]["akz"]];
+                    $dataloop["stellen"][$data[$cfg["aemter"]["db"]["dst"]["akz"]]]["display"] = $display;
                 }
                 $hidedata["aussenstelle"]["ast"] = implode(", ",$buffer);
             }
@@ -223,6 +225,18 @@
 //             );
         }
 
+
+
+        // was ist die aktuelle Amtskennzahl
+        if ( is_array($dataloop["stellen"][$environment["parameter"][1]]) ) {
+            $current_akz = $environment["parameter"][1];
+        } else {
+            $current_akz = $amtid;
+        }
+
+
+
+
         $ausgaben["artikel"] = "";
         $ausgaben["presse"] = "";
         $ausgaben["termine"] = "";
@@ -236,6 +250,26 @@
                 $hidedata["index"]["heading"] = "#(index)";
                 $hidedata["heading"]["heading"] = "#(index)";
                 unset($hidedata["sub_menu"]);
+
+                // BayernViewer-Link
+                $bv_link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$dataloop["stellen"][$current_akz]["rechtswert"].
+                                                                            "&amp;hw=".$dataloop["stellen"][$current_akz]["hochwert"].
+                                                                            "&amp;str=".urlencode(utf8_decode($dataloop["stellen"][$current_akz]["amt"])).
+                                                                            "&amp;ort=".urlencode(utf8_decode($dataloop["stellen"][$current_akz]["str"].", ".$dataloop["stellen"][$current_akz]["plz"]." ".$dataloop["stellen"][$current_akz]["ort"]));
+
+                // schauen, ob anfahrtsskizzen vorhanden sind
+                $dir = $pathvars["fileroot"].trim($pathvars["images"],"/")."/aemter/";
+                $files = array();
+                foreach ( scandir($dir) as $filename ) {
+                    if ( !strstr($filename,"va".$current_akz."_anfahrt") ) continue;
+                    $anfahrts_pics[] = $pathvars["images"]."aemter/".$filename;
+                }
+                // falls es keine skizzen gibt, bayernviewer verlinken
+                if ( count($anfahrts_pics) > 0 ) {
+                    $ausgaben["standort_link"] = "standort,".$current_akz.".html";
+                } else {
+                    $ausgaben["standort_link"] = $bv_link;
+                }
 
                 if ( $environment["ebene"] == "" ) {
                     $kat = "/".$environment["kategorie"];
@@ -445,46 +479,53 @@
                 break;
 
             case "standort":
-
-                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/standort.html\">Standort</a>";
-                $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
-
+                // kekse manipulieren
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Standort</span>";
+                // ueberschrift setzen
                 $hidedata["heading"]["heading"] = "#(location)";
 
-                foreach ( $akz_array as $key=>$value ) {
-                    $amt = $dataloop["stellen"][$key]["amt"];
-                    if ( $hauptamt != $dataloop["stellen"][$key]["amt"] ) {
-                        $amt = "Vermessungsamt ".$hauptamt."/".$dataloop["stellen"][$key]["amt"];
-                    } else {
-                        $amt = "Vermessungsamt ".$dataloop["stellen"][$key]["amt"];
-                    }
-                    $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$dataloop["stellen"][$key]["rechtswert"].
-                                                                               "&amp;hw=".$dataloop["stellen"][$key]["hochwert"].
-                                                                              "&amp;str=".urlencode(utf8_decode($amt)).
-                                                                              "&amp;ort=".urlencode(utf8_decode($dataloop["stellen"][$key]["str"].", ".$dataloop["stellen"][$key]["plz"]." ".$dataloop["stellen"][$key]["ort"]));
-                    $dataloop["stellen"][$key]["viewer"] = $link;
+                // BayernViewer-Link
+                $bv_link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$dataloop["stellen"][$current_akz]["rechtswert"].
+                                                                              "&amp;hw=".$dataloop["stellen"][$current_akz]["hochwert"].
+                                                                             "&amp;str=".urlencode(utf8_decode($dataloop["stellen"][$current_akz]["amt"])).
+                                                                             "&amp;ort=".urlencode(utf8_decode($dataloop["stellen"][$current_akz]["str"].", ".$dataloop["stellen"][$current_akz]["plz"]." ".$dataloop["stellen"][$current_akz]["ort"]));
+
+                // schauen, welche anfahrtsskizzen vorhanden sind
+                $dir = $pathvars["fileroot"].trim($pathvars["images"],"/")."/aemter/";
+                $files = array();
+                foreach ( scandir($dir) as $filename ) {
+                    if ( !strstr($filename,"va".$current_akz."_anfahrt") ) continue;
+                    $anfahrts_pics[] = $pathvars["images"]."aemter/".$filename;
                 }
 
-                $link = "http://www.geodaten.bayern.de/BayernViewer2.0/index.cgi?rw=".$form_values["georef_rw"].
-                                                                           "&amp;hw=".$form_values["georef_hw"].
-                                                                           "&amp;str=".$ausgaben["amt"].
-                                                                           "&amp;ort=".$form_values["adstr"].", ".$form_values["adplz"]." ".$form_values["adort"];
-
-
-                $hidedata["gallery"]["viewer"] = $form_values["adbayernviewer"];
-                $hidedata["gallery"]["viewer"] = $link;
-
                 if ( $environment["parameter"][2] == "print" ) {
-                    $hidedata["gal_print"]["akz"] = $form_values["adakz"];
+                    $show_part = "gal_print";
                 } else {
-                    $hidedata["gal_sel"]["akz"] = $form_values["adakz"];
+                    $show_part = "gal_sel";
+                }
+                $hidedata[$show_part] = array(
+                       "akz" => $current_akz,
+                       "str" => $dataloop["stellen"][$current_akz]["str"],
+                       "plz" => $dataloop["stellen"][$current_akz]["plz"],
+                       "ort" => $dataloop["stellen"][$current_akz]["ort"],
+                    "viewer" => $bv_link,
+                );
+
+                if ( is_array($anfahrts_pics) ) {
+                    foreach ( $anfahrts_pics as $key=>$value ) {
+                        $dataloop["anfahrtspics"][] = array(
+                            "index" => $key,
+                                "akz" => $current_akz,
+                                "path" => $value,
+                        );
+                    }
                 }
 
 
                 break;
 
             case "amtsbezirk":
-                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/amtsbezirk.html\">Amtsbezirk</a>";
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Amtsbezirk</span>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
                 $hidedata["bezirk"] = array();
@@ -538,7 +579,7 @@
                 break;
 
             case "info":
-                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/info.html\">Informationen f&uuml;r behinderte Menschen</a>";
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Informationen f&uuml;r behinderte Menschen</span>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
                 $hidedata["info"] = array();
@@ -555,7 +596,7 @@
                 break;
 
             case "ansprech":
-                $environment["kekse"] .= $defaults["split"]["kekse"]."<a href=\"".$pathvars["virtual"]."/aemter/".$amtid."/ansprech.html\">Ansprechpartner</a>";
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Ansprechpartner</span>";
                 $dataloop["sub_menu"][$environment["parameter"][0]]["class"] = "selected";
 
                 $hidedata["ansprech"] = array();
@@ -581,13 +622,21 @@
                                  WHERE akz='".$value."'
                                    AND function='".$function."'";
                         $result = $db -> query($sql);
-                        if ( $db->num_rows($result) > 0 ) {
+                        $num_rows = $db->num_rows($result);
+                        $i = 1;
+                        if ( $num_rows > 0 ) {
+                            if ( $num_rows == 1 ) {
+                                $row_header = "<th>#(".$function.")</th>";
+                            } else {
+                                $row_header = "<th rowspan=\"".$num_rows."\">#(".$function.")</th>";
+                            }
                             while ( $data = $db->fetch_array($result,1) ) {
                                 $buffer[] = "<tr>
-                                                <td>#(".$function.")</td>
+                                                ".$row_header."
                                                 <td style=\"white-space:nowrap;\">".$data["name"]."</td>
                                                 <td style=\"white-space:nowrap;\">".$data["telefon"]."</td>
                                             </tr>";
+                                $row_header = "";
                             }
                         } else {
                             $sql = "SELECT *
@@ -596,7 +645,7 @@
                             $result = $db -> query($sql);
                             $data = $db->fetch_array($result,1);
                             $buffer[] = "<tr>
-                                            <td>#(".$function.")</td>
+                                            <th>#(".$function.")</th>
                                             <td style=\"white-space:nowrap;\">Servicezentrum</td>
                                             <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
                                         </tr>";
