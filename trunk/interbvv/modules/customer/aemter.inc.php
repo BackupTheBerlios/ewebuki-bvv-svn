@@ -704,17 +704,17 @@
                 $hidedata["sub_menu"]["link"] = "aktuell.html";
 
                 if ( $environment["parameter"][1] == "archiv" ) {
-                    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$amtid."/index");
                 } elseif ( $environment["parameter"][1] == "termine" ) {
-                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$amtid."/index");
                 } elseif ( $environment["parameter"][1] == "presse" ) {
-                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$amtid."/index");
                 } else {
                     $hidedata["sub_menu"]["link"] = "index.html";
-                    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","0,1","/aemter/".$akz_array[0]."/index");
-                    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,4","/aemter/".$akz_array[0]."/index");
-                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4","/aemter/".$akz_array[0]."/index");
-                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aemter/".$akz_array[0]."/index");
+                    $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","0,1","/aemter/".$amtid."/index");
+                    $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,4","/aemter/".$amtid."/index");
+                    $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","0,4","/aemter/".$amtid."/index");
+                    $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","0,4","/aemter/".$amtid."/index");
 
                     if ( count($dataloop["artikel"]) > 0 ) $hidedata["artikel"]["ueberschrift"] = "Meldungen";
                     if ( count($dataloop["presse"]) > 0 ) $hidedata["presse"]["ueberschrift"] = "Pressemitteilungen";
@@ -730,7 +730,7 @@
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$amtid."/index");
                 break;
             case "va-termine":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
@@ -741,7 +741,7 @@
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$amtid."/index");
                 break;
             case "va-presse":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
@@ -752,7 +752,7 @@
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$akz_array[0]."/index");
+                $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$amtid."/index");
                 break;
         }
 
