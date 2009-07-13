@@ -90,7 +90,7 @@
                     } elseif ( $key == "punktkennung_2" ) {
                         $value = sprintf("%03d",$value);
                     } elseif ( preg_match("/([0-9]{4})-([0-9]{2})-([0-9]{2})/U",$value,$match) ) {
-                        $value = strftime("%d. %b. %Y",mktime(0,0,0,$match[2],$match[3],$match[1] ));
+                        $value = strftime("%d.%m.%Y",mktime(0,0,0,$match[2],$match[3],$match[1] ));
                     } elseif ( $key == "etrs89_b" || $key == "etrs89_l" ) {
                         $koord  = $value;
                         $value  = floor($koord)."&deg;";
@@ -116,7 +116,7 @@
                             $value = "nein";
                         }
                     }
-                    $hidedata["station"][$key] = utf8_encode($value);
+                    $hidedata["station"][$key] = $value;
                 }
             }
         } else {

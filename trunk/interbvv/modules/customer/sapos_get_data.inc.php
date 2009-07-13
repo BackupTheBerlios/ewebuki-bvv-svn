@@ -52,7 +52,7 @@
                     (CONNECT_DATA = (SERVICE_NAME =".$cfg["sapos_get_data"]["oracle"]["db"]."))
                 )";
 
-    $oci_conn = oci_connect($cfg["sapos_get_data"]["oracle"]["user"], $cfg["sapos_get_data"]["oracle"]["pass"], $oci_db);
+    $oci_conn = oci_connect($cfg["sapos_get_data"]["oracle"]["user"], $cfg["sapos_get_data"]["oracle"]["pass"], $oci_db,'UTF8');
 
     $sql = "SELECT * FROM ".$cfg["sapos_get_data"]["db"]["stationen"]["entries"];
 
@@ -62,7 +62,7 @@
     $i = 0;
     $insert_sql = array();
     while ($row = oci_fetch_array ($statement, OCI_ASSOC)) {
-    //     echo "<pre>".print_r($row,true)."</pre>";
+//         echo "<pre>".print_r($row,true)."</pre>";
         $insert_a = array();
         $insert_b = array();
         foreach ( $row as $key=>$value ) {
@@ -82,7 +82,7 @@
                     } else {
                         $psql_type = "integer";
                     }
-                    $psql_value = $value;
+                    $psql_value = str_replace(",",".",$value);
                     break;
                 case "DATE":
                     $psql_type = "date";
