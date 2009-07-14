@@ -301,7 +301,7 @@
                 while ( $data = $db->fetch_array($result,1) ) {
                     $count++;
                     ( strstr($data["ebene"],"archiv") ) ? $what = "artikel" : $what = "presse";
-                    preg_match("/\[H1\](.*)\[\/H1\]/Ui",$data["content"],$match);
+                    preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
                     $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
                     $dataloop[$data["ebene"]][$count]["link"] =  $what.",,".$data["kategorie"].".html";
                     $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
@@ -514,8 +514,8 @@
                 if ( is_array($anfahrts_pics) ) {
                     foreach ( $anfahrts_pics as $key=>$value ) {
                         $dataloop["anfahrtspics"][] = array(
-                            "index" => $key,
-                                "akz" => $current_akz,
+                               "index" => $key,
+                                 "akz" => $current_akz,
                                 "path" => $value,
                         );
                     }
@@ -532,48 +532,53 @@
 
                 $hidedata["heading"]["heading"] = "#(bezirk)";
 
-                foreach ( $akz_array as $key=>$value ) {
-                    $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde, gmd.gdeart".
-                            " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
-                            " WHERE buort='".$value."'".
-                            " ORDER BY gmd.name";
-                    $result = $db -> query($sql);
-                    $prev = ""; $buffer = array();
-                    while ( $data = $db->fetch_array($result,1) ) {
-                        // gemarkungen
-                        $sql = "SELECT DISTINCT name".
-                                " FROM gmn_gemeinden JOIN gmn_intranet ON (gmn=gmcode)".
-                            " WHERE gemeinde=".$data["gdecode"].
-                            " ORDER BY name";
+                $sql = "SELECT DISTINCT gmd.gdecode, gmd.name as gemeinde, gmd.gdeart".
+                        " FROM (gemeinden_intranet as gmd LEFT JOIN gmn_gemeinden ON (gmd.gdecode=gemeinde)) ".
+                        " WHERE buort='".$current_akz."'".
+                        " ORDER BY gmd.name";
+                $result = $db -> query($sql);
+                $prev = ""; $buffer = array();
+                while ( $data = $db->fetch_array($result,1) ) {
+                    // gemarkungen
+                    $sql = "SELECT DISTINCT name".
+                            " FROM gmn_gemeinden JOIN gmn_intranet ON (gmn=gmcode)".
+                        " WHERE gemeinde=".$data["gdecode"].
+                        " ORDER BY name";
 
-                        $res_gmkg = $db->query($sql);
-                        $gmkg = "";
-                        while ( $dat_gmkg = $db->fetch_array($res_gmkg,1) ){
-                            if ( $gmkg != "" ) $gmkg .= ", ";
-                            $gmkg .= $dat_gmkg["name"];
-                        }
-
-                        $dataloop["gmd"][] = array(
-                            "item" => $data["gemeinde"],
-                            "gmkg" => $gmkg,
-                            "color" => $cfg["aemter"]["color"]["set"]
-                        );
-                        $gmd = $data["gemeinde"];
-                        $gmd_frei = "";
-                        if ( $data["gdeart"] == "Gemeindefreies Gebiet" ) {
-                            $gmd = "";
-                            $gmd_frei = $data["gemeinde"];
-                        }
-
-                        $buffer[] = "<tr>
-                                        <td>".$gmd."</td>
-                                        <td>".$gmd_frei."</td>
-                                        <td>$gmkg</td>
-                                     </tr>";
+                    $res_gmkg = $db->query($sql);
+                    $gmkg_array = array();
+                    while ( $dat_gmkg = $db->fetch_array($res_gmkg,1) ){
+                        if ( $gmkg != "" ) $gmkg .= ", ";
+                        $gmkg .= $dat_gmkg["name"];
+                        $gmkg_array[] = $dat_gmkg["name"];
                     }
-                    if ( count($buffer) > 0 ) {
-                        $dataloop["stellen"][$key]["gmkg"] = implode("\n",$buffer);
+                    if ( count($gmkg_array) > 0 ) {
+                        $gmkg = implode(", ",$gmkg_array);
+                    } else {
+                        $gmkg = "&nbsp;";
                     }
+
+                    $dataloop["gmd"][] = array(
+                        "item" => $data["gemeinde"],
+                        "gmkg" => $gmkg,
+                        "color" => $cfg["aemter"]["color"]["set"]
+                    );
+                    $gmd = $data["gemeinde"];
+
+                    $gmd_frei = "&nbsp;";
+                    if ( $data["gdeart"] == "Gemeindefreies Gebiet" ) {
+                        $gmd = "&nbsp;";
+                        $gmd_frei = $data["gemeinde"];
+                    }
+
+                    $buffer[] = "<tr>
+                                    <td>".$gmd."</td>
+                                    <td>".$gmd_frei."</td>
+                                    <td>$gmkg</td>
+                                    </tr>";
+                }
+                if ( count($buffer) > 0 ) {
+                    $dataloop["stellen"][$current_akz]["gmkg"] = implode("\n",$buffer);
                 }
 
                 break;
@@ -614,54 +619,58 @@
                             "ad_ansprech_gebuehren",
                             "ad_ansprech_umlegung",
                 );
-                foreach ( $akz_array as $key=>$value ) {
-                    $buffer = array();
-                    foreach ( $ansprech as $function ) {
-                        $sql = "SELECT *
-                                  FROM db_ansprech JOIN db_aemter ON (akz=adakz)
-                                 WHERE akz='".$value."'
-                                   AND function='".$function."'";
-                        $result = $db -> query($sql);
-                        $num_rows = $db->num_rows($result);
-                        $i = 1;
-                        if ( $num_rows > 0 ) {
-                            if ( $num_rows == 1 ) {
-                                $row_header = "<th>#(".$function.")</th>";
-                            } else {
-                                $row_header = "<th rowspan=\"".$num_rows."\">#(".$function.")</th>";
-                            }
-                            while ( $data = $db->fetch_array($result,1) ) {
-                                $buffer[] = "<tr>
-                                                ".$row_header."
-                                                <td style=\"white-space:nowrap;\">".$data["name"]."</td>
-                                                <td style=\"white-space:nowrap;\">".$data["telefon"]."</td>
-                                            </tr>";
-                                $row_header = "";
-                            }
+                $buffer = array();
+                foreach ( $ansprech as $function ) {
+                    $sql = "SELECT *
+                                FROM db_ansprech JOIN db_aemter ON (akz=adakz)
+                                WHERE akz='".$current_akz."'
+                                AND function='".$function."'";
+                    $result = $db -> query($sql);
+                    $num_rows = $db->num_rows($result);
+                    $i = 1;
+                    if ( $num_rows > 0 ) {
+                        if ( $num_rows == 1 ) {
+                            $row_header = "<th>#(".$function.")</th>";
                         } else {
-                            $sql = "SELECT *
-                                      FROM db_aemter
-                                     WHERE adakz='".$value."'";
-                            $result = $db -> query($sql);
-                            $data = $db->fetch_array($result,1);
-                            $buffer[] = "<tr>
-                                            <th>#(".$function.")</th>
-                                            <td style=\"white-space:nowrap;\">Servicezentrum</td>
-                                            <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
-                                        </tr>";
+                            $row_header = "<th rowspan=\"".$num_rows."\">#(".$function.")</th>";
                         }
-                    }
-                    if ( count($buffer) > 0 ) {
-                        $dataloop["stellen"][$key]["ansprech"] = implode("\n",$buffer);
-                    }
-                    // ggf belegschaftsbild
-                    $beleg_img_src = $pathvars["fileroot"]."images/html/aemter/va".$value."_belegschaft.jpg";
-                    if ( file_exists($beleg_img_src) ) {
-                        $beleg_img_web = $pathvars["images"]."aemter/va".$value."_belegschaft.jpg";
-                        $dataloop["stellen"][$key]["beleg_img"] = "<img src=\"".$beleg_img_web."\" alt=\"Belegschaft VA ".$dataloop["stellen"][$key]["amt"]."\" />";
+                        while ( $data = $db->fetch_array($result,1) ) {
+                            $buffer[] = "<tr>
+                                            ".$row_header."
+                                            <td style=\"white-space:nowrap;\">".$data["name"]."</td>
+                                            <td style=\"white-space:nowrap;\">".$data["telefon"]."</td>
+                                        </tr>";
+                            $row_header = "";
+                        }
                     } else {
-                        $dataloop["stellen"][$key]["beleg_img"] = "";
+                        $sql = "SELECT *
+                                    FROM db_aemter
+                                    WHERE adakz='".$current_akz."'";
+                        $result = $db -> query($sql);
+                        $data = $db->fetch_array($result,1);
+                        $buffer[] = "<tr>
+                                        <th>#(".$function.")</th>
+                                        <td style=\"white-space:nowrap;\">Servicezentrum</td>
+                                        <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
+                                    </tr>";
                     }
+                }
+                if ( count($buffer) > 0 ) {
+                    $dataloop["stellen"][$current_akz]["ansprech"] = implode("\n",$buffer);
+                }
+                // ggf belegschaftsbild
+                $beleg_img_src = $pathvars["fileroot"]."images/html/aemter/va".$current_akz."_belegschaft.jpg";
+                if ( file_exists($beleg_img_src) ) {
+                    $amt_name = $ausgaben["amt"];
+                    if ( $hidedata["aussenstelle"]["ast"] != "" ) {
+                        $amt_name .= " mit ".$hidedata["aussenstelle"]["ast"];
+                    }
+                    $beleg_img_web = $pathvars["images"]."aemter/va".$current_akz."_belegschaft.jpg";
+                    $dataloop["stellen"][$current_akz]["beleg_img"] = "<img src=\"".$beleg_img_web."\" alt=\"Belegschaft ".$amt_name."\" />";
+                    $dataloop["stellen"][$current_akz]["beleg_lb"] = "<a href=\"".$beleg_img_web."\" alt=\"Belegschaft ".$amt_name."\" title=\"Belegschaft ".$amt_name."\"  rel=\"lightbox[skizze_".$current_akz."]\">#(bel_foto)</a>";
+                } else {
+                    $dataloop["stellen"][$current_akz]["beleg_img"] = "";
+                    $dataloop["stellen"][$current_akz]["beleg_lb"] = "";
                 }
                 break;
 
@@ -676,7 +685,9 @@
                 break;
             case "kontakt":
                 if ( $environment["ebene"] == "" || strstr($environment["ebene"],"/aemter/") ) {
-                    $sql = "SELECT ".$cfg["aemter"]["db"]["dst"]["email"]." FROM ".$cfg["aemter"]["db"]["dst"]["entries"]." WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$environment["parameter"][1]."'";
+                    $sql = "SELECT ".$cfg["aemter"]["db"]["dst"]["email"]."
+                              FROM ".$cfg["aemter"]["db"]["dst"]["entries"]."
+                             WHERE ".$cfg["aemter"]["db"]["dst"]["akz"]."='".$environment["parameter"][1]."'";
                     $result = $db -> query($sql);
                     $data = $db->fetch_array($result,1);
                     $hidedata["heading"]["heading"] = "#(kontakt)";
