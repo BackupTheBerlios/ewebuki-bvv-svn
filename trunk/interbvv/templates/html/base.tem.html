@@ -29,7 +29,7 @@
         <script type="text/javascript" src="../../js/html/deflist_toggle.js"></script>
     </head>
 
-    <body onload="init();">
+    <body>
 
         <div id="head">
 
@@ -53,13 +53,13 @@
                     <!--##cont-->
                     <li class="fontsize">
                         <span>Textgr&ouml;&szlig;e</span>
-                        <a title="Schriftgr&ouml;&szlig;e normal" id="size1" onclick="setFontSize(0);return false;" href="#" style="font-size:0.8em;color:#2C5A93;background-color:#C2D9EF;">
+                        <a title="Schriftgr&ouml;&szlig;e normal" id="font_size1" onclick="fontsize_change('n');return false;" href="#" style="font-size:0.8em;" class="font_sel">
                             A
                         </a>
-                        <a title="Schriftgr&ouml;&szlig;e mittel" id="size2" onclick="setFontSize(1);return false;" href="#" style="font-size:1em;">
+                        <a title="Schriftgr&ouml;&szlig;e mittel" id="font_size2" onclick="fontsize_change('l');return false;" href="#" style="font-size:1em;">
                             A
                         </a>
-                        <a title="Schriftgr&ouml;&szlig;e gro&szlig;" id="size3" onclick="setFontSize(2);return false;" href="#" style="font-size:1.5em;">
+                        <a title="Schriftgr&ouml;&szlig;e gro&szlig;" id="font_size3" onclick="fontsize_change('xl');return false;" href="#" style="font-size:1.5em;">
                             A
                         </a>
                     </li>

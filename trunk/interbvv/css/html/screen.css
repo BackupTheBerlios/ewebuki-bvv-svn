@@ -672,6 +672,11 @@ p.teaser{
         font-weight:bold;
         text-decoration:none !important;
     }
+
+    #head .fontsize a.font_sel {
+        background-color:#C2D9EF;
+        color:#2C5A93;
+    }
 /* + + + */
 /* schrift-groessen-aenderung */
 

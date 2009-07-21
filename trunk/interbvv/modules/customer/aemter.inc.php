@@ -68,7 +68,7 @@
                          WHERE ".$cfg["aemter"]["db"]["dst"]["key"]."=".$data[$cfg["aemter"]["db"]["dst"]["parent"]];
                 $result = $db -> query($sql);
                 $data1 = $db -> fetch_array($result,1);
-                echo "Location:".$data1[$cfg["aemter"]["db"]["dst"]["internet"]]."/index,".$data[$cfg["aemter"]["db"]["dst"]["akz"]].".html<br>";
+//                 echo "Location:".$data1[$cfg["aemter"]["db"]["dst"]["internet"]]."/index,".$data[$cfg["aemter"]["db"]["dst"]["akz"]].".html<br>";
                 header("Location:".$data1[$cfg["aemter"]["db"]["dst"]["internet"]]."/index,".$data[$cfg["aemter"]["db"]["dst"]["akz"]].".html");
             }
 
@@ -201,7 +201,7 @@
             // Weiterleitung zum Hauptamt
             $data = $db->fetch_array($result,1);
             $header = $pathvars["virtual"]."/aemter/".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."/".$environment["kategorie"].".html";
-//             header("Location: ".$header);
+            header("Location: ".$header);
         }
 
         // kekse anpassen
@@ -325,7 +325,7 @@
                     $count++;
                     preg_match("/\[_NAME\](.*)\[\/_NAME\]/Ui",$data["content"],$match);
                     $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop[$data["ebene"]][$count]["link"] =  "termine,,".$data["kategorie"].".html";
+                    $dataloop[$data["ebene"]][$count]["link"] =  "termine,,".$data["kategorie"].",all.html";
                     $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
                     $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
                 }
