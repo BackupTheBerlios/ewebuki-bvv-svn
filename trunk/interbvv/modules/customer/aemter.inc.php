@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 Koenigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -161,10 +161,16 @@
                         $dataloop["stellen"][$amtid]["display"] = "none";
                     }
 
+                    if ( file_exists($pathvars["fileroot"].trim($pathvars["images"],"/")."/aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg") ) {
+                        $src = $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.jpg";
+                    } else {
+                        $src = $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif";
+                    }
+
                     $dataloop["stellen"][$data[$cfg["aemter"]["db"]["dst"]["akz"]]] = array(
                                 "akz" => $data[$cfg["aemter"]["db"]["dst"]["akz"]],
                               "class" => $class,
-                                "src" => $pathvars["images"]."aemter/va".$data[$cfg["aemter"]["db"]["dst"]["akz"]]."_gebaeude.gif",
+                                "src" => $src,
                             "display" => $display,
                            "oeffnung" => nl2br($data[$cfg["aemter"]["db"]["dst"]["oeffnung"]]),
                          "behinderte" => $data[$cfg["aemter"]["db"]["dst"]["behinderte"]],
