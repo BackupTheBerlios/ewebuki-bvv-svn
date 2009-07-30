@@ -135,6 +135,7 @@
             $hidedata["marginal"] = array();
             $hidedata["marginal"]["url"] = "/auth/wizard/show,devel0,global,marginal,,,.html";
             $hidedata["marginal"]["url"] = $pathvars["virtual"]."/wizard/show,".$db->getDb().",global,marginal.html";
+            $hidedata["marginal"]["url_va"] = $pathvars["virtual"]."/wizard/show,".$db->getDb().",global,marginal_va.html";
         }
 
         function get_chefred($url) {
