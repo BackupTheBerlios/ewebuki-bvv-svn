@@ -273,8 +273,10 @@
                 // falls es keine skizzen gibt, bayernviewer verlinken
                 if ( count($anfahrts_pics) > 0 ) {
                     $ausgaben["standort_link"] = "standort,".$current_akz.".html";
+                    $ausgaben["standort_onclick"] = "";
                 } else {
                     $ausgaben["standort_link"] = $bv_link;
+                    $ausgaben["standort_onclick"] = " onclick=\"window.open('".$bv_link."');return false;\"";
                 }
 
                 if ( $environment["ebene"] == "" ) {

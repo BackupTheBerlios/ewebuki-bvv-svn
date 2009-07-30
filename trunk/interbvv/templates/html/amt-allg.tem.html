@@ -89,26 +89,25 @@
                 </div>
                 <div title="Standort">
                     <img src="../../images/html/icon_lage.jpg" title="Standort:" alt="Standort:" />
-                    <span><a href="!#ausgaben_standort_link" id="cont01-title">#(standort)</a></span>
-                    <span><a href="http://bayerninfo.de/">#(connection)</a></span>
+                    <span><a href="!#ausgaben_standort_link" id="cont01-title"!#ausgaben_standort_onclick>#(standort)</a></span>
                 </div>
                 <div class="clear"></div>
                 <div title="Ansprechpartner">
                     <img src="../../images/html/icon_ansprech.jpg" title="#(ansprech):" alt="#(ansprech):" />
                     <span><a href="ansprech,!{akz}.html">#(ansprech)</a></span>
                 </div>
-                <div title="Informationen">
-                    <img src="../../images/html/icon_behindert.jpg" title="#(handicap):" alt="#(handicap):" />
-                    <span><a href="info,!{akz}.html" id="cont02-title">#(handicap)</a></span>
+                <div title="Verbindungen">
+                    <img src="../../images/html/icon_verbindungen.jpg" title="#(connection):" alt="#(connection):" />
+                    <span><a href="http://bayerninfo.de/" onclick="window.open('http://bayerninfo.de/');return false;">#(connection)</a></span>
                 </div>
                 <div class="clear"></div>
                 <div title="Amtsbezirk, Amtschronik">
                     <img src="../../images/html/icon_info.jpg" title="#(bezirk):" alt="#(bezirk):" />
                     <span><a href="amtsbezirk,!{akz}.html">#(bezirk)</a></span>
                 </div>
-                <div title="Verbindungen">
-                    <img src="../../images/html/icon_verbindungen.jpg" title="#(connection):" alt="#(connection):" />
-                    <span><a href="/service/formulare/katauszug.html">Bestellung von Lagepl&auml;nen</a></span>
+                <div title="Informationen">
+                    <img src="../../images/html/icon_behindert.jpg" title="#(handicap):" alt="#(handicap):" />
+                    <span><a href="info,!{akz}.html" id="cont02-title">#(handicap)</a></span>
                 </div>
                 <div class="clear"></div>
 <!--                 #(extend_info_box) -->
