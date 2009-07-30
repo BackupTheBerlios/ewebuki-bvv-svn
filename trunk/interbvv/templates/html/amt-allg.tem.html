@@ -164,27 +164,6 @@
                 <hr />
                 <p><a href="standort,!{akz}.html">Galerie-Ansicht</a></p>
             </div>
-            <script type="text/javascript">
-                function win_handling(url,id) {
-                    PrintAnsicht = window.open(url, "Anfahrtskizze", "width=540,height=540");
-                    PrintAnsicht.focus();
-                    window.setTimeout("print_pic()", 1000);
-                }
-                function print_pic() {
-                    PrintAnsicht.print();
-                    PrintAnsicht.close();
-
-                }
-                Event.observe(window, 'load',
-                    function() {
-                        $$('a.print_skizze').each(
-                            function(element) {
-                                new Effect.BlindDown(element,{duration:0.3});
-                            }
-                        );
-                    }
-                );
-            </script>
             <!--##show-->
 
             <!--##hide-bezirk-->
@@ -315,7 +294,7 @@
 
             <!--##hide-termine_detail-->
             <p style="float:right;text-align:right;font-size:85%">
-                <a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="ansprech.html">Kontakt</a>
+                <a href="?print[2]=print" onclick="win_handling('?print[2]=print',0);return false;">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="ansprech.html">Kontakt</a>
             </p>
             <table width="100%">
             <!--##show-->
@@ -328,7 +307,7 @@
 
             <!--##hide-all-->
             <p style="float:right;text-align:right;font-size:85%">
-                <a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="kontakt.html">Kontakt</a>
+                <a href="?print[2]=print" onclick="win_handling('?print[2]=print',0);return false;">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=!#pathvars_menuroot!#pathvars_uri">Versenden</a>&nbsp;|&nbsp;<a href="kontakt.html">Kontakt</a>
             </p>
             <p style="font-size:85%">!{changed}</p>
             <div class="clearer"></div>
@@ -384,6 +363,28 @@
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
+
+            <script type="text/javascript">
+                function win_handling(url,id) {
+                    PrintAnsicht = window.open(url, "Druckausgabe");
+                    PrintAnsicht.focus();
+                    window.setTimeout("print_pic()", 1000);
+                }
+                function print_pic(leave_open) {
+                    PrintAnsicht.print();
+                    PrintAnsicht.close();
+
+                }
+                Event.observe(window, 'load',
+                    function() {
+                        $$('a.print_skizze').each(
+                            function(element) {
+                                new Effect.BlindDown(element,{duration:0.3});
+                            }
+                        );
+                    }
+                );
+            </script>
             !#ausgaben_output
             !#ausgaben_inaccessible
 
