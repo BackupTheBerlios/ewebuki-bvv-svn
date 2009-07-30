@@ -120,7 +120,7 @@
             <!--##show-->
 
             <!--##hide-gal_sel-->
-            <div class="amt_info_box"">
+            <div class="amt_info_box">
                 <div title="Anschrift">
                     <img src="../../images/html/icon_adresse.jpg" title="Adresse:" alt="Adresse:" />
                     <span>!{str}</span>
@@ -153,12 +153,38 @@
                 </div>
                 <div class="clear"></div>
                 <!--##loop-anfahrtspics-->
-                <img src="!{path}" alt="Anfahrtskizze !{index}" style="border:1px solid #CCCCCC;padding:2px;" />
+                <div style="width:99%;overflow:hidden;">
+                    <h3>Anfahrtskizze !{index}</h3>
+                    <img id="route_pic_!{index}" src="!{path}" alt="Anfahrtskizze !{index}" style="" />
+                    <div class="clear"></div>
+                    <a class="print_skizze" href="void(0);" onclick="win_handling('!{path}','!{index}');return false;" style="float:right;display:none;">Anfahrtskizze !{index} drucken</a>
+                </div>
                 <!--##cont-->
                 <div class="clear"></div>
+                <hr />
                 <p><a href="standort,!{akz}.html">Galerie-Ansicht</a></p>
             </div>
-            <!--##cont-->
+            <script type="text/javascript">
+                function win_handling(url,id) {
+                    PrintAnsicht = window.open(url, "Anfahrtskizze", "width=540,height=540");
+                    PrintAnsicht.focus();
+                    window.setTimeout("print_pic()", 1000);
+                }
+                function print_pic() {
+                    PrintAnsicht.print();
+                    PrintAnsicht.close();
+
+                }
+                Event.observe(window, 'load',
+                    function() {
+                        $$('a.print_skizze').each(
+                            function(element) {
+                                new Effect.BlindDown(element,{duration:0.3});
+                            }
+                        );
+                    }
+                );
+            </script>
             <!--##show-->
 
             <!--##hide-bezirk-->

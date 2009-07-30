@@ -522,7 +522,7 @@
                 if ( is_array($anfahrts_pics) ) {
                     foreach ( $anfahrts_pics as $key=>$value ) {
                         $dataloop["anfahrtspics"][] = array(
-                               "index" => $key,
+                               "index" => ($key + 1),
                                  "akz" => $current_akz,
                                 "path" => $value,
                         );

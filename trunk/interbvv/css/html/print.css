@@ -33,7 +33,8 @@ body {
 #head,
 #site,
 #substance,
-.kekse {
+.kekse,
+.amt_info_box {
     padding-left:0;
     padding-right:0;
     width:100% !important;
