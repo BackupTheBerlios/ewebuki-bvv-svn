@@ -184,7 +184,7 @@
             $dataloop[$bereich."_edit"] = $buffer[-1];
             $dataloop[$bereich."_release_queue"] = $buffer[-2];
             $dataloop[$bereich."_release_wait"] = $buffer[-2];
-            $released_content = find_marked_content( $url, $cfg, "inhalt", array(1), array("max_age"=>30,"user"=>$_SESSION["username"]), FALSE );
+            $released_content = find_marked_content( $url, $cfg, "inhalt", array(1), array("max_age"=>30/*,"user"=>$_SESSION["username"]*/), FALSE );
             $dataloop[$bereich."_release_recent"] = $released_content[1];
 
             // unterschiedliche "toggle-bereiche" nachbearbeiten
@@ -192,7 +192,7 @@
                           "edit" => array("own","edit;publish"),
                  "release_queue" => array("all","publish"),
                   "release_wait" => array("own","edit"),
-                "release_recent" => array("own","edit;publish"),
+                "release_recent" => array("all","edit;publish"),
             );
             foreach ( $toggle_fields as $tog_key=>$tog_value ) {
                 $ausgaben["toggle_".$bereich."_".$tog_key] = "none";
@@ -252,6 +252,27 @@
                     }
                 }
             }
+
+            // bereiche werden nach aenderungsdatum sortiert
+            if ( !function_exists("sort_marked_content") ) {
+                function sort_marked_content($a,$b) {
+                    if ( $a["changed_db"] < $b["changed_db"] ) {
+                        return -1;
+                    } elseif ( $a["changed_db"] == $b["changed_db"] ) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                }
+            }
+            if ( is_array($dataloop[$bereich."_edit"]) )           uasort($dataloop[$bereich."_edit"],'sort_marked_content');
+            if ( is_array($dataloop[$bereich."_release_queue"]) )  uasort($dataloop[$bereich."_release_queue"],'sort_marked_content');
+            if ( is_array($dataloop[$bereich."_release_wait"]) )   uasort($dataloop[$bereich."_release_wait"],'sort_marked_content');
+            if ( is_array($dataloop[$bereich."_release_recent"]) ) uasort($dataloop[$bereich."_release_recent"],'sort_marked_content');
+            if ( is_array($dataloop["lokal_".$bereich."_edit"]) )           uasort($dataloop["lokal_".$bereich."_edit"],'sort_marked_content');
+            if ( is_array($dataloop["lokal_".$bereich."_release_queue"]) )  uasort($dataloop["lokal_".$bereich."_release_queue"],'sort_marked_content');
+            if ( is_array($dataloop["lokal_".$bereich."_release_wait"]) )   uasort($dataloop["lokal_".$bereich."_release_wait"],'sort_marked_content');
+            if ( is_array($dataloop["lokal_".$bereich."_release_recent"]) ) uasort($dataloop["lokal_".$bereich."_release_recent"],'sort_marked_content');
 
             // bereiche sichtbar machen
             if ( count($dataloop["lokal_".$bereich."_edit"]) > 0 && priv_check($url,"admin;edit") ) {
