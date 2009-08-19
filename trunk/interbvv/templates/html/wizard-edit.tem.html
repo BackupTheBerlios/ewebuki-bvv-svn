@@ -295,7 +295,7 @@
         <!--  LIST-Tag bearbeiten  -->
             <!--##hide-list-->
                     <fieldset class="ce">
-                        <div class="editor_buttons"><script type="text/javascript">ebToolbar('T')</script></div>
+                        <div class="editor_buttons" id="button_line"><script type="text/javascript">ebToolbar('T')</script></div>
                         <ul id="sort_list" width="100%">
                             <div class="clearer"></div>
                             <!--##loop-faq-->
@@ -308,8 +308,8 @@
                                     <span style="float:right" class="button">
                                         #(move)
                                     </span>
-                                    <textarea onfocus="new Effect.BlindUp(eb_acr, {duration: 0.2});new Effect.BlindUp(eb_b, {duration: 0.2});new Effect.BlindUp(eb_link, {duration: 0.2});" style="float:left;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="5">!{question}</textarea>
-                                    <textarea onfocus="new Effect.BlindDown(eb_acr, {duration: 0.2});new Effect.BlindDown(eb_b, {duration: 0.2});new Effect.BlindDown(eb_link, {duration: 0.2});ebCanvas=document.getElementById(!{count1})" style="float:left;width:75%" id="!{count1}" name="areas[!{count1}]" class="ta_norm" rows="5">!{answer}</textarea>
+                                    <textarea onfocus="new Effect.BlindUp('button_line', {duration: 0.2});" style="float:left;width:75%" id="!{count}" name="areas[!{count}]" class="ta_norm" rows="5">!{question}</textarea>
+                                    <textarea onfocus="new Effect.BlindDown('button_line', {duration: 0.2});ebCanvas=document.getElementById(!{count1})" style="float:left;width:75%" id="!{count1}" name="areas[!{count1}]" class="ta_norm" rows="5">!{answer}</textarea>
                                     <div class="clearer"></div>
 
                                     <div style="text-align:right">

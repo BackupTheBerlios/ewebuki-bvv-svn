@@ -941,7 +941,7 @@ div.autocomplete {
     background:#FEF6DE;
 }
 
-.formular input[type=checkbox], .formular input[type=radio] {
+.formular input[type=checkbox], .formular input[type=radio], .formular input.radiocheck {
     margin-top:3px;
     width:auto;
 }
