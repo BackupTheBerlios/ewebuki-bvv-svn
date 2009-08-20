@@ -125,14 +125,20 @@
             if ( $cfg["rss"]["utf_encoding"] == -1 ) $teaser = utf8_encode($teaser);
 
             // pubDate. RFC2822-formatierte Datum
+            // mit ausnahme, wenn bei artikel ein datum mitgeben wurde
+            if ( preg_match("/\[SORT\](.+)\[\/SORT\]/U",$data["content"],$match) ) {
+                $date = $match[1];
+            } else {
+                $date = $data["changed"];
+            }
             $pubDate = date("r",
                             mktime(
-                            substr($data["changed"],11,2),
-                            substr($data["changed"],14,2),
-                            substr($data["changed"],17,2),
-                            substr($data["changed"],5,2),
-                            substr($data["changed"],8,2),
-                            substr($data["changed"],0,4)
+                            substr($date,11,2),
+                            substr($date,14,2),
+                            substr($date,17,2),
+                            substr($date,5,2),
+                            substr($date,8,2),
+                            substr($date,0,4)
                             )
             );
 
@@ -141,7 +147,7 @@
                 $hidedata["rss"]["lastBuildDate"] = $pubDate;
             }
 
-            $dataloop["items"][$data["changed"]." - ".$data["ebene"]."/".$data["kategorie"]] = array(
+            $dataloop["items"][$date." - ".$data["ebene"]."/".$data["kategorie"]] = array(
                  "title" => $title,
                 "teaser" => $teaser,
                   "link" => $link,
