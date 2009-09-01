@@ -17,7 +17,9 @@
             <!--##hide-changed-->
             <h1>Pressemitteilungen</h1>
             <p style="float:right;text-align:right;font-size:85%">
-                <a href="../presse.html">&Uuml;bersicht</a>&nbsp;|&nbsp;<a href="?print[2]=print">Drucken</a>&nbsp;|&nbsp;<a href="mailto:?subject=Linkempfehlung&amp;body=http://www.vermessung.bayern.de!#pathvars_uri">Versenden</a>
+                <a href="../presse.html">&Uuml;bersicht</a>&nbsp;|&nbsp;
+                <a href="?print[2]=print" onclick="win_handling('?print[2]=print',0);return false;">Drucken</a>&nbsp;|&nbsp;
+                <a href="mailto:?subject=Linkempfehlung&amp;body=http://www.vermessung.bayern.de!#pathvars_uri">Versenden</a>
             </p>
             <p style="font-size:85%">!{changed}</p>
             <div class="clearer"></div>
@@ -49,13 +51,45 @@
             <p>!{datum} <a href="!{detaillink}">!{titel_org}</a>!{editlink}</p>
             <!--##cont-->
             <!--##hide-changed-->
-            <br /><br /><hr /><div style="float:left;text-align:left;font-size:85%">Alexandrastr. 4 <br />80538 München<br />Pressesprecher: Marcus Wandinger</div><div style="float:right;text-align:right;font-size:85%">Telefon: +49 89 2129 1000<br />Fax: +49 89 21292 1324<br /><a href="../../service/kontakt.html">Kontakt</a></a></div>
+            <br /><br /><hr />
+            <div style="float:left;text-align:left;font-size:85%">
+                Alexandrastr. 4 <br />
+                80538 M&uuml;nchen<br />
+                Pressesprecher: Marcus Wandinger
+            </div>
+            <div style="float:right;text-align:right;font-size:85%">
+                Telefon: +49 89 2129 1000<br />
+                Fax: +49 89 21292 1324<br />
+                <a href="../../service/kontakt.html">Kontakt</a></a>
+            </div>
             <div class="clearer"></div>
             <hr />
             <!--##show-->
             <p class="anchor">
                 <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
             </p>
+
+            <script type="text/javascript">
+                function win_handling(url,id) {
+                    PrintAnsicht = window.open(url, "Druckausgabe");
+                    PrintAnsicht.focus();
+                    window.setTimeout("print_pic()", 1000);
+                }
+                function print_pic(leave_open) {
+                    PrintAnsicht.print();
+                    PrintAnsicht.close();
+
+                }
+                Event.observe(window, 'load',
+                    function() {
+                        $$('a.print_skizze').each(
+                            function(element) {
+                                new Effect.BlindDown(element,{duration:0.3});
+                            }
+                        );
+                    }
+                );
+            </script>
         </div>
 
         #{margin}
