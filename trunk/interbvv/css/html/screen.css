@@ -593,9 +593,9 @@ ins {
 ----------------------*/
 
 /* keine float-effekte mehr */
-#site .clear {
-    clear:both;
-    height:0;
+.clear {
+    clear:both !important;
+    height:0 !important;
     float:none !important;
 }
 
