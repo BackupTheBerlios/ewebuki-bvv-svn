@@ -18,36 +18,21 @@
 
             <table style="width:100%;">
                 <tr>
-                    <th>Datei</th>
                     <th>Aufrufe</th>
+                    <th colspan="2">Datei</th>
                 </tr>
                 <!--##loop-count-->
                 <tr>
-                    <td>
-                        !{ffname}<br />
-                        !{funder}
-                    </td>
                     <td>!{index}</td>
+                    <td><b>!{funder}</b></td>
+                    <td>(<i>!{ffname}</i>)</td>
                 </tr>
                 <!--##cont-->
             </table>
-            !#ausgaben_output
 
-            <!--##hide-tags_on_page-->
-            <div class="aktuell cloud_pages">
-                <h3>#(rel_pages)</h3>
-                <ul>
-                    <!--##loop-rel_page-->
-                    <li class="!{class}" >
-                        <a href="!{url}" >!{title_content}</a>
-                    </li>
-                    <!--##cont-->
-                </ul>
-            </div>
-            <!--##show-->
-            <p class="anchor">
-                <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" width="10px" height="10px" />&nbsp;zum Seitenanfang</a>
-            </p>
+            <p style="float:left">g(anzahl)!#ausgaben_anzahl</p>
+            <p style="float:right">!#ausgaben_inhalt_selector</p>
+            !#ausgaben_output
         </div>
         #{margin}
 <!--##end-->

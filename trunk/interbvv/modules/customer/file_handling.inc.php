@@ -104,12 +104,20 @@
                         ON (db_count_files.fid=site_file.fid)
                   ORDER BY index DESC";
             if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
+
+            // seiten umschalter
+            $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], 20, $parameter, 1, 3, $getvalues );
+            $ausgaben["inhalt_selector"] = $inhalt_selector[0]."<br />";
+            $sql = $inhalt_selector[1];
+            $ausgaben["anzahl"] = $inhalt_selector[2];
+
             $result = $db -> query($sql);
             $i = 0;
             while ( $data = $db -> fetch_array($result,1) ) {
                 foreach ( $data as $key=>$value ) {
                     $dataloop["count"][$i][$key] = $value;
                 }
+                $dataloop["count"][$i]["pos"] = $i;
                 $i++;
             }
             $mapping["main"] = "file_handling_tem";
