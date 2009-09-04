@@ -97,9 +97,21 @@
         <!--##show-->
         <!--##hide-references-->
         <fieldset class="float">
+            <p>#(downloaded)<span id="count_downloads"></span></p>
             <p>#(references)!#ausgaben_reference</p>
             <p>#(ref_comp)!#ausgaben_ref_comp</p>
         </fieldset>
+        <script type="text/javascript">
+            Event.observe(window, 'load', function() {
+                new Ajax.Updater(
+                    'count_downloads',
+                    '/admin/file_handling.html',
+                    {
+                        parameters:'fid=!#environment_allparameter'
+                    }
+                );
+            });
+        </script>
         <!--##show-->
         <fieldset>
             <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
@@ -116,6 +128,7 @@
             <div class="clearer">&nbsp;</div>
         </fieldset>
     </div>
+
 
     <!--##hide-zip-->
     <div id="extract_edit" style="!#ausgaben_style_extract_edit;">
