@@ -94,6 +94,7 @@
         $mapping["screen"] = "screen_admin";
         $mapping["navi"] = "leer";
         $mapping["foot"] = "leer";
+        $mapping["margin"] = "leer";
         $ausgaben["user"] = $_SESSION["username"];
     }
 
