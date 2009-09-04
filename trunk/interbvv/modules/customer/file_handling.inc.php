@@ -97,22 +97,25 @@
         echo $downloads;
         die();
     } else {
-        $sql = "SELECT *
-                  FROM db_count_files
-                  JOIN site_file
-                    ON (db_count_files.fid=site_file.fid)
-              ORDER BY index DESC";
-        if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
-        $result = $db -> query($sql);
-        $i = 0;
-        while ( $data = $db -> fetch_array($result,1) ) {
-            foreach ( $data as $key=>$value ) {
-                $dataloop["count"][$i][$key] = $value;
+        if ( $_SESSION["uid"] != "" ) {
+            $sql = "SELECT *
+                      FROM db_count_files
+                      JOIN site_file
+                        ON (db_count_files.fid=site_file.fid)
+                  ORDER BY index DESC";
+            if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
+            $result = $db -> query($sql);
+            $i = 0;
+            while ( $data = $db -> fetch_array($result,1) ) {
+                foreach ( $data as $key=>$value ) {
+                    $dataloop["count"][$i][$key] = $value;
+                }
+                $i++;
             }
-            $i++;
+            $mapping["main"] = "file_handling_tem";
+        } else {
+            die();
         }
-echo "hallo";
-        $mapping["main"] = "file_handling_tem";
     }
 
 
