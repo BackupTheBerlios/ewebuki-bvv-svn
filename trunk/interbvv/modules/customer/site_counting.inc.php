@@ -49,7 +49,7 @@
 
             if ( $_GET["path"] != "" ) {
                 include_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
-                $menu = make_id(urldecode($_GET["path"]));
+                $menu = make_id(str_replace("www.vermessung.bayern.de","",urldecode($_GET["path"])));
                 if ( $menu["mid"] != 0 ) {
                     $sql = "SELECT *
                               FROM site_menu_lang
@@ -93,7 +93,11 @@
                 $hidedata["list"] = array();
                 $sql = "SELECT sum(count) as hits,path
                           FROM db_count_sites
-                         WHERE (path NOT LIKE '%rss' AND path NOT LIKE '%index' AND path NOT LIKE '%favicon%' AND path NOT LIKE '/admin%' AND path NOT LIKE '/wizard%')
+                         WHERE (path NOT LIKE '%rss'
+                            AND path NOT LIKE '%index'
+                            AND path NOT LIKE '%favicon%'
+                            AND path NOT LIKE 'internetredakteur.bvv.bayern.de/admin%'
+                            AND path NOT LIKE 'internetredakteur.bvv.bayern.de/wizard%')
                          GROUP BY path
                       ORDER BY hits DESC";
 
