@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>default</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--##begin-->
+        <!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+        <div id="substance" style="width:800px;">
+            #(inhalt)
+            <div class="clear"></div>
+
+            <!--##hide-detail-->
+            <h2>!{title}</h2>
+            <a href="!{back}">&laquo;&nbsp;zur&uuml;ck</a>
+            <div class="clear"></div>
+            <fieldset style="width:25%;float:left;margin-right:5px !important;">
+                <table style="width:100%;">
+                    <tr>
+                        <th>Monat</th>
+                        <th>Hits</th>
+                    </tr>
+                    <!--##loop-monthly-->
+                    <tr>
+                        <td style="width:40%">!{month}</td>
+                        <td style="width:40%">!{hits}</td>
+                    </tr>
+                    <!--##cont-->
+                </table>
+            </fieldset>
+            <fieldset style="width:70%;float:left;">
+                <table style="width:100%;">
+                    <tr>
+                        <th>Referer</th>
+                        <th>Hits</th>
+                    </tr>
+                    <!--##loop-referer-->
+                    <tr>
+                        <td style="width:90%">!{referer}</td>
+                        <td style="width:10%">!{hits}</td>
+                    </tr>
+                    <!--##cont-->
+                </table>
+            </fieldset>
+            <div class="clear"></div>
+            <!--##show-->
+
+            <!--##hide-list-->
+            <table style="width:100%;">
+                <tr>
+                    <th style="width:10%">Aufrufe</th>
+                    <th>Seite</th>
+                    <th style="width:15%">&nbsp;</th>
+                </tr>
+                <!--##loop-count-->
+                <tr>
+                    <td>!{hits}</td>
+                    <td>!{path}</td>
+                    <td><a href="!{link}">mehr Infos</a></td>
+                </tr>
+                <!--##cont-->
+            </table>
+
+            <p style="float:left">g(anzahl)!#ausgaben_anzahl</p>
+            <p style="float:right">!#ausgaben_inhalt_selector</p>
+            <!--##show-->
+            !#ausgaben_output
+        </div>
+        #{margin}
+<!--##end-->
+    </body>
+</html>
+file:///srv/www/htdocs/internet/interbvv.ext/templates/html/file_handling_tem.tem.html
