@@ -132,7 +132,7 @@
                     foreach ( $data as $key=>$value ) {
                         $dataloop["count"][$i][$key] = $value;
                     }
-                    $csv .= $data["hits"].";".$data["path"];
+                    $csv .= $data["hits"].";".$data["path"]."\n";
                     $dataloop["count"][$i]["link"] = "?path=".urlencode($data["path"]);
                     $i++;
                 }
