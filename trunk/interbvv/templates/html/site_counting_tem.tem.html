@@ -21,7 +21,21 @@
             <h2>!{title}</h2>
             <a href="!{back}">&laquo;&nbsp;zur&uuml;ck</a>
             <div class="clear"></div>
-            <fieldset style="width:25%;float:left;margin-right:5px !important;">
+            <fieldset style="width:70%;float:left;">
+                <table style="width:100%;">
+                    <tr>
+                        <th>Referer</th>
+                        <th>Hits</th>
+                    </tr>
+                    <!--##loop-referer-->
+                    <tr>
+                        <td style="width:90%">!{referer}</td>
+                        <td style="width:10%">!{hits}</td>
+                    </tr>
+                    <!--##cont-->
+                </table>
+            </fieldset>
+            <fieldset style="width:25%;float:left;margin-left:5px !important;">
                 <table style="width:100%;">
                     <tr>
                         <th>Monat</th>
@@ -35,15 +49,16 @@
                     <!--##cont-->
                 </table>
             </fieldset>
+            <div class="clear"></div>
             <fieldset style="width:70%;float:left;">
                 <table style="width:100%;">
                     <tr>
-                        <th>Referer</th>
+                        <th>Folge-Seiten</th>
                         <th>Hits</th>
                     </tr>
-                    <!--##loop-referer-->
+                    <!--##loop-follows-->
                     <tr>
-                        <td style="width:90%">!{referer}</td>
+                        <td style="width:90%">!{follows}</td>
                         <td style="width:10%">!{hits}</td>
                     </tr>
                     <!--##cont-->
@@ -70,6 +85,15 @@
 
             <p style="float:left">g(anzahl)!#ausgaben_anzahl</p>
             <p style="float:right">!#ausgaben_inhalt_selector</p>
+            <div class="clear"></div>
+            <fieldset>
+                <legend>CSV-Ausgabe</legend>
+                <a href="site_counting,0,10,csv.html">[ Top10 ] </a>&nbsp;&nbsp;
+                <a href="site_counting,0,25,csv.html">[ Top25 ] </a>&nbsp;&nbsp;
+                <a href="site_counting,0,50,csv.html">[ Top50 ] </a>&nbsp;&nbsp;
+                <a href="site_counting,0,100,csv.html">[ Top100 ] </a>&nbsp;&nbsp;
+                <a href="site_counting,0,500,csv.html">[ Top500 ] </a>&nbsp;&nbsp;
+            </fieldset>
             <!--##show-->
             !#ausgaben_output
         </div>

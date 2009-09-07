@@ -89,6 +89,20 @@
                         "hits"  => $data["hits"],
                     );
                 }
+                // follower auswertung
+                $sql = "SELECT sum(count) as hits, path, referer
+                          FROM db_count_sites_referer
+                         WHERE referer LIKE '%".str_replace("www.","",urldecode($_GET["path"])).".html'
+                      GROUP BY referer,path
+                      ORDER BY hits DESC
+                         LIMIT 0,10";
+                $result = $db -> query($sql);
+                while ( $data = $db -> fetch_array($result,1) ) {
+                    $dataloop["follows"][] = array(
+                        "follows" => $data["path"],
+                        "hits"  => $data["hits"],
+                    );
+                }
             } else {
                 $hidedata["list"] = array();
                 $sql = "SELECT sum(count) as hits,path
@@ -102,19 +116,32 @@
                       ORDER BY hits DESC";
 
                 // seiten umschalter
-                $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], 20, $parameter, 1, 3, $getvalues );
+                if ( $environment["parameter"][2] != "" && is_numeric($environment["parameter"][2]) ) {
+                    $rows = $environment["parameter"][2];
+                } else {
+                    $rows = 50;
+                }
+                $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], $rows, $parameter, 1, 3, $getvalues );
                 $ausgaben["inhalt_selector"] = $inhalt_selector[0]."<br />";
                 $sql = $inhalt_selector[1];
                 $ausgaben["anzahl"] = $inhalt_selector[2];
 
                 $result = $db -> query($sql);
-                $i = 0;
+                $i = 0; $csv = "";
                 while ( $data = $db -> fetch_array($result,1) ) {
                     foreach ( $data as $key=>$value ) {
                         $dataloop["count"][$i][$key] = $value;
                     }
+                    $csv .= $data["hits"].";".$data["path"];
                     $dataloop["count"][$i]["link"] = "?path=".urlencode($data["path"]);
                     $i++;
+                }
+
+                if ( $environment["parameter"][3] == "csv" ) {
+                    header("Content-type: text/csv");
+                    header("Content-Disposition: attachment; filename=\"bvv_seiten_statistik_top_".$rows.".csv\"");
+                    echo $csv;
+                    die();
                 }
             }
             $mapping["main"] = "site_counting_tem";
