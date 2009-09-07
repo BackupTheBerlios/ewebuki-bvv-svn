@@ -117,6 +117,8 @@
                 foreach ( $data as $key=>$value ) {
                     $dataloop["count"][$i][$key] = $value;
                 }
+                $first = explode("-",$data["first"]);
+                $dataloop["count"][$i]["datum"] = $first[2].".".$first[1].".".$first[0];
                 $dataloop["count"][$i]["pos"] = $i;
                 $i++;
             }
