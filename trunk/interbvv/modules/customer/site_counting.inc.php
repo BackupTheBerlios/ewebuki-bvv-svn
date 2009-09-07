@@ -93,6 +93,7 @@
                 $hidedata["list"] = array();
                 $sql = "SELECT sum(count) as hits,path
                           FROM db_count_sites
+                         WHERE (path NOT LIKE '%rss' AND path NOT LIKE '%index' AND path NOT LIKE '%favicon%' AND path NOT LIKE '/admin%' AND path NOT LIKE '/wizard%')
                          GROUP BY path
                       ORDER BY hits DESC";
 
