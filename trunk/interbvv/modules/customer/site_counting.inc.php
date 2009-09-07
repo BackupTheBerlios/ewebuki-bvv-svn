@@ -116,7 +116,9 @@
             $mapping["main"] = "site_counting_tem";
         }
     } else {
-        $path = $environment["ebene"]."/".$environment["allparameter"];
+        $domain = $_SERVER["HTTP_X_FORWARDED_SERVER"];
+        if ( $domain == "" ) $domain = $_SERVER["SERVER_NAME"];
+        $path = $domain.$environment["ebene"]."/".$environment["allparameter"];
         $month = date("Y-m");
         // ist seite schon einmal gezaehlt
         $sql = "SELECT *
