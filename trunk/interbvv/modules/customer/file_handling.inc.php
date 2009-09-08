@@ -100,11 +100,10 @@
             $result = $db -> query($sql);
         }
         // datei ausgeben
-//         include_once $pathvars["fileroot"]."/basic/wrapper.php";
+        include_once $pathvars["fileroot"]."/basic/wrapper.php";
         die();
     }
 
-//     if ( ($_POST["fid"] != "" || $_GET["fid"]) && ($_POST["ajax"] != "" || $_GET["ajax"]) ) {
     if ( ($_POST["fid"] != "" && $_POST["ajax"] != "") || ($_GET["fid"] != "" && $_GET["ajax"]) ) {
         // ajax-ausgabe
         $fid = trim($_POST["fid"]).trim($_GET["fid"]);
