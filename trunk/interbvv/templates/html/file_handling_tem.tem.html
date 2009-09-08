@@ -16,24 +16,61 @@
         <div id="substance" style="width:800px;">
             #(inhalt)
 
+            <!--##hide-detail-->
+            <h2>!{funder} <i>(!{ffname})</i></h2>
+            <a href="!{back}">&laquo;&nbsp;zur&uuml;ck</a>
+            <div class="clear"></div>
+            <fieldset style="width:70%;float:left;">
+                <table style="width:100%;">
+                    <tr>
+                        <th>Referer</th>
+                        <th>Hits</th>
+                    </tr>
+                    <!--##loop-referer-->
+                    <tr>
+                        <td style="width:90%">!{referer}</td>
+                        <td style="width:10%">!{hits}</td>
+                    </tr>
+                    <!--##cont-->
+                </table>
+            </fieldset>
+            <fieldset style="width:25%;float:left;margin-left:5px !important;">
+                <table style="width:100%;">
+                    <tr>
+                        <th>Monat</th>
+                        <th>Hits</th>
+                    </tr>
+                    <!--##loop-monthly-->
+                    <tr>
+                        <td style="width:40%"><a href="!{link}">!{period}</a></td>
+                        <td style="width:40%">!{hits}</td>
+                    </tr>
+                    <!--##cont-->
+                </table>
+            </fieldset>
+            <div class="clear"></div>
+            <!--##show-->
+
+            <!--##hide-list-->
             <table style="width:100%;">
                 <tr>
                     <th>Aufrufe</th>
-                    <th>seit</th>
                     <th colspan="2">Datei</th>
+                    <th>&nbsp;</th>
                 </tr>
                 <!--##loop-count-->
                 <tr>
-                    <td>!{index}</td>
-                    <td>!{datum}</td>
+                    <td>!{count}</td>
                     <td><b>!{funder}</b></td>
                     <td>(<i>!{ffname}</i>)</td>
+                    <td><a href="!{link}">mehr Infos</a></td>
                 </tr>
                 <!--##cont-->
             </table>
 
             <p style="float:left">g(anzahl)!#ausgaben_anzahl</p>
             <p style="float:right">!#ausgaben_inhalt_selector</p>
+            <!--##show-->
             !#ausgaben_output
         </div>
         #{margin}

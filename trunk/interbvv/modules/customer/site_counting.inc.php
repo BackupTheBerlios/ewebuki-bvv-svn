@@ -84,9 +84,14 @@
                          LIMIT 0,10";
                 $result = $db -> query($sql);
                 while ( $data = $db -> fetch_array($result,1) ) {
+                    if ( $data["referer"] != "" ) {
+                        $referer = $data["referer"];
+                    } else {
+                        $referer = "(direkter Aufruf)";
+                    }
                     $dataloop["referer"][] = array(
-                        "referer" => $data["referer"],
-                        "hits"  => $data["hits"],
+                        "referer" => $referer,
+                        "hits"    => $data["hits"],
                     );
                 }
                 // follower auswertung
@@ -145,6 +150,8 @@
                 }
             }
             $mapping["main"] = "site_counting_tem";
+        } else {
+            header("Location:".$pathvars["pretorian"]);
         }
     } else {
         $domain = $_SERVER["HTTP_X_FORWARDED_SERVER"];
