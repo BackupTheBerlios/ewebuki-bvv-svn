@@ -102,7 +102,7 @@
         $halt = "";
         if ( is_array($dataloop["group_id"]) ) {
             foreach ( $dataloop["group_id"] as $gruppe ) {
-                if ( $halt == -1 ) break;
+//                 if ( $halt == -1 ) break;
                 $sql = "SELECT *
                           FROM auth_content
                          WHERE gid='".$gruppe."'
