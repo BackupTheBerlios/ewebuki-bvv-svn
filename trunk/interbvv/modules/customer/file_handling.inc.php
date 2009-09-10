@@ -162,8 +162,13 @@
                       ORDER BY count DESC";
                 $result = $db -> query($sql);
                 while ( $data = $db -> fetch_array($result,1) ) {
+                    if ( $data["referer"] != "" ) {
+                        $referer = $data["referer"];
+                    } else {
+                        $referer = "(direkter Aufruf)";
+                    }
                     $dataloop["referer"][] = array(
-                        "referer" => $data["referer"],
+                        "referer" => $referer,
                         "hits"    => $data["count"],
                     );
                 }
