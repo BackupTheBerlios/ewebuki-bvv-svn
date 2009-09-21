@@ -359,7 +359,8 @@
 //                 $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $tags[] = "";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
-                $hidedata["all"]["out"] = $all[1]["all"];
+//                 $hidedata["all"]["out"] = $all[1]["all"];
+                $hidedata["all"]["out"] = content($all[1]["all"],"amt-allg");
                 unset($hidedata["aussenstelle"]);
                 if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
                     foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
@@ -394,7 +395,8 @@
 //                 $hidedata["sub_menu"]["link"] = "aktuell.html";
                 $tags[] = "";
                 $all = show_blog("/aktuell/presse",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/presse"]["rows"],$kat);
-                $hidedata["all"]["out"] = $all[1]["all"];
+//                 $hidedata["all"]["out"] = $all[1]["all"];
+                $hidedata["all"]["out"] = content($all[1]["all"],"amt-allg");
                 unset($hidedata["aussenstelle"]);
                 if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
                     foreach ( $cfg["aemter"]["sub_menu"] as $key => $value ) {
@@ -456,7 +458,8 @@
                 $all = show_blog("/aktuell/termine",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/termine"]["rows"],$kat);
 
                 if ( $environment["parameter"][3] == "all" ) {
-                    $hidedata["all"]["out"] = $all[1]["all"];
+//                     $hidedata["all"]["out"] = $all[1]["all"];
+                    $hidedata["all"]["out"] = content($all[1]["all"],"amt-allg");
                 }
 
                 foreach ( $tags as $key => $value ) {
