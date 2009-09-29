@@ -597,6 +597,7 @@ ins {
     clear:both !important;
     height:0 !important;
     float:none !important;
+    width:100% !important;
 }
 
 .hidden {
@@ -651,6 +652,24 @@ p.teaser{
     font-weight:bold;
     margin:5px;
     padding:5px;
+}
+
+/* pfeil-hintergrund z.B. bei links */
+.arrow_up {
+    background:url('/images/html/arrow_up.png') no-repeat left center;
+    padding-left:18px;
+}
+.arrow_right {
+    background:url('/images/html/arrow_right.png') no-repeat left center;
+    padding-left:18px;
+}
+.arrow_down {
+    background:url('/images/html/arrow_down.png') no-repeat left center;
+    padding-left:18px;
+}
+.arrow_left {
+    background:url('/images/html/arrow_left.png') no-repeat left center;
+    padding-left:18px;
 }
 
 
@@ -994,7 +1013,7 @@ label.ganz {
 }
 
 #margin .box {
-    margin:0 3px 20px;
+    margin:0 3px 3px;
 }
 
 #margin .add .box {

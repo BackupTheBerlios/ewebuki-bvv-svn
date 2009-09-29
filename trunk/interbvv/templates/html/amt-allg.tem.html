@@ -41,7 +41,7 @@
 
             <!--##hide-sub_menu-->
             <p>
-                <a href="!{link}" class="">zurück</a>
+                <a href="index.html" class="" style="background:url('/images/html/arrow_left.png') no-repeat left center;padding-left:18px;">zur Startseite</a>
             </p>
             <!--##show-->
 
@@ -245,8 +245,6 @@
 
             <!--##hide-artikel-->
             <h2>Meldungen</h2>
-            <!--##show-->
-
             <!--##loop-artikel-->
             <div style="margin-top:0px" class="single_news">
                 !{datum}<h2>!{titel_org}</h2>
@@ -257,9 +255,70 @@
                 <div class="clearer"></div>
             </div>
             <!--##cont-->
-            <!--##loop-artikel2-->
-            <p>!{datum} <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}</p>
-            <!--##cont-->
+            <ul class="no-style">
+                <!--##loop-artikel2-->
+                <li style="margin:0;">
+                    <span class="left" style="width:15%;">!{datum}</span>
+                    <div class="left" style="width:85%;">
+                        <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <!--##cont-->
+            </ul>
+            <!--##show-->
+
+            <!--##hide-artikel_amt-->
+            <fieldset style="margin-top:15px" class="amt_info_box">
+                <h2>Artikel des !#ausgaben_amt</h2>
+                <ul class="no-style">
+                    <!--##loop-artikel2-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{datum}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+                <!--##hide-office_artikel_inhalt_selector-->
+                <div class="clear"></div>
+                <hr />
+                <div style="float:left;">Gesamt: !#ausgaben_office_anzahl</div>
+                <div style="float:right;text-align:right;">!#ausgaben_office_inhalt_selector</div>
+                <div class="clear"></div>
+                <!--##show-->
+            <!--##hide-artikel_amt-->
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-artikel_bvv-->
+            <fieldset style="margin-top:15px" class="amt_info_box">
+                <h2>Artikel auf www.vermessung.bayern.de</h2>
+                <ul class="no-style">
+                    <!--##loop-artikel_bvv-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{datum}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+                <!--##hide-bvv_artikel_inhalt_selector-->
+                <div class="clear"></div>
+                <hr />
+                <div style="float:left;">Gesamt: !#ausgaben_bvv_anzahl</div>
+                <div style="float:right;text-align:right;">!#ausgaben_bvv_inhalt_selector</div>
+                <div class="clear"></div>
+                <!--##show-->
+            <!--##hide-artikel_bvv-->
+            </fieldset>
+            <!--##show-->
 
             <!--##hide-artikel-->
             <span style="float:right">#(uebersicht_artikel)</span>
@@ -268,11 +327,70 @@
 
             <!--##hide-presse-->
             <h2>Pressemitteilungen</h2>
+            <ul class="no-style">
+                <!--##loop-presse-->
+                <li style="margin:0;">
+                    <span class="left" style="width:15%;">!{datum}</span>
+                    <div class="left" style="width:85%;">
+                        <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <!--##cont-->
+            </ul>
             <!--##show-->
 
-            <!--##loop-presse-->
-            <p>!{datum} <a href="presse,,!{id}.html">!{titel_org}</a>!{editlink}</p>
-            <!--##cont-->
+            <!--##hide-presse_amt-->
+            <fieldset style="margin-top:15px" class="amt_info_box">
+                <h2>Pressemitteilungen des !#ausgaben_amt</h2>
+                <ul class="no-style">
+                    <!--##loop-presse_amt-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{datum}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+                <!--##hide-office_presse_inhalt_selector-->
+                <div class="clear"></div>
+                <hr />
+                <div style="float:left;">Gesamt: !#ausgaben_office_anzahl</div>
+                <div style="float:right;text-align:right;">!#ausgaben_office_inhalt_selector</div>
+                <div class="clear"></div>
+                <!--##show-->
+            <!--##hide-presse_amt-->
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-presse_bvv-->
+            <fieldset style="margin-top:15px" class="amt_info_box">
+                <h2>Pressemitteilungen auf www.vermessung.bayern.de</h2>
+                <ul class="no-style">
+                    <!--##loop-presse_bvv-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{datum}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="artikel,,!{id}.html">!{titel_org}</a>!{editlink}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+                <!--##hide-bvv_presse_inhalt_selector-->
+                <div class="clear"></div>
+                <hr />
+                <div style="float:left;">Gesamt: !#ausgaben_bvv_anzahl</div>
+                <div style="float:right;text-align:right;">!#ausgaben_bvv_inhalt_selector</div>
+                <div class="clear"></div>
+                <!--##show-->
+            <!--##hide-presse_bvv-->
+            </fieldset>
+            <!--##show-->
 
             <!--##hide-presse-->
             <span style="float:right">#(uebersicht_presse)</span>
@@ -281,11 +399,70 @@
 
             <!--##hide-termine-->
             <h2>Termine</h2>
+            <ul class="no-style">
+                <!--##loop-termine-->
+                <li style="margin:0;">
+                    <span class="left" style="width:15%;">!{datum}</span>
+                    <div class="left" style="width:85%;">
+                        <a href="artikel,,!{id}.html">!{termine_org}</a>!{editlink}
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <!--##cont-->
+            </ul>
             <!--##show-->
 
-            <!--##loop-termine-->
-            <p>!{datum} <a href="termine,,!{id},all.html">!{termine_org}</a></p>
-            <!--##cont-->
+            <!--##hide-termine_amt-->
+            <fieldset style="margin-top:15px" class="amt_info_box">
+                <h2>Termine des !#ausgaben_amt</h2>
+                <ul class="no-style">
+                    <!--##loop-termine_amt-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{datum}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="artikel,,!{id}.html">!{termine_org}</a>!{editlink}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+                <!--##hide-office_termine_inhalt_selector-->
+                <div class="clear"></div>
+                <hr />
+                <div style="float:left;">Gesamt: !#ausgaben_office_anzahl</div>
+                <div style="float:right;text-align:right;">!#ausgaben_office_inhalt_selector</div>
+                <div class="clear"></div>
+                <!--##show-->
+            <!--##hide-termine_amt-->
+            </fieldset>
+            <!--##show-->
+
+            <!--##hide-termine_bvv-->
+            <fieldset style="margin-top:15px" class="amt_info_box">
+                <h2>Termine auf www.vermessung.bayern.de</h2>
+                <ul class="no-style">
+                    <!--##loop-termine_bvv-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{datum}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="artikel,,!{id}.html">!{termine_org}</a>!{editlink}
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            <!--##show-->
+                <!--##hide-bvv_termine_inhalt_selector-->
+                <div class="clear"></div>
+                <hr />
+                <div style="float:left;">Gesamt: !#ausgaben_bvv_anzahl</div>
+                <div style="float:right;text-align:right;">!#ausgaben_bvv_inhalt_selector</div>
+                <div class="clear"></div>
+                <!--##show-->
+            <!--##hide-termine_bvv-->
+            </fieldset>
+            <!--##show-->
 
             <!--##hide-termine-->
             <span style="float:right">#(uebersicht_termine)</span>
@@ -328,40 +505,80 @@
             <!--##show-->
 
             <!--##hide-aktuelles-->
-            <h2>!{text}</h2>
             <div style="margin-top:15px" class="amt_info_box">
+                <h2>!{text}</h2>
             <!--##show-->
                 <!--##hide-aktuelles_archiv-->
                 <b>Meldungen</b>
                 <ul style="list-style:none">
-                <!--##loop-/aktuell/archiv-->
-                    <li><a href="!{link}">!{date}</a> !{text}</li>
-                <!--##cont-->
+                    <!--##loop-/aktuell/archiv-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{date}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="!{link}">!{text}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                    <li style="margin:0;"><a href="va-archiv.html" class="arrow_right">zum Archiv</a></li>
                 </ul>
+                <div class="clear"></div>
                 <!--##show-->
                 <!--##hide-aktuelles_presse-->
                 <div><b>Pressemitteilungen</b></div>
                 <ul style="list-style:none">
-                <!--##loop-/aktuell/presse-->
-                    <li><a href="!{link}">!{date}</a> !{text}</li>
-                <!--##cont-->
+                    <!--##loop-/aktuell/presse-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{date}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="!{link}">!{text}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                    <li style="margin:0;"><a href="va-archiv.html" class="arrow_right">zum Archiv</a></li>
                 </ul>
                 <!--##show-->
                 <!--##hide-aktuelles_termine-->
                 <b>Termine</b>
                 <ul style="list-style:none">
-                <!--##loop-/aktuell/termine-->
-                    <li><a href="!{link}">!{date}</a> !{text}</li>
-                <!--##cont-->
+                    <!--##loop-/aktuell/termine-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{date}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="!{link}">!{text}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                    <li style="margin:0;"><a href="va-archiv.html" class="arrow_right">zum Archiv</a></li>
                 </ul>
                 <!--##show-->
             <!--##hide-aktuelles-->
             </div>
             <div class="clear"></div>
             <!--##show-->
+            <!--##hide-bvv_artikel-->
+            <div style="margin-top:15px" class="amt_info_box">
+                <h2>Aktuelles auf www.vermessung.bayern.de</h2>
+                <ul style="list-style:none">
+                    <!--##loop-bvv_artikel-->
+                    <li style="margin:0;">
+                        <span class="left" style="width:15%;">!{date}</span>
+                        <div class="left" style="width:85%;">
+                            <a href="!{link}">!{text}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                    <li style="margin:0;"><a href="va-archiv.html" class="arrow_right">zum Archiv</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <!--##show-->
 
             <p class="anchor">
-                <a href="#top"><img src="../../images/html/nach_oben.png" alt="zum Seitenanfang" />&nbsp;zum Seitenanfang</a>
+                <a href="#top" class="arrow_up">zum Seitenanfang</a>
             </p>
 
             <script type="text/javascript">

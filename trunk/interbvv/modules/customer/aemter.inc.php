@@ -352,6 +352,33 @@
                 }
                 if ( $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
 
+                // bayernweite artikel anzeigen
+                $sql = "SELECT Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,
+                               tname,
+                               ebene,
+                               kategorie,
+                               content
+                          FROM site_text
+                         WHERE status='1'
+                           AND ( tname like '".$art_tname."')
+                           AND Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00'
+                           AND SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aktuell/archiv'
+                      ORDER BY date DESC";
+                $result = $db -> query($sql);
+                $count = 0; $dataloop["bvv_artikel"] = array();
+                while ( $data = $db->fetch_array($result,1) ) {
+                    $count++;
+                    preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+                    $dataloop["bvv_artikel"][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                    $dataloop["bvv_artikel"][$count]["link"] =  "termine,,".$data["kategorie"].",all.html";
+                    $dataloop["bvv_artikel"][$count]["text"] =  $match[1];
+                    $dataloop["bvv_artikel"][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+                }
+                if ( count($dataloop["bvv_artikel"]) > 0 ) {
+// echo "<pre>".print_r($dataloop["bvv_artikel"],true)."</pre>";
+                    $hidedata["bvv_artikel"] = array();
+                }
+
                 break;
             case "artikel":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
@@ -653,20 +680,19 @@
                                         </tr>";
                             $row_header = "";
                         }
-                    } else {
-                        $sql = "SELECT *
-                                    FROM db_aemter
-                                    WHERE adakz='".$current_akz."'";
-                        $result = $db -> query($sql);
-                        $data = $db->fetch_array($result,1);
-                        $buffer[] = "<tr>
-                                        <th>#(".$function.")</th>
-                                        <td style=\"white-space:nowrap;\">Servicezentrum</td>
-                                        <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
-                                    </tr>";
                     }
                 }
                 if ( count($buffer) > 0 ) {
+                    $sql = "SELECT *
+                                FROM db_aemter
+                                WHERE adakz='".$current_akz."'";
+                    $result = $db -> query($sql);
+                    $data = $db->fetch_array($result,1);
+                    $buffer[] = "<tr>
+                                    <th>#(weitere)</th>
+                                    <td style=\"white-space:nowrap;\">Servicezentrum</td>
+                                    <td style=\"white-space:nowrap;\">".$data["adtelver"]."</td>
+                                </tr>";
                     $dataloop["stellen"][$current_akz]["ansprech"] = implode("\n",$buffer);
                 }
                 // ggf belegschaftsbild
@@ -752,7 +778,26 @@
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","","/aemter/".$amtid."/index");
+                // artikel des amtes
+                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aemter/".$amtid."/index");
+                $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
+                $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
+                if ( count($dataloop["artikel2"]) > 0 ) $hidedata["artikel_amt"] = array();
+                if ($ausgaben["office_anzahl"] > 10 ) {
+                    $hidedata["office_artikel_inhalt_selector"] = array();
+                }
+                unset($hidedata["inhalt_selector"]);
+                // bayernweite artikel
+                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+                $dataloop["artikel_bvv"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aktuell/archiv");
+                $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
+                $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
+                if ( count($dataloop["artikel_bvv"]) > 0 ) $hidedata["artikel_bvv"] = array();
+                if ($ausgaben["bvv_anzahl"] > 10 ) {
+                    $hidedata["bvv_artikel_inhalt_selector"] = array();
+                }
+                unset($hidedata["inhalt_selector"]);
                 break;
             case "va-termine":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
@@ -763,7 +808,26 @@
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                $dataloop["termine"] = show_blog("/aktuell/termine",$tags,"disabled","","/aemter/".$amtid."/index");
+                // termine des amtes
+                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+                $dataloop["termine_amt"] = show_blog("/aktuell/termine",$tags,"disabled","10","/aemter/".$amtid."/index");
+                $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
+                $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
+                if ( count($dataloop["termine_amt"]) > 0 ) $hidedata["termine_amt"] = array();
+                if ($ausgaben["office_anzahl"] > 10 ) {
+                    $hidedata["office_termin_inhalt_selector"] = array();
+                }
+                unset($hidedata["inhalt_selector"]);
+                // bayernweite termine
+                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+                $dataloop["termine_bvv"] = show_blog("/aktuell/termine",$tags,"disabled","10","/aktuell/termine");
+                $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
+                $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
+                if ( count($dataloop["termine_bvv"]) > 0 ) $hidedata["termine_bvv"] = array();
+                if ($ausgaben["bvv_anzahl"] > 10 ) {
+                    $hidedata["bvv_termin_inhalt_selector"] = array();
+                }
+                unset($hidedata["inhalt_selector"]);
                 break;
             case "va-presse":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
@@ -774,7 +838,26 @@
                 $tags["image"] = "IMG=";
                 $tags["termine"] = "_NAME";
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$amtid."/index");
+                // pressemitteilungen des amtes
+                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+                $dataloop["termine_amt"] = show_blog("/aktuell/presse",$tags,"disabled","10","/aemter/".$amtid."/index");
+                $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
+                $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
+                if ( count($dataloop["presse_amt"]) > 0 ) $hidedata["presse_amt"] = array();
+                if ($ausgaben["office_anzahl"] > 10 ) {
+                    $hidedata["office_presse_inhalt_selector"] = array();
+                }
+                unset($hidedata["inhalt_selector"]);
+                // bayernweite pressemitteilungen
+                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+                $dataloop["presse_bvv"] = show_blog("/aktuell/presse",$tags,"disabled","10","/aktuell/presse");
+                $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
+                $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
+                if ( count($dataloop["presse_bvv"]) > 0 ) $hidedata["presse_bvv"] = array();
+                if ($ausgaben["bvv_anzahl"] > 10 ) {
+                    $hidedata["bvv_presse_inhalt_selector"] = array();
+                }
+                unset($hidedata["inhalt_selector"]);
                 break;
         }
 
