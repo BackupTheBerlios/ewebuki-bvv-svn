@@ -370,7 +370,7 @@
                     $count++;
                     preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
                     $dataloop["bvv_artikel"][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop["bvv_artikel"][$count]["link"] =  "termine,,".$data["kategorie"].",all.html";
+                    $dataloop["bvv_artikel"][$count]["link"] =  "artikel,,".$data["kategorie"].".html";
                     $dataloop["bvv_artikel"][$count]["text"] =  $match[1];
                     $dataloop["bvv_artikel"][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
                 }
