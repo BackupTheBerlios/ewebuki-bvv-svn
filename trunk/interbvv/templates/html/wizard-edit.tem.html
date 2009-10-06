@@ -529,28 +529,18 @@
         }
         return false;
     }
-// <!--##hide-terminecal-->
+// <!--##loop-calendar-->
     Calendar.setup(
     {
-        inputField  : "date1",         // ID of the input field
+        inputField  : "!{id}",         // ID of the input field
         ifFormat    : "%d.%m.%Y",    // the date format
         //  showsTime : true, // will display a time selector
-        button : "trigger1", // trigger for the calendar (button ID)
+        button : "!{button}", // trigger for the calendar (button ID)
         //  singleClick : false, // double-click mode
         step : 1
     }
     );
-// <!--##show-->
-// <!--##hide-terminecal1-->
-    Calendar.setup(
-    {
-        inputField  : "date2",         // ID of the input field
-        ifFormat    : "%d.%m.%Y",    // the date format
-        button      : "trigger2",       // ID of the button
-        step : 1
-    }
-    );
-// <!--##show-->
+// <!--##cont-->
 
 
 //     Event.observe(window,'load', function () {
