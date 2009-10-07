@@ -112,6 +112,24 @@
             // link
             if ( $cfg["rss"]["webroot"] != "" ) {
                 $link = $cfg["rss"]["webroot"].$data["ebene"]."/".$data["kategorie"].".html";
+                if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") || strstr($_SERVER["SERVER_NAME"],"krompi") ) {
+                    $link = str_replace(
+                        array(
+                            $cfg["rss"]["webroot"],
+                            ".int-dmz.bayern",
+                            "/aktuell",
+                            "archiv",
+                        ),
+                        array(
+                            "http://www.".$_SERVER["SERVER_NAME"],
+                            "",
+                            "",
+                            "artikel",
+                        ),
+                        $link
+                    );
+                    $link = preg_replace("/\/([0-9]+)\.html$/Ui",',,$1.html',$link);
+                }
             } else {
                 $link = $pathvars["webroot"].$data["ebene"]."/".$data["kategorie"].".html";
             }
