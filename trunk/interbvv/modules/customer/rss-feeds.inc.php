@@ -43,10 +43,10 @@
 */
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    if ( preg_match("/^\/aemter/",$environment["ebene"]."/".$environment["kategorie"]) ) {
+    if ( preg_match("/^\/aemter/",$environment["ebene"]."/".$environment["kategorie"]) || strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
         foreach ( $cfg["rss-feeds"]["default"] as $key=>$value ) {
             $cfg["rss-feeds"]["default"][$key]["title"] = $ausgaben["amt"].": ".$value["title"];
-            $cfg["rss-feeds"]["default"][$key]["href"] = $value["href"]."?kategorie=/aemter/".$amtid;
+            $cfg["rss-feeds"]["default"][$key]["href"] = $value["href"]."?kategorie=/aemter/".$current_akz;
         }
     } elseif ( !preg_match("/^\/aktuell/",$environment["ebene"]."/".$environment["kategorie"]) ) {
         $cfg["rss-feeds"]["default"][] = array(
