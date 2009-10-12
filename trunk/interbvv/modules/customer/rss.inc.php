@@ -55,7 +55,11 @@
 
         // content dieser ebene suchen
         $ebene = make_ebene($refid);
-        rss_get_content($ebene);
+        if ( preg_match("/^\/aktuell/",$ebene) ) {
+            rss_get_content($ebene,-1);
+        } else {
+            rss_get_content($ebene);
+        }
         // das menue durchgehen
         $sql = "SELECT  *
                   FROM  ".$cfg["rss"]["db"]["menu"]["entries"]."
@@ -72,7 +76,7 @@
         }
     }
 
-    function rss_get_content($path,$label="") {
+    function rss_get_content($path,$only_sub=0,$label="") {
         global $db, $pathvars, $environment, $dataloop, $hidedata, $cfg;
 
         // ebene und kategorie bauen
@@ -85,12 +89,21 @@
             $ebene = "";
             $tname = $kategorie;
         }
-        $sql = "SELECT  *
-                  FROM  ".$cfg["rss"]["db"]["text"]["entries"]."
-                 WHERE (tname='".$tname."' OR tname LIKE '".eCRC($path)."%')
-                   AND label='".$cfg["rss"]["def_label"]."'
-                   AND lang='".$environment["language"]."'
-                   AND status=1";
+        if ( $only_sub == -1 ) {
+            $sql = "SELECT  *
+                      FROM  ".$cfg["rss"]["db"]["text"]["entries"]."
+                     WHERE tname LIKE '".eCRC($path)."%'
+                       AND label='".$cfg["rss"]["def_label"]."'
+                       AND lang='".$environment["language"]."'
+                       AND status=1";
+        } else {
+            $sql = "SELECT  *
+                      FROM  ".$cfg["rss"]["db"]["text"]["entries"]."
+                     WHERE (tname='".$tname."' OR tname LIKE '".eCRC($path)."%')
+                       AND label='".$cfg["rss"]["def_label"]."'
+                       AND lang='".$environment["language"]."'
+                       AND status=1";
+        }
         $result = $db -> query($sql);
         while ( $data = $db -> fetch_array($result,1) ) {
             // kategorieueberpruefung fuer amts-artikel
@@ -186,12 +199,26 @@
     $result = $db -> query($sql);
     $data = $db -> fetch_array($result,1);
 
+    if ( preg_match("/^\/aemter/",$environment["ebene"]."/".$environment["kategorie"]) || strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
+        $link = "http://".str_replace(
+            array(
+                ".int-dmz.bayern",
+            ),
+            array(
+                "",
+            ),
+            $_SERVER["SERVER_NAME"]
+        );
+    } else {
+        $link = "http://www.geodaten.bayern.de";
+    }
+
     $hidedata["rss"] = array(
            "lang" => $environment["language"],
+           "link" => $link,
           "label" => $data["label"],
         "pubDate" => date("r"),
     );
-
     rss_walk_path($menu_item["mid"]);
 
     // anzahl der eintraege limitieren
