@@ -112,10 +112,10 @@
                  WHERE fid=".preg_replace("/[a-z,]/","",$fid);
         $result = $db -> query($sql);
         $num = $db -> num_rows($result);
-        if ( $num == 0 ) {
+        $data = $db -> fetch_array($result,1);
+        if ( $num == 0 || $data["count"] == "" ) {
             $downloads = 0;
         } else {
-            $data = $db -> fetch_array($result,1);
             $downloads = $data["count"];
         }
         echo $downloads;
