@@ -62,16 +62,21 @@
     // funktions bereich
     // ***
 
-    $ausgaben["search"] = $_GET["search"];
+    $get_search = htmlentities($_GET["search"]);
+    if ( strstr($get_search,"'") && !strstr($get_search,"\\'") ) {
+        $get_search = addslashes($get_search);
+    }
 
-    if ( $_GET["search"] != "" || $_GET["amt"] != "" ) {
-        if ( is_numeric($_GET["search"]) ) {
+    $ausgaben["search"] = stripslashes($get_search);
+
+    if ( $get_search != "" || $_GET["amt"] != "" ) {
+        if ( is_numeric($get_search) ) {
             $sql = "SELECT DISTINCT ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
                                     ".$cfg["amtsuche"]["db"]["plz"]["plz"].",
                                     ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
                                       '' as gmdteil
                                FROM ".$cfg["amtsuche"]["db"]["plz"]["entries"]."
-                              WHERE ".$cfg["amtsuche"]["db"]["plz"]["plz"]."='".$_GET["search"]."'
+                              WHERE ".$cfg["amtsuche"]["db"]["plz"]["plz"]."='".$get_search."'
                            ORDER BY ".$cfg["amtsuche"]["db"]["plz"]["order"].";";
         } elseif ( $_GET["amt"] != "" ) {
             $sql = "SELECT ".$cfg["amtsuche"]["db"]["amt"]["akz"]." as ".$cfg["amtsuche"]["db"]["plz"]["amt"]."
@@ -83,7 +88,7 @@
                                     ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
                                     ".$cfg["amtsuche"]["db"]["plz"]["teil"]."
                                FROM ".$cfg["amtsuche"]["db"]["plz"]["entries"]."
-                              WHERE ".$cfg["amtsuche"]["db"]["plz"]["teil"]." LIKE '".$_GET["search"]."%'
+                              WHERE ".$cfg["amtsuche"]["db"]["plz"]["teil"]." LIKE '".$get_search."%'
                            GROUP BY ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
                                     ".$cfg["amtsuche"]["db"]["plz"]["gmd"].",
                                     ".$cfg["amtsuche"]["db"]["plz"]["teil"]."
@@ -169,7 +174,7 @@
                   && $data[$cfg["amtsuche"]["db"]["plz"]["teil"]] != "" ) {
                     $highlighted .= " (".$data[$cfg["amtsuche"]["db"]["plz"]["teil"]].")";
                 }
-                $highlighted = preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$highlighted);
+                $highlighted = preg_replace("/(".$get_search.")/i","<b>".'$1'."</b>",$highlighted);
 
                 // gesuchter ort
                 $place = $data[$cfg["amtsuche"]["db"]["plz"]["plz"]]." ".$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]];
@@ -218,9 +223,9 @@
                 $dataloop["hits"][] = array(
                  "amtzahl" => $data[$cfg["amtsuche"]["db"]["plz"]["amt"]],
                      "amt" => $dienststelle.$neben,
-                     "plz" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["plz"]]),
-                     "gmd" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]]),
-                    "teil" => preg_replace("/(".$_GET["search"].")/i","<b>".'$1'."</b>",$gmd_teil),
+                     "plz" => preg_replace("/(".$get_search.")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["plz"]]),
+                     "gmd" => preg_replace("/(".$get_search.")/i","<b>".'$1'."</b>",$data[$cfg["amtsuche"]["db"]["plz"]["gmd"]]),
+                    "teil" => preg_replace("/(".$get_search.")/i","<b>".'$1'."</b>",$gmd_teil),
            "link_amt_info" => "?amt=".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."&place=".urlencode($place),
           "link_amt_seite" => $amt_link,
                       "hl" => $highlighted,

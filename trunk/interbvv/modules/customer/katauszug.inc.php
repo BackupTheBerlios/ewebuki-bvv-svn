@@ -61,7 +61,7 @@
             $hidedata["inhalt"] = array();
             $ausgaben["akz"] = $environment["parameter"][1];
             $ausgaben["inaccessible"] = "";
-        } else {
+        } elseif ( in_array($environment["parameter"][2],$cfg["katauszug"]["kategorien"]) ) {
 
             if ( $environment["parameter"][2] == "" ) {
                 $environment["parameter"][2] = "lageplan";
@@ -516,6 +516,8 @@
 
             }
 
+        } else {
+            header("Location:".$cfg["katauszug"]["basis"].".html");
         }
 
     } else {

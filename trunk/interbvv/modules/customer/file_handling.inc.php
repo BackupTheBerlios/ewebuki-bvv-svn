@@ -100,6 +100,7 @@
             $result = $db -> query($sql);
         }
         // datei ausgeben
+        header("HTTP/1.0 200 OK");
         include_once $pathvars["fileroot"]."/basic/wrapper.php";
         die();
     }

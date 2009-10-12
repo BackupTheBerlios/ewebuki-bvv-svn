@@ -75,7 +75,7 @@
         // funktions bereich
         // ***
 
-        if ( $environment["parameter"][1] != "" ) {
+        if ( is_numeric($environment["parameter"][1]) && $environment["parameter"][1] != "" ) {
             setlocale(LC_ALL, "de_DE");
             $sql = "SELECT *
                       FROM ".$cfg["sapos"]["db"]["stationen"]["entries"]."
