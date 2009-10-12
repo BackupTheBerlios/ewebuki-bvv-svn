@@ -88,7 +88,7 @@
   #    break;
   #}
 
-    if ( strstr($environment["ebene"],"/admin")
+    if ( strstr($environment["ebene"],"/admin/")
       || ($environment["ebene"] == "/keywords" && strstr($environment["kategorie"],"edit") )
       /*|| $environment["kategorie"] == "sitemap"*/){
         $mapping["screen"] = "screen_admin";

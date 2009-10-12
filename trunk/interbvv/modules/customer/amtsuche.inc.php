@@ -66,10 +66,14 @@
     if ( strstr($get_search,"'") && !strstr($get_search,"\\'") ) {
         $get_search = addslashes($get_search);
     }
+    $get_amt = htmlentities($_GET["amt"]);
+    if ( strstr($get_amt,"'") && !strstr($get_amt,"\\'") ) {
+        $get_amt = addslashes($get_amt);
+    }
 
     $ausgaben["search"] = stripslashes($get_search);
 
-    if ( $get_search != "" || $_GET["amt"] != "" ) {
+    if ( $get_search != "" || $get_amt != "" ) {
         if ( is_numeric($get_search) ) {
             $sql = "SELECT DISTINCT ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
                                     ".$cfg["amtsuche"]["db"]["plz"]["plz"].",
@@ -78,10 +82,10 @@
                                FROM ".$cfg["amtsuche"]["db"]["plz"]["entries"]."
                               WHERE ".$cfg["amtsuche"]["db"]["plz"]["plz"]."='".$get_search."'
                            ORDER BY ".$cfg["amtsuche"]["db"]["plz"]["order"].";";
-        } elseif ( $_GET["amt"] != "" ) {
+        } elseif ( $get_amt != "" ) {
             $sql = "SELECT ".$cfg["amtsuche"]["db"]["amt"]["akz"]." as ".$cfg["amtsuche"]["db"]["plz"]["amt"]."
                       FROM ".$cfg["amtsuche"]["db"]["amt"]["entries"]."
-                     WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$_GET["amt"]."'";
+                     WHERE ".$cfg["amtsuche"]["db"]["amt"]["akz"]."='".$get_amt."'";
         } else {
             $sql = "SELECT DISTINCT ".$cfg["amtsuche"]["db"]["plz"]["amt"].",
                                       min(".$cfg["amtsuche"]["db"]["plz"]["plz"].") as plz,
