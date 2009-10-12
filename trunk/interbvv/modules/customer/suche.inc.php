@@ -117,7 +117,7 @@
     $suchanfrage2 = preg_replace("/%E4/","ae",$suchanfrage2);
 
 
-    if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
+    if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = htmlentities($_POST["words"]);
 
     if ( $_POST["matchesperpage"] != "" ) {
         $matchesperpage = "&matchesperpage=".$_POST["matchesperpage"];
