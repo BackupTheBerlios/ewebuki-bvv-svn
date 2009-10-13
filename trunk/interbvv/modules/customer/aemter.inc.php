@@ -296,11 +296,44 @@
                 $pre_tname = eCRC("/aktuell/presse").".%";
                 $ter_tname = eCRC("/aktuell/termine").".%";
 
-                // gibts artikel oder presse?
+                // gibts artikel?
                 $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
                         WHERE
                             status='1' AND
-                            ( tname like '".$art_tname."' OR tname like '".$pre_tname."') AND
+                            ( tname like '".$art_tname."') AND
+                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                            ";
+                $result = $db -> query($sql);
+                $count = 0;
+                $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
+                while ( $data = $db->fetch_array($result,1) ) {
+                    $count++;
+                    $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                    if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
+                        if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
+                            continue;
+                        }
+                    }
+                    if ( $startdatum > $today ) continue;
+
+                    if ( $data["date"] >  date('Y-m-d',$dd - ( 86400 * 20 )) ) {
+                    } else {
+                        continue;
+                    }
+
+                    preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                    $dataloop[$data["ebene"]][$count]["link"] =  "artikel,,".$data["kategorie"].".html";
+                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
+                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+
+                }
+
+                // gibts presse?
+                $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
+                        WHERE
+                            status='1' AND
+                            ( tname like '".$pre_tname."') AND
                             Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00' AND
                             SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
                             ";
@@ -308,10 +341,9 @@
                 $count = 0;
                 while ( $data = $db->fetch_array($result,1) ) {
                     $count++;
-                    ( strstr($data["ebene"],"archiv") ) ? $what = "artikel" : $what = "presse";
                     preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
                     $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop[$data["ebene"]][$count]["link"] =  $what.",,".$data["kategorie"].".html";
+                    $dataloop[$data["ebene"]][$count]["link"] =  "presse,,".$data["kategorie"].".html";
                     $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
                     $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
 
@@ -758,6 +790,15 @@
                 } elseif ( $environment["parameter"][1] == "presse" ) {
                     $dataloop["presse"] = show_blog("/aktuell/presse",$tags,"disabled","","/aemter/".$amtid."/index");
                 } else {
+                    $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
+                        WHERE
+                            status='1' AND
+                            ( tname like '".$art_tname."') AND
+                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00' AND
+                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) <= '".date('Y-m-d',$dd)." 00:00:00' AND
+                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                            ";
+
                     $hidedata["sub_menu"]["link"] = "index.html";
                     $dataloop["artikel"] = show_blog("/aktuell/archiv",$tags,"disabled","0,1","/aemter/".$amtid."/index");
                     $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","1,4","/aemter/".$amtid."/index");
@@ -780,7 +821,7 @@
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
                 // artikel des amtes
                 $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
-                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aemter/".$amtid."/index");
+                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aemter/".$amtid."/index",-1);
                 $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
                 $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
                 if ( count($dataloop["artikel2"]) > 0 ) $hidedata["artikel_amt"] = array();
