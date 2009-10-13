@@ -62,16 +62,10 @@
     // funktions bereich
     // ***
 
-    $get_search = htmlentities($_GET["search"]);
-    if ( strstr($get_search,"'") && !strstr($get_search,"\\'") ) {
-        $get_search = addslashes($get_search);
-    }
-    $get_amt = htmlentities($_GET["amt"]);
-    if ( strstr($get_amt,"'") && !strstr($get_amt,"\\'") ) {
-        $get_amt = addslashes($get_amt);
-    }
+    $get_search = str_replace( array("'","\"",";","(",")"),"",$_GET["search"] );
+    $get_amt = str_replace( array("'","\"",";","(",")"),"",$_GET["amt"] );
 
-    $ausgaben["search"] = stripslashes($get_search);
+    $ausgaben["search"] = htmlspecialchars(trim(stripslashes($get_search)),ENT_QUOTES,"UTF-8");
 
     if ( $get_search != "" || $get_amt != "" ) {
         if ( is_numeric($get_search) ) {
