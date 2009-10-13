@@ -382,7 +382,7 @@
                     arsort($dataloop["/aktuell/presse"]);
                     $hidedata["aktuelles_presse"]["on"] = "on";
                 }
-                if ( count($dataloop["/aktuell/archiv"]) > 0 || $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuerrlles vom Vermessungsamt ".$form_values["adststelle"];
+                if ( count($dataloop["/aktuell/archiv"]) > 0 || $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
 
                 // bayernweite artikel anzeigen
                 $sql = "SELECT Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,
