@@ -415,10 +415,8 @@
             case "artikel":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-//                 $hidedata["sub_menu"]["link"] = "aktuell.html";
-                $tags[] = "";
+                $tags["titel"] = "SORT";
                 $all = show_blog("/aktuell/archiv",$tags,$cfg["auth"]["ghost"]["contented"],$cfg["bloged"]["blogs"]["/aktuell/archiv"]["rows"],$kat);
-//                 $hidedata["all"]["out"] = $all[1]["all"];
                 $hidedata["all"]["out"] = content($all[1]["all"],"amt-allg");
                 unset($hidedata["aussenstelle"]);
                 if ( preg_match("/index,([0-9]{2}).html/Ui",basename($_SERVER["HTTP_REFERER"]),$match) ) {
@@ -430,23 +428,7 @@
                         );
                     }
                 }
-
-
-                #$dataloop["edit_lokale_artikel"][]["lokal_edit"] = $pathvars["virtual"]."/wizard/show,".DATABASE.",".eCrc("/aktuell/archiv").".".$environment["parameter"][2].",inhalt,,,none.html";
-
-                    $sql = "SELECT ".$cfg["changed"]["db"]["changed"]["lang"].",
-                                ".$cfg["changed"]["db"]["changed"]["changed"].",
-                                ".$cfg["changed"]["db"]["changed"]["surname"].",
-                                ".$cfg["changed"]["db"]["changed"]["forename"].",
-                                ".$cfg["changed"]["db"]["changed"]["email"].",
-                                ".$cfg["changed"]["db"]["changed"]["alias"]."
-                            FROM ".$cfg["changed"]["db"]["changed"]["entries"]."
-                            WHERE label='inhalt' and  tname = '".eCRC("/aktuell/archiv").".".$environment["parameter"][2]."'
-                        ORDER BY ".$cfg["changed"]["db"]["changed"]["changed"];
-
-                    $result = $db -> query($sql);
-                    $data = $db -> fetch_array($result);
-                    $hidedata["all"]["changed"] = date($cfg["changed"]["format"],strtotime($data["changed"]));
+                $hidedata["all"]["changed"] = date('d.m.Y',strtotime($all[1]["titel_org"]));
                 break;
             case "presse":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
