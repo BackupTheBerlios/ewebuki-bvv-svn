@@ -113,9 +113,17 @@
             } else {
                 if ( $match[1] != "" && !strstr($match[1],$environment["ebene"]) ) continue;
             }
+            if ( preg_match("#\[SORT\](.*)\[/SORT\]#U",$data["content"],$match) && $environment["ebene"] == "/aktuell/archiv" ) {
+                $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
+                if ( strtotime($match[1]) > $today ) continue;
+            }
             // titel
             $title = "---";
-            preg_match("/\[H[0-9]{1}\](.+)\[\/H/U",$data["content"],$match);
+            if ( $environment["ebene"] == "/aktuell/termine") {
+                preg_match("/\[_NAME\](.+)\[\/_NAME/Us",$data["content"],$match);
+            } else {
+                preg_match("/\[H[0-9]{1}\](.+)\[\/H/Us",$data["content"],$match);
+            }
             if ( count($match) > 1 ) {
                 $title = $match[1];
             }
