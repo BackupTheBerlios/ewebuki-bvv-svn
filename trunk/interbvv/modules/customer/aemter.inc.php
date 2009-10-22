@@ -863,7 +863,7 @@
                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
                 // pressemitteilungen des amtes
                 $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
-                $dataloop["termine_amt"] = show_blog("/aktuell/presse",$tags,"disabled","10","/aemter/".$amtid."/index");
+                $dataloop["presse_amt"] = show_blog("/aktuell/presse",$tags,"disabled","10","/aemter/".$amtid."/index");
                 $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
                 $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
                 if ( count($dataloop["presse_amt"]) > 0 ) $hidedata["presse_amt"] = array();
