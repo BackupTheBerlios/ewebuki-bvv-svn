@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 Kï¿½nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -212,7 +212,7 @@
                     $internet = $data_amt[$cfg["amtsuche"]["db"]["amt"]["internet"]];
                 }
 
-                if ( date("U") < mktime(15,0,0,7,2,2009) || !strstr($_SERVER["SERVER_ADDR"],"10.248.65") || !strstr($_SERVER["SERVER_ADDR"],"10.192.101.47") ) {
+                if ( strstr($_SERVER["SERVER_ADDR"],"10.248.65") || strstr($_SERVER["SERVER_ADDR"],"10.192.101.47") ) {
                     $amt_link = $pathvars["virtual"]."/aemter/".$data[$cfg["amtsuche"]["db"]["plz"]["amt"]]."/index.html";
                 } else {
                     $amt_link = $internet;
