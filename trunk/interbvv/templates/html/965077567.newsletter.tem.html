@@ -31,15 +31,8 @@
                     <input type="radio" value="austragen" name="ac" />Austragen
                 </fieldset>
 
-                <fieldset class="formular">
-                    <legend>Newsletter</legend>
-                    <!--##show-->
-                    <!--##loop-newsletter-->
-                    <input type="radio" name="cat"  value="!{value}" !{checked}/>!{desc}<br />
-                    <p class="clear"></p>
-                    <!--##cont-->
-                    <!--##hide-newsletter-->
-                </fieldset>
+                <input type="hidden" name="cat" value="allg_news">
+
 
                 <fieldset class="button">
                     <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
