@@ -420,6 +420,20 @@ ins {
             padding:2px;
         }
 
+    /* Meldungs-Listen mit Datum (span) und Ueberschrift (div) */
+    #substance ul.news_list {
+        list-style:none
+    }
+        #substance ul.news_list li span {
+            float:left;
+            width:6.5em;
+        }
+        #substance ul.news_list li div {
+            float:none;
+            padding-left:7em;
+            width:auto;
+        }
+
     /* inline-elemente */
     #substance img {
     }
