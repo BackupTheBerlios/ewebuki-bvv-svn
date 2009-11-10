@@ -75,7 +75,7 @@
                     !#element_fhit
                     <!--##show-->
                     <!--##hide-fhit_dummy-->
-                    <input id="fhit_dummy" class="" type="text" value="!{value}" name="fhit_dummy" />
+                    <input id="fhit_dummy" class="" type="text" value="!{value}" name="fhit_dummy"!{readonly} />
                     <!--##show-->
                 </label>
                 <!--##hide-upload-->
@@ -90,11 +90,55 @@
             </div>
             <!--##show-->
         </fieldset>
+
         <!--##hide-owner-->
         <fieldset class="float">
-            <p>#(fowner)<b><a href="mailto:!{email}">!{name}</a></b><br />!{error}</p>
+            <p>#(fowner)<b><a href="mailto:!{email}">!{name}</a></b></p>
+            <p>!{error}</p>
         </fieldset>
         <!--##show-->
+
+        <!--##hide-all_groups_allowed-->
+        <fieldset class="float">
+            #(all_groups_allowed)--
+        </fieldset>
+        <!--##show-->
+
+        <!--##hide-show_allowed_groups-->
+        <fieldset class="float">
+            #(allowed_groups)
+            <ul>
+                <!--##loop-avail_groups-->
+                <li>
+                    <b>!{group}:</b>&nbsp;!{desc}
+                </li>
+                <!--##cont-->
+            </ul>
+        </fieldset>
+        <!--##show-->
+
+        <!--##hide-grant-->
+        <fieldset class="float">
+            <h2>Wer soll die Datei bearbeiten k&ouml;nnen?</h2>
+            <ul class="no-style">
+                <li>
+                    <input name="grant_all" value="0" type="radio"!{radio_grant_me} />&nbsp;nur Sie und folgende ausgew&auml;hlte Gruppen
+                    <ul class="no-style" style="margin:5px 0;">
+                        <!--##loop-avail_groups-->
+                        <li style="margin:5px 0 5px 25px;">
+                            <input name="perm_groups[]" value="!{gid}" type="checkbox"!{check}!{disabled} />
+                            <div style="float:left;margin-left:5px;"><b>!{group}:</b><br />!{desc}</div>
+                            <div class="clear"></div>
+                        </li>
+                        <!--##cont-->
+                    </ul>
+                </li>
+                <li><input name="grant_all" value="-1" type="radio"!{radio_grant_all} />&nbsp;alle angemeldeten Benutzer</li>
+            </ul>
+
+        </fieldset>
+        <!--##show-->
+
         <!--##hide-references-->
         <fieldset class="float">
             <p>#(downloaded)<span id="count_downloads"></span></p>
@@ -105,7 +149,7 @@
             Event.observe(window, 'load', function() {
                 new Ajax.Updater(
                     'count_downloads',
-                    '/admin/file_handling.html',
+                    '/auth/admin/file_handling.html',
                     {
                         parameters:'ajax=on&fid=!#environment_allparameter'
                     }
