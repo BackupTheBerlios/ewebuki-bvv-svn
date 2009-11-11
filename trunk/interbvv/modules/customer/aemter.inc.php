@@ -49,7 +49,7 @@
 
         // funktions bereich
         // ***
-
+        unset($hidedata["head_subnavi"]);
         // amtkennzahl bestimmen
         if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") && !preg_match("/^\/aemter\/[0-9]{1,2}$/",$environment["ebene"]) ) {
             preg_match("/.*(vermessungsamt-.*)[\.]{1}.*/U",$_SERVER["SERVER_NAME"],$match);
@@ -300,14 +300,14 @@
                 $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
                         WHERE
                             status='1' AND
-                            ( tname like '".$art_tname."') AND
-                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                            ( tname like '".$art_tname."' OR tname like '".$pre_tname."' OR tname like '".$ter_tname."' ) AND
+                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index' order by date DESC
                             ";
                 $result = $db -> query($sql);
                 $count = 0;
                 $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
                 while ( $data = $db->fetch_array($result,1) ) {
-                    $count++;
+                    
                     $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
                     if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
                         if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
@@ -315,73 +315,74 @@
                         }
                     }
                     if ( $startdatum > $today ) continue;
-
-                    if ( $data["date"] >  date('Y-m-d',$dd - ( 86400 * 20 )) ) {
-                    } else {
-                        continue;
-                    }
+                    $count++;
+                    if ( $count > 3) break;
+//                    if ( $data["date"] >  date('Y-m-d',$dd - ( 86400 * 20 )) ) {
+//                    } else {
+//                        continue;
+//                    }
 
                     preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
-                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop[$data["ebene"]][$count]["link"] =  "artikel,,".$data["kategorie"].".html";
-                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
-                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+                    $dataloop["/aktuell/archiv"][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                    $dataloop["/aktuell/archiv"][$count]["link"] =  "artikel,,".$data["kategorie"].".html";
+                    $dataloop["/aktuell/archiv"][$count]["text"] =  $match[1];
+                    $dataloop["/aktuell/archiv"][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
 
                 }
 
                 // gibts presse?
-                $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
-                        WHERE
-                            status='1' AND
-                            ( tname like '".$pre_tname."') AND
-                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00' AND
-                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
-                            ";
-                $result = $db -> query($sql);
-                $count = 0;
-                while ( $data = $db->fetch_array($result,1) ) {
-                    $count++;
-                    preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
-                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop[$data["ebene"]][$count]["link"] =  "presse,,".$data["kategorie"].".html";
-                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
-                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
-
-                }
+//                $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
+//                        WHERE
+//                            status='1' AND
+//                            ( tname like '".$pre_tname."') AND
+//                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd - ( 86400 * 20 ) )." 00:00:00' AND
+//                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+//                            ";
+//                $result = $db -> query($sql);
+//                $count = 0;
+//                while ( $data = $db->fetch_array($result,1) ) {
+//                    $count++;
+//                    preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+//                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+//                    $dataloop[$data["ebene"]][$count]["link"] =  "presse,,".$data["kategorie"].".html";
+//                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
+//                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+//
+//                }
                 // gibts termine?
-                $sql_t = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
-                        WHERE
-                            status='1' AND
-                            ( tname like '".$ter_tname."') AND (
-                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
-                            OR
-                            Cast(SUBSTR(content,POSITION('[_TERMIN]' IN content)+9,POSITION('[/_TERMIN]' IN content)-POSITION('[_TERMIN]' IN content)-9) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
-                            ) AND
-                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
-                            ";
-                $result_t = $db -> query($sql_t);
-                $count = 0;
-                while ( $data = $db->fetch_array($result_t,1) ) {
-                    $count++;
-                    preg_match("/\[_NAME\](.*)\[\/_NAME\]/Ui",$data["content"],$match);
-                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop[$data["ebene"]][$count]["link"] =  "termine,,".$data["kategorie"].",all.html";
-                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
-                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
-                }
+//                $sql_t = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
+//                        WHERE
+//                            status='1' AND
+//                            ( tname like '".$ter_tname."') AND (
+//                            Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
+//                            OR
+//                            Cast(SUBSTR(content,POSITION('[_TERMIN]' IN content)+9,POSITION('[/_TERMIN]' IN content)-POSITION('[_TERMIN]' IN content)-9) as DATETIME) > '".date('Y-m-d',$dd )." 00:00:00'
+//                            ) AND
+//                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+//                            ";
+//                $result_t = $db -> query($sql_t);
+//                $count = 0;
+//                while ( $data = $db->fetch_array($result_t,1) ) {
+//                    $count++;
+//                    preg_match("/\[_NAME\](.*)\[\/_NAME\]/Ui",$data["content"],$match);
+//                    $dataloop[$data["ebene"]][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+//                    $dataloop[$data["ebene"]][$count]["link"] =  "termine,,".$data["kategorie"].",all.html";
+//                    $dataloop[$data["ebene"]][$count]["text"] =  $match[1];
+//                    $dataloop[$data["ebene"]][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
+//                }
 
-                if ( count($dataloop["/aktuell/termine"]) > 0 ) {
-                    asort($dataloop["/aktuell/termine"]);
-                    $hidedata["aktuelles_termine"]["on"] = "on";
-                }
+//                if ( count($dataloop["/aktuell/termine"]) > 0 ) {
+//                    asort($dataloop["/aktuell/termine"]);
+//                    $hidedata["aktuelles_termine"]["on"] = "on";
+//                }
                 if ( count($dataloop["/aktuell/archiv"]) > 0 ) {
                     arsort($dataloop["/aktuell/archiv"]);
                     $hidedata["aktuelles_archiv"]["on"] = "on";
                 }
-                if ( count($dataloop["/aktuell/presse"]) > 0 ) {
-                    arsort($dataloop["/aktuell/presse"]);
-                    $hidedata["aktuelles_presse"]["on"] = "on";
-                }
+//                if ( count($dataloop["/aktuell/presse"]) > 0 ) {
+//                    arsort($dataloop["/aktuell/presse"]);
+//                    $hidedata["aktuelles_presse"]["on"] = "on";
+//                }
                 if ( count($dataloop["/aktuell/archiv"]) > 0 || $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
 
                 // bayernweite artikel anzeigen
