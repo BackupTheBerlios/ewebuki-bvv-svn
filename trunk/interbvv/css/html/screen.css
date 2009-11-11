@@ -980,6 +980,7 @@ div.autocomplete {
 }
 
     .kontakt textarea, .formular textarea {
+        font-size:inherit;
         width:450px;
     }
 
@@ -988,7 +989,7 @@ div.autocomplete {
         display: block;
         clear: both;
         width: 150px;
-        margin:3px 0;
+        margin:3px 5px 3px 0;
     }
 
         .kontakt label.label_right, .formular label.label_right {
