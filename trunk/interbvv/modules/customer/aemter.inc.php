@@ -297,35 +297,55 @@
                 $ter_tname = eCRC("/aktuell/termine").".%";
 
                 // gibts artikel?
-                $sql = "Select Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,tname,ebene,kategorie,content from site_text
-                        WHERE
-                            status='1' AND
-                            ( tname like '".$art_tname."' OR tname like '".$pre_tname."' OR tname like '".$ter_tname."' ) AND
-                            SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index' order by date DESC
+                $sql = "SELECT Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,
+                               tname,
+                               ebene,
+                               kategorie,
+                               content
+                          FROM site_text
+                         WHERE status='1'
+                           AND ( tname LIKE '".$art_tname."' OR tname LIKE '".$pre_tname."' OR tname LIKE '".$ter_tname."' )
+                           AND SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                      ORDER BY date DESC
                             ";
                 $result = $db -> query($sql);
                 $count = 0;
                 $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
                 while ( $data = $db->fetch_array($result,1) ) {
-                    
+                    // nur drei werden angezeigt
+                    $count++;
+                    if ( $count > 3) break;
+
+                    // ist der beitrag schon abgelaufen
                     $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
                     if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
                         if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
                             continue;
                         }
                     }
-                    if ( $startdatum > $today ) continue;
-                    $count++;
-                    if ( $count > 3) break;
-//                    if ( $data["date"] >  date('Y-m-d',$dd - ( 86400 * 20 )) ) {
-//                    } else {
-//                        continue;
-//                    }
 
-                    preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+                    if ( strstr($data["tname"],"1884525588") ) {
+                        // termine
+                        $link  = "termin,,".$data["kategorie"].",all.html";
+                        preg_match("/\[_NAME\](.*)\[\/_NAME\]/Uis",$data["content"],$match);
+                        $title = $match[1];
+                    } else {
+                        // artikel, presse
+                        if ( $startdatum > $today ) continue;
+                        preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+                        $title = $match[1];
+                        if ( strstr($data["tname"],"1255365051") ) {
+                            // artikel
+                            $link = "artikel,,".$data["kategorie"].".html";
+                        } elseif ( strstr($data["tname"],"2211586253") ) {
+                            // presse
+                            $link = "presse,,".$data["kategorie"].".html";
+                        }
+                    }
+
                     $dataloop["/aktuell/archiv"][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    $dataloop["/aktuell/archiv"][$count]["link"] =  "artikel,,".$data["kategorie"].".html";
-                    $dataloop["/aktuell/archiv"][$count]["text"] =  $match[1];
+                    $dataloop["/aktuell/archiv"][$count]["link"] =  $link;
+                    $dataloop["/aktuell/archiv"][$count]["text"] =  $title;
                     $dataloop["/aktuell/archiv"][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
 
                 }
