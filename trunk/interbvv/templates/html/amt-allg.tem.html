@@ -506,11 +506,11 @@
             <!--##show-->
                 <!--##hide-aktuelles_archiv-->
                 <!--<b>Meldungen</b>-->
-                <ul style="list-style:none">
+                <ul class="news_list">
                     <!--##loop-/aktuell/archiv-->
                     <li style="margin:0;">
-                        <span class="left" style="width:15%;">!{date}</span>
-                        <div class="left" style="width:85%;">
+                        <span>!{date}</span>
+                        <div>
                             <a href="!{link}">!{text}</a>
                         </div>
                         <div class="clear"></div>
@@ -522,11 +522,11 @@
                 <!--##show-->
                 <!--##hide-aktuelles_presse-->
                 <div><b>Pressemitteilungen</b></div>
-                <ul style="list-style:none">
+                <ul class="news_list">
                     <!--##loop-/aktuell/presse-->
                     <li style="margin:0;">
-                        <span class="left" style="width:15%;">!{date}</span>
-                        <div class="left" style="width:85%;">
+                        <span>!{date}</span>
+                        <div>
                             <a href="!{link}">!{text}</a>
                         </div>
                         <div class="clear"></div>
@@ -537,11 +537,11 @@
                 <!--##show-->
                 <!--##hide-aktuelles_termine-->
                 <b>Termine</b>
-                <ul style="list-style:none">
+                <ul class="news_list">
                     <!--##loop-/aktuell/termine-->
                     <li style="margin:0;">
-                        <span class="left" style="width:15%;">!{date}</span>
-                        <div class="left" style="width:85%;">
+                        <span>!{date}</span>
+                        <div>
                             <a href="!{link}">!{text}</a>
                         </div>
                         <div class="clear"></div>
@@ -554,20 +554,59 @@
             </div>
             <div class="clear"></div>
             <!--##show-->
+
             <!--##hide-bvv_artikel-->
             <div style="margin-top:15px" class="amt_info_box">
-                <h2>Aktuelles der Bayerischen Vermessungsverwaltung</h2>
-                <ul style="list-style:none">
+                <h2>Aktuelles von der Bayerischen Vermessungsverwaltung</h2>
+                <ul class="news_list">
                     <!--##loop-bvv_artikel-->
                     <li style="margin:0;">
-                        <span class="left" style="width:15%;">!{date}</span>
-                        <div class="left" style="width:85%;">
+                        <span>!{date}</span>
+                        <div>
                             <a href="!{link}">!{text}</a>
                         </div>
                         <div class="clear"></div>
                     </li>
                     <!--##cont-->
-                    <li style="margin:0;"><a href="va-archiv.html" class="arrow_right">zum Archiv</a></li>
+                    <li style="margin:0;"><a href="http://www.vermessung.bayern.de/aktuell/archiv.html" class="arrow_right">zum Archiv</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <!--##show-->
+
+            <!--##hide-bvv_termine-->
+            <div style="margin-top:15px" class="amt_info_box">
+                <h2>Termine der Bayerischen Vermessungsverwaltung</h2>
+                <ul class="news_list">
+                    <!--##loop-bvv_termine-->
+                    <li style="margin:0;">
+                        <span>!{date}</span>
+                        <div>
+                            <a href="!{link}">!{text}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                    <li style="margin:0;"><a href="http://www.vermessung.bayern.de/aktuell/termine.html" class="arrow_right">zum Archiv</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+            <!--##show-->
+
+            <!--##hide-bvv_presse-->
+            <div style="margin-top:15px" class="amt_info_box">
+                <h2>Pressemitteilungen der Bayerischen Vermessungsverwaltung</h2>
+                <ul class="news_list">
+                    <!--##loop-bvv_presse-->
+                    <li style="margin:0;">
+                        <span>!{date}</span>
+                        <div>
+                            <a href="!{link}">!{text}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <!--##cont-->
+                    <li style="margin:0;"><a href="http://www.vermessung.bayern.de/aktuell/presse.html" class="arrow_right">zum Archiv</a></li>
                 </ul>
             </div>
             <div class="clear"></div>
