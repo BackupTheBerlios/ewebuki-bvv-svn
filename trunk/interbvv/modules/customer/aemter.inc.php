@@ -311,9 +311,6 @@
                 $count = 0;
                 $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
                 while ( $data = $db->fetch_array($result,1) ) {
-                    // nur drei werden angezeigt
-                    $count++;
-                    if ( $count > 3) break;
 
                     // ist der beitrag schon abgelaufen
                     $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
@@ -341,6 +338,10 @@
                             $link = "presse,,".$data["kategorie"].".html";
                         }
                     }
+
+                    // nur drei werden angezeigt
+                    $count++;
+                    if ( $count > 3) break;
 
                     $dataloop["/aktuell/archiv"][$count]["sort"] =  mktime('00','00','00',substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
                     $dataloop["/aktuell/archiv"][$count]["link"] =  $link;
