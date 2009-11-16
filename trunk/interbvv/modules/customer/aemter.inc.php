@@ -373,6 +373,19 @@
                 $dataloop["bvv_artikel"] = array();
                 while ( $data = $db->fetch_array($result,1) ) {
                     if ( $count_artikel > 3 && $count_termin > 3 && $count_presse > 3 ) break;
+
+                    // soll der beitrag schon gezeigt werden
+                    $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                    if ( $today < $startdatum ) continue;
+
+                    // ist der beitrag schon abgelaufen
+                    if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
+                        if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
+                            continue;
+                        }
+                    }
+
+
                     if ( strstr($data["tname"],substr($art_tname,0,10)) ) {
                         $count_artikel++;
                         if ( $count_artikel > 3 ) continue;
@@ -401,6 +414,7 @@
                         "date" => substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4)
                     );
                 }
+
                 if ( count($dataloop["bvv_artikel"]) > 0 ) {
                     $hidedata["bvv_artikel"] = array();
                 }
@@ -816,10 +830,10 @@
                 $dataloop["artikel_bvv"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aktuell/archiv");
                 $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
                 $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
-                if ( count($dataloop["artikel_bvv"]) > 0 ) $hidedata["artikel_bvv"] = array();
-                if ($ausgaben["bvv_anzahl"] > 10 ) {
-                    $hidedata["bvv_artikel_inhalt_selector"] = array();
-                }
+//                 if ( count($dataloop["artikel_bvv"]) > 0 ) $hidedata["artikel_bvv"] = array();
+//                 if ($ausgaben["bvv_anzahl"] > 10 ) {
+//                     $hidedata["bvv_artikel_inhalt_selector"] = array();
+//                 }
                 unset($hidedata["inhalt_selector"]);
                 break;
             case "va-termine":
@@ -846,10 +860,10 @@
                 $dataloop["termine_bvv"] = show_blog("/aktuell/termine",$tags,"disabled","10","/aktuell/termine");
                 $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
                 $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
-                if ( count($dataloop["termine_bvv"]) > 0 ) $hidedata["termine_bvv"] = array();
-                if ($ausgaben["bvv_anzahl"] > 10 ) {
-                    $hidedata["bvv_termin_inhalt_selector"] = array();
-                }
+//                 if ( count($dataloop["termine_bvv"]) > 0 ) $hidedata["termine_bvv"] = array();
+//                 if ($ausgaben["bvv_anzahl"] > 10 ) {
+//                     $hidedata["bvv_termin_inhalt_selector"] = array();
+//                 }
                 unset($hidedata["inhalt_selector"]);
                 break;
             case "va-presse":
@@ -876,10 +890,10 @@
                 $dataloop["presse_bvv"] = show_blog("/aktuell/presse",$tags,"disabled","10","/aktuell/presse");
                 $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
                 $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
-                if ( count($dataloop["presse_bvv"]) > 0 ) $hidedata["presse_bvv"] = array();
-                if ($ausgaben["bvv_anzahl"] > 10 ) {
-                    $hidedata["bvv_presse_inhalt_selector"] = array();
-                }
+//                 if ( count($dataloop["presse_bvv"]) > 0 ) $hidedata["presse_bvv"] = array();
+//                 if ($ausgaben["bvv_anzahl"] > 10 ) {
+//                     $hidedata["bvv_presse_inhalt_selector"] = array();
+//                 }
                 unset($hidedata["inhalt_selector"]);
                 break;
         }
