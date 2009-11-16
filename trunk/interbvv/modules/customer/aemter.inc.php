@@ -322,7 +322,7 @@
 
                     if ( strstr($data["tname"],"1884525588") ) {
                         // termine
-                        $link  = "termin,,".$data["kategorie"].",all.html";
+                        $link  = "termine,,".$data["kategorie"].",all.html";
                         preg_match("/\[_NAME\](.*)\[\/_NAME\]/Uis",$data["content"],$match);
                         $title = $match[1];
                     } else {
