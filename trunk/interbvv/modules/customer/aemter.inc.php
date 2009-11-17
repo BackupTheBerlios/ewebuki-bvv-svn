@@ -129,7 +129,7 @@
         }
         $dataloop["stellen"][$amtid]["class"] = "selected";
         $dataloop["stellen"][$amtid]["display"] = "block";
-        $dataloop["stellen"][$amtid]["oeffnung"] = nl2br(strip_tags($dataloop["stellen"][$amtid]["oeffnung"]));
+        $dataloop["stellen"][$amtid]["oeffnung"] = nl2br(trim(strip_tags($dataloop["stellen"][$amtid]["oeffnung"])));
         $dataloop["stellen"][$amtid]["behinderte"] = nl2br(strip_tags($dataloop["stellen"][$amtid]["behinderte"]));
 
         function aussenstellen($id){
@@ -296,7 +296,7 @@
                 $pre_tname = eCRC("/aktuell/presse").".%";
                 $ter_tname = eCRC("/aktuell/termine").".%";
 
-                // gibts artikel?
+                // gibts artikel, termine, pressemitteilungen?
                 $sql = "SELECT Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,
                                tname,
                                ebene,
