@@ -76,7 +76,7 @@
                     $ausgaben["form_error"] .= "Bitte ".$value[0]." eingeben<br>";
                 }
             }
-            $hidedata["order_form"][$key] = $_POST[$key];
+            $hidedata["order_form"][$key] = htmlentities(stripcslashes($_POST[$key]));
         } else {
             $hidedata["order_form"][$key] = "";
         }
@@ -96,12 +96,17 @@
     } else {
         if (  $order != "" ) {
             $shopper = utf8_decode($shopper);
-            mail($cfg["bestellung"]["email"]["owner"],$cfg["bestellung"]["email"]["subject"],$cfg["bestellung"]["email"]["text"]."\n\n".$order."\n\n".$shopper,"Mime-Version: 1.0 Content-Type: text/plain; charset=ISO-8859-1");
+            mail(
+                $cfg["bestellung"]["email"]["owner"],
+                $cfg["bestellung"]["email"]["subject"],
+                strip_tags($cfg["bestellung"]["email"]["text"]."\n\n".$order."\n\n".$shopper),
+                "Mime-Version: 1.0 Content-Type: text/plain; charset=ISO-8859-1"
+            );
             $hidedata["order_success"]["text"] = "#(success)";
            unset($hidedata["order_form"]);
         } else {
             if ( $_POST["send"] ) {
-                $ausgaben["form_error"] = "<p class=\"error\">#(no_order)</p>"; 
+                $ausgaben["form_error"] = "<p class=\"error\">#(no_order)</p>";
             }
         }
     }

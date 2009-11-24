@@ -91,37 +91,42 @@
             }
 
             // PLZ-Suche
-            if ( $_POST["s_plz"] != "" ) {
-                $sql = "SELECT DISTINCT ".$cfg["katauszug"]["db"]["plz"]["akz"]."
-                                   FROM ".$cfg["katauszug"]["db"]["plz"]["entries"]."
-                                  WHERE ".$cfg["katauszug"]["db"]["plz"]["plz"]."=".$_POST["s_plz"];
-                $result = $db -> query($sql);
-                $num = $db->num_rows($result);
-                if ( $num == 1 ) {
-                    $data = $db -> fetch_array($result,1);
-                    // auf aussenstelle pruefen
-                    $sql = "SELECT amt.".$cfg["katauszug"]["db"]["amt"]["kate"]." as kategorie,
-                                   parent.".$cfg["katauszug"]["db"]["amt"]["akz"]." as kennzahl
-                              FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]." as amt
-                              JOIN ".$cfg["katauszug"]["db"]["amt"]["entries"]." as parent
-                                ON (amt.".$cfg["katauszug"]["db"]["amt"]["parent"]."=parent.".$cfg["katauszug"]["db"]["amt"]["key"].")
-                             WHERE amt.".$cfg["katauszug"]["db"]["amt"]["akz"]."='".$data[$cfg["katauszug"]["db"]["plz"]["akz"]]."'";
-                    $res_test  = $db -> query($sql);
-                    $data_test = $db -> fetch_array($res_test,1);
-                    if ( $data_test["kategorie"] == 5 ) {
-                        $akz = $data_test["kennzahl"];
+            if ( $_POST["s_plz"] != ""  ) {
+                if ( is_numeric($_POST["s_plz"]) ) {
+                    $sql = "SELECT DISTINCT ".$cfg["katauszug"]["db"]["plz"]["akz"]."
+                                    FROM ".$cfg["katauszug"]["db"]["plz"]["entries"]."
+                                    WHERE ".$cfg["katauszug"]["db"]["plz"]["plz"]."=".addslashes(stripslashes($_POST["s_plz"]));
+                    $result = $db -> query($sql);
+                    $num = $db->num_rows($result);
+                    if ( $num == 1 ) {
+                        $data = $db -> fetch_array($result,1);
+                        // auf aussenstelle pruefen
+                        $sql = "SELECT amt.".$cfg["katauszug"]["db"]["amt"]["kate"]." as kategorie,
+                                    parent.".$cfg["katauszug"]["db"]["amt"]["akz"]." as kennzahl
+                                FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]." as amt
+                                JOIN ".$cfg["katauszug"]["db"]["amt"]["entries"]." as parent
+                                    ON (amt.".$cfg["katauszug"]["db"]["amt"]["parent"]."=parent.".$cfg["katauszug"]["db"]["amt"]["key"].")
+                                WHERE amt.".$cfg["katauszug"]["db"]["amt"]["akz"]."='".$data[$cfg["katauszug"]["db"]["plz"]["akz"]]."'";
+                        $res_test  = $db -> query($sql);
+                        $data_test = $db -> fetch_array($res_test,1);
+                        if ( $data_test["kategorie"] == 5 ) {
+                            $akz = $data_test["kennzahl"];
+                        } else {
+                            $akz = $data[$cfg["katauszug"]["db"]["plz"]["akz"]];
+                        }
+                        $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$akz.",".$environment["parameter"][2].".html";
+                        header("Location: ".$header);
                     } else {
-                        $akz = $data[$cfg["katauszug"]["db"]["plz"]["akz"]];
+                        $hidedata["form_error"] = array();
+                        if ( $num == 0 ) {
+                            $ausgaben["form_error"]  = "#(error_plz_nope)";
+                        } else {
+                            $ausgaben["form_error"]  = "#(error_plz_multi)";
+                        }
                     }
-                    $header = $cfg["katauszug"]["basis"]."/".$cfg["katauszug"]["name"].",".$akz.",".$environment["parameter"][2].".html";
-                    header("Location: ".$header);
                 } else {
                     $hidedata["form_error"] = array();
-                    if ( $num == 0 ) {
-                        $ausgaben["form_error"]  = "#(error_plz_nope)";
-                    } else {
-                        $ausgaben["form_error"]  = "#(error_plz_multi)";
-                    }
+                    $ausgaben["form_error"]  = "#(error_plz_nope)";
                 }
             }
 
@@ -147,17 +152,17 @@
 
             $person_data = array("surname", "forename", "strasse", "plz", "ort", "tel", "email");
             foreach ( $person_data as $value ) {
-                $ausgaben[$value] = $_POST["person"][$value];
+                $ausgaben[$value] = htmlentities($_POST["person"][$value]);
             }
-            $ausgaben["sonder"] = $_POST["sonder"];
-            $ausgaben["versand_adresse"] = $_POST["versand_adresse"];
+            $ausgaben["sonder"] = htmlentities($_POST["sonder"]);
+            $ausgaben["versand_adresse"] = htmlentities($_POST["versand_adresse"]);
 
 
             // dienststellen-dropdown
             $sql = "SELECT *
-                    FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]."
-                    WHERE ".$cfg["katauszug"]["db"]["amt"]["kate"]." IN ('3','4')
-                ORDER BY ".$cfg["katauszug"]["db"]["amt"]["order"];
+                      FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]."
+                     WHERE ".$cfg["katauszug"]["db"]["amt"]["kate"]." IN ('3','4')
+                  ORDER BY ".$cfg["katauszug"]["db"]["amt"]["order"];
             if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql (amt-dropdown): ".$sql.$debugging["char"];
             $result = $db -> query($sql);
             $amtkennzahl = "";
@@ -207,10 +212,11 @@
                 unset($hidedata["change_amt"]);
 
                 // gemarkungs-dropdown
-                $sql = "SELECT DISTINCT gmcode as gmkg_nr, name as gmkg
-                        FROM gmn_gemeinden JOIN gmn_intranet ON (gmn=gmcode)
-                        WHERE buort IN ('".implode("', '",$gmkg_akz)."')
-                    ORDER BY name";
+                $sql = "SELECT DISTINCT gmcode as gmkg_nr, name as gmkg, buort
+                          FROM gmn_gemeinden
+                          JOIN gmn_intranet ON (gmn=gmcode)
+                         WHERE buort IN ('".implode("', '",$gmkg_akz)."')
+                      ORDER BY name";
                 $result = $db -> query($sql);
                 while ( $data = $db -> fetch_array($result,1) ) {
                     $item = $data["gmkg"]." (".$data["gmkg_nr"].")";
@@ -220,6 +226,16 @@
                         || $_POST["masszahlen"][$i]["gmkg"] == $item
                         || $_POST["koordinaten"][$i]["gmkg"] == $item ) {
                             $sel = " selected=\"selected\"";
+                            if ( $environment["parameter"][1] != $data["buort"] ) {
+                                $sql = "SELECT *
+                                          FROM ".$cfg["katauszug"]["db"]["amt"]["entries"]."
+                                         WHERE ".$cfg["katauszug"]["db"]["amt"]["akz"]."='".$data["buort"]."'";
+                                $res = $db -> query($sql);
+                                if ( $db->num_rows($res) > 0 ) {
+                                    $dat = $db->fetch_array($res,1);
+                                    $amt_poststelle = $dat[$cfg["katauszug"]["db"]["amt"]["mail"]];
+                                }
+                            }
                         }
                         $dataloop["gmkg_".$i][] = array(
                             "value" => $item,
@@ -387,6 +403,7 @@
                 $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
                 $ausgaben["inaccessible"] .= "# (error_plz_nope) #(error_plz_nope)<br />";
                 $ausgaben["inaccessible"] .= "# (error_plz_multi) #(error_plz_multi)<br />";
+                $ausgaben["inaccessible"] .= "# (error_gmkg) #(error_gmkg)<br />";
                 $ausgaben["inaccessible"] .= "# (success) #(success)<br />";
             } else {
                 $ausgaben["inaccessible"] = "";
@@ -413,6 +430,12 @@
                     if ( is_array($_POST["order"]) ) {
                         foreach ( $_POST["order"] as $key=>$value ){
                             if ( $value["flst"] == "" ) continue;
+
+                            if ( $value["flst"] != "" && $value["gmkg"] == "" ) {
+                                $ausgaben["form_error"] .= "#(error_gmkg)<br />";
+                                break;
+                            }
+
                             foreach ( $value as $label=>$order_data ) {
                                 $dataloop["order"][$key][$label] = strtoupper($order_data);
                             }
@@ -420,6 +443,10 @@
                                 $dataloop["order"][$key]["massstab"] = "";
                                 $dataloop["order"][$key]["anzahl"] = "";
                             }
+                        }
+
+                        if ( count($dataloop["order"]) == 0 && !strstr ($ausgaben["form_error"],"#(error_gmkg)") ) {
+                            $ausgaben["form_error"] .= "#(error_gmkg)<br />";
                         }
                     }
                     if ( is_array($_POST["masszahlen"]) ) {
@@ -444,15 +471,18 @@
                             $value["list"] != "" ? $dataloop["koordinaten"][$key]["list"] = "JA" : $dataloop["koordinaten"][$key]["list"] = "NEIN";
                         }
                     }
+                }
+
+                if ( $ausgaben["form_error"] == ""  ) {
                     if ( $_POST["versand"] == -1 ) {
                         $hidedata["send"] = array();
                     } else {
                         $hidedata["nosend"] = array();
                     }
-                    if ( $_POST["versand_adresse"] != "" ) $hidedata["versand_adresse"]["adresse"] = $_POST["versand_adresse"];
-                    if ( $_POST["sonder"] != "" ) $hidedata["sonder"]["sonder"] = $_POST["sonder"];
+                    if ( $_POST["versand_adresse"] != "" ) $hidedata["versand_adresse"]["adresse"] = htmlentities($_POST["versand_adresse"]);
+                    if ( $_POST["sonder"] != "" ) $hidedata["sonder"]["sonder"] = htmlentities($_POST["sonder"]);
                     $art = strtoupper($environment["parameter"][2]);
-                    $message = parser("katauszug-email","");
+                    $message = strip_tags(parser("katauszug-email",""));
 
                     if ( $environment["parameter"][2] == "lageplan" ) {
                         $subject = "Bestellung von Lageplaenen";
@@ -473,7 +503,7 @@
                     $header_kunde .= "Content-Transfer-Encoding: 8bit\r\n";
                     $message_kunde = "Folgende Bestelldaten sind bei uns eingegangen:\r\n\r\n".$message."\r\n\r\nIhre Bayerische Vermessungsverwaltung";
                     if ( $cfg["katauszug"]["dry_run"] == -1 ) {
-                        $ausgaben["form_error"]  = "<pre>";
+                        $ausgaben["form_error"] .= "<pre>";
                         $ausgaben["form_error"] .= "<i>";
                         $ausgaben["form_error"] .= date("r")."<br>";
                         $ausgaben["form_error"] .= "TESTLAUF!!!!<br>";
