@@ -427,6 +427,8 @@
 
                 break;
             case "artikel":
+                // kekse manipulieren
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Meldungen</span>";
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
                 $tags["titel"] = "SORT";
@@ -445,6 +447,8 @@
                 $hidedata["all"]["changed"] = date('d.m.Y',strtotime($all[1]["titel_org"]));
                 break;
             case "presse":
+                // kekse manipulieren
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Pressemitteilungen</span>";
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 //                 $hidedata["sub_menu"]["link"] = "aktuell.html";
@@ -488,6 +492,9 @@
                 break;
 
             case "termine":
+                // kekse manipulieren
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Termine</span>";
+
                 $url = $environment["ebene"]."/".$environment["kategorie"];
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
@@ -807,34 +814,98 @@
                 }
                 break;
             case "va-archiv":
-                require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
-                require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
-                unset($hidedata["aussenstelle"]);
-                $tags["titel"] = "H1";
-                $tags["teaser"] = "P=teaser";
-                $tags["image"] = "IMG=";
-                $tags["termine"] = "_NAME";
-                $hidedata["sub_menu"]["link"] = "va-aktuell.html";
-                // artikel des amtes
-                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
-                $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aemter/".$amtid."/index",-1);
-                $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
-                $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
-                if ( count($dataloop["artikel2"]) > 0 ) $hidedata["artikel_amt"] = array();
-                if ($ausgaben["office_anzahl"] > 10 ) {
-                    $hidedata["office_artikel_inhalt_selector"] = array();
+                // kekse manipulieren
+                $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Archiv</span>";
+
+                $art_tname = eCRC("/aktuell/archiv");
+                $pre_tname = eCRC("/aktuell/presse");
+                $ter_tname = eCRC("/aktuell/termine");
+                $today = date("Y-m-d");
+                $sql = "SELECT CAST(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) AS DATETIME) AS start,
+                               tname,
+                               ebene,
+                               kategorie,
+                               content
+                          FROM site_text
+                         WHERE status='1'
+                           AND (
+                                   tname LIKE '".$ter_tname.".%'
+                                OR (
+                                           (tname LIKE '".$art_tname.".%' OR tname LIKE '".$pre_tname.".%')
+                                       AND CAST(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) AS TIMESTAMP)<'".$today." 00:00:00'
+                                   )
+                               )
+                           AND SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
+                      ORDER BY start DESC";
+
+                // seiten umschalter
+                $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], 25, $parameter, 1, 3, $getvalues );
+                $ausgaben["va_archiv_inhalt_selector"] = $inhalt_selector[0]."<br />";
+                $sql = $inhalt_selector[1];
+                $ausgaben["va_archiv_anzahl"] = $inhalt_selector[2];
+
+
+                $result = $db -> query($sql);
+                while ( $data = $db->fetch_array($result,1) ) {
+                    if ( strstr($data["tname"],"1884525588") ) {
+                        // termine
+                        $link  = "termine,,".$data["kategorie"].",all.html";
+                        preg_match("/\[_NAME\](.*)\[\/_NAME\]/Uis",$data["content"],$match);
+                        $title = $match[1];
+                        $type = "Termin";
+                    } else {
+                        // artikel, presse
+                        if ( $startdatum > $today ) continue;
+                        preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+                        $title = $match[1];
+                        if ( strstr($data["tname"],"1255365051") ) {
+                            // artikel
+                            $link = "artikel,,".$data["kategorie"].".html";
+                            $type = "Meldung";
+                        } elseif ( strstr($data["tname"],"2211586253") ) {
+                            // presse
+                            $link = "presse,,".$data["kategorie"].".html";
+                            $type = "Pressemitteilung";
+                        }
+                    }
+
+                    $dataloop["va_archiv"][] = array(
+                        "datum" => substr($data["start"],8,2).".".substr($data["start"],5,2).".".substr($data["start"],0,4),
+                        "titel" => $title,
+                         "link" => $link,
+                         "type" => $type,
+                    );
                 }
-                unset($hidedata["inhalt_selector"]);
-                // bayernweite artikel
-                $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
-                $dataloop["artikel_bvv"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aktuell/archiv");
-                $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
-                $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
-//                 if ( count($dataloop["artikel_bvv"]) > 0 ) $hidedata["artikel_bvv"] = array();
-//                 if ($ausgaben["bvv_anzahl"] > 10 ) {
-//                     $hidedata["bvv_artikel_inhalt_selector"] = array();
+                if ( count($dataloop["va_archiv"]) > 0 ) $hidedata["va_archiv"] = array();
+
+//                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
+//                 require $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+//                 unset($hidedata["aussenstelle"]);
+//                 $tags["titel"] = "H1";
+//                 $tags["teaser"] = "P=teaser";
+//                 $tags["image"] = "IMG=";
+//                 $tags["termine"] = "_NAME";
+//                 $hidedata["sub_menu"]["link"] = "va-aktuell.html";
+//                 // artikel des amtes
+//                 $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+//                 $dataloop["artikel2"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aemter/".$amtid."/index",-1);
+//                 $ausgaben["office_inhalt_selector"] = $ausgaben["inhalt_selector"];
+//                 $ausgaben["office_anzahl"] = $ausgaben["anzahl"];
+//                 if ( count($dataloop["artikel2"]) > 0 ) $hidedata["artikel_amt"] = array();
+//                 if ($ausgaben["office_anzahl"] > 10 ) {
+//                     $hidedata["office_artikel_inhalt_selector"] = array();
 //                 }
-                unset($hidedata["inhalt_selector"]);
+//                 unset($hidedata["inhalt_selector"]);
+//                 // bayernweite artikel
+//                 $ausgaben["inhalt_selector"] = ""; $ausgaben["anzahl"] = "";
+//                 $dataloop["artikel_bvv"] = show_blog("/aktuell/archiv",$tags,"disabled","10","/aktuell/archiv");
+//                 $ausgaben["bvv_inhalt_selector"] = $ausgaben["inhalt_selector"];
+//                 $ausgaben["bvv_anzahl"] = $ausgaben["anzahl"];
+// //                 if ( count($dataloop["artikel_bvv"]) > 0 ) $hidedata["artikel_bvv"] = array();
+// //                 if ($ausgaben["bvv_anzahl"] > 10 ) {
+// //                     $hidedata["bvv_artikel_inhalt_selector"] = array();
+// //                 }
+//                 unset($hidedata["inhalt_selector"]);
                 break;
             case "va-termine":
                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";

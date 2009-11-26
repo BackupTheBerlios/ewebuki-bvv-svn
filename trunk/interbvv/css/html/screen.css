@@ -433,6 +433,9 @@ ins {
             padding-left:7em;
             width:auto;
         }
+            #substance ul.news_list li div b {
+                color:#5B5B5B;
+            }
 
     /* inline-elemente */
     #substance img {

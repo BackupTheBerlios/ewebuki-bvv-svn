@@ -264,6 +264,27 @@
             </ul>
             <!--##show-->
 
+            <!--##hide-va_archiv-->
+            <h2>Archiv des !#ausgaben_amt</h2>
+            <ul class="news_list">
+                <!--##loop-va_archiv-->
+                <li style="margin:0;">
+                    <span>!{datum}</span>
+                    <div>
+                        <!--<b>!{type}</b>-->&nbsp;<a href="!{link}">!{titel}</a>
+                    </div>
+                    <div class="clear"></div>
+                </li>
+                <!--##cont-->
+            </ul>
+            <hr />
+            <div style="float:left;">Gesamt: !#ausgaben_va_archiv_anzahl</div>
+            <div style="float:right;text-align:right;">!#ausgaben_va_archiv_inhalt_selector</div>
+            <div class="clear"></div>
+            <!--##show-->
+
+
+
             <!--##hide-artikel_amt-->
             <fieldset style="margin-top:15px" class="amt_info_box">
                 <h2>Artikel des !#ausgaben_amt</h2>
@@ -516,7 +537,7 @@
                         <div class="clear"></div>
                     </li>
                     <!--##cont-->
-                    <li class="arrow_right" style="margin:0;">weitere <a href="va-archiv.html" class="arrow_right1">Meldungen</a>, <a href="va-termine.html" class="arrow_right1">Termine</a>, <a href="va-presse.html" class="arrow_right1">Pressemitteilungen</a></li>
+                    <li style="margin:0;"><a href="va-archiv.html" class="arrow_right">zum Archiv</a></li>
                 </ul>
                 <div class="clear"></div>
                 <!--##show-->
