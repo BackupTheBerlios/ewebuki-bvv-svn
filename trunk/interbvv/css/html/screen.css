@@ -114,6 +114,10 @@ del {
 ins {
     color:green;
 }
+em {
+    color:#990000;
+    font-weight:bold;
+}
 
 /*----------------------------
   id-definitionen (bereiche)
