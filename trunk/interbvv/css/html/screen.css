@@ -118,6 +118,15 @@ em {
     color:#990000;
     font-weight:bold;
 }
+h2 em {
+    float:right;
+    font-size:0.9em;
+}
+.present p em {
+    display:block;
+    text-align:right;
+}
+
 
 /*----------------------------
   id-definitionen (bereiche)
