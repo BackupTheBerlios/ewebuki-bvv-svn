@@ -832,7 +832,7 @@
                                    tname LIKE '".$ter_tname.".%'
                                 OR (
                                            (tname LIKE '".$art_tname.".%' OR tname LIKE '".$pre_tname.".%')
-                                       AND CAST(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) AS TIMESTAMP)<'".$today." 00:00:00'
+                                       AND CAST(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) AS TIMESTAMP)<'".$today." 23:59:00'
                                    )
                                )
                            AND SUBSTR(content,POSITION('[KATEGORIE]' IN content),POSITION('[/KATEGORIE]' IN content)-POSITION('[KATEGORIE]' IN content))= '[KATEGORIE]/aemter/".$amtid."/index'
