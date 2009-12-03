@@ -766,6 +766,7 @@
                     $environment["ebene"] = "/service";
                     $environment["kategorie"] = "kontakt";
                     include $pathvars["moduleroot"]."addon/kontakt.cfg.php";
+                    include $pathvars["moduleroot"]."addon/kontakt-ctrl.inc.php";
                     $cfg["kontakt"]["basis"] = "kontakt";
                     if ( $cfg["aemter"]["email"] == -1 ) {
                         $cfg["kontakt"]["email"]["owner"] = $data["ademail"];
