@@ -105,7 +105,57 @@
                        AND status=1";
         }
         $result = $db -> query($sql);
+
+
         while ( $data = $db -> fetch_array($result,1) ) {
+            $test_suffix = "";
+
+            // AUSNAHMEN
+            // direkte unterseiten von aktuell (z.B. /aktuell/archiv.html)
+            if ( strstr($data["tname"],"2573533673") ) continue;
+
+            // ZEIT-STEUERUNG
+            // heute
+            $timestamp_heute = mktime();
+            // start-datum
+            if ( preg_match("#\[SORT\](.*)\[/SORT\]#U",$data["content"],$match) ) {
+                $date_start = $match[1];
+                if (preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})/",$date_start,$date_match) ) {
+                    $timestamp_start = mktime("0","0","0",$date_match[2],$date_match[3],$date_match[1]);
+                } else {
+                    // falls nicht angegeben, ganz frueher annehmen
+                    $timestamp_start = mktime(0,0,0,1,1,1971);
+                }
+            } else {
+                // falls nicht angegeben, ganz frueher annehmen
+                $date_start = "1971-01-01";
+                $timestamp_start = mktime(0,0,0,1,1,1971);
+            }
+//             // end-datum
+//             if ( preg_match("#\[ENDE\](.*)\[/ENDE\]#U",$data["content"],$match) ) {
+//                 $date_ende = $match[1];
+//                 preg_match("/^([0-9]{4})-([0-9]{2})-([0-9]{2})/",$date_ende,$date_match);
+//                 if ( $date_match[0] != "" && !strstr($match[1],"1970-01-01")  ) {
+//                     $timestamp_ende = mktime(23,59,59,$date_match[2],$date_match[3],$date_match[1]);
+//                 } else {
+//                     // falls nicht angegeben, morgen nacht annehmen
+//                     $timestamp_ende = mktime(23,59,59,date("m"),(date("d")+1),date("Y"));
+//                 }
+//             } else {
+//                 // falls nicht angegeben, morgen nacht annehmen
+//                 $date_ende = date("Y")."-".(date("d")+1)."-".(date("d")+1);
+//                 $timestamp_ende = mktime(23,59,59,date("m"),(date("d")+1),date("Y"));
+//                 // falls bei terminen kein end-datum startdatum setzen
+//                 if ( strstr($data["tname"],"1884525588") ) $timestamp_ende = $timestamp_start;
+//             }
+
+//             // abgelaufenen werden auf alle faelle rausgeschnissen
+//             if ( $timestamp_heute > $timestamp_ende ) continue;
+            // wenn startdatum noch nicht erreicht ist rausschmeissen (ausnahme: termine)
+            if ( !strstr($data["tname"],"1884525588") ) {
+                if ( $timestamp_start > $timestamp_heute ) continue;
+            }
+
             // kategorieueberpruefung fuer amts-artikel
             preg_match("#\[KATEGORIE\](.*)\[/KATEGORIE\]#U",$data["content"],$match);
             if ( $_GET["kategorie"] != "" ) {
@@ -113,13 +163,10 @@
             } else {
                 if ( $match[1] != "" && !strstr($match[1],$environment["ebene"]) ) continue;
             }
-            if ( preg_match("#\[SORT\](.*)\[/SORT\]#U",$data["content"],$match) && $environment["ebene"] == "/aktuell/archiv" ) {
-                $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
-                if ( strtotime($match[1]) > $today ) continue;
-            }
+
             // titel
             $title = "---";
-            if ( $environment["ebene"] == "/aktuell/termine") {
+            if ( strstr($data["tname"],"1884525588") ) {
                 preg_match("/\[_NAME\](.+)\[\/_NAME/Us",$data["content"],$match);
             } else {
                 preg_match("/\[H[0-9]{1}\](.+)\[\/H/Us",$data["content"],$match);
@@ -133,7 +180,9 @@
             // link
             if ( $cfg["rss"]["webroot"] != "" ) {
                 $link = $cfg["rss"]["webroot"].$data["ebene"]."/".$data["kategorie"].".html";
-                if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") || strstr($_SERVER["SERVER_NAME"],"krompi") ) {
+                // termin-ausnahme
+                if ( strstr($data["tname"],"1884525588") ) $link = $cfg["rss"]["webroot"].$data["ebene"].",,".$data["kategorie"].",all.html";
+                if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") /*|| strstr($_SERVER["SERVER_NAME"],"krompi")*/ ) {
                     $link = str_replace(
                         array(
                             $cfg["rss"]["webroot"],
