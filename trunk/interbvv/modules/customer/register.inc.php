@@ -215,7 +215,7 @@
 
         // was anzeigen
         $cfg["leer"]["path"] = str_replace($pathvars["virtual"],"",$cfg["leer"]["basis"]);
-        $mapping["main"] = "965077567.newsletter";
+        $mapping["main"] = "965077567.newsletter1";
         #$mapping["navi"] = "leer";
 
         // unzugaengliche #(marken) sichtbar machen

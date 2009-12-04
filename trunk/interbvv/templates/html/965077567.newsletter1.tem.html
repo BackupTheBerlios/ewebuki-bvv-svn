@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>top-bestellung</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--$Id: 965077567.newsletter.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+<!--##begin-->
+        <div id="substance">
+            #(inhalt1)
+            <!--##hide-newsletter-->
+            <form method="post" action="newsletter,,verify.html" method="post" name="letter"/>
+            <fieldset class="kontakt">
+                    #(hinweis1)
+                    <legend>E-Mail Adresse</legend>
+                    <input id="mail" class="" type="text" value="" name="email" tabindex="1" />
+                    <p class="clear"></p>
+                </fieldset>
+
+                <fieldset class="formular">
+                    <legend>Anmeldung</legend>
+                    <input type="radio" value="eintragen" checked = "" name="ac" />Eintragen<br />
+                    <p class="clear"></p>
+                    <input type="radio" value="austragen" name="ac" />Austragen
+
+                    <!--##show-->
+                    <!--##hide-captcha-->
+                    <label for="captcha"><img title="captcha" alt="captcha" src="!{url}" /></label>
+                    <input type="text" value="" name="captcha" class="" id="captcha" />
+                    <input name="captcha_proof" type="hidden" value="!{proof}" class="hidden" />
+                    <!--##show-->
+                    <!--##hide-newsletter-->
+
+                </fieldset>
+
+                <input type="hidden" name="cat" value="allg_news">
+
+
+                <fieldset class="button">
+                    <input name="form_referer" type="hidden" value="!#ausgaben_form_referer" class="hidden" />
+                    <div class="clearer">&nbsp;</div>
+                    <button type="submit" name="btn" value="senden" class="first" tabindex="20">Abschicken</button>
+                    <input type="reset" name="reset" value="g(reset)" class="next" tabindex="21" />
+                    <div class="clearer">&nbsp;</div>
+                </fieldset>
+            </form>
+            <!--##show-->
+            #(inhalt)
+        </div>
+        #{margin}
+<!--##end-->
+    </body>
+</html>
