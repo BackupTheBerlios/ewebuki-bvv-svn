@@ -247,6 +247,9 @@
             if ( $_POST["email"] == "" ) {
                     $ausgaben["form_error"] .= "#(error_email)";
             }
+
+            if ( $ausgaben["form_error"] != "") $hidedata["error"] = array();
+
             if ( $ausgaben["form_error"] == "" ) {
                 //pruefen ob email schon registriert
                 if ( $_POST["ac"] == "eintragen") {
@@ -258,7 +261,7 @@
                     }
                     $sql = "INSERT INTO ".$cfg["register"]["db"]["register"]["entries"]. " (email,key,time) VALUES ( '".$_POST["email"]."','".$_POST["captcha_proof"]."','".mktime()."')";
 $result = $db -> query($sql);
-                    mail($_POST[$cfg["register"]["db"]["register"]["e-mail"]],"Ihre Anmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###",$cfg["register"]["domain"]."?eintragen=".$_POST["captcha_proof"],$cfg["register"]["email_text"]["anmelde_plus"]),"Content-Type: text/plain; charset=UTF-8\r\n");
+                    mail($_POST[$cfg["register"]["db"]["register"]["e-mail"]],"Ihre Anmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###",$cfg["register"]["domain"]."?eintragen=".$_POST["captcha_proof"],$cfg["register"]["email_text"]["anmelde_plus"]),"FROM: ".$cfg["register"]["from"]."\r\nContent-Type: text/plain; charset=UTF-8\r\n");
                     header("Location: ".$cfg["register"]["sites"]["signin"]);
                 }
                 // pruefen ob man noch eingetragen ist
