@@ -15,12 +15,35 @@
 <!--##begin-->
         <div id="substance">
             #(inhalt1)
+            <!--##hide-error-->
+            <p style="color:red">!#ausgaben_form_error</p>
+            <!--##show-->
+
             <!--##hide-newsletter-->
             <form method="post" action="newsletter1,,verify.html" method="post" name="letter"/>
             <fieldset class="kontakt">
                     #(hinweis1)
-                    <legend>E-Mail Adresse</legend>
-                    <input id="mail" class="" type="text" value="" name="email" tabindex="1" />
+                    <label>Anrede</label><div class="anrede">!#element_anrede</div>
+
+                    <label>Titel</label>!#element_titel
+
+                    <label>Name*</label>!#element_name
+
+                    <label>Vorname*</label>!#element_vorname
+
+                    <label>Firma</label>!#element_firma
+
+                    <label>Funktion</label>!#element_funktion
+
+                    <label>Strasse</label>!#element_strasse
+
+                    <label>Ort*</label>!#element_ort
+
+                    <label>E-Mail*</label>!#element_email
+
+                    <label>Mittagsverpflegung</label><div class="anrede">!#element_verpflegung</div>
+<!--                    <legend>E-Mail Adresse</legend>
+                    <input id="mail" class="" type="text" value="" name="email" tabindex="1" />-->
                     <p class="clear"></p>
                 </fieldset>
 
@@ -32,8 +55,8 @@
                 </fieldset>
                     <!--##show-->
                     <!--##hide-captcha-->
-                    #(hinweis2)
                     <fieldset class="formular">
+                    #(hinweis2)
                     <img title="captcha" alt="captcha" src="!{url}" /><br />
                     <input type="text" value="" name="captcha" class="" id="captcha" />
                     <input name="captcha_proof" type="hidden" value="!{proof}" class="hidden" />
