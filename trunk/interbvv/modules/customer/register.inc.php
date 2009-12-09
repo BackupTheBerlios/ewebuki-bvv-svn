@@ -224,7 +224,7 @@
                     }
                     $sql = "INSERT INTO ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]. " (".$sqla."email,key,time) VALUES ( ".$sqlb."'".$_POST["email"]."','".$_POST["captcha_proof"]."','".mktime()."')";
                     $result = $db -> query($sql);
-                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],"Ihre Anmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###","http://".$environment["fqdn"][0].$environment["ebene"]."/".$environment["kategorie"].".html"."?eintragen=".$_POST["captcha_proof"],$cfg["register"]["email_text"]["anmelde_plus"]),"FROM: ".$cfg["register"]["from"]."\r\nContent-Type: text/plain; charset=UTF-8\r\n");
+                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],"Ihre Anmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###",$cfg["register"]["domain"]."?eintragen=".$_POST["captcha_proof"],$cfg["register"]["email_text"]["anmelde_plus"]),"FROM: ".$cfg["register"]["from"]."\r\nContent-Type: text/plain; charset=UTF-8\r\n");
                     header("Location: ".$cfg["register"]["sites"]["signin"]);
                 }
                 // pruefen ob man noch eingetragen ist
@@ -236,7 +236,7 @@
                         header("Location: ".$cfg["register"]["sites"]["no"]);
                         exit;
                     }
-                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],"Ihre Abmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###","http://".$environment["fqdn"][0].$environment["ebene"]."/".$environment["kategorie"].".html"."?austragen=".$data["key"],$cfg["register"]["email_text"]["abmelde_plus"]),"Content-Type: text/plain; charset=UTF-8\r\n");
+                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],"Ihre Abmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###",$cfg["register"]["domain"]."?austragen=".$data["key"],$cfg["register"]["email_text"]["abmelde_plus"]),"Content-Type: text/plain; charset=UTF-8\r\n");
                     $result = $db -> query($sql);
                     header("Location: ".$cfg["register"]["sites"]["signout"]);
                 }
