@@ -45,60 +45,13 @@
 
     if ( $cfg["autoform"]["right"] == "" || $rechte[$cfg["autoform"]["right"]] == -1 ) {
 
-            function captcha_randomize($length) {
-                global $cfg;
-                $random = "";
-                while ( strlen($random) < $length ) {
-                    $random .= substr($cfg["register"]["captcha"]["letter_pot"], rand(0,strlen($cfg["register"]["captcha"]["letter_pot"])), 1);
-                }
-                return $random;
-            }
-
-            function captcha_create($text) {
-                global $cfg;
-                // anzahl der zeichen
-                $count = strlen($text);
-                // schriftarten festlegen
-                $ttf = $cfg["register"]["captcha"]["ttf"];
-                // schriftgroesse festlegen
-                $ttf_size = $cfg["register"]["captcha"]["font"]["size"];
-                // schriftabstand rechts
-                $ttf_x = $cfg["register"]["captcha"]["font"]["x"];
-                // schriftabstand oben
-                $ttf_y = $cfg["register"]["captcha"]["font"]["y"];
-
-                // hintergrund erstellen
-                $ttf_img = ImageCreate($count*2*$ttf_size,2*$ttf_size);
-                // bgfarbe festlegen
-                $bg_color = ImageColorAllocate ($ttf_img, $cfg["register"]["captcha"]["bg_color"][0], $cfg["register"]["captcha"]["bg_color"][1], $cfg["register"]["captcha"]["bg_color"][2]);
-                // textfarbe festlegen
-                $font_color = ImageColorAllocate($ttf_img, $cfg["register"]["captcha"]["font_color"][0], $cfg["register"]["captcha"]["font_color"][1], $cfg["register"]["captcha"]["font_color"][2]);
-                // schrift in bild einfuegen
-                foreach ( str_split($text) as $key=>$character ) {
-                    // schriftwinkel festlegen
-                    $ttf_angle = rand(-25,25);
-                    // schriftarten auswaehlen
-                    $ttf_font = $ttf[rand(0,(count($ttf)-1))];
-                    imagettftext($ttf_img, $ttf_size, $ttf_angle, $ttf_size*2*$key+$ttf_x, $ttf_y, $font_color, $ttf_font, $character);
-                }
-                // bild temporaer als datei ausgeben
-                $captcha_crc = crc32($text.$cfg["register"]["captcha"]["randomize"]);
-                $captcha_name = "captcha-".$captcha_crc.".png";
-                $captcha_path = $cfg["file"]["base"]["maindir"].$cfg["file"]["base"]["new"];
-                imagepng($ttf_img,$captcha_path.$captcha_name);
-                // bild loeschen
-                imagedestroy($ttf_img);
-            }
-
-
-
         if ( $_GET["eintragen"] ) {
             $preg = "^(-)?([0-9])*$";
             if ( preg_match("/$preg/",$_GET["eintragen"],$regs) ) {
-                $sql = "SELECT * FROM ".$cfg["register"]["db"]["register"]["entries"]." WHERE ".$cfg["register"]["db"]["register"]["key"]."='".$regs[0]."' AND confirm !='-1'";
+                $sql = "SELECT * FROM ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]." WHERE ".$cfg["register"]["db"][$environment["kategorie"]]["key"]."='".$regs[0]."' AND confirm !='-1'";
                 $result = $db -> query($sql);
                 if ( $db -> num_rows($result) > 0 ) {
-                    $sql = "UPDATE ".$cfg["register"]["db"]["register"]["entries"]." SET time=".mktime().", confirm='-1' WHERE ".$cfg["register"]["db"]["register"]["key"]."='".$regs[0]."' AND confirm !='-1'";
+                    $sql = "UPDATE ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]." SET time=".mktime().", confirm='-1' WHERE ".$cfg["register"]["db"][$environment["kategorie"]]["key"]."='".$regs[0]."' AND confirm !='-1'";
                     $result = $db -> query($sql);
                     header("Location: ".$cfg["register"]["sites"]["signin_akt"]);
                     exit;
@@ -114,10 +67,10 @@
         if ( $_GET["austragen"] ) {
             $preg = "^(-)?([0-9])*$";
             if ( preg_match("/$preg/",$_GET["austragen"],$regs) ) {
-                $sql = "SELECT * FROM ".$cfg["register"]["db"]["register"]["entries"]." WHERE ".$cfg["register"]["db"]["register"]["key"]."='".$regs[0]."' AND confirm ='-1'";
+                $sql = "SELECT * FROM ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]." WHERE ".$cfg["register"]["db"][$environment["kategorie"]]["key"]."='".$regs[0]."' AND confirm ='-1'";
                 $result = $db -> query($sql);
                 if ( $db -> num_rows($result) > 0 ) {
-                    $sql = "DELETE FROM ".$cfg["register"]["db"]["register"]["entries"]." WHERE ".$cfg["register"]["db"]["register"]["key"]."='".$regs[0]."' AND confirm ='-1'";
+                    $sql = "DELETE FROM ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]." WHERE ".$cfg["register"]["db"][$environment["kategorie"]]["key"]."='".$regs[0]."' AND confirm ='-1'";
                     $result = $db -> query($sql);
                     header("Location: ".$cfg["register"]["sites"]["signout_akt"]);
                     exit;
@@ -148,16 +101,16 @@
             $specialvars["editlock"] = -1;
         }
 
-        #if ( count($HTTP_POST_VARS) == 0 ) {
-        #} else {
-            #$form_values = $HTTP_POST_VARS;
-        #}
+        if ( count($HTTP_POST_VARS) == 0 ) {
+        } else {
+            $form_values = $HTTP_POST_VARS;
+        }
 
         // form options holen
         $form_options = form_options(eCRC($environment["ebene"]).".".$environment["kategorie"]);
 
         // form elememte bauen
-        #$element = form_elements( $cfg["autoform"]["db"]["autoform"]["entries"], $form_values );
+        $element = form_elements( $cfg["register"]["db"][$environment["kategorie"]]["entries"], $form_values );
 
 
         $hidedata["form"] = array();
@@ -173,10 +126,10 @@
         if ( is_array($cfg["register"]["captcha"]) ) {
 
             // zufaellige zeichen erzeugen
-            $captcha_text = captcha_randomize($cfg["register"]["captcha"]["length"]);
+            $captcha_text = captcha_randomize($cfg["register"]["captcha"]["length"],$cfg["register"]["captcha"]);
 
             // bild erzeugen
-            captcha_create($captcha_text);
+            captcha_create($captcha_text,$cfg["register"]["captcha"]);
             // captcha-info erzeugen
             $captcha_crc = crc32($captcha_text.$cfg["register"]["captcha"]["randomize"]);
             $captcha_name = "captcha-".$captcha_crc.".png";
@@ -215,15 +168,15 @@
 
         // was anzeigen
         $cfg["leer"]["path"] = str_replace($pathvars["virtual"],"",$cfg["leer"]["basis"]);
-        $mapping["main"] = "965077567.newsletter";
+        $mapping["main"] = eCRC($environment["ebene"]).".".$environment["kategorie"];
         #$mapping["navi"] = "leer";
 
         // unzugaengliche #(marken) sichtbar machen
         if ( isset($HTTP_GET_VARS["edit"]) ) {
             $ausgaben["inaccessible"] = "inaccessible values:<br />";
             $ausgaben["inaccessible"] .= "# (error1) #(error1)<br />";
-            $ausgaben["inaccessible"] .= "# (edittitel) #(edittitel)<br />";
-            $ausgaben["inaccessible"] .= "# (deletetitel) #(deletetitel)<br />";
+            $ausgaben["inaccessible"] .= "# (error_mail) g(error_email)<br />";
+            $ausgaben["inaccessible"] .= "# (error_captcha) g(error_captcha)<br />";
         } else {
             $ausgaben["inaccessible"] = "";
         }
@@ -237,43 +190,53 @@
             if ( is_array($cfg["register"]["captcha"]) ) {
                 if ( $_POST["captcha_proof"] != crc32($_POST["captcha"].$cfg["register"]["captcha"]["randomize"])
                   || !file_exists($captcha_path_srv."captcha-".$_POST["captcha_proof"].".png") ) {
-                    $ausgaben["form_error"] .= "#(error_captcha)";
-                    $dataloop["form_error"]["captcha"]["text"] = "#(error_captcha)";
+                    $ausgaben["form_error"] .= "g(error_captcha)<br>";
+                    $dataloop["form_error"]["captcha"]["text"] = "g(error_captcha)";
                     $hidedata["captcha"]["class"] = "form_error";
                 }
                 if (file_exists($captcha_path_srv."captcha-".$_POST["captcha_proof"].".png")) unlink($captcha_path_srv."captcha-".$_POST["captcha_proof"].".png");
             }
 
-            if ( $_POST["email"] == "" ) {
-                    $ausgaben["form_error"] .= "#(error_email)";
+            $preg =  "^(.+)@(.+)\.([a-zA-z]{2,8})$";
+            if ( $_POST["email"] != "" && !preg_match("/$preg/",$_POST["email"],$regs) ) {
+                    $ausgaben["form_error"] .= "g(error_email)";
             }
 
             if ( $ausgaben["form_error"] != "") $hidedata["error"] = array();
 
             if ( $ausgaben["form_error"] == "" ) {
+
+                $sqla = "";
+                $sqlb = "";
+                if ( is_array($cfg["register"]["db"][$environment["kategorie"]]["addon"]) ) {
+                        foreach ( $cfg["register"]["db"][$environment["kategorie"]]["addon"] as $value ) {
+                            $sqla .= $value.",";
+                            $sqlb .= "'".$_POST[$value]."',";
+                        }
+                }
                 //pruefen ob email schon registriert
                 if ( $_POST["ac"] == "eintragen") {
-                    $sql = "SELECT * FROM ".$cfg["register"]["db"]["register"]["entries"]." WHERE ".$cfg["register"]["db"]["register"]["e-mail"]."='".$_POST[$cfg["register"]["db"]["register"]["e-mail"]]."' AND confirm ='-1'";
+                    $sql = "SELECT * FROM ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]." WHERE ".$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]."='".$_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]]."' AND confirm ='-1'";
                     $result = $db -> query($sql);
                     if ( $db -> num_rows($result) > 0 ) {
                         header("Location: ".$cfg["register"]["sites"]["twice"]);
                         exit;
                     }
-                    $sql = "INSERT INTO ".$cfg["register"]["db"]["register"]["entries"]. " (email,key,time) VALUES ( '".$_POST["email"]."','".$_POST["captcha_proof"]."','".mktime()."')";
-$result = $db -> query($sql);
-                    mail($_POST[$cfg["register"]["db"]["register"]["e-mail"]],"Ihre Anmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###",$cfg["register"]["domain"]."?eintragen=".$_POST["captcha_proof"],$cfg["register"]["email_text"]["anmelde_plus"]),"FROM: ".$cfg["register"]["from"]."\r\nContent-Type: text/plain; charset=UTF-8\r\n");
+                    $sql = "INSERT INTO ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]. " (".$sqla."email,key,time) VALUES ( ".$sqlb."'".$_POST["email"]."','".$_POST["captcha_proof"]."','".mktime()."')";
+                    $result = $db -> query($sql);
+                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],"Ihre Anmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###","http://".$environment["fqdn"][0].$environment["ebene"]."/".$environment["kategorie"].".html"."?eintragen=".$_POST["captcha_proof"],$cfg["register"]["email_text"]["anmelde_plus"]),"FROM: ".$cfg["register"]["from"]."\r\nContent-Type: text/plain; charset=UTF-8\r\n");
                     header("Location: ".$cfg["register"]["sites"]["signin"]);
                 }
                 // pruefen ob man noch eingetragen ist
                 if ( $_POST["ac"] == "austragen") {
-                    $sql = "SELECT * FROM ".$cfg["register"]["db"]["register"]["entries"]." WHERE ".$cfg["register"]["db"]["register"]["e-mail"]."='".$_POST[$cfg["register"]["db"]["register"]["e-mail"]]."' AND confirm ='-1'";
+                    $sql = "SELECT * FROM ".$cfg["register"]["db"][$environment["kategorie"]]["entries"]." WHERE ".$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]."='".$_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]]."' AND confirm ='-1'";
                     $result = $db -> query($sql);
                     $data = $db -> fetch_array($result,1);
                     if ( $db -> num_rows($result) == 0 ) {
                         header("Location: ".$cfg["register"]["sites"]["no"]);
                         exit;
                     }
-                    mail($_POST[$cfg["register"]["db"]["register"]["e-mail"]],"Ihre Abmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###",$cfg["register"]["domain"]."?austragen=".$data["key"],$cfg["register"]["email_text"]["abmelde_plus"]),"Content-Type: text/plain; charset=UTF-8\r\n");
+                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],"Ihre Abmeldung in unserem BVV-Kundeninformations-System",str_replace("###bestaetigungslink###","http://".$environment["fqdn"][0].$environment["ebene"]."/".$environment["kategorie"].".html"."?austragen=".$data["key"],$cfg["register"]["email_text"]["abmelde_plus"]),"Content-Type: text/plain; charset=UTF-8\r\n");
                     $result = $db -> query($sql);
                     header("Location: ".$cfg["register"]["sites"]["signout"]);
                 }
