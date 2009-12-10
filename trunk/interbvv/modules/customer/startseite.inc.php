@@ -74,6 +74,7 @@
                 $hidedata["startbanner"]["src"] = $pathvars["images"].$cfg["startseite"]["pics"][$index];
             }
         }
+        header("HTTP/1.0 200 OK");
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
 
