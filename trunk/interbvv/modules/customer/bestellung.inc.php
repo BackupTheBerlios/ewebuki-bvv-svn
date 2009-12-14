@@ -84,7 +84,7 @@
 
     $order = "";
     foreach ( $cfg["bestellung"]["order_fields"]  as $key => $value ) {
-        $hidedata["order_form"][$key] = $_POST[$key];
+        $hidedata["order_form"][$key] = htmlentities($_POST[$key]);
         if ( $ausgaben["form_error"] == "" ) {
             if ( $_POST[$key] > 0 ) {
                 $order .= $_POST[$key]." Stück ".$value."\n";

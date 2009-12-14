@@ -329,12 +329,12 @@
                         "check" => $check_no,
                     );
                     // flst-nr
-                    $hidedata[$environment["parameter"][2]]["flst_".$i] = $_POST["order"][$i]["flst"];
-                    $hidedata[$environment["parameter"][2]]["umgriff_".$i] = $_POST["order"][$i]["umgriff"];
+                    $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlspecialchars($_POST["order"][$i]["flst"]);
+                    $hidedata[$environment["parameter"][2]]["umgriff_".$i] = htmlspecialchars($_POST["order"][$i]["umgriff"]);
                     if ( $_POST["koordinaten"][$i]["flst"] != "" ) {
-                        $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = $_POST["koordinaten"][$i]["flst"];
+                        $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = htmlspecialchars($_POST["koordinaten"][$i]["flst"]);
                     } elseif ( $_POST["masszahlen"][$i]["flst"] != "" ) {
-                        $hidedata[$environment["parameter"][2]]["flst_".$i] = $_POST["masszahlen"][$i]["flst"];
+                        $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlspecialchars($_POST["masszahlen"][$i]["flst"]);
                     }
                     // checkboxen
                     $ausgaben["check_list_".$i] = "";$ausgaben["check_disk_".$i] = "";
