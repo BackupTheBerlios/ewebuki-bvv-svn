@@ -70,7 +70,7 @@
     foreach ( $cfg["bestellung"]["data_fields"]  as $key => $value ) {
 
         if ( $_POST["send"] ) {
-            $shopper .= $value[0]."\t\t".$_POST[$key]."\n";
+            $shopper .= $value[0]."\t\t".htmlentities($_POST[$key])."\n";
             if ( $value[1] == -1 ) {
                 if ( $_POST[$key] == "" ) {
                     $ausgaben["form_error"] .= "Bitte ".$value[0]." eingeben<br>";
@@ -87,7 +87,7 @@
         $hidedata["order_form"][$key] = htmlentities($_POST[$key]);
         if ( $ausgaben["form_error"] == "" ) {
             if ( $_POST[$key] > 0 ) {
-                $order .= $_POST[$key]." Stück ".$value."\n";
+                $order .= htmlentities($_POST[$key])." St&uuml;ck ".$value."\n";
             }
         }
     }

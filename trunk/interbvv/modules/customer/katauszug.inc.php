@@ -93,9 +93,15 @@
             // PLZ-Suche
             if ( $_POST["s_plz"] != ""  ) {
                 if ( is_numeric($_POST["s_plz"]) ) {
+                    // user-eingabe absichern
+                    if ( get_magic_quotes_gpc() ) {
+                        $plz = $_POST["s_plz"];
+                    } else {
+                        $plz = addslashes($_POST["s_plz"]);
+                    }
                     $sql = "SELECT DISTINCT ".$cfg["katauszug"]["db"]["plz"]["akz"]."
                                     FROM ".$cfg["katauszug"]["db"]["plz"]["entries"]."
-                                    WHERE ".$cfg["katauszug"]["db"]["plz"]["plz"]."=".addslashes(stripslashes($_POST["s_plz"]));
+                                    WHERE ".$cfg["katauszug"]["db"]["plz"]["plz"]."=".$plz;
                     $result = $db -> query($sql);
                     $num = $db->num_rows($result);
                     if ( $num == 1 ) {
@@ -239,8 +245,8 @@
                         }
                         $dataloop["gmkg_".$i][] = array(
                             "value" => $item,
-                            "item" => $item,
-                            "sel" => $sel,
+                             "item" => $item,
+                              "sel" => $sel,
                         );
                     }
                 }
@@ -250,28 +256,28 @@
                     for ( $count = 1; $count <= 5; $count++ ) {
                         $sel = "";
                         if ( $_POST["order"][$i]["anzahl"] == $count
-                        || $_POST["masszahlen"][$i]["anzahl"] == $count
-                        || $_POST["koordinaten"][$i]["anzahl"] == $count ) {
+                          || $_POST["masszahlen"][$i]["anzahl"] == $count
+                          || $_POST["koordinaten"][$i]["anzahl"] == $count ) {
                             $sel = " selected=\"selected\"";
                         }
                         $dataloop["anzahl_".$i][] = array(
                             "value" => $count,
-                            "item" => $count,
-                            "sel" => $sel,
+                             "item" => $count,
+                              "sel" => $sel,
                         );
                     }
                     // massstab-dropdowns
                     foreach ( $cfg["katauszug"]["massstab"] as $massstab ) {
                         $sel = "";
                         if ( $_POST["order"][$i]["massstab"] == $massstab
-                        || $_POST["masszahlen"][$i]["massstab"] == $massstab
-                        || $_POST["koordinaten"][$i]["massstab"] == $massstab ) {
+                          || $_POST["masszahlen"][$i]["massstab"] == $massstab
+                          || $_POST["koordinaten"][$i]["massstab"] == $massstab ) {
                             $sel = " selected=\"selected\"";
                         }
                         $dataloop["massstab_".$i][] = array(
                             "value" => $massstab,
-                            "item" => $massstab,
-                            "sel" => $sel,
+                             "item" => $massstab,
+                              "sel" => $sel,
                         );
                     }
                     // format-dropdowns
@@ -280,8 +286,8 @@
                         if ( $_POST["order"][$i]["format"] == $format ) $sel = " selected=\"selected\"";
                         $dataloop["format_".$i][] = array(
                             "value" => $format,
-                            "item" => $format,
-                            "sel" => $sel,
+                             "item" => $format,
+                              "sel" => $sel,
                         );
                     }
                     // din-dropdowns
@@ -290,8 +296,8 @@
                         if ( $_POST["masszahlen"][$i]["din"] == $din ) $sel = " selected=\"selected\"";
                         $dataloop["din_".$i][] = array(
                             "value" => $din,
-                            "item" => $din,
-                            "sel" => $sel,
+                             "item" => $din,
+                              "sel" => $sel,
                         );
                     }
                     // beglaubigungs-radios
@@ -320,21 +326,21 @@
                     }
                     $dataloop["add_begl_".$i][] = array(
                         "value" => "ja",
-                        "item" => "g(yes)",
+                         "item" => "g(yes)",
                         "check" => $check_yes,
                     );
                     $dataloop["add_begl_".$i][] = array(
                         "value" => "nein",
-                        "item" => "g(no)",
+                         "item" => "g(no)",
                         "check" => $check_no,
                     );
                     // flst-nr
-                    $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlspecialchars($_POST["order"][$i]["flst"]);
-                    $hidedata[$environment["parameter"][2]]["umgriff_".$i] = htmlspecialchars($_POST["order"][$i]["umgriff"]);
+                    $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlentities($_POST["order"][$i]["flst"]);
+                    $hidedata[$environment["parameter"][2]]["umgriff_".$i] = htmlentities($_POST["order"][$i]["umgriff"]);
                     if ( $_POST["koordinaten"][$i]["flst"] != "" ) {
-                        $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = htmlspecialchars($_POST["koordinaten"][$i]["flst"]);
+                        $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = htmlentities($_POST["koordinaten"][$i]["flst"]);
                     } elseif ( $_POST["masszahlen"][$i]["flst"] != "" ) {
-                        $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlspecialchars($_POST["masszahlen"][$i]["flst"]);
+                        $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlentities($_POST["masszahlen"][$i]["flst"]);
                     }
                     // checkboxen
                     $ausgaben["check_list_".$i] = "";$ausgaben["check_disk_".$i] = "";

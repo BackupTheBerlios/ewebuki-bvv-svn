@@ -130,6 +130,9 @@
         $hidedata["level_up"] = array();
     }
 
+    // einige ausgabe-definitionen
+    $ausgaben["recommend_link"] = htmlentities("mailto:?subject=Linkempfehlung&body=".$pathvars["menuroot"].$pathvars["requested"]);
+
   if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ $script_name ++ ]".$debugging["char"];
 
 //////////////////////////////////////////////////////////////////////////////////////
