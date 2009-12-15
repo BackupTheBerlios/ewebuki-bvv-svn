@@ -131,8 +131,11 @@
     }
 
     // einige ausgabe-definitionen
-    $url = $pathvars["menuroot"].$pathvars["requested"];
-    if ( preg_match("/(vermessungsamt-[^.]+)\./U",$pathvars["menuroot"],$match) ) $url = "http://www.".$match[1].".de".$pathvars["requested"];
+    if ( preg_match("/(vermessungsamt-[^.]+)\./U",$pathvars["menuroot"],$match) ) {
+        $url = "http://www.".$match[1].".de".$pathvars["requested"];
+    } else {
+        $url = "http://www.vermessung.bayern.de".$pathvars["requested"];
+    }
     $ausgaben["recommend_link"] = htmlentities("mailto:?subject=Linkempfehlung&body=".$url);
 
   if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ $script_name ++ ]".$debugging["char"];
