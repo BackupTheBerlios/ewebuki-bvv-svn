@@ -239,7 +239,7 @@
                         header("Location: ".$cfg["register"]["db"][$environment["kategorie"]]["no"]);
                         exit;
                     }
-                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],$cfg["register"]["db"][$environment["kategorie"]]["email_subject2"],str_replace("###bestaetigungslink###",$cfg["register"]["domain"].$environment["ebene"]."/".$environment["kategorie"].".html?austragen=".$data["key"],$message2),"Content-Type: text/plain; charset=UTF-8\r\n");
+                    mail($_POST[$cfg["register"]["db"][$environment["kategorie"]]["e-mail"]],$cfg["register"]["db"][$environment["kategorie"]]["email_subject2"],str_replace("###bestaetigungslink###",$cfg["register"]["domain"].$environment["ebene"]."/".$environment["kategorie"].".html?austragen=".$data["key"],$message2),"FROM: ".$cfg["register"]["from"]."\r\nContent-Type: text/plain; charset=UTF-8\r\n");
                     $result = $db -> query($sql);
                     header("Location: ".$cfg["register"]["db"][$environment["kategorie"]]["signout"]);
                 }
