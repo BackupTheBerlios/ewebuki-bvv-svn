@@ -1008,6 +1008,10 @@ div.autocomplete {
         margin:3px 5px 3px 0;
     }
 
+    .kontakt .anrede label {
+        clear: none;
+        width: auto;
+    }
         .kontakt label.label_right, .formular label.label_right {
             clear:none;
             margin-left:5px;
