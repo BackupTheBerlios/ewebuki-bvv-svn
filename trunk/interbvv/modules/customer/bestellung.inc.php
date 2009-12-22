@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Kˆnigsbrunn
+    86343 KÔøΩnigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -70,13 +70,13 @@
     foreach ( $cfg["bestellung"]["data_fields"]  as $key => $value ) {
 
         if ( $_POST["send"] ) {
-            $shopper .= $value[0]."\t\t".htmlentities($_POST[$key])."\n";
+            $shopper .= $value[0]."\t\t".addslashes($_POST[$key])."\n";
             if ( $value[1] == -1 ) {
                 if ( $_POST[$key] == "" ) {
                     $ausgaben["form_error"] .= "Bitte ".$value[0]." eingeben<br>";
                 }
             }
-            $hidedata["order_form"][$key] = htmlentities(stripcslashes($_POST[$key]));
+            $hidedata["order_form"][$key] = addslashes($_POST[$key]);
         } else {
             $hidedata["order_form"][$key] = "";
         }
@@ -87,7 +87,7 @@
         $hidedata["order_form"][$key] = htmlentities($_POST[$key]);
         if ( $ausgaben["form_error"] == "" ) {
             if ( $_POST[$key] > 0 ) {
-                $order .= htmlentities($_POST[$key])." St&uuml;ck ".$value."\n";
+                $order .= htmlentities($_POST[$key])." St√ºck ".$value."\n";
             }
         }
     }
@@ -95,12 +95,12 @@
         $ausgaben["form_error"] = "<p class=\"error\">".$ausgaben["form_error"]."</p>";
     } else {
         if (  $order != "" ) {
-            $shopper = utf8_decode($shopper);
+            #$shopper = utf8_decode($shopper);
             mail(
                 $cfg["bestellung"]["email"]["owner"],
                 $cfg["bestellung"]["email"]["subject"],
                 strip_tags($cfg["bestellung"]["email"]["text"]."\n\n".$order."\n\n".$shopper),
-                "Mime-Version: 1.0 Content-Type: text/plain; charset=ISO-8859-1"
+                "Content-Type: text/plain; charset=UTF-8"
             );
             $hidedata["order_success"]["text"] = "#(success)";
            unset($hidedata["order_form"]);
