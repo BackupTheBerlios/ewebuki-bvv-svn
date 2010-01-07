@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>Neues Internet</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" />
+    </head>
+
+    <body>
+
+<!--##begin-->
+Bitte Suchbegriff eingeben
+<input  onkeyup="new Ajax.Updater('!{id}_erg', '/auth/login.html',{parameters:{main:'ajax_suche',text: $F('!{id}'),time: $F('!{id}_sel'),art:'!{search}',kate:'!{kate}'}});" id="!{id}" type="text" />
+<select onchange="new Ajax.Updater('!{id}_erg', '/auth/login.html',{parameters:{main:'ajax_suche',text: $F('!{id}'),time: $F('!{id}_sel'),art:'!{search}',kate:'!{kate}'}});" id="!{id}_sel"><option value="0">Bitte wählen</option><option value="7">7 Tage</option><option value="30">30 Tage</option><option value="365">1 Jahr</option></select>
+<div id="!{id}_erg" ></div>
+
+<!--##end-->
+
+    </body>
+</html>
