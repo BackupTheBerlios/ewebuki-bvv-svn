@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 Kï¿½nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -52,19 +52,62 @@
             header("Location: /login.html");
         }
 
-        // skripte einbinden
-        require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
-        require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
+        // Artikel anzeigen
+        $sql = "SELECT Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,
+                        tname,
+                        ebene,
+                        kategorie,
+                        content
+                    FROM site_text
+                    WHERE status='1'
+                    AND tname LIKE '".eCRC("/aktuell/archiv").".%'
+                    AND content LIKE '%[KATEGORIE]/aktuell/archiv[/KATEGORIE]%'
+                ORDER BY date DESC";
+        $result = $db -> query($sql);
+        $count = 0;
+        $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
+        $dataloop["list_new"] = array();
+        while ( $data = $db->fetch_array($result,1) ) {
 
-        // artikel-bestandteile
-        $tags["titel"] = "H1";
-        $tags["teaser"] = "P=teaser";
-        $tags["image"] = "IMG=";
+            // Datumskontrolle
+            // Startdatum
+            $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+            if ( $startdatum > $today ) continue;
+            // Enddatum
+            if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
+                if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
+                    continue;
+                }
+            }
 
-        // artikelausgabe
-        $dataloop["list"] = show_blog("/aktuell/archiv",$tags,"admin","0,4","/aktuell/archiv");
-        foreach ( $dataloop["list"] as $key => $value ) {
-            $dataloop["list"][$key]["teaser_org"] = tagremove($dataloop["list"][$key]["teaser_org"]);
+            // ueberschrift
+            preg_match("/\[H1\](.*)\[\/H1\]/Uis",$data["content"],$match);
+            $headline = $match[1];
+            // teaser
+            preg_match("/\[P=teaser\](.*)\[\/p\]/Uis",$data["content"],$match);
+            $teaser = $match[1];
+            // link
+            $link = $pathvars["virtual"]."/aktuell/archiv/".$data["kategorie"].".html";
+            // bild informationen holen
+            preg_match("/\[IMG=(\/file\/.+\/)([0-9]+)(\/[a-z]+)(\/.+);/Uis",$data["content"],$match);
+            $sql_img = "SELECT * FROM site_file WHERE fid='".$match[2]."'";
+            $result_img = $db -> query($sql_img);
+            $data_img = $db -> fetch_array($result_img,1);
+            $pic_alt = $data_img["fdesc"];
+            $pic_src = $match[1].$match[2]."/s".$match[4];
+
+            // wieviele sollen angezeigt werden
+            $count++;
+            if ( $count > 4) break;
+
+            $dataloop["startseite"][$count] = array(
+                "headline"  => $headline,
+                "teaser"    => $teaser,
+                "link"      => $link,
+                "pic_src"   => $pic_src,
+                "pic_alt"   => $pic_alt,
+            );
+
         }
 
         // zufalls-banner
@@ -75,6 +118,7 @@
             }
         }
         header("HTTP/1.0 200 OK");
+        $mapping["main"] = "index";
 
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ++ ".$script["name"]." ++ ]".$debugging["char"];
 
