@@ -78,6 +78,7 @@
                     unset($_SESSION["admin_toggle"][$_POST['id']]);
                 }
             }
+            header("HTTP/1.0 200 OK");exit;
             die();
         }
 
@@ -88,10 +89,12 @@
         // page basics
 
         if ( $_POST["main"] == "ajax_suche" ) {
+            sleep(1.0);
+            header("HTTP/1.1 200 OK");
             $released_content = find_marked_content( $_POST["art"], $cfg, "inhalt", array(1), array("max_age"=>$_POST["time"]), FALSE ,array('presse','ausstellungen','termine'));
             $counter = 0;
             $hit = $released_content[1];
-
+            
             if ( is_array($hit) ) {
                 uasort($hit,'sort_marked_content');
 
@@ -118,18 +121,20 @@
                         </span>
                           <b>".$value["titel"]."</b><br />
                           freigegeben am :".$value["changed"]."<br />
-                          letzte Version von:".$value["last_author"]."</li>";            
+                          letzte Version von:".$value["last_author"]."</li>";
                 }
             }
+            echo "<ul style=\"margin: 3px; padding: 1px; overflow: hidden; list-style-type: none; list-style-position: outside; list-style-image: none; width: auto;\">";
             if ( $_POST["time"] > 0 ) {
-                echo "<ul style=\"margin: 3px; padding: 1px; overflow: hidden; list-style-type: none; list-style-position: outside; list-style-image: none; width: auto;\">";
                 if ( $counter == 0 ) {
                     echo "<li>Keine Treffer</li><ul>";
                 } else {
                     echo $itext;
                 }
-                echo "</ul>";
+            } else {
+                echo "<li>Bitte Zeitraum eingeben!</li>";
             }
+            echo "</ul>";
             die();
         }
 
