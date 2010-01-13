@@ -357,7 +357,7 @@
                     $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
                 }
 
-                // bayernweite artikel anzeigen
+                // bayernweite artikel und pressemitteilungen
                 $sql = "SELECT Cast(SUBSTR(content,POSITION('[SORT]' IN content)+6,POSITION('[/SORT]' IN content)-POSITION('[SORT]' IN content)-6) as DATETIME) as date,
                                tname,
                                ebene,
@@ -374,14 +374,31 @@
                 while ( $data = $db->fetch_array($result,1) ) {
                     if ( $count_artikel > 3 && $count_termin > 3 && $count_presse > 3 ) break;
 
-                    // soll der beitrag schon gezeigt werden
-                    $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
-                    if ( $today < $startdatum ) continue;
 
                     // ist der beitrag schon abgelaufen
-                    if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
-                        if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
-                            continue;
+                    if ( strstr($data["tname"],str_replace(".%","",$art_tname)) || strstr($data["tname"],str_replace(".%","",$pre_tname)) ) {
+                        // artikel und pressemitteilung
+                        // startdatum bereits erreicht?
+                        $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                        if ( $today < $startdatum ) continue;
+                        if ( preg_match("/\[ENDE\](.*)\[\/ENDE\]/Uis",$data["content"],$endmatch) ) {
+                            if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
+                                continue;
+                            }
+                        }
+                    } else {
+                        // termine
+                        // schon abgelaufen?
+                        $startdatum = mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4));
+                        preg_match("/\[_TERMIN\](.*)\[\/_TERMIN\]/Uis",$data["content"],$endmatch);
+                        if ( $endmatch[1] != "1970-01-01" ) {
+                            if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) ) {
+                                continue;
+                            }
+                        } else {
+                            if ( $today >  $startdatum ) {
+                                continue;
+                            }
                         }
                     }
 
@@ -400,7 +417,6 @@
                         $link = "http://www.vermessung.bayern.de/aktuell/presse/".$data["kategorie"].".html";
                     } elseif ( strstr($data["tname"],substr($ter_tname,0,10)) ) {
                         $count_termin++;
-                        if ( $count_termin > 3 ) continue;
                         $label = "bvv_termine";
                         preg_match("/\[_NAME\](.*)\[\/_NAME\]/Uis",$data["content"],$match);
                         $link = "http://www.vermessung.bayern.de/aktuell/termine,,".$data["kategorie"].",all.html";
@@ -423,6 +439,9 @@
                 }
                 if ( count($dataloop["bvv_termine"]) > 0 ) {
                     $hidedata["bvv_termine"] = array();
+                    // termine werden umsortiert und jetzt erst beschnitten
+                    $dataloop["bvv_termine"] = array_reverse($dataloop["bvv_termine"]);
+                    $dataloop["bvv_termine"] = array_slice($dataloop["bvv_termine"],0,3);
                 }
 
                 break;
