@@ -260,8 +260,7 @@
 
                 // unterschiedliche "toggle-bereiche" nachbearbeiten
                 $toggle_fields = array(
-                              "edit" => array("own" => "edit",
-                                              "all" => "publish"),
+                              "edit" => array("all" => "publish;edit"),
                      "release_queue" => array("all" => "publish"),
                       "release_wait" => array("all" => "edit"),
                   # "release_recent" => array("all" => "edit;publish"),
