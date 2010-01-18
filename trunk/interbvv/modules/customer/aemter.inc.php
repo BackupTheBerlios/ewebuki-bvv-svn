@@ -310,6 +310,7 @@
                 $result = $db -> query($sql);
                 $count = 0;
                 $today = mktime(23,59,59,date('m'),date('d'),date('Y'));
+                $num_row = $db->num_rows($result);
                 while ( $data = $db->fetch_array($result,1) ) {
 
                     // ist der beitrag schon abgelaufen
@@ -355,11 +356,9 @@
                     $dataloop["/aktuell/archiv"][$count]["date"] =  substr($data["date"],8,2).".".substr($data["date"],5,2).".".substr($data["date"],0,4);
 
                 }
-                if ( count($dataloop["/aktuell/archiv"]) > 0 ) {
-                    arsort($dataloop["/aktuell/archiv"]);
+                if ( count($dataloop["/aktuell/archiv"]) > 0 || $num_row > 0 ) {
+                    if (is_array($dataloop["/aktuell/archiv"])) arsort($dataloop["/aktuell/archiv"]);
                     $hidedata["aktuelles_archiv"]["on"] = "on";
-                }
-                if ( count($dataloop["/aktuell/archiv"]) > 0 || $db->num_rows($result) > 0 || $db->num_rows($result_t) > 0 ) {
                     $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
                 }
 
