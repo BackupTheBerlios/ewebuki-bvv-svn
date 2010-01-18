@@ -319,6 +319,12 @@
                             continue;
                         }
                     }
+                    // ist der termin schon abgelaufen
+                    if ( preg_match("/\[_TERMIN\](.*)\[\/_TERMIN\]/Uis",$data["content"],$endmatch) ) {
+                        if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
+                            continue;
+                        }
+                    }
 
                     if ( strstr($data["tname"],"1884525588") ) {
                         // termine
