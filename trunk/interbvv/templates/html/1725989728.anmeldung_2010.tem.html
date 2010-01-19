@@ -20,7 +20,7 @@
             <!--##show-->
 
             <!--##hide-newsletter-->
-            <form method="post" action="anmeldung_2010,,verify.html" method="post" name="letter"/>
+            <form method="post" class="formular" action="anmeldung_2010,,verify.html" method="post" name="letter"/>
             <fieldset class="kontakt">
                     #(hinweis1)
                     <label>Anrede</label><div class="anrede">!#element_anrede</div>
@@ -46,12 +46,8 @@
                     <p class="clear"></p>
                 </fieldset>
 
-                <fieldset class="formular">
-                    <legend>Anmeldung</legend>
-                    <input type="radio" value="eintragen" checked = "" name="ac" />Eintragen<br />
-                    <p class="clear"></p>
-                    <input type="radio" value="austragen" name="ac" />Austragen
-                </fieldset>
+                <input type="hidden" value="eintragen" checked = "" name="ac" />
+
                     <!--##show-->
                     <!--##hide-captcha-->
                     <fieldset class="formular">
