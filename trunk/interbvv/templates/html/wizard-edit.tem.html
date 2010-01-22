@@ -431,19 +431,18 @@
                     <!--##hide-artikel-->
                     <fieldset>
                         !#ausgaben_error
+                        #(artikel_inhalt)
                         <p>
-                            <label>#(termin_begin)</label>
+                            <label>#(artikel_begin)</label>
                             <input readonly=true style="float:left" type="text" id="date1" name="SORT" value="!{sort}" /><button class="button" style="font-size:0.6em;margin-left:5px;!{button1_display}" id="trigger1">...</button>
                         </p>
                         <div class="clear"></div>
-                        <p style="!{button2_display}">
-                            <label><a onclick="anzeigen('ende')" title="#(termin_end_t)">#(termin_ende)</a></label>
-                            <div style="display:!{display}" id="ende">
-                                <input readonly=true style="float:left" type="text" id="date2" name="ENDE" value="!{ende}" /><button class="button" style="font-size:0.6em;margin-left:5px;" id="trigger2">...</button>
-                                <div class="clear"></div>
-                            </div>
+                        <p>
+                            <label>#(artikel_ende)</label>
+                            <input readonly=true style="float:left" type="text" id="date2" name="ENDE" value="!{ende}" /><button class="button" style="font-size:0.6em;margin-left:5px;" id="trigger2">...</button
                         </p>
                     </fieldset>
+
                     <!--##show-->
                     <div class="clearer"></div>
 

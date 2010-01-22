@@ -226,6 +226,9 @@
     border:none;
     padding-left:10px;
 }
+#wizard > h1 {
+    background: none;
+}
 #wizard ul {
     margin:0;
     padding:0;
@@ -234,7 +237,7 @@
 #wizard fieldset {
     background:none;
     border:1px solid #CCCCCC !important;
-    margin:5px;
+    margin:5px !important;
     padding:5px !important;
 }
 
