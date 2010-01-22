@@ -360,7 +360,6 @@
                     if (is_array($dataloop["/aktuell/archiv"])) arsort($dataloop["/aktuell/archiv"]);
                     $hidedata["aktuelles_archiv"]["on"] = "on";
                     $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt ".$form_values["adststelle"];
-                    $hidedata["aktuelles"]["text"] = "Aktuelles vom Vermessungsamt";
                 }
 
                 // bayernweite artikel und pressemitteilungen
