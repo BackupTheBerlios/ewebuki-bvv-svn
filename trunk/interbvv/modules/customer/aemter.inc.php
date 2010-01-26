@@ -838,6 +838,8 @@
                 }
                 break;
             case "va-archiv":
+                // reiter ausblenden
+                unset($hidedata["aussenstelle"]);
                 // kekse manipulieren
                 $environment["kekse"] .= $defaults["split"]["kekse"]."<span class=\"last_bread_crumb\">Archiv</span>";
 
