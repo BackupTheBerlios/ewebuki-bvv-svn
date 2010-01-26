@@ -276,7 +276,7 @@
                                 if ( $value["author"] == $_SESSION["forename"]." ".$_SESSION["surname"] ) {
                                     $my = -1;
                                 }
-    
+
                                 if ( priv_check($value["kategorie"],$tog_value["all"] ) ){
                                     $zugang = -1;                                    
                                 }
@@ -296,7 +296,9 @@
                                   && $value["kategorie"] != "/aktuell/presse"
                                   && $value["kategorie"] != "/aktuell/ausstellungen"
                                   && $value["kategorie"] != "/aktuell/termine" ) {
-                                    get_chefred($value["kategorie"]);
+                                    if ( $tog_key == "release_wait" ) {
+                                        get_chefred($value["kategorie"]);
+                                    }
                                     $sql_amt = "SELECT *
                                                   FROM db_aemter
                                                  WHERE adakz='".substr($value["kategorie"],8,2)."'";
