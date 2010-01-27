@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>default</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+<!--##begin-->
+
+        <h1>Inhalte der Marginalspalte</h1>
+
+        <!--##hide-new-->
+        <a href="!{link}">[neuer Banner]</a>
+        <!--##show-->
+
+        <fieldset class="marker" style="padding:5px;">
+            <legend>Kategorie-Filter</legend>
+            <!--##loop-filter_kat-->
+            <a href="!{link}" class="!{class}">!{label}</a>
+            <!--##cont-->
+            <div class="clear"></div>
+        </fieldset>
+
+        <fieldset style="padding:5px;">
+            <table width="100%" cellspacing="5" cellpadding="2">
+                <thead>
+                    <tr>
+                        <th align="left" style="width:5%;">Clicks</th>
+                        <th align="left">Banner</th>
+                        <th align="left" style="width:10%;">Sortierung</th>
+                        <th align="left" style="width:5%;">&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--##loop-list-->
+                    <tr style="background:!{color};">
+                        <td valign="top" align="center">
+                            <a href="#" onclick="Effect.toggle(this.next('div',0),'blind',{duration:0.3,scaleX:true,scaleY:false});return false;">!{click}</a>
+                            <div style="display:none;white-space: nowrap;">!{info}</div>
+                        </td>
+                        <td>
+                            <a rel="lightbox[!{id}]" href="!{pic_src}" title="Vorschau" style="background:url('!{pic_src}') no-repeat;width: 145px;height:60px;display:block;float:left;margin-right: 3px;"></a>
+                            <b>!{title}</b><br />
+                            <i>!{link}</i>
+                            <div class="clear"></div>
+                            <b>Status:</b> !{status}<br />
+                            <b>Kategorie:</b> !{kat}
+                        </td>
+                        <td valign="center" align="center">!{sort}</td>
+                        <td style="white-space:nowrap">
+                            <a href="!{edit}"><img src="../../images/default/edit.png" width="24" height="18" alt="g(edit)" title="g(edit)" /></a>
+                            <a href="!{delete}"><img src="../../images/default/delete.png" width="24" height="18" alt="g(delete)" title="g(delete)" /></a>
+                        </td>
+                    </tr>
+                    <!--##cont-->
+                </tbody>
+            </table>
+        </fieldset>
+        <!--##hide-new-->
+        <a href="!{link}">[neuer Banner]</a>
+        <!--##show-->
+
+<!--##end-->
+    </body>
+</html>

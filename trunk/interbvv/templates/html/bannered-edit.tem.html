@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+<title>fileed.modify</title>
+<link rel="stylesheet" href="../../css/default/screen.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../css/default/eed.css" type="text/css" media="screen" />
+</head>
+<body>
+<!--$Id: -939795212.modify.tem.html 1481 2008-11-20 14:10:34Z krompi $-->
+<!--##begin-->
+        <form method="post" action="!#ausgaben_form_aktion" id="" class="wide" enctype="multipart/form-data">
+                <h1>#(ueberschrift)</h1>
+                <p>#(inhalt)</p>
+                <p>!#ausgaben_form_error</p>
+                <fieldset class="formular">
+                    <div style="" class="">
+                        <label style="clear:left;">#(btitle)</label>
+                            !#element_btitle
+                            <div style="clear:left;"></div>
+                        <label style="clear:left;">#(bdesc)</label>
+                            !#element_bdesc
+                            <div style="clear:left;"></div>
+                        <label style="clear:left;">#(blink)</label>
+                            !#element_blink
+                        <label style="clear:left;">#(bsort)</label>
+                            !#element_bsort
+                        <label style="clear:left;">#(bhide)</label>
+                            <div style="float:left;">!#element_bhide</div>
+                        <label style="clear:left;">#(bwindow)</label>
+                            <div style="float:left;">!#element_bwindow</div>
+                        <label style="clear:left;">#(bkat)</label>
+                            <select name="kat[]" multiple="multiple">
+                                <option value="">keine Auswahl</option>
+                                <!--##loop-bkat-->
+                                <option value="!{value}"!{sel}>!{item}</option>
+                                <!--##cont-->
+                            </select>
+                    </div>
+                </fieldset>
+                <fieldset class="formular">
+                    <ul>
+                        <!--##loop-pics-->
+                        <li class="thumbs">
+                            <a rel="lightbox[]" href="!{src_o}" title="Vorschau"><img src="!{src_tn}" /></a>
+                            <input name="pic_value[!{id}]" value="!{id}" type="hidden" />
+                            <a href="" onclick="remove_pic(this);return false;">[l&ouml;schen]</a>
+                        </li>
+                        <!--##cont-->
+                    </ul>
+                    <div class="clear"></div>
+                    <hr />
+                    <button name="pic[]" value="">Bild holen</button>
+                </fieldset>
+
+                <script type="text/javascript">
+                    function remove_pic(element) {
+                        new Effect.BlindUp(
+                                element.up(0),
+                                {
+                                    scaleX:true,
+                                    scaleY:false,
+                                    afterFinish:function() {
+                                        element.up(0).remove();
+                                    }
+                                }
+                        );
+                    }
+                </script>
+
+                <fieldset>
+                    <input type="hidden" name="form_referer" value="!#ausgaben_form_referer" class="hidden" />
+                    <div class="clearer">&nbsp;</div>
+                    <input type="submit" name="send[]" value="g(send)" class="button" />
+                    <!--##hide-zip-->
+                    <input type="button" name="abort" value="g(extract)" onclick="anzeigen(['extract_edit','file_edit']);" class="button" />
+                    <!--##show-->
+                    <!--##hide-add-->
+                    <input type="submit" name="continue[]" value="#(continue)" class="button" />
+                    <!--##show-->
+                    <input type="reset" name="reset" value="g(reset)" onclick="resetForm()" class="button" />
+                    <input type="submit" name="abort[]" value="g(abort)" class="button" />
+                    <div class="clearer">&nbsp;</div>
+                </fieldset>
+
+        </form>
+
+        <p>!#ausgaben_output</p>
+        <p>!#ausgaben_inaccessible</p>
+
+
+<!--##end-->
+</body>
+</html>

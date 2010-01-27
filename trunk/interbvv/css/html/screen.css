@@ -1036,6 +1036,26 @@ label.ganz {
 }
 /* + + + */
 
+.marker {
+    line-height: 1.5em;
+}
+
+.marker a {
+    border:1px solid #CCCCCC;
+    color: #CCCCCC;
+    cursor: pointer;
+    float:left;
+    font-weight: bold;
+    margin:3px;
+    padding:3px 5px;
+    text-decoration:none;
+}
+
+.marker a.sel, .marker a:hover {
+    background-color:#EFF2FA;
+    color:#2C5A93;
+}
+
 /* kasten fuer zusatz-informationen */
 /* * * * */
 .box{
@@ -1049,6 +1069,7 @@ label.ganz {
 
 #margin .box {
     margin:0 3px 3px;
+    overflow: hidden;
 }
 
 #margin .add .box {
