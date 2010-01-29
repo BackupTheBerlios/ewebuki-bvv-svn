@@ -20,12 +20,14 @@
         <a href="!{link}">[neuer Banner]</a>
         <!--##show-->
 
-        <fieldset class="marker" style="padding:5px;">
+        <fieldset style="padding:5px;">
             <legend>Kategorie-Filter</legend>
-            <div style="float:right;width:50%; border-left:1px dotted #CCCCCC;">#(filter_hinweis</div>
-            <!--##loop-filter_kat-->
-            <a href="!{link}" class="!{class}">!{label}</a>
-            <!--##cont-->
+            <div style="float:right;width:50%; border-left:1px dotted #CCCCCC;">#(filter_hinweis)</div>
+            <div class="marker">
+                <!--##loop-filter_kat-->
+                <a href="!{link}" class="!{class}">!{label}</a>
+                <!--##cont-->
+            </div>
             <div class="clear"></div>
         </fieldset>
 
