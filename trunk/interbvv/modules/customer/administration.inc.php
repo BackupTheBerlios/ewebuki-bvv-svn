@@ -94,7 +94,7 @@
             $released_content = find_marked_content( $_POST["art"], $cfg, "inhalt", array(1), array("max_age"=>$_POST["time"]), FALSE ,array('presse','ausstellungen','termine'));
             $counter = 0;
             $hit = $released_content[1];
-            
+
             if ( is_array($hit) ) {
                 uasort($hit,'sort_marked_content');
 
@@ -109,10 +109,14 @@
                     if ( !priv_check($value["kategorie"],"admin;publish;edit") ) continue;
 
                     if ( $_POST["text"] ){
-                        if ( !stristr($value["titel"],$_POST["text"]) ) {
+                        if ( stristr($value["titel"],$_POST["text"]) || stristr($value["ext"],$_POST["text"]) ) {
+
+                        } else {
                             continue;
                         }
                     }
+                    if ( $value["titel"] == "---" ) $value["titel"] = $value["ext"];
+
                     $counter++;
                     $itext .= "<li style=\"margin:2px 0 0 0;padding:0.2em;border:1px solid ".$cfg["admin"]["color"]["a"].";\">
                         <span style=\"float: right; text-align: right; display: block;\">
