@@ -87,7 +87,7 @@
         $hidedata["order_form"][$key] = htmlentities($_POST[$key]);
         if ( $ausgaben["form_error"] == "" ) {
             if ( $_POST[$key] > 0 ) {
-                $order .= htmlentities($_POST[$key])." Stück ".$value."\n";
+                $order .= htmlentities($_POST[$key])." Stück ".$value."\n\r";
             }
         }
     }
