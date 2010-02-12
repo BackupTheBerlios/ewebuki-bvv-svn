@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 Kï¿½nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -158,10 +158,10 @@
 
             $person_data = array("surname", "forename", "strasse", "plz", "ort", "tel", "email");
             foreach ( $person_data as $value ) {
-                $ausgaben[$value] = htmlentities($_POST["person"][$value]);
+                $ausgaben[$value] = strip_tags($_POST["person"][$value]);
             }
-            $ausgaben["sonder"] = htmlentities($_POST["sonder"]);
-            $ausgaben["versand_adresse"] = htmlentities($_POST["versand_adresse"]);
+            $ausgaben["sonder"] = strip_tags($_POST["sonder"]);
+            $ausgaben["versand_adresse"] = strip_tags($_POST["versand_adresse"]);
 
 
             // dienststellen-dropdown
@@ -335,12 +335,12 @@
                         "check" => $check_no,
                     );
                     // flst-nr
-                    $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlentities($_POST["order"][$i]["flst"]);
-                    $hidedata[$environment["parameter"][2]]["umgriff_".$i] = htmlentities($_POST["order"][$i]["umgriff"]);
+                    $hidedata[$environment["parameter"][2]]["flst_".$i] = strip_tags($_POST["order"][$i]["flst"]);
+                    $hidedata[$environment["parameter"][2]]["umgriff_".$i] = strip_tags($_POST["order"][$i]["umgriff"]);
                     if ( $_POST["koordinaten"][$i]["flst"] != "" ) {
-                        $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = htmlentities($_POST["koordinaten"][$i]["flst"]);
+                        $hidedata[$environment["parameter"][2]]["koordFlst_".$i] = strip_tags($_POST["koordinaten"][$i]["flst"]);
                     } elseif ( $_POST["masszahlen"][$i]["flst"] != "" ) {
-                        $hidedata[$environment["parameter"][2]]["flst_".$i] = htmlentities($_POST["masszahlen"][$i]["flst"]);
+                        $hidedata[$environment["parameter"][2]]["flst_".$i] = strip_tags($_POST["masszahlen"][$i]["flst"]);
                     }
                     // checkboxen
                     $ausgaben["check_list_".$i] = "";$ausgaben["check_disk_".$i] = "";
@@ -425,7 +425,7 @@
                     || $_POST["extension1"] != ""
                     || $_POST["extension2"] != "" ) ) {
 
-                // form eingaben prüfen
+                // form eingaben prï¿½fen
                 form_errors( $form_options, $_POST );
                 form_errors( $form_options, $_POST["person"] );
 
@@ -485,8 +485,8 @@
                     } else {
                         $hidedata["nosend"] = array();
                     }
-                    if ( $_POST["versand_adresse"] != "" ) $hidedata["versand_adresse"]["adresse"] = htmlentities($_POST["versand_adresse"]);
-                    if ( $_POST["sonder"] != "" ) $hidedata["sonder"]["sonder"] = htmlentities($_POST["sonder"]);
+                    if ( $_POST["versand_adresse"] != "" ) $hidedata["versand_adresse"]["adresse"] = strip_tags($_POST["versand_adresse"]);
+                    if ( $_POST["sonder"] != "" ) $hidedata["sonder"]["sonder"] = strip_tags($_POST["sonder"]);
                     $art = strtoupper($environment["parameter"][2]);
                     $message = strip_tags(parser("katauszug-email",""));
 
