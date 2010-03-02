@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>default</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+<!--##begin-->
+        <div id="substance">
+            <h1>Wening-Stiche: !#ausgaben_titel</h1>
+            <img src="!#ausgaben_pic_src" />
+            #(inhalt)
+            !#ausgaben_output
+
+            <!--##hide-tags_on_page-->
+            <div class="aktuell cloud_pages">
+                <h3>#(rel_pages)</h3>
+                <ul>
+                    <!--##loop-rel_page-->
+                    <li class="!{class}" >
+                        <a href="!{url}" >!{title_content}</a>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            </div>
+            <!--##show-->
+            <p class="anchor">
+                <a href="#top" class="arrow_up">zum Seitenanfang</a>
+            </p>
+        </div>
+        #{margin}
+<!--##end-->
+    </body>
+</html>

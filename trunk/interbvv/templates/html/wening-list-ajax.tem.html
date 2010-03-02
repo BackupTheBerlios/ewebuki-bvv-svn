@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>default</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+        <div id="substance">
+            #(inhalt)
+            <form method="get" action="!#ausgaben_form_aktion" style="margin:2px;">
+                <fieldset class="formular" style="text-align:justify;padding:2px;">
+                    <!--##loop-reiter-->
+                    <a href="!{link}" style="border:1px solid #CCCCCC;padding:2px 4px;line-height:2em;!{style}">!{label}</a>
+                    <!--##cont-->
+                    <input type="text" name="wsearch" value="!#ausgaben_wsearch" id="w_ac" />
+                    <img src="../../images/html/ajax-loader.gif" id="indicator" alt="" style="display:none;" />
+                    <button type="submit" class="button">Suchen</button>
+                    <div id="w_ac_list" class="autocomplete"></div>
+                    <div class="clear"></div>
+                    <img src="../../images/html/ajax-loader.gif" id="indicator" alt="" style="display:none;" />
+                </fieldset>
+            </form>
+            <script type="text/javascript">
+                new Ajax.Autocompleter(
+                    'w_ac',
+                    'w_ac_list',
+                    '!#ausgaben_form_aktion',
+                    {
+                        indicator:'indicator',
+                        afterUpdateElement:function() {submit()}
+                    }
+                );
+            </script>
+            <p style="text-align:right;margin:10px 2px 5px;clear:both;">
+                Ergebnisse <b>!#ausgaben_inhalt_selected</b> von <b>!#ausgaben_anzahl</b> !#ausgaben_result
+            </p>
+<!--##begin-->
+            <p style="text-align:right;margin:10px 2px 5px;clear:both;">
+                Ergebnisse <b>!#ausgaben_inhalt_selected</b> von <b>!#ausgaben_anzahl</b> !#ausgaben_result
+            </p>
+            <!--##hide-modus_view-->
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:10%;">&nbsp;</th>
+                        <th>Ansicht von</th>
+                        <th style="white-space:nowrap;">Preis in €</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--##loop-liste-->
+                    <tr>
+                        <td>
+                            <a href="!{pic_lb}" rel="lightbox[]" title="!{pic_desc}"><img src="!{pic_src}" alt="Vorschau für !{title}" /></a>
+                        </td>
+                        <td valign="top">
+                            <b>!{title}</b><br />
+                            !{desc}
+                        </td>
+                        <td style="text-align:center;">!{price}</td>
+                    </tr>
+                    <!--##cont-->
+                </tbody>
+            </table>
+            <!--##show-->
+            <!--##hide-modus_edit-->
+            <table style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:10%;">&nbsp;</th>
+                        <th>Ansicht von</th>
+                        <th style="white-space:nowrap;">Preis in €</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--##loop-liste-->
+                    <tr>
+                        <td>
+                            <a href="!{pic_lb}" rel="lightbox[]" title="!{pic_desc}"><img src="!{pic_src}" alt="Vorschau für !{title}" /></a>
+                        </td>
+                        <td valign="top">
+                            <b>!{title}</b><br />
+                            !{desc}<br />
+                            <b><a href="!{link_edit}">[Bearbeiten]</a></b>
+                        </td>
+                        <td style="text-align:center;">!{price}</td>
+                    </tr>
+                    <!--##cont-->
+                </tbody>
+            </table>
+            <!--##show-->
+            <p style="margin:10px 2px;">
+                <span style="float:right;">!#ausgaben_inhalt_selector</span>
+            </p>
+<!--##end-->
+            !#ausgaben_output
+
+            <!--##hide-tags_on_page-->
+            <div class="aktuell cloud_pages">
+                <h3>#(rel_pages)</h3>
+                <ul>
+                    <!--##loop-rel_page-->
+                    <li class="!{class}" >
+                        <a href="!{url}" >!{title_content}</a>
+                    </li>
+                    <!--##cont-->
+                </ul>
+            </div>
+            <!--##show-->
+            <p class="anchor">
+                <a href="#top" class="arrow_up">zum Seitenanfang</a>
+            </p>
+        </div>
+        #{margin}
+    </body>
+</html>

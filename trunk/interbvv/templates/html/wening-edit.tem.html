@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+    <head>
+        <title>default</title>
+        <meta name="author" content="" />
+        <meta name="description" content=" " />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15" />
+        <link rel="stylesheet" href="../../css/html/screen.css" type="text/css" media="all" title="Standard" />
+        <link rel="stylesheet" href="../../css/html/extra_default.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/eed.css" type="text/css" />
+        <link rel="stylesheet" href="../../css/html/lightbox.css" type="text/css" />
+    </head>
+    <body>
+<!--$Id: -2051315182.list.tem.html 1272 2008-03-13 13:00:15Z buffy1860 $-->
+<!--##begin-->
+        <div id="substance">
+            #(inhalt)
+            !#ausgaben_output
+
+            <form method="post" action="!#ausgaben_form_aktion">
+                <fieldset class="formular">
+                    <label>#(title)</label>
+                    !#element_title
+                    <label>#(typ)</label>
+                    !#element_typ
+                    <label>#(serial)</label>
+                    !#element_serial
+                    <label>#(price)</label>
+                    !#element_price
+                    <label>#(desc)</label>
+                    !#element_desc
+                </fieldset>
+
+                <fieldset class="">
+                    <!--##hide-pic-->
+                    <img src="!{src}" />
+                    <input type="submit" name="get_pic[]" value="#(pic)" class="first" />
+                    <!--##show-->
+                    !#element_pic
+                </fieldset>
+
+                <fieldset class="button">
+                    <input type="submit" name="send[]" value="g(send)" class="first" />
+                    <input type="reset" name="reset" value="g(reset)" class="next" />
+                    <div class="clear"></div>
+                </fieldset>
+            </form>
+
+            !#ausgaben_inaccessible
+
+        </div>
+        #{margin}
+<!--##end-->
+    </body>
+</html>
