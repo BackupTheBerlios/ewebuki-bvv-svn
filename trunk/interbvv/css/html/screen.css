@@ -435,7 +435,9 @@ h2 em {
 
     /* Meldungs-Listen mit Datum (span) und Ueberschrift (div) */
     #substance ul.news_list {
-        list-style:none
+        list-style:none;
+        list-style-image:none;
+        list-style-type:none;
     }
         #substance ul.news_list li span {
             float:left;
