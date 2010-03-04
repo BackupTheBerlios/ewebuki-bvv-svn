@@ -1,7 +1,7 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  $script["name"] = "$Id: leer.inc.php 1355 2008-05-29 12:38:53Z buffy1860 $";
-  $Script["desc"] = "short description";
+//  "$Id: suche.inc.php 1355 2008-05-29 12:38:53Z buffy1860 $";
+//  "htdig-suche";
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
     eWeBuKi - a easy website building kit
@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 KÃ¶nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -55,20 +55,6 @@
     $ausgaben["10"] = "";
     $ausgaben["25"] = "";
     $ausgaben["50"] = "";
-
-    $ausgaben["html"] = "";
-    $ausgaben["pdf"] = "";
-    $ausgaben["odt"] = "";
-
-    if ( $_POST["dok_type"] == "pdf" ) {
-        $ausgaben["pdf"] = "checked";
-        $ausgaben["select"] = ";display:none";
-    } elseif ( $_POST["dok_type"] == "odt" ) {
-        $ausgaben["odt"] = "checked";
-        $ausgaben["select"] = ";display:none";
-    } else {
-        $ausgaben["html"] = "checked";
-    }
 
     if ( $environment["parameter"][1] ) {
         $ausgaben["aktion"] = "service/suche,esearch.html";
@@ -88,7 +74,6 @@
             $dataloop["restrict"][$data["entry"]]["entry"] = $data["entry"];
             $dataloop["restrict"][$data["entry"]]["label"] = $data["label"];
         }
-
     }
 
     $ausgaben["suchbegriff"] = "";
@@ -111,13 +96,7 @@
 
     $suchanfrage = urlencode(utf8_decode($_POST["words"]));
 
-    $suchanfrage2 = preg_replace("/%F6/","oe",$suchanfrage);
-    $suchanfrage2 = preg_replace("/%DF/","ss",$suchanfrage2);
-    $suchanfrage2 = preg_replace("/%FC/","ue",$suchanfrage2);
-    $suchanfrage2 = preg_replace("/%E4/","ae",$suchanfrage2);
-
-
-    if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = htmlentities($_POST["words"]);
+    if ( $suchanfrage != "" ) $ausgaben["suchbegriff"] = $_POST["words"];
 
     if ( $_POST["matchesperpage"] != "" ) {
         $matchesperpage = "&matchesperpage=".$_POST["matchesperpage"];
@@ -127,72 +106,66 @@
         $matchesperpage = "";
     }
 
-    $page = "";
     $pages = "&page=1";
     $page_org_site = 1;
-    $pagef = "&page=1";
-    $page_org_files = 1;
-    if ( $_POST["spage"]  ) {
-        preg_match("/(\|)([0-9]*)/",$_POST["spage"],$matches);
+
+    // page-schalter auswerten
+    if ( $_POST["page"]  ) {
+        preg_match("/(\|)([0-9]*)/",$_POST["page"],$matches);
         $page_org_site = round($matches[2]/$hits_per_site)+1;
-//         $page_org_site = $_POST["spage"];
         $pages = "&page=".$page_org_site;
     }
-    if (  $_POST["fpage"] ) {
-        $page_org_files = $_POST["fpage"];
-        $pagef = "&page=".$page_org_files;
-    }
-    if ( $_POST["dok_type"] == "html" ) {
+
+    if ( $_POST["words"] ) {
+        $counter = 0;
+
+        // eingaben absichern
+        if ( get_magic_quotes_gpc() ) {
+            $restrict = $_POST["restrict"];
+        } else {
+            $suchanfrage = addslashes($suchanfrage);
+            $restrict = addslashes($_POST["restrict"]);
+            $matchesperpage = addslashes($matchesperpage);
+            $pages = addslashes($pages);
+        }
+
         // html-seiten suche
-        $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$_POST["restrict"]."&exclude=".$index."/file/&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pages,"r");
+        $fp=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage."&restrict=".$restrict."&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pages,"r");
         while ( $line = fgets($fp,1000) ){
             $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
             $line = str_replace("</a>","",$line);
             if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
+                $counter++;
                 if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
                     $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
                 }
                 $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
-                $dataloop["treffer"][] = explode("##",$line);
-            }
-        }
-    }
-    // erweiterte-suche
-    if ( $_POST["dok_type"] == "pdf" || $_POST["dok_type"] == "odt") {
-        $i = 0;
-        $fp1=fopen("http://".$network_adress."/cgi-bin/htsearch?words=".$suchanfrage2."&restrict=".$index."/file/".$_POST["dok_type"]."&".$_POST["restrict"]."&method=and&config=".$cfg["suche"]["config"].$matchesperpage.$pagef,"r");
-        while ( $line = fgets($fp1,1000) ){
-            $i++;
-            $line = preg_replace("/<a href=\"[A-Za-z0-9#-_:\/\"\.]*>/U","",$line);
-            $line = str_replace("</a>","",$line);
-            if ( preg_match("/^http:\/\/(.*)/",$line,$match) ) {
-                if ( $cfg["suche"]["alien_index"][$fqdn][0] != ""  ) {
-                    $fqdn = $cfg["suche"]["alien_index"][$fqdn][0];
+                $dataloop["treffer"][$counter] = explode("##",$line);
+                if (strrchr($dataloop["treffer"][$counter][0],".") == ".pdf") {
+                    $dataloop["treffer"][$counter]["art"] = "[PDF]";
+                    $dataloop["treffer"][$counter][2] = "";
                 }
-                $line = preg_replace("/^http:\/\/".substr($match[1],0,strpos($match[1],"/"))."/","http://".$fqdn.$pathvars["virtual"],$line);$pathvars["virtual"];
-                $dataloop["treffer"][] = explode("##",$line);
             }
         }
     }
-
 
     // wieviele treffer-seiten ?
-    $site_count = floor(($dataloop["treffer"][0][5]-0.0001) / $hits_per_site) +1;
+    $site_count = floor(($dataloop["treffer"][1][5]-0.0001) / $hits_per_site) +1;
 
-    if ( !$dataloop["treffer"][0][5] ) {
+    if ( !$dataloop["treffer"][1][5] ) {
         $ausgaben["gesamt"] = "Keine Treffer";
-    } elseif ( $dataloop["treffer"][0][5] == 1 ) {
+    } elseif ( $dataloop["treffer"][1][5] == 1 ) {
         $ausgaben["gesamt"] = "Ein Treffer";
     } else {
         $begin = ($page_org_site-1)*$hits_per_site+1;
         if ( $site_count > 0 ) {
             $end = ($page_org_site-1)*$hits_per_site+$hits_per_site;
-            if ( $end > $dataloop["treffer"][0][5] ) $end = $dataloop["treffer"][0][5];
+            if ( $end > $dataloop["treffer"][1][5] ) $end = $dataloop["treffer"][1][5];
         } else {
-            $end = $dataloop["treffer"][0][5];
+            $end = $dataloop["treffer"][1][5];
         }
 
-        $ausgaben["gesamt"] = "Anzahl der Treffer: ".$dataloop["treffer"][0][5];
+        $ausgaben["gesamt"] = "Anzahl der Treffer: ".$dataloop["treffer"][1][5];
     }
 
     if ( !$_POST ) $ausgaben["gesamt"] = "Bitte geben Sie einen Suchbegriff ein";
@@ -207,18 +180,11 @@
         if ( $page_org_site > 1 && $i == $page_org_site) {
             $dataloop["site_switch"][0]["font"] = "bold";
             $dataloop["site_switch"][0]["site"] = $i-1;
-//             $dataloop["site_switch"][0]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
-        }
-    // gibts den schalter nach vorn?
-    if ( $page_org_site < $site_count && $i == $page_org_site ) {
-//             $dataloop["site_switch"][999]["font"] = "bold";
-//             $dataloop["site_switch"][999]["site"] = $i+1;
-//             $dataloop["site_switch"][999]["anzeige"] = "<img src=\"/images/html/nach_oben.png\"></img>";
         }
 
         $start = $i*$hits_per_site-($hits_per_site-1);
         $aus = ($i-1)*$hits_per_site+$hits_per_site;
-        if ( $aus > $dataloop["treffer"][0][5] ) $aus = $dataloop["treffer"][0][5];
+        if ( $aus > $dataloop["treffer"][1][5] ) $aus = $dataloop["treffer"][1][5];
         if ( $i == $page_org_site ) {
             $font = "bold";
         } else {

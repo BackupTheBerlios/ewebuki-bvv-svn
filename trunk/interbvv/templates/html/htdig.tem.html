@@ -13,7 +13,7 @@
 <!--##begin-->
 <div id="substance">
     #(htdig_head)
-    <div class="tabbed">
+    <div style="height:2.5em" class="tabbed">
         <ul>
             <li><a class="!#ausgaben_search_sel" href="suche.html">#(search)</a><a class="!#ausgaben_esearch_sel" href="suche,esearch.html">#(esearch)</a></li>
         </ul>
@@ -23,7 +23,6 @@
 
                 <!--##hide-search-->
                 <label>#(search_words)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
-                <input type="hidden" name="dok_type" value="html" />
                 <div class="clear"></div>
                 <!--##show-->
 
@@ -43,8 +42,6 @@
 
                 <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
                 <div class="clear"></div>
-                <label>Dokumententyp</label><input onclick="new Effect.BlindDown($('tt'),{duration: 0.2})" style="float:none" type="radio" name="dok_type" value="html" !#ausgaben_html>html</input><input onclick="new Effect.BlindUp($('tt'),{duration: 0.2})" style="float:none" type="radio" name="dok_type" value="pdf" !#ausgaben_pdf>pdf</input><input onclick="new Effect.BlindUp($('tt'),{duration: 0.2})" style="float:none" type="radio" name="dok_type" value="odt" !#ausgaben_odt>odt</input>
-                <div class="clear"></div>
                 <!--##show-->
 
                 <hr />
@@ -53,20 +50,21 @@
                 <div class="clear"></div>
                 <hr />
 
-
                 <span style="margin-left:0px;float:left">!#ausgaben_gesamt</span>
                 <div style="text-align:right;width:350px;float:right">
                     <!--##loop-site_switch-->
-<!--                     <button style="background:#EEF3FB;padding:0;font-weight:!{font};border:0;"  tabindex="20" value="!{site}" name="spage">!{anzeige}</button> -->
-                    <button type="submit" style="background:#EEF3FB;padding:0;font-weight:!{font};border:0;"  tabindex="20" value="!{anzeige}" name="spage">!{anzeige}</button>
+                    <button type="submit" style="background:#EEF3FB;padding:0;font-weight:!{font};border:0;"  tabindex="20" value="!{anzeige}" name="page">!{anzeige}</button>
                     <!--##cont-->
                 </div>
 
                 <hr />
 
-                <ul style="width:520px">
+                <ul style="width:520px;list-style:none">
                     <!--##loop-treffer-->
-                    <li><a href="!{0}">!{1}</a><br />!{2}</li>
+                    <li style="margin:0 0 10px 0px">
+                        <span style="width:100%">!{art} <b><a href="!{0}">!{1}</a></b></span>!{2}
+                        <div class="clear"></div>
+                    </li>
                     <!--##cont-->
                 </ul>
 
