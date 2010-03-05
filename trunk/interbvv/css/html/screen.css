@@ -1275,3 +1275,34 @@ label.ganz {
             width:auto;
         }
 /* + + + */
+
+
+
+/* versuch von buffy css like gdi */
+
+.new_box {
+   border: 1px solid #BBD3EF;
+}
+
+.new_space {
+    margin: 10px;
+}
+
+.new_space_reset {
+    margin: 0px !important;
+}
+.new_space_top {
+    margin-top: 10px !important;
+}
+
+.new_space_bottom {
+    margin-bottom: 10px !important;
+}
+
+.new_space_inside {
+    padding: 5px;
+}
+
+.new_fill {
+    background: #BBD3EF;
+}
