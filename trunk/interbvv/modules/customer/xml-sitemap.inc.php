@@ -66,6 +66,7 @@
             while ( $data = $db -> fetch_array($result,1) ) {
                 if ( $hide == 0 && $data["hide"] == -1 ) continue;
 
+                $ebene = make_ebene($data["mid"]);
                 if ( preg_match("/\/$/",$ebene) ) {
                     $url = $ebene."index.html";
                 } else {
@@ -90,6 +91,7 @@
                 $res_content = $db -> query($sql);
                 $data_content = $db -> fetch_array($res_content,1);
                 $date = $data_content["changed"];
+                if ( trim(((string) $data)) == "" ) $date = date("Y-m-d",time()-60*60*24);
 
                 // <changefreq>
                 if ( preg_match("/^\/aktuell/",$url) || preg_match("/^\/index/",$url) ) {
@@ -100,7 +102,7 @@
                     $priority = "0.5";
                 }
 
-                $ebene = make_ebene($data["mid"]);
+//                 $ebene = make_ebene($data["mid"]);
                 $dataloop["urls"][$url] = array(
                     "url" => $url,
                     "pubDate" => $date,
@@ -111,7 +113,7 @@
                 if ( preg_match("/^\/aktuell/",$url) ) {
                     $sql = "SELECT  *
                               FROM  ".$cfg["xml-sm"]["db"]["text"]["entries"]."
-                             WHERE tname LIKE '".eCRC($ebene)."%'
+                             WHERE tname LIKE '".eCRC(str_replace(".html","",$url))."%'
                                AND label='".$cfg["xml-sm"]["def_label"]."'
                                AND lang='".$environment["language"]."'
                                AND status=1
@@ -132,9 +134,11 @@
                         $changefreq = "never";
                         $priority = "0.7";
                         $url_sub = str_replace(".html","",$url)."/".$data_content["kategorie"].".html";
+                        $date = $data_content["changed"];
+                        if ( trim(((string) $data)) == "" ) $date = date("Y-m-d",time()-60*60*24);
                         $dataloop["urls"][$url_sub] = array(
                             "url" => $url_sub,
-                            "pubDate" => $data_content["changed"],
+                            "pubDate" => $date,
                             "changefreq" => $changefreq,
                             "priority" => $priority,
                         );
@@ -146,10 +150,23 @@
         }
 
         include $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
-        $menu_item = make_id($path);
-        rss_walk_path($menu_item["mid"]);
+        // punkt aktuelles
+        $dataloop["urls"]["/index"] = array(
+            "url" => "/index.html",
+            "pubDate" => (date("Y-m-d",time()-60*60*24)),
+            "changefreq" => "daily",
+            "priority" => "1.0",
+        );
+        $dataloop["urls"]["/aktuell"] = array(
+            "url" => "/aktuell.html",
+            "pubDate" => (date("Y-m-d",time()-60*60*24)),
+            "changefreq" => "daily",
+            "priority" => "1.0",
+        );
         $menu_item = make_id("/aktuell");
         rss_walk_path($menu_item["mid"],-1,-1);
+        $menu_item = make_id($path);
+        rss_walk_path($menu_item["mid"]);
 
         if ( count($dataloop["urls"]) > 0 ) {
             $hidedata["sitemap"] = array();
