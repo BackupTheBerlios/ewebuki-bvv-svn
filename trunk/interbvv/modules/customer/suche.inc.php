@@ -46,34 +46,30 @@
     if ( $debugging["html_enable"] ) $debugging["ausgabe"] .= "[ ** ".$script["name"]." ** ]".$debugging["char"];
 
     // steuerung der reiter
-    $ausgaben["search_sel"] = "selected";
-    $ausgaben["esearch_sel"] = "";
     $hidedata["search"]["on"] = "on";
     $ausgaben["aktion"] = "service/suche.html";
     $ausgaben["displaysite"] = "";
-        $ausgaben["select"] = "";
+
     $ausgaben["10"] = "";
     $ausgaben["25"] = "";
     $ausgaben["50"] = "";
+    if ( $_POST["restrict"] ) {
+        $ausgaben["esearch"] = "";
+    } else {
+        $ausgaben["esearch"] = "display:none";
+    }
 
-    if ( $environment["parameter"][1] ) {
-        $ausgaben["aktion"] = "service/suche,esearch.html";
-        $ausgaben["search_sel"] = "";
-        $hidedata["esearch"]["on"] = "";
-        $ausgaben["esearch_sel"] = "selected";
-        unset($hidedata["search"]);
-        // restrict dropdown bauen
-        $sql_restrict = "SELECT * FROM site_menu INNER JOIN site_menu_lang ON (site_menu.mid=site_menu_lang.mlid)WHERE refid='0' AND ( hide is Null or hide = '0' ) ORDER by sort";
-        $result_restrict = $db -> query($sql_restrict);
-        while ( $data = $db -> fetch_array($result_restrict) ){
-            if ( $data["entry"] == $_POST["restrict"] ) {
-                $dataloop["restrict"][$data["entry"]]["selected"] = "selected";
-            } else {
-                $dataloop["restrict"][$data["entry"]]["selected"] = "";
-            }
-            $dataloop["restrict"][$data["entry"]]["entry"] = $data["entry"];
-            $dataloop["restrict"][$data["entry"]]["label"] = $data["label"];
+    // restrict dropdown bauen
+    $sql_restrict = "SELECT * FROM site_menu INNER JOIN site_menu_lang ON (site_menu.mid=site_menu_lang.mlid)WHERE refid='0' AND ( hide is Null or hide = '0' ) ORDER by sort";
+    $result_restrict = $db -> query($sql_restrict);
+    while ( $data = $db -> fetch_array($result_restrict) ){
+        if ( $data["entry"] == $_POST["restrict"] ) {
+            $dataloop["restrict"][$data["entry"]]["selected"] = "selected";
+        } else {
+            $dataloop["restrict"][$data["entry"]]["selected"] = "";
         }
+        $dataloop["restrict"][$data["entry"]]["entry"] = $data["entry"];
+        $dataloop["restrict"][$data["entry"]]["label"] = $data["label"];
     }
 
     $ausgaben["suchbegriff"] = "";
@@ -144,6 +140,8 @@
                 if (strrchr($dataloop["treffer"][$counter][0],".") == ".pdf") {
                     $dataloop["treffer"][$counter]["art"] = "[PDF]";
                     $dataloop["treffer"][$counter][2] = "";
+                } else {
+                    $dataloop["treffer"][$counter]["art"] = "";
                 }
             }
         }

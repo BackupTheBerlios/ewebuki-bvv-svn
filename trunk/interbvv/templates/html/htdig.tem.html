@@ -12,64 +12,63 @@
 
 <!--##begin-->
 <div id="substance">
-    #(htdig_head)
-    <div style="height:2.5em" class="tabbed">
-        <ul>
-            <li><a class="!#ausgaben_search_sel" href="suche.html">#(search)</a><a class="!#ausgaben_esearch_sel" href="suche,esearch.html">#(esearch)</a></li>
-        </ul>
-    </div>
-    <div class="amt_info_box kontakt" >
-        <form id="htdig_search" method="post" action="!#pathvars_virtual/!#ausgaben_aktion">
+    <h1>Suche</h1>
 
-                <!--##hide-search-->
-                <label>#(search_words)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
-                <div class="clear"></div>
-                <!--##show-->
+    <form id="htdig_search" method="post" action="!#pathvars_virtual/!#ausgaben_aktion">
 
-                <!--##hide-esearch-->
-                <label>#(search_words)</label><input type="text" name="words" value="!#ausgaben_suchbegriff"/>
-                <div class="clear"></div>
-                <div id="tt" style="width:100% !#ausgaben_select">
-                <label>#(menuitem)</label>
-                <select name="restrict">
-                    <option value="">Gesamt</option>
-                    <!--##loop-restrict-->
-                    <option value="!{entry}" !{selected}>!{label}</option>
-                    <!--##cont-->
-                    </select>
-                </div>
-                <div class="clear"></div>
 
-                <label>Trefferanzahl pro Seite</label><select class="small" name="matchesperpage"><option>10</option><option !#ausgaben_25>25</option><option !#ausgaben_50>50</option></select>
-                <div class="clear"></div>
-                <!--##show-->
+        <div class="new_box new_space_inside">
+            <input class="new_box" type="text" name="words" value="!#ausgaben_suchbegriff"/>
+            <input  type="submit" value="Suche" name="send[]" />
+            <input type="button" onclick="anzeigen('esearch')" value="#(esearch)" />
 
-                <hr />
-                <input style="float:left;width:90px" type="reset"/>
-                <input style="float:right;width:50px" type="submit" tabindex="20" value="Suche" name="send[]"/>
-                <div class="clear"></div>
-                <hr />
+        </div>
 
-                <span style="margin-left:0px;float:left">!#ausgaben_gesamt</span>
-                <div style="text-align:right;width:350px;float:right">
+        <div id="esearch" style="!#ausgaben_esearch"class="new_box new_space_top new_space_bottom new_space_inside">
+             <div style="float:left">
+             <legend>#(menuitem)</legend>
+            <select class="new_box new_space" name="restrict">
+                <option value="">Gesamt</option>
+                <!--##loop-restrict-->
+                <option value="!{entry}" !{selected}>!{label}</option>
+                <!--##cont-->
+            </select>
+            </div>
+
+            <div style="float:left" class="new_space">
+                <legend>Trefferanzahl pro Seite</legend>
+                <select name="matchesperpage">
+                    <option>10</option>
+                    <option !#ausgaben_25>25</option>
+                    <option !#ausgaben_50>50</option>
+                </select>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="clear"></div>
+
+        <ul class="new_box new_space_inside new_space_top" style="list-style:none outside none">
+
+            <li class="new_space_reset new_fill new_space_inside">
+      
+                <div style="float:left">!#ausgaben_gesamt</div>
+                <div style="float:right">
+
                     <!--##loop-site_switch-->
-                    <button type="submit" style="background:#EEF3FB;padding:0;font-weight:!{font};border:0;"  tabindex="20" value="!{anzeige}" name="page">!{anzeige}</button>
+                    <button type="submit" class="new_fill" style="padding:0;font-weight:!{font};border:0;"  tabindex="20" value="!{anzeige}" name="page">!{anzeige}</button>
                     <!--##cont-->
                 </div>
-
-                <hr />
-
-                <ul style="width:520px;list-style:none">
-                    <!--##loop-treffer-->
-                    <li style="margin:0 0 10px 0px">
-                        <span style="width:100%">!{art} <b><a href="!{0}">!{1}</a></b></span>!{2}
-                        <div class="clear"></div>
-                    </li>
-                    <!--##cont-->
-                </ul>
-
-        </form>
-    </div>
+                                                <div class="clear"></div>
+            </li>
+            <!--##loop-treffer-->
+            <li class="new_space_reset new_space_top">!{art} <b><a href="!{0}">!{1}</a></b><br>!{2}
+                <div class="clear"></div>
+            </li>
+            <!--##cont-->
+        </ul>
+    </form>
 </div>
 #{margin}
 <script type="text/javascript">
@@ -77,10 +76,8 @@
         buffer = document.getElementById(id).style.display;
         if ( buffer == "none" ) {
             new Effect.BlindDown(id, {duration: 0.7});
-            new Effect.BlindUp('hits_site', {duration: 0.7});
         } else {
             new Effect.BlindUp(id, {duration: 0.7})
-            new Effect.BlindDown('hits_site', {duration: 0.7});
         }
         return false;
     }
