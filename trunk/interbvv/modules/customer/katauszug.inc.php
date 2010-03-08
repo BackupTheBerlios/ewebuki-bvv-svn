@@ -67,6 +67,15 @@
                 $environment["parameter"][2] = "lageplan";
             }
 
+            // pagetitle anpassen
+            $pagetitle = explode($defaults["split"]["title"],$specialvars["pagetitle"]);
+            if ( $environment["parameter"][2] == "lageplan" ) {
+                $pagetitle[0] .= ": Lagepläne";
+            } elseif ( $environment["parameter"][2] == "vektor" ) {
+                $pagetitle[0] .= ": Vektordaten";
+            }
+            $specialvars["pagetitle"] = implode($defaults["split"]["title"],$pagetitle);
+
             // amtkennzahl bestimmen und ggf zur url MIT amtkennzahl springen
             if ( strstr($_SERVER["SERVER_NAME"],"vermessungsamt-") ) {
                 if ( $environment["parameter"][1] == "" ) {
