@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 Kï¿½nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -118,6 +118,10 @@
                     }
                     $hidedata["station"][$key] = $value;
                 }
+                // pagetitle anpassen
+                $pagetitle = explode($defaults["split"]["title"],$specialvars["pagetitle"]);
+                $pagetitle[0] = "Referenzstation ".$data["punktkennung_1"].": ".$data["stationsbezeichnung"]."";
+                $specialvars["pagetitle"] = implode($defaults["split"]["title"],$pagetitle);
             }
         } else {
             $hidedata["uebersicht"] = array();
