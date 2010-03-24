@@ -99,7 +99,8 @@
         if ( $debugging["sql_enable"] ) $debugging["ausgabe"] .= "sql: ".$sql.$debugging["char"];
 
         // seiten umschalter
-        $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], $cfg["wening"]["db"]["produkte"]["rows"], $parameter, 1, 5, $_SERVER["QUERY_STRING"] );
+        $get_vars = trim(str_replace("ajax=update","",$_SERVER["QUERY_STRING"]),"& ");
+        $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], $cfg["wening"]["db"]["produkte"]["rows"], $parameter, 1, 5, $get_vars );
         $ausgaben["inhalt_selector"] = $inhalt_selector[0]."<br />";
         $sql = $inhalt_selector[1];
         $ausgaben["anzahl"] = $inhalt_selector[2];
