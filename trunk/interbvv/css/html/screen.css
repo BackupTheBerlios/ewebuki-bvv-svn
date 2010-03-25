@@ -1281,7 +1281,7 @@ label.ganz {
 /* versuch von buffy css like gdi */
 
 .new_box {
-   border: 1px solid #BBD3EF;
+   border: 1px solid #CCCCCC;
 }
 
 .new_space {
@@ -1304,5 +1304,5 @@ label.ganz {
 }
 
 .new_fill {
-    background: #BBD3EF;
+    background: #EFEFEF;
 }
