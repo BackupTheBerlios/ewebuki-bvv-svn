@@ -93,7 +93,7 @@
                 $date = $data_content["changed"];
                 preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$data_content["changed"],$match);
                 if ( trim($match[0]) != "" ) $date = $match[0];
-                if ( trim(((string) $data)) == "" ) $date = date("Y-m-d",time()-60*60*24);
+                if ( trim(((string) $date)) == "" ) $date = date("Y-m-d",time()-60*60*24);
 
                 // <changefreq>
                 if ( preg_match("/^\/aktuell/",$url) || preg_match("/^\/index/",$url) ) {
@@ -107,7 +107,8 @@
 //                 $ebene = make_ebene($data["mid"]);
                 $dataloop["urls"][$url] = array(
                     "url" => $url,
-                    "pubDate" => $date,
+                            "pubDate" => "-".$date."-",
+//                     "pubDate" => $date,
                     "changefreq" => $changefreq,
                     "priority" => $priority,
                 );
@@ -140,10 +141,11 @@
                         $date = $data_content["changed"];
                         preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$data_content["changed"],$match);
                         if ( trim($match[0]) != "" ) $date = $match[0];
-                        if ( trim(((string) $data)) == "" ) $date = date("Y-m-d",time()-60*60*24);
+                        if ( trim(((string) $date)) == "" ) $date = date("Y-m-d",time()-60*60*24);
                         $dataloop["urls"][$url_sub] = array(
                             "url" => $url_sub,
-                            "pubDate" => $date,
+//                             "pubDate" => $date,
+                            "pubDate" => "-".$date."-",
                             "changefreq" => $changefreq,
                             "priority" => $priority,
                         );
