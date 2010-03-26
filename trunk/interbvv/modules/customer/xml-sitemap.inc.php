@@ -106,11 +106,10 @@
 
 //                 $ebene = make_ebene($data["mid"]);
                 $dataloop["urls"][$url] = array(
-                    "url" => $url,
-                            "pubDate" => "-".$date."-",
-//                     "pubDate" => $date,
-                    "changefreq" => $changefreq,
-                    "priority" => $priority,
+                        "url" => $url,
+                    "pubDate" => $date,
+                 "changefreq" => $changefreq,
+                   "priority" => $priority,
                 );
 
                 if ( preg_match("/^\/aktuell/",$url) ) {
@@ -144,8 +143,7 @@
                         if ( trim(((string) $date)) == "" ) $date = date("Y-m-d",time()-60*60*24);
                         $dataloop["urls"][$url_sub] = array(
                             "url" => $url_sub,
-//                             "pubDate" => $date,
-                            "pubDate" => "-".$date."-",
+                            "pubDate" => $date,
                             "changefreq" => $changefreq,
                             "priority" => $priority,
                         );
