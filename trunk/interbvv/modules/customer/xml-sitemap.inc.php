@@ -91,6 +91,8 @@
                 $res_content = $db -> query($sql);
                 $data_content = $db -> fetch_array($res_content,1);
                 $date = $data_content["changed"];
+                preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$data_content["changed"],$match);
+                if ( $match[0] != "" ) $date = $match[0];
                 if ( trim(((string) $data)) == "" ) $date = date("Y-m-d",time()-60*60*24);
 
                 // <changefreq>
@@ -134,7 +136,10 @@
                         $changefreq = "never";
                         $priority = "0.7";
                         $url_sub = str_replace(".html","",$url)."/".$data_content["kategorie"].".html";
+
                         $date = $data_content["changed"];
+                        preg_match("/[0-9]{4}-[0-9]{2}-[0-9]{2}/",$data_content["changed"],$match);
+                        if ( $match[0] != "" ) $date = $match[0];
                         if ( trim(((string) $data)) == "" ) $date = date("Y-m-d",time()-60*60*24);
                         $dataloop["urls"][$url_sub] = array(
                             "url" => $url_sub,
