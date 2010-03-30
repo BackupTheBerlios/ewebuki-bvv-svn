@@ -253,6 +253,10 @@
 //                 require_once $pathvars["moduleroot"]."libraries/function_menu_convert.inc.php";
 //                 require_once $pathvars["moduleroot"]."libraries/function_show_blog.inc.php";
 
+if ( date("U") < date("U", mktime(17, 0, 0, 3, 31, 2010)) ) {
+    $hidedata["wartung"] = array();
+}
+
                 $hidedata["index"]["heading"] = "#(index)";
                 $hidedata["heading"]["heading"] = "#(index)";
                 unset($hidedata["sub_menu"]);
