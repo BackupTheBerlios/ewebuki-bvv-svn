@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 Kï¿½nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -119,7 +119,11 @@
                 $work[$key] = $value;
             }
             if ( $environment["parameter"][2] == "" ) {
-                ksort($work);
+                if ( $url == "/aktuell/ausstellungen" &&  !$environment["parameter"][4] ) {
+                    krsort($work);
+                } else {
+                    rsort($work);
+                }
             } else {
                 sort($work);
             }
@@ -251,6 +255,13 @@
                         foreach ( $work as $key => $value ) {
                             $today = date('U');
                             if ( $url == "/aktuell/ausstellungen" ) {
+                                if ( !$environment["parameter"][4]) {
+                                    if ( $value["termin_en_org"] != "1970-01-01"  && ( mktime(0,0,0,substr($value["termin_org"],5,2),substr($value["termin_org"],8,2),substr($value["termin_org"],0,4)) > $today ) ) {
+                                    } else {
+                                        continue;
+                                    }
+                                }
+
                                 if ( $value["termin_en_org"] == "1970-01-01" ) {
                                     $dataloop["defaultlist"][$key]["desc"] = date("d.m.Y",$value[0]);
                                 } else {
