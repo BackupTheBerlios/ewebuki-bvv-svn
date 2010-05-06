@@ -256,7 +256,7 @@
                             $today = date('U');
                             if ( $url == "/aktuell/ausstellungen" ) {
                                 if ( !$environment["parameter"][4]) {
-                                    if ( $value["termin_en_org"] != "1970-01-01"  && ( mktime(0,0,0,substr($value["termin_org"],5,2),substr($value["termin_org"],8,2),substr($value["termin_org"],0,4)) > $today ) ) {
+                                    if ( $value["termin_en_org"] != "1970-01-01"  && ( mktime(0,0,0,substr($value["termin_en_org"],5,2),substr($value["termin_en_org"],8,2),substr($value["termin_en_org"],0,4)) > $today ) ) {
                                     } else {
                                         continue;
                                     }
