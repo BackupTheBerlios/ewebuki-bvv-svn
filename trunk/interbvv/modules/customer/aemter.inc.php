@@ -329,6 +329,10 @@ if ( date("U") < date("U", mktime(17, 0, 0, 3, 31, 2010)) ) {
                         if ( $today >  mktime(0,0,0,substr($endmatch[1],5,2),substr($endmatch[1],8,2),substr($endmatch[1],0,4)) && ( $endmatch[1] != "1970-01-01" ) ) {
                             continue;
                         }
+                        // wenn kein enddatum vorhanden , weg wenn startdatum erreicht
+                        if ( $endmatch[1] == "1970-01-01" && $today >  mktime(0,0,0,substr($data["date"],5,2),substr($data["date"],8,2),substr($data["date"],0,4)) ) {
+                            continue;
+                        }
                     }
 
                     if ( strstr($data["tname"],"1884525588") ) {
