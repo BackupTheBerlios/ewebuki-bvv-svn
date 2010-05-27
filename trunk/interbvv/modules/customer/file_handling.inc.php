@@ -37,7 +37,7 @@
     c/o Werner Ammon
     Lerchenstr. 11c
 
-    86343 Königsbrunn
+    86343 KÃ¶nigsbrunn
 
     URL: http://www.chaos.de
 */
@@ -55,7 +55,7 @@
 
         $value = explode("/",$value);
 
-        // typen, die gezählt werden sollen
+        // typen, die gezÃ¤hlt werden sollen
         $types = array("pdf","arc","odf");
 
         if ( in_array($cfg["file"]["filetyp"][$value[2]],$types) ) {
@@ -69,7 +69,7 @@
             $num = $db -> num_rows($result);
             if ( $num == 0 ) {
                 $sql = "INSERT INTO db_count_files
-                                    (fid,count,period,month)
+                                    (fid,count,period,first)
                              VALUES (".$value[3].",1,'".$period."','".date("Y-m-d")."')";
             } else {
                 $sql = "UPDATE db_count_files
