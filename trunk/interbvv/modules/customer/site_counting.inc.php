@@ -142,7 +142,7 @@
         $domain = $_SERVER["HTTP_X_FORWARDED_SERVER"];
         if ( $domain == "" ) $domain = $_SERVER["SERVER_NAME"];
         $path = $domain.$environment["ebene"]."/".$environment["allparameter"];
-        if ( !preg_match("/rss$/",$path) && !strstr($path,"qlink") ) {
+        if ( !preg_match("/rss$/",$path) && !preg_match("/favicon.ico$/",$path) && !strstr($path,"qlink") ) {
             $month = date("Y-m");
             // ist seite schon einmal gezaehlt
             $sql = "SELECT *
