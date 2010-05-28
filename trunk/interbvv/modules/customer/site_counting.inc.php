@@ -112,24 +112,9 @@
                     $hidedata["list"] = array();
                     $sql = "SELECT sum(count) as hits,path
                             FROM db_count_sites
-                            WHERE (path NOT LIKE '%rss'
-                                AND path NOT LIKE '%index'
-                                AND path NOT LIKE '%favicon%'
-                                AND path NOT LIKE 'internetredakteur.bvv.bayern.de/admin%'
-                                AND path NOT LIKE 'internetredakteur.bvv.bayern.de/wizard%')
-                            GROUP BY path
-                        ORDER BY hits DESC";
+                            GROUP BY path 
+                        ORDER BY hits DESC LIMIT 0,10";
 
-                    // seiten umschalter
-                    if ( $environment["parameter"][2] != "" && is_numeric($environment["parameter"][2]) ) {
-                        $rows = $environment["parameter"][2];
-                    } else {
-                        $rows = 50;
-                    }
-                    $inhalt_selector = inhalt_selector( $sql, $environment["parameter"][1], $rows, $parameter, 1, 3, $getvalues );
-                    $ausgaben["inhalt_selector"] = $inhalt_selector[0]."<br />";
-                    $sql = $inhalt_selector[1];
-                    $ausgaben["anzahl"] = $inhalt_selector[2];
 
                     $result = $db -> query($sql);
                     $i = 0; $csv = "";
@@ -157,7 +142,7 @@
         $domain = $_SERVER["HTTP_X_FORWARDED_SERVER"];
         if ( $domain == "" ) $domain = $_SERVER["SERVER_NAME"];
         $path = $domain.$environment["ebene"]."/".$environment["allparameter"];
-        if ( !strstr($path,"rss") && !strstr($path,"qlink") ) {
+        if ( !preg_match("/rss$/",$path) && !strstr($path,"qlink") ) {
             $month = date("Y-m");
             // ist seite schon einmal gezaehlt
             $sql = "SELECT *
