@@ -64,7 +64,7 @@ echo "<pre>";
         $i = 0; $array_formate = array(); $array_zeit = array(); $missing_pic = array();
         while (false !== ($file = readdir($handle))) {
             if ( !strstr($file, "html") ) continue;
-//             if ( $i > 1 ) break;
+            if ( $i > 900 ) break;
             $zeit_start = array_sum(explode(' ', microtime()));
 
 echo "<b>".$file."</b>\n";
