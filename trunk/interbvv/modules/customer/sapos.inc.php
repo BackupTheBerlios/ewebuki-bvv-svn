@@ -125,6 +125,7 @@
             }
         } else {
             $hidedata["uebersicht"] = array();
+// echo "<pre>";
 
             // koordinaten-ausmasse berechnen
             $diff_h = $cfg["sapos"]["coord_limits"]["north"] - $cfg["sapos"]["coord_limits"]["south"];
@@ -132,6 +133,9 @@
 
             // bildhoehe aus max. bildbreite bestimmen
             $pic_height = ceil($cfg["sapos"]["pic_width"]/$diff_b*$diff_h)*$cfg["sapos"]["pic_scale"];
+// echo "\$diff_h:     ".$diff_h."\n";
+// echo "\$diff_b:     ".$diff_b."\n";
+// echo "\$pic_height: ".$pic_height."\n";
 
             // hintergrundbild holen
             $img_bg = imagecreatefrompng($pathvars["fileroot"]."images/html/sapos_bg.png");
@@ -159,14 +163,25 @@
             while ( $data = $db -> fetch_array($result,1) ) {
 
                 // bildkoordinate der station berechnen
+            if ( $cfg["sapos"]["koordsyst"] == "gk" ) {
+                $pic_x = ( $data["gk_x"] - $cfg["sapos"]["coord_limits"]["west"] - 4000000 )/$diff_b*$cfg["sapos"]["pic_width"];
+                $pic_y = ( $cfg["sapos"]["coord_limits"]["north"] - $data["gk_y"] )/$diff_h*$pic_height;
+            } else {
                 $pic_x = ( $data["utm32_e"] - $cfg["sapos"]["coord_limits"]["west"] - 32000000 )/$diff_b*$cfg["sapos"]["pic_width"];
                 $pic_y = ( $cfg["sapos"]["coord_limits"]["north"] - $data["utm32_n"] )/$diff_h*$pic_height;
+            }
+// echo $pic_x." : ".$pic_y."\n";
+//                 $pic_x = ( $data["utm33_e"] - $cfg["sapos"]["coord_limits"]["west"] - 33000000 )/$diff_b*$cfg["sapos"]["pic_width"];
+//                 $pic_y = ( $cfg["sapos"]["coord_limits"]["north"] - $data["utm33_n"] )/$diff_h*$pic_height;
+// echo $pic_x." : ".$pic_y."\n";
 
                 // station ins bild einfuegen
                 imagefilledellipse  ( $img_dst  , $pic_x  , $pic_y  , 10  , 10  , $color_kreis  );
                 imagefilledellipse  ( $img_dst  , $pic_x  , $pic_y  , 7  , 7  , $weiss  );
-                imagettftext  ( $img_dst  , 6  , 0  , $pic_x+7  , $pic_y-2  , $color_font  , "../modules/customer/fonts/VeraMono.ttf"  , sprintf("%04d",$data["punktkennung_1"])  );
-                imagettftext  ( $img_dst  , 6  , 0  , $pic_x+7  , $pic_y+10  , $color_font  , "../modules/customer/fonts/VeraMono.ttf"  , $data["stationsbezeichnung"]  );
+//                 imagettftext  ( $img_dst  , 6  , 0  , $pic_x+7  , $pic_y-2  , $color_font  , "../modules/customer/fonts/VeraMono.ttf"  , sprintf("%04d",$data["punktkennung_1"])  );
+//                 imagettftext  ( $img_dst  , 6  , 0  , $pic_x+7  , $pic_y+10  , $color_font  , "../modules/customer/fonts/VeraMono.ttf"  , $data["stationsbezeichnung"]  );
+                imagettftext  ( $img_dst  , 8  , 0  , $pic_x+8  , $pic_y+4  , $color_font  , "../modules/customer/fonts/VeraMono.ttf"  , sprintf("%04d",$data["punktkennung_1"])  );
+                imagettftext  ( $img_dst  , 6  , 0  , ( $pic_x - ((strlen($data["stationsbezeichnung"])*5)/2) + 1 )  , $pic_y+15  , $color_font  , "../modules/customer/fonts/VeraMono.ttf"  , $data["stationsbezeichnung"]  );
 
                 // dataloop-ausgabe
                 $dataloop["stationen"][] = array(
@@ -182,6 +197,7 @@
 
             // bild ausgeben
             imagepng  ( $img_dst  , $pathvars["fileroot"]."images/html/sapos.png" );
+// echo "</pre>";
         }
 
 
