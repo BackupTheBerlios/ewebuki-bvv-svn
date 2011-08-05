@@ -192,17 +192,19 @@ fieldset input {
 #content_wrap {
     float:left;
     width: 601px;
-        margin-top: 30px;
-margin:10px;
-padding: 12px;
-/*border: 1px dotted lightcyan;*/
-
+    margin-top: 30px;
+    margin:10px;
+    padding: 12px;
 }
+
 #content_wrap img {
     margin: 10px;
 }
 
-#content_wrap a { color:#D01A71; font-weight: bold;}
+#content_wrap a { 
+    color:#D01A71;
+    font-weight: bold;
+}
 
 #content_wrap a:hover {
  color: #fff;
@@ -281,6 +283,11 @@ button {
 .selection_teaser b {
     color: #D01A71;
 }
+
+.selection_teaser li a:hover {
+    display: block;
+}
+
 .selection_teaser li {
     float: left;
     list-style: none outside none;
