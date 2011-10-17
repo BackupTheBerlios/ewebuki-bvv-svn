@@ -327,6 +327,25 @@ button {
 /***************************/
 /*AUTH-Fenster*/
 
+
+#eEd fieldset label {
+    clear: both;
+    margin: 10px;
+   
+}
+
+#eEd input, #eEd textarea, #eEd select {
+    background: none repeat scroll 0 0 #D01A71;
+    border: 1px solid white;
+    display: block;
+    float: left;
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 1px;
+    width: 250px;
+}
+
 /*contentEd*/
 /***************************/
 #cEd fieldset.ce{
