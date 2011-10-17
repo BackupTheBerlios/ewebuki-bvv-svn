@@ -344,10 +344,13 @@ button {
 /*menuEd*/
 /***************************/
 ul.menued{
-    width: 830px;
     list-style: none;
     padding: 0px 10px;
     margin: 0px;
+}
+
+ul.menued li a img{
+    margin: 0 !important;
 }
 /***************************/
 /*menuEd*/
@@ -355,7 +358,6 @@ ul.menued{
 /*fileEd*/
 /***************************/
 ul.fileed{
-    width: 830px;
     list-style: none;
     padding: 0px 10px;
     margin: 0px;
